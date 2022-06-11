@@ -1,4 +1,4 @@
-package com.sbnh.healer_meta
+package com.sbnh.healermeta
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.sbnh.healer_meta
+package com.sbnh.healermeta
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
