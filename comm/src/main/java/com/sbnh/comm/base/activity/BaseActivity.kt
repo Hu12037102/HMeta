@@ -2,6 +2,7 @@ package com.sbnh.comm.base.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -17,16 +18,7 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
         super.onCreate(savedInstanceState)
         mViewBinding = getViewBinding()
         val rootView = mViewBinding.root
-
-        /*val emptyView = LayoutInflater.from(this)
-            .inflate(R.layout.base_parent_empty_view, rootView as ViewGroup, false)*/
-        val emptyLayout = EmptyLayout(this)
-        (rootView as ViewGroup).addView(emptyLayout, 0)
-        val loadingParentView =
-            LayoutInflater.from(this)
-                .inflate(R.layout.base_parent_loading_view, rootView, false)
-
-        rootView.addView(loadingParentView)
+        initEmptyLoadingView(rootView)
         setContentView(rootView)
         init()
 
@@ -44,4 +36,28 @@ abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatAct
     protected abstract fun initData()
     protected abstract fun initEvent()
     protected abstract fun initObserve()
+    protected open fun isLoadEmptyView(): Boolean = false
+
+    private fun initEmptyLoadingView(rootView: View) {
+        if (rootView is ViewGroup) {
+            if (isLoadEmptyView()) {
+                val emptyLayout = EmptyLayout(this)
+                rootView.addView(
+                    emptyLayout,
+                    0,
+                    ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                )
+            }
+
+            val loadingParentView =
+                LayoutInflater.from(this)
+                    .inflate(R.layout.base_parent_loading_view, rootView, false)
+            rootView.addView(loadingParentView)
+        }
+    }
+
+
 }

@@ -16,15 +16,13 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun initEvent() {
-        mViewBinding.atvContent.setOnClickListener {
-            ToastCompat.create().showToast("我是吐司")
-        }
+
     }
 
     override fun initObserve() {
 
-
     }
+
 
 
 }

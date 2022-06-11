@@ -12,6 +12,7 @@ import androidx.annotation.Nullable
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.viewbinding.ViewBinding
 import androidx.viewbinding.ViewBindings
 import com.sbnh.comm.R
@@ -59,7 +60,9 @@ class EmptyLayout : ConstraintLayout {
     }
 
     init {
-        mViewBinding = BaseParentEmptyViewBinding.bind(this)
+
+        mViewBinding = BaseParentEmptyViewBinding.inflate(LayoutInflater.from(context),this,true)
+       // addView(mViewBinding?.root)
         UICompat.setImageRes(mViewBinding?.aivEmptyContent, mResSrc)
         mViewBinding?.atvEmptyContent?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize.toFloat())
         UICompat.setTextColor(mViewBinding?.atvEmptyContent, mTextColor)

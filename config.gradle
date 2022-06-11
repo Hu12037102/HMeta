@@ -27,5 +27,7 @@ ext.versions = [
         rxjava                   : "2.2.6",
         rxandroid                : "2.1.1",
         multidex                 : "2.0.1",
-        autosize                 : "v1.2.1"
+        autosize                 : "v1.2.1",
+        refresh_layout_kernel    : "2.0.5",
+        glide                    : "4.13.2"
 ]
