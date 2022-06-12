@@ -1,5 +1,9 @@
 package com.sbnh.comm.other.glide
 
+import android.widget.ImageView
+import androidx.annotation.DrawableRes
+import com.sbnh.comm.R
+
 /**
  * 作者: 胡庆岭
  * 创建时间: 2022/6/11 21:45
@@ -7,4 +11,28 @@ package com.sbnh.comm.other.glide
  * 描述:
  */
 object GlideCompat {
+    private fun checkNull() {
+
+    }
+
+    @JvmStatic
+    fun loadImage(any: Any?, imageView: ImageView?) {
+        if (any == null || imageView == null) {
+            return
+        }
+        HealerMetaGlide.with(imageView).load(any).into(imageView)
+    }
+
+    @JvmStatic
+    fun loadImage(
+        any: Any?,
+        imageView: ImageView?,
+        @DrawableRes res: Int = R.color.colorPlaceholder
+    ) {
+        if (any == null || imageView == null) {
+            return
+        }
+        HealerMetaGlide.with(imageView).load(any).placeholder(res).into(imageView)
+    }
+
 }

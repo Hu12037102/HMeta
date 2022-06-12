@@ -29,5 +29,6 @@ ext.versions = [
         multidex                 : "2.0.1",
         autosize                 : "v1.2.1",
         refresh_layout_kernel    : "2.0.5",
-        glide                    : "4.13.2"
+        glide                    : "4.13.2",
+        glide_okhttp             : "4.11.0"
 ]

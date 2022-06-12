@@ -13,8 +13,7 @@ import kotlin.properties.Delegates
  */
 class BaseApplication : Application() {
     companion object {
-       private  var mContext: Context by Delegates.notNull()
-
+         var mContext: Context by Delegates.notNull()
         @JvmStatic
         fun getContext(): Context {
             return mContext

@@ -22,6 +22,17 @@ object DataCompat {
     }
 
     @JvmStatic
+    fun checkNullToString(any: Any?): Any {
+        return any ?: ""
+    }
+
+    @JvmStatic
     fun dimen2Int(context: Context, @DimenRes dimenRes: Int): Float =
         context.resources.getDimension(dimenRes)
+
+    @JvmStatic
+    fun <T> notNull(t: T?): Boolean = t != null
+
+    @JvmStatic
+    fun <T> isNull(t: T?): Boolean = t == null
 }

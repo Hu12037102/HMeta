@@ -37,4 +37,18 @@ object FileCompat {
         }
     }
 
+    @JvmStatic
+    fun createDir(fileParent: File?, childDirName: String): File? {
+        var childFile: File? = null
+        if (DataCompat.isNull(fileParent))
+            return childFile
+        if (fileParent!!.exists() && fileParent.isDirectory) {
+            childFile = File(fileParent, childDirName)
+            if (!childFile.exists()) {
+                childFile.mkdirs()
+            }
+        }
+        return childFile
+    }
+
 }

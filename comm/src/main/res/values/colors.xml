@@ -6,4 +6,5 @@
     <color name="color80000000">#80000000</color>
     <color name="colorTransparent">@android:color/transparent</color>
     <color name="colorFF9A9A9C">#FF9A9A9C</color>
+    <color name="colorPlaceholder">@color/colorTransparent</color>
 </resources>
