@@ -1,7 +1,9 @@
 package com.sbnh.healermeta.viewmodel
 
 import com.sbnh.comm.base.viewmodel.BaseViewModel
+import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.base.SelectorTabEntity
+import com.sbnh.comm.R
 
 /**
  * 作者: 胡庆岭
@@ -10,10 +12,13 @@ import com.sbnh.comm.entity.base.SelectorTabEntity
  * 描述:
  */
 class MainViewModel : BaseViewModel() {
-    /*fun createBottomTabs(): List<SelectorTabEntity> {
+    fun createBottomTabs(): ArrayList<SelectorTabEntity> {
         val data = ArrayList<SelectorTabEntity>()
-        data.add(SelectorTabEntity())
-    }*/
+        data.add(SelectorTabEntity(DataCompat.getResString(R.string.home),true))
+        data.add(SelectorTabEntity(DataCompat.getResString(R.string.bazaar),false))
+        data.add(SelectorTabEntity(DataCompat.getResString(R.string.my),false))
+        return data
+    }
 
 
 }

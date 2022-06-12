@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-  
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <color name="colorWhite">@android:color/white</color>
     <color name="colorBlack">@android:color/black</color>
     <color name="color80000000">#80000000</color>
     <color name="colorTransparent">@android:color/transparent</color>
     <color name="colorFF9A9A9C">#FF9A9A9C</color>
     <color name="colorPlaceholder">@color/colorTransparent</color>
+    <color name="colorFFD8D8D8">#FFD8D8D8</color>
+
 </resources>

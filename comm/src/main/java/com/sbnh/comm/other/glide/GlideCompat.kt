@@ -11,8 +11,9 @@ import com.sbnh.comm.R
  * 描述:
  */
 object GlideCompat {
-    private fun checkNull() {
 
+    private fun checkNullToString(any: Any?): Any {
+        return any ?: ""
     }
 
     @JvmStatic
@@ -33,6 +34,17 @@ object GlideCompat {
             return
         }
         HealerMetaGlide.with(imageView).load(any).placeholder(res).into(imageView)
+    }
+
+    @JvmStatic
+    fun loadFitCenterImage(
+        any: Any?,
+        imageView: ImageView?,
+    ) {
+        if (any == null || imageView == null) {
+            return
+        }
+        HealerMetaGlide.with(imageView).load(any).fitCenter().into(imageView)
     }
 
 }

@@ -1,63 +1,22 @@
 package com.sbnh.comm.base.activity
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.viewbinding.ViewBinding
-import com.sbnh.comm.R
-import com.sbnh.comm.base.viewmodel.BaseViewModel
-import com.sbnh.comm.weight.view.EmptyLayout
+import com.sbnh.comm.compat.ToastCompat
 
-abstract class BaseActivity<VB : ViewBinding, VM : BaseViewModel> : AppCompatActivity() {
-    protected lateinit var mViewBinding: VB
-    protected lateinit var mViewModel: VM
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        mViewBinding = getViewBinding()
-        val rootView = mViewBinding.root
-        initEmptyLoadingView(rootView)
-        setContentView(rootView)
-        init()
-
+/**
+ * 作者: 胡庆岭
+ * 创建时间: 2022/6/12 20:38
+ * 更新时间: 2022/6/12 20:38
+ * 描述:
+ */
+abstract class BaseActivity : AppCompatActivity() {
+    protected fun showToast(text: CharSequence) {
+        ToastCompat.create().showToast(text)
     }
 
-    private fun init() {
-        mViewModel = ViewModelProvider(this).get(getViewModelClass())
-        initData()
-        initEvent()
-        initObserve()
+    protected fun showToast(@StringRes stringRes: Int) {
+        ToastCompat.create().showToast(stringRes)
     }
-
-    protected abstract fun getViewBinding(): VB
-    protected abstract fun getViewModelClass(): Class<VM>
-    protected abstract fun initData()
-    protected abstract fun initEvent()
-    protected abstract fun initObserve()
-    protected open fun isLoadEmptyView(): Boolean = false
-
-    private fun initEmptyLoadingView(rootView: View) {
-        if (rootView is ViewGroup) {
-            if (isLoadEmptyView()) {
-                val emptyLayout = EmptyLayout(this)
-                rootView.addView(
-                    emptyLayout,
-                    0,
-                    ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                    )
-                )
-            }
-
-            val loadingParentView =
-                LayoutInflater.from(this)
-                    .inflate(R.layout.base_parent_loading_view, rootView, false)
-            rootView.addView(loadingParentView)
-        }
-    }
-
-
 }

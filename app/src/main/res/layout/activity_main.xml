@@ -16,6 +16,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tab"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_50dp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:layout_height="@dimen/size_60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#FF202020"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

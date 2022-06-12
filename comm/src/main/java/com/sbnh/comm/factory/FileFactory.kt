@@ -18,8 +18,6 @@ import java.io.File
 annotation class DirType {}
 object FileFactory {
     const val TYPE_GLIDE = "glide"
-
-
     @JvmStatic
     fun createCacheDir(@DirType type: String, ): File? {
         return when (type) {

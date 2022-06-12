@@ -3,6 +3,9 @@ package com.sbnh.comm.compat
 import android.content.Context
 import android.text.TextUtils
 import androidx.annotation.DimenRes
+import androidx.annotation.Nullable
+import androidx.annotation.StringRes
+import com.sbnh.comm.base.BaseApplication
 
 /**
  * 作者: 胡庆岭
@@ -21,10 +24,6 @@ object DataCompat {
         return if (isEmpty(text)) defaultText else text!!
     }
 
-    @JvmStatic
-    fun checkNullToString(any: Any?): Any {
-        return any ?: ""
-    }
 
     @JvmStatic
     fun dimen2Int(context: Context, @DimenRes dimenRes: Int): Float =
@@ -34,5 +33,17 @@ object DataCompat {
     fun <T> notNull(t: T?): Boolean = t != null
 
     @JvmStatic
+    @Nullable
     fun <T> isNull(t: T?): Boolean = t == null
+
+    @JvmStatic
+    fun getResString(@StringRes resString: Int): String {
+        return BaseApplication.mContext.getString(resString)
+    }
+    @JvmStatic
+    fun getResString(@StringRes resString: Int,any:Array< out Any> ): String {
+
+        return BaseApplication.mContext.getString(resString,any)
+    }
+
 }

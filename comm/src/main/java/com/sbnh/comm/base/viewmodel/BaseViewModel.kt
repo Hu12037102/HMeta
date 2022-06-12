@@ -1,5 +1,6 @@
 package com.sbnh.comm.base.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sbnh.comm.http.RetrofitManger
 
@@ -11,4 +12,5 @@ import com.sbnh.comm.http.RetrofitManger
  */
 open class BaseViewModel : ViewModel() {
     protected val mRetrofitManger: RetrofitManger by lazy { RetrofitManger.Instance }
+     val mToastLiveData: MutableLiveData<String> = MutableLiveData()
 }

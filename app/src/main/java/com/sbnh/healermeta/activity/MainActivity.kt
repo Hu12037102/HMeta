@@ -1,28 +1,50 @@
 package com.sbnh.healermeta.activity
 
-import com.sbnh.comm.base.activity.BaseActivity
-import com.sbnh.comm.compat.ToastCompat
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
+import com.sbnh.comm.entity.base.SelectorTabEntity
+import com.sbnh.healermeta.adapter.MainTabAdapter
 import com.sbnh.healermeta.databinding.ActivityMainBinding
 import com.sbnh.healermeta.viewmodel.MainViewModel
 
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>() {
+class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
+    private val mTabData: ArrayList<SelectorTabEntity> = ArrayList()
+    private var mTabAdapter: MainTabAdapter? = null
     override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-
     override fun getViewModelClass(): Class<MainViewModel> = MainViewModel::class.java
+    override fun initView() {
+        mViewBinding?.rvTab?.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+    }
 
     override fun initData() {
+        initBottomView()
 
 
     }
 
-    override fun initEvent() {
+    private fun initBottomView() {
+        mViewModel?.let {
+            mTabData.addAll(it.createBottomTabs())
+        }
+        mTabAdapter = MainTabAdapter(this, mTabData)
+        mViewBinding?.rvTab?.adapter = mTabAdapter
+    }
 
+    override fun initEvent() {
+        mTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
+            override fun onClickItem(view: View, position: Int) {
+
+            }
+
+        })
     }
 
     override fun initObserve() {
 
     }
-
 
 
 }
