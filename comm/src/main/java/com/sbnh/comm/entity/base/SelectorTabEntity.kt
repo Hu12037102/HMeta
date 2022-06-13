@@ -4,7 +4,7 @@ import androidx.annotation.DrawableRes
 
 data class SelectorTabEntity(
     var name: String = "",
-    var isCheck: Boolean = false,
-    @DrawableRes var defaultRes: Int = 0,
-    @DrawableRes var checkRes: Int = 0
+    var isSelector: Boolean = false,
+    @DrawableRes var normalRes: Int = 0,
+    @DrawableRes var selectorRes: Int = 0
 )

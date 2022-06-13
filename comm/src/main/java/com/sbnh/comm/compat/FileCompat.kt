@@ -1,8 +1,6 @@
 package com.sbnh.comm.compat
 
-import android.app.Application
 import androidx.core.content.ContextCompat
-import com.sbnh.comm.base.BaseApplication
 import java.io.File
 
 /**
@@ -14,7 +12,7 @@ import java.io.File
 object FileCompat {
     @JvmStatic
     fun getRootDir(): File? {
-        val context = BaseApplication.getContext()
+        val context = DataCompat.getContext()
         val files = ContextCompat.getExternalCacheDirs(context)
         //    var dir: File? = null
         return if (files.isNotEmpty()) {
@@ -27,7 +25,7 @@ object FileCompat {
 
     @JvmStatic
     fun getCacheDir(): File? {
-        val context = BaseApplication.getContext()
+        val context = DataCompat.getContext()
         val files = ContextCompat.getExternalCacheDirs(context)
         return if (files.isNotEmpty()) {
             files[0]

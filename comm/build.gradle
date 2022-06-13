@@ -13,6 +13,12 @@ android {
 
         testInstrumentationRunner versions.testInstrumentationRunner
         consumerProguardFiles versions.consumerProguardFiles
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -22,15 +28,16 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = versions.jvmTarget
     }
     viewBinding {
         enabled = true
     }
+
 }
 
 dependencies {
@@ -48,11 +55,15 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.adapter_rxjava2"
     implementation "io.reactivex.rxjava2:rxjava:$versions.rxjava"
     implementation "io.reactivex.rxjava2:rxandroid:$versions.rxandroid"
-    implementation "androidx.multidex:multidex:$versions.multidex"
+    api "androidx.multidex:multidex:$versions.multidex"
     implementation "com.github.JessYanCoding:AndroidAutoSize:$versions.autosize"
-    api  "io.github.scwang90:refresh-layout-kernel:$versions.refresh_layout_kernel"
-    api  "com.github.bumptech.glide:glide:$versions.glide"
+    api "io.github.scwang90:refresh-layout-kernel:$versions.refresh_layout_kernel"
+    api "com.github.bumptech.glide:glide:$versions.glide"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
-    annotationProcessor "com.github.bumptech.glide:compiler:$versions.glide"
+    // annotationProcessor "com.github.bumptech.glide:compiler:$versions.glide"
     implementation "com.github.bumptech.glide:okhttp3-integration:$versions.glide_okhttp"
+    api "com.github.Hu12037102:KTBaseAdapter:$versions.KTBaseAdapter"
+    api "com.github.Hu12037102:PermissionLoader:$versions.PermissionLoader"
+    api 'com.alibaba:arouter-api:1.5.2'
+    kapt 'com.alibaba:arouter-compiler:1.5.2'
 }

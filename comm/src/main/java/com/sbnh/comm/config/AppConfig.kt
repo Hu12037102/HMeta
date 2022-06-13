@@ -12,6 +12,10 @@ import com.sbnh.comm.BuildConfig
 object AppConfig {
     @JvmStatic
     fun isShowLog(): Boolean {
+        return isDebug()
+    }
+    @JvmStatic
+    fun isDebug():Boolean{
         return BuildConfig.DEBUG
     }
 }

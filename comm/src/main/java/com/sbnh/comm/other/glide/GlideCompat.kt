@@ -39,12 +39,32 @@ object GlideCompat {
     @JvmStatic
     fun loadFitCenterImage(
         any: Any?,
+        imageView: ImageView?) {
+        if (any == null || imageView == null) {
+            return
+        }
+        HealerMetaGlide.with(imageView).load(any).centerInside().into(imageView)
+    }
+
+    @JvmStatic
+    fun loadFitCenterImage(
+        any: Any?,
         imageView: ImageView?,
+        width: Int = 200,
+        height: Int = width
     ) {
         if (any == null || imageView == null) {
             return
         }
-        HealerMetaGlide.with(imageView).load(any).fitCenter().into(imageView)
+        HealerMetaGlide.with(imageView).load(any).centerInside().into(imageView)
+    }
+
+    @JvmStatic
+    fun createGlide(
+        any: Any,
+        imageView: ImageView
+    ): GlideRequest<*> {
+        return HealerMetaGlide.with(imageView).load(any)
     }
 
 }

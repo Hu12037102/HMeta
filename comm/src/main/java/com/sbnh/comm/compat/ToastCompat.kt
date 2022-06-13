@@ -1,7 +1,7 @@
 package com.sbnh.comm.compat
 import android.widget.Toast
 import androidx.annotation.StringRes
-import com.sbnh.comm.base.BaseApplication
+import com.sbnh.comm.app.BaseApplication
 
 /**
  * 作者: 胡庆岭
@@ -25,7 +25,7 @@ class ToastCompat private constructor() {
 
     fun showToast(text:CharSequence){
         if (mToast==null){
-            mToast = Toast.makeText(BaseApplication.getContext(),text,Toast.LENGTH_LONG)
+            mToast = Toast.makeText(DataCompat.getContext(),text,Toast.LENGTH_LONG)
         }else{
             mToast?.setText(text)
         }
@@ -33,7 +33,7 @@ class ToastCompat private constructor() {
     }
     fun showToast(@StringRes resText: Int){
         if (mToast==null){
-            mToast = Toast.makeText(BaseApplication.getContext(),resText,Toast.LENGTH_LONG)
+            mToast = Toast.makeText(DataCompat.getContext(),resText,Toast.LENGTH_LONG)
         }else{
             mToast?.setText(resText)
         }

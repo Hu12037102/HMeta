@@ -14,9 +14,9 @@ import com.sbnh.comm.R
 class MainViewModel : BaseViewModel() {
     fun createBottomTabs(): ArrayList<SelectorTabEntity> {
         val data = ArrayList<SelectorTabEntity>()
-        data.add(SelectorTabEntity(DataCompat.getResString(R.string.home),true))
-        data.add(SelectorTabEntity(DataCompat.getResString(R.string.bazaar),false))
-        data.add(SelectorTabEntity(DataCompat.getResString(R.string.my),false))
+        data.add(SelectorTabEntity(DataCompat.getResString(R.string.home),true,R.mipmap.icon_main_tab_home_normal,R.mipmap.icon_main_tab_home_selector))
+        data.add(SelectorTabEntity(DataCompat.getResString(R.string.bazaar),false,R.mipmap.icon_main_tab_bazaar_normal,R.mipmap.icon_main_tab_bazaar_selector))
+        data.add(SelectorTabEntity(DataCompat.getResString(R.string.my),false,R.mipmap.icon_main_tab_my_normal,R.mipmap.icon_main_tab_my_selector))
         return data
     }
 

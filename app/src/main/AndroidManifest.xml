@@ -4,7 +4,7 @@
     package="com.sbnh.healermeta">
 
     <application
-        android:name="com.sbnh.comm.base.BaseApplication"
+        android:name="com.sbnh.comm.app.BaseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

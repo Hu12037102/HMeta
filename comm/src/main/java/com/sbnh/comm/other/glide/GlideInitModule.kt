@@ -45,6 +45,7 @@ class GlideInitModule : AppGlideModule() {
     override fun isManifestParsingEnabled(): Boolean {
         return false
     }
+
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         val defaultOption = createDefaultOptions()
         builder.setDefaultRequestOptions(defaultOption)
@@ -56,6 +57,7 @@ class GlideInitModule : AppGlideModule() {
                     FileFactory.createCacheDir(FileFactory.TYPE_GLIDE)?.absolutePath,
                     DISK_CACHE_FILE_SIZE
                 )
+                //  InternalCacheDiskCacheFactory(BaseApplication.mContext
             )
             .setLogLevel(Log.WARN)
             .setSourceExecutor(GlideExecutor.newSourceExecutor())
@@ -63,16 +65,17 @@ class GlideInitModule : AppGlideModule() {
 
     private fun createDefaultOptions(): RequestOptions {
         return RequestOptions()
-            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .diskCacheStrategy(DiskCacheStrategy.DATA)
             .skipMemoryCache(false)
             .centerCrop()
             .encodeQuality(80)
             .format(DecodeFormat.PREFER_RGB_565)
             .placeholder(R.color.colorPlaceholder)
             .encodeFormat(Bitmap.CompressFormat.JPEG)
-            .disallowHardwareConfig()
+          //  .disallowHardwareConfig()
+           // .dontAnimate()
             .priority(Priority.LOW)
-        //   .signature()
+        //.signature()
 
     }
 }

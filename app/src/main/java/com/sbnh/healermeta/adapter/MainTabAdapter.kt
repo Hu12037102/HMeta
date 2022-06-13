@@ -39,19 +39,29 @@ class MainTabAdapter(private val context: Context, private val data: List<Select
         val entity = data[position]
         UICompat.setText(holder.mBinding.atvContent, entity.name)
         GlideCompat.loadFitCenterImage(
-            if (entity.isCheck) entity.checkRes else entity.defaultRes,
+            if (entity.isSelector) entity.selectorRes else entity.normalRes,
             holder.mBinding.aivContent
         )
-        if (entity.isCheck) {
+        if (entity.isSelector) {
             UICompat.setTextColorRes(
                 holder.mBinding.atvContent,
                 com.sbnh.comm.R.color.colorWhite
             )
+            GlideCompat.loadFitCenterImage(
+                entity.selectorRes,
+                holder.mBinding.aivContent
+            )
+            // UICompat.setImageRes(holder.mBinding.aivContent,entity.selectorRes)
         } else {
             UICompat.setTextColorRes(
                 holder.mBinding.atvContent,
                 com.sbnh.comm.R.color.colorFFD8D8D8
             )
+            GlideCompat.loadFitCenterImage(
+                entity.normalRes,
+                holder.mBinding.aivContent
+            )
+          //   UICompat.setImageRes(holder.mBinding.aivContent,entity.normalRes)
         }
         holder.mBinding.root.setOnClickListener {
             selectorTab(position)
@@ -61,7 +71,7 @@ class MainTabAdapter(private val context: Context, private val data: List<Select
 
     private fun selectorTab(index: Int) {
         for (i in data.indices) {
-            data[i].isCheck = i == index
+            data[i].isSelector = i == index
         }
         notifyDataSetChanged()
 

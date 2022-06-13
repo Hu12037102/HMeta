@@ -5,7 +5,7 @@ import android.text.TextUtils
 import androidx.annotation.DimenRes
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
-import com.sbnh.comm.base.BaseApplication
+import com.sbnh.comm.app.BaseApplication
 
 /**
  * 作者: 胡庆岭
@@ -38,12 +38,15 @@ object DataCompat {
 
     @JvmStatic
     fun getResString(@StringRes resString: Int): String {
-        return BaseApplication.mContext.getString(resString)
+        return getContext().getString(resString)
     }
     @JvmStatic
     fun getResString(@StringRes resString: Int,any:Array< out Any> ): String {
-
-        return BaseApplication.mContext.getString(resString,any)
+        return getContext().getString(resString,any)
     }
 
+    @JvmStatic
+    fun getContext():Context{
+        return BaseApplication.getContext()
+    }
 }

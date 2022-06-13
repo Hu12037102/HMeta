@@ -2,7 +2,6 @@ package com.sbnh.comm.compat
 
 import android.content.Context
 import android.net.ConnectivityManager
-import com.sbnh.comm.base.BaseApplication
 
 /**
  * 作者: 胡庆岭
@@ -13,7 +12,7 @@ import com.sbnh.comm.base.BaseApplication
 object NetWorkCompat {
     @JvmStatic
     private fun getNetWorkManger(): ConnectivityManager {
-        return BaseApplication.getContext()
+        return DataCompat.getContext()
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 

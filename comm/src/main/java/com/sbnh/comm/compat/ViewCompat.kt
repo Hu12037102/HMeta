@@ -1,11 +1,12 @@
 package com.sbnh.comm.compat
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import com.sbnh.comm.base.BaseApplication
 
 /**
  * 作者: 胡庆岭
@@ -36,5 +37,9 @@ object ViewCompat {
     @JvmStatic
     @ColorInt
     fun getColor(@ColorRes colorRes: Int): Int =
-        ContextCompat.getColor(BaseApplication.mContext, colorRes)
+        ContextCompat.getColor(DataCompat.getContext(), colorRes)
+
+    @JvmStatic
+    fun getDrawable(@DrawableRes drawableRes: Int): Drawable? =
+        ContextCompat.getDrawable(DataCompat.getContext(), drawableRes)
 }

@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-parcelize'
+   // id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 apply from: "$rootDir/config.gradle"
 android {
@@ -17,6 +18,12 @@ android {
         versionName versions.versionName
 
         testInstrumentationRunner versions.testInstrumentationRunner
+
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
     }
 
     buildTypes {
@@ -26,8 +33,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = versions.jvmTarget
@@ -35,6 +42,7 @@ android {
     viewBinding {
         enabled = true
     }
+
 }
 
 dependencies {
@@ -46,6 +54,6 @@ dependencies {
     testImplementation "junit:junit:$versions.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$versions.junitTestVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoVersion"
-
+    kapt 'com.alibaba:arouter-compiler:1.5.2'
 
 }
