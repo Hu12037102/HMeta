@@ -20,7 +20,7 @@ class ARouterConfig {
         }
 
         object Home {
-            const val FRAGMENT_HOME = "/home/fragment/home"
+            const val FRAGMENT_HOME = "/home/fragment/a"
 
         }
 
@@ -29,7 +29,7 @@ class ARouterConfig {
         }
 
         object My {
-            const val FRAGMENT_MY = "/my/fragment/my"
+            const val FRAGMENT_MY = "/my/fragment/bazaar"
         }
 
     }

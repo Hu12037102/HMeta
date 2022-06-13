@@ -32,5 +32,7 @@ ext.versions = [
         glide                    : "4.13.2",
         glide_okhttp             : "4.11.0",
         KTBaseAdapter            : "1.0.0",
-        PermissionLoader         : "v1.0.0"
+        PermissionLoader         : "v1.0.0",
+        arouter                  : "1.5.2",
+        circleimageview          : "3.1.0"
 ]

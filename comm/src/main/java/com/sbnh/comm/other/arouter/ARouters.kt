@@ -1,7 +1,10 @@
 package com.sbnh.comm.other.arouter
 
+import androidx.annotation.Nullable
+import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.launcher.ARouter
+import com.sbnh.comm.compat.DataCompat
 
 /**
  * 作者: 胡庆岭
@@ -23,6 +26,12 @@ object ARouters {
     @JvmStatic
     fun build(path: String): Postcard? {
         return ARouter.getInstance().build(path)
+    }
+
+    @JvmStatic
+    @Nullable
+    fun getFragment(path: String): Any ?{
+        return ARouter.getInstance().build(path).navigation()
     }
 
 }

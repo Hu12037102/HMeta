@@ -47,5 +47,6 @@ dependencies {
     testImplementation "junit:junit:$versions.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$versions.junitTestVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoVersion"
-    implementation project(path: ':comm')
+    api project(path: ':comm')
+    kapt "com.alibaba:arouter-compiler:$versions.arouter"
 }

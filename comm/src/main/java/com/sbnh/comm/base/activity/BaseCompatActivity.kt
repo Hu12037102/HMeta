@@ -9,11 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.R
 import com.sbnh.comm.base.viewmodel.BaseViewModel
+import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.weight.view.EmptyLayout
 
 abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseActivity() {
     protected var mViewBinding: VB? = null
     protected var mViewModel: VM? = null
+    protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
+    protected var mEmptyView: EmptyLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mViewBinding = getViewBinding()
@@ -49,9 +52,9 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
     private fun initEmptyLoadingView(rootView: View?) {
         if (rootView is ViewGroup) {
             if (isLoadEmptyView()) {
-                val emptyLayout = EmptyLayout(this)
+                mEmptyView = EmptyLayout(this)
                 rootView.addView(
-                    emptyLayout,
+                    mEmptyView,
                     0,
                     ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
@@ -59,11 +62,9 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
                     )
                 )
             }
-
-            val loadingParentView =
-                LayoutInflater.from(this)
-                    .inflate(R.layout.base_parent_loading_view, rootView, false)
-            rootView.addView(loadingParentView)
+            mLoadingViewBinding =
+                BaseParentLoadingViewBinding.inflate(layoutInflater, rootView, false)
+            rootView.addView(mLoadingViewBinding?.root)
         }
     }
 

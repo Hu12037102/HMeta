@@ -69,7 +69,7 @@ class MainTabAdapter(private val context: Context, private val data: List<Select
         }
     }
 
-    private fun selectorTab(index: Int) {
+     fun selectorTab(index: Int) {
         for (i in data.indices) {
             data[i].isSelector = i == index
         }

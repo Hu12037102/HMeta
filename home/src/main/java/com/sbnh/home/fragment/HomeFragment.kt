@@ -14,9 +14,11 @@ import com.sbnh.home.viewmodel.HomeViewModel
  */
 @Route(path = ARouterConfig.Path.Home.FRAGMENT_HOME)
 class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
+
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
 
     override fun getViewModelClass(): Class<HomeViewModel> = HomeViewModel::class.java
+
     override fun initView() {
     }
 
