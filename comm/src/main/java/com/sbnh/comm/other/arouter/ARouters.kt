@@ -24,14 +24,16 @@ object ARouters {
     }
 
     @JvmStatic
-    fun build(path: String): Postcard? {
+    fun build(path: String): Postcard{
         return ARouter.getInstance().build(path)
     }
 
     @JvmStatic
-    @Nullable
-    fun getFragment(path: String): Any ?{
+    fun getFragment(path: String): Any {
         return ARouter.getInstance().build(path).navigation()
     }
+
+
+
 
 }

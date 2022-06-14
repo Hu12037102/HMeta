@@ -66,7 +66,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
             override fun createFragment(position: Int): Fragment = mFragments[position]
         }
         mViewBinding.vpContent.let {
-            it.offscreenPageLimit = mFragments.size
+            it.offscreenPageLimit = 1
             it.isUserInputEnabled = false
             it.adapter = pagerAdapter
         }

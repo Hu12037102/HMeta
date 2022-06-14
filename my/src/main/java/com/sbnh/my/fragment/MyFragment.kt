@@ -2,14 +2,19 @@ package com.sbnh.my.fragment
 
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.fragment.BaseCompatFragment
+import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.my.R
 import com.sbnh.my.adapter.MyTabAdapter
@@ -27,17 +32,39 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
     private val mTabData by lazy { mViewModel.createTabs() }
     private var mTabAdapter: MyTabAdapter? = null
     private val mLineCount = 4
+    private val mFragments: ArrayList<Fragment> = ArrayList()
     override fun getViewBinding(): FragmentMyBinding = FragmentMyBinding.inflate(layoutInflater)
 
     override fun getViewModelClass(): Class<MyViewModel> = MyViewModel::class.java
 
     override fun initView() {
         mViewBinding.rvTab.layoutManager = GridLayoutManager(context, mLineCount)
+        mViewBinding.vpContent.orientation = ViewPager2.ORIENTATION_HORIZONTAL
     }
 
     override fun initData() {
         mViewModel.getUserInfo()
         iniTabAdapter()
+
+    }
+
+    private fun initPager(isLogin: Boolean) {
+        val fragment: MyCollectionFragment =
+            ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION)
+                .withBoolean(ARouterConfig.Key.HAS_LOGIN, isLogin)
+                .navigation() as MyCollectionFragment
+        mFragments.add(fragment)
+        val pagerAdapter = object : FragmentStateAdapter(this) {
+            override fun getItemCount(): Int = CollectionCompat.getListSize(mFragments)
+
+            override fun createFragment(position: Int): Fragment = mFragments[position]
+        }
+        mViewBinding.vpContent.apply {
+            this.isUserInputEnabled = false
+            this.offscreenPageLimit = 1
+            this.adapter = pagerAdapter
+
+        }
     }
 
     private fun iniTabAdapter() {
@@ -58,7 +85,8 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
     }
 
     override fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
-        if (UserInfoStore.isLogin(userInfoEntity)) {
+        val isLogin = UserInfoStore.isLogin(userInfoEntity)
+        if (isLogin) {
             mViewBinding.clLogin.visibility = View.VISIBLE
             mViewBinding.clNotLogin.visibility = View.GONE
 
@@ -75,7 +103,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                 DataCompat.getResString(com.sbnh.comm.R.string.login_read_you_digital_collection)
             )
         }
-
-
+        initPager(isLogin)
     }
+
 }

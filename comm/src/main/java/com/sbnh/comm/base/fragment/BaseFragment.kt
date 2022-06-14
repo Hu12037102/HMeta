@@ -13,6 +13,7 @@ import com.sbnh.comm.compat.ToastCompat
  * 描述:
  */
 abstract class BaseFragment:PermissionFragment() {
+
     protected fun showToast(text: CharSequence) {
         ToastCompat.create().showToast(text)
     }
@@ -20,4 +21,5 @@ abstract class BaseFragment:PermissionFragment() {
     protected fun showToast(@StringRes stringRes: Int) {
         ToastCompat.create().showToast(stringRes)
     }
+
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorFF101010"
+    tools:background="@color/colorBlack">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_18dp"
+        android:layout_marginTop="@dimen/size_22dp"
+        android:layout_marginEnd="@dimen/size_18dp"
+        android:text="@string/my_collection"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/size_14sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_data"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/atv_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_login"
+        android:layout_width="@dimen/size_174dp"
+        android:layout_height="@dimen/size_44dp"
+        android:gravity="center"
+        android:text="@string/login_immediately"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/size_14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/atv_title" />
+</androidx.constraintlayout.widget.ConstraintLayout>

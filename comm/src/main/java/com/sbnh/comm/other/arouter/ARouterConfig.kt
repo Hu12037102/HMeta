@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment
  */
 class ARouterConfig {
     object Key {
-        const val STRING_VALUES = "string_values"
-        const val INTEGER_VALUES = "integer_values"
+        const val HAS_LOGIN = "has_login"
     }
 
     class Path {
@@ -20,7 +19,7 @@ class ARouterConfig {
         }
 
         object Home {
-            const val FRAGMENT_HOME = "/home/fragment/a"
+            const val FRAGMENT_HOME = "/home/fragment/home"
 
         }
 
@@ -29,7 +28,8 @@ class ARouterConfig {
         }
 
         object My {
-            const val FRAGMENT_MY = "/my/fragment/bazaar"
+            const val FRAGMENT_MY = "/my/fragment/my"
+            const val FRAGMENT_MY_COLLECTION = "/my/fragment/collection"
         }
 
     }

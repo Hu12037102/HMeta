@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -12,6 +13,7 @@ import androidx.viewbinding.ViewBinding
 import com.google.permission.fragment.PermissionFragment
 import com.sbnh.comm.R
 import com.sbnh.comm.base.viewmodel.BaseViewModel
+import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
@@ -19,7 +21,9 @@ import com.sbnh.comm.weight.view.EmptyLayout
 abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment() {
     protected val mViewBinding: VB by lazy { getViewBinding() }
     protected val mViewModel: VM by lazy { ViewModelProvider(this)[getViewModelClass()] }
+    protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
     protected var mRootView: View? = null
+    private var isFirstCreate = true
 
     companion object {
         const val TAG = LogUtils.TAG
@@ -43,12 +47,11 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         LogUtils.w(TAG, "onCreateView:${this.javaClass.simpleName}")
         this.mRootView = mViewBinding.root
         initEmptyLoadingView(context, mRootView)
-        init()
+        //init()
         return mRootView
     }
 
     private fun init() {
-
         initView()
         initData()
         initEvent()
@@ -88,11 +91,13 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
                     )
                 )
             }
-
-            val loadingParentView =
+            mLoadingViewBinding =
+                BaseParentLoadingViewBinding.inflate(layoutInflater, rootView, false)
+            /*val loadingParentView =
                 LayoutInflater.from(context)
-                    .inflate(R.layout.base_parent_loading_view, rootView, false)
-            rootView.addView(loadingParentView)
+                    .inflate(R.layout.base_parent_loading_view, rootView, false)*/
+            mLoadingViewBinding?.cpbLoading?.hide()
+            rootView.addView(mLoadingViewBinding?.root)
         }
     }
 
@@ -103,6 +108,10 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
 
     override fun onResume() {
         super.onResume()
+        if (isFirstCreate) {
+            init()
+            isFirstCreate = false
+        }
         LogUtils.w(TAG, "onResume:${this.javaClass.simpleName}")
     }
 

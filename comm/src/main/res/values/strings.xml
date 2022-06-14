@@ -13,4 +13,6 @@
     <string name="lottery_assistant">抽奖助手</string>
     <string name="my_wallet">我的钱包</string>
     <string name="compound">合成</string>
+    <string name="my_collection">我的藏品</string>
+    <string name="login_immediately">立即登录</string>
 </resources>

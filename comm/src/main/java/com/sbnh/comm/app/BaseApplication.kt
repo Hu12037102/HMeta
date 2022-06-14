@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sbnh.comm.config.AppConfig
+import com.sbnh.comm.manger.ActivityCompatManger
 import kotlin.properties.Delegates
 
 /**
@@ -33,6 +34,7 @@ class BaseApplication : Application() {
 
     private val mRegisterActivityCallback = object : ActivityLifecycleCallbacks {
         override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+            ActivityCompatManger.get().add(activity)
         }
 
         override fun onActivityStarted(activity: Activity) {
@@ -51,6 +53,7 @@ class BaseApplication : Application() {
         }
 
         override fun onActivityDestroyed(activity: Activity) {
+            ActivityCompatManger.get().remove(activity)
         }
 
     }
