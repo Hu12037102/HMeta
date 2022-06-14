@@ -1,6 +1,7 @@
 package com.sbnh.comm.base.activity
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,25 +11,28 @@ import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.R
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
+import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.info.UserInfoStore
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
 
 abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseActivity() {
-    protected var mViewBinding: VB? = null
-    protected var mViewModel: VM? = null
+    protected val mViewBinding: VB by lazy { getViewBinding() }
+    protected open val mViewModel: VM by lazy { ViewModelProvider(this)[getViewModelClass()] }
     protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
     protected var mEmptyView: EmptyLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mViewBinding = getViewBinding()
+        //  mViewBinding = getViewBinding()
         val rootView = mViewBinding?.root
         initEmptyLoadingView(rootView)
         setContentView(rootView)
         init()
-
+        LogUtils.w(LogUtils.TAG, "onCreate:${this.javaClass.simpleName}")
     }
 
     private fun init() {
-        mViewModel = ViewModelProvider(this).get(getViewModelClass())
+        // mViewModel = ViewModelProvider(this)[getViewModelClass()]
         initView()
         initData()
         initEvent()
@@ -42,8 +46,11 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
     protected abstract fun initData()
     protected abstract fun initEvent()
     protected open fun initObserve() {
-        mViewModel?.mToastLiveData?.observe(this) {
+        mViewModel.mToastLiveData.observe(this) {
             showToast(it)
+        }
+        mViewModel.mUserInfoLiveData.observe(this) {
+            resultUserInfo(it)
         }
     }
 
@@ -68,5 +75,8 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
         }
     }
 
+    protected open fun resultUserInfo(userInfoEntity: UserInfoEntity) {
+
+    }
 
 }

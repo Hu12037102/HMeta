@@ -12,4 +12,7 @@ object CollectionCompat {
 
     @JvmStatic
     fun getListSize(list: List<*>?): Int = if (isEmptyList(list)) 0 else list!!.size
+
+    @JvmStatic
+    fun <T> notEmptyList(list: List<T>?): Boolean = getListSize(list) > 0
 }

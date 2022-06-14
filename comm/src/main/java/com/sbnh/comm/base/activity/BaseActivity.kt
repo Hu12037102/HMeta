@@ -13,6 +13,7 @@ import com.sbnh.comm.compat.ToastCompat
  * 描述:
  */
 abstract class BaseActivity : PermissionActivity() {
+
     protected fun showToast(text: CharSequence) {
         ToastCompat.create().showToast(text)
     }

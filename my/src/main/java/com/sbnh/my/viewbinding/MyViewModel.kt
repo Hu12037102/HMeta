@@ -9,4 +9,5 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
  * 描述:
  */
 class MyViewModel : BaseViewModel() {
+
 }

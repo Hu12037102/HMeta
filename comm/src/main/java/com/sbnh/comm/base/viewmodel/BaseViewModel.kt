@@ -2,7 +2,13 @@ package com.sbnh.comm.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.http.RetrofitManger
+import com.sbnh.comm.info.UserInfoStore
+import com.sbnh.comm.utils.LogUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -11,6 +17,20 @@ import com.sbnh.comm.http.RetrofitManger
  * 描述:
  */
 open class BaseViewModel : ViewModel() {
+    companion object {
+        const val TAG = "BaseViewModel"
+    }
+
     protected val mRetrofitManger: RetrofitManger by lazy { RetrofitManger.Instance }
-     val mToastLiveData: MutableLiveData<String> = MutableLiveData()
+    val mToastLiveData: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val mUserInfoLiveData: MutableLiveData<UserInfoEntity> by lazy { MutableLiveData<UserInfoEntity>() }
+
+    fun getUserInfo() {
+        viewModelScope.launch(Dispatchers.Main) {
+            val entity = UserInfoStore.get().getEntity()
+            LogUtils.w(TAG, "$entity")
+            // mUserInfoLiveData.value = entity
+            mUserInfoLiveData.value = entity
+        }
+    }
 }

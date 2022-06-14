@@ -13,6 +13,7 @@ import com.sbnh.comm.config.AppConfig
 object LogUtils {
     private const val MAX_LOG_LENGTH = 2000
     private const val DEFAULT_VALUES = "Healer_Meta"
+     const val TAG="HealerMeta"
 
     fun w(tag: String, msg: String? = DEFAULT_VALUES) {
         if (!AppConfig.isShowLog()) {

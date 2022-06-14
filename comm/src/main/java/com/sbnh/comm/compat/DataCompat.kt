@@ -49,4 +49,8 @@ object DataCompat {
     fun getContext():Context{
         return BaseApplication.getContext()
     }
+    @JvmStatic
+    fun notEmpty(text: CharSequence?):Boolean{
+        return !isEmpty(text)
+    }
 }

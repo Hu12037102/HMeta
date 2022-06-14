@@ -29,6 +29,8 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun initObserve() {
+        super.initObserve()
+
     }
 
 

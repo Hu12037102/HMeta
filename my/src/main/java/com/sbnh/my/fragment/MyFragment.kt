@@ -1,8 +1,16 @@
 package com.sbnh.my.fragment
 
+import android.util.Log
+import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.fragment.BaseCompatFragment
+import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.my.R
 import com.sbnh.my.databinding.FragmentMyBinding
 import com.sbnh.my.viewbinding.MyViewModel
 
@@ -22,11 +30,34 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
     }
 
     override fun initData() {
+        mViewModel.getUserInfo()
     }
 
     override fun initEvent() {
     }
 
     override fun initObserve() {
+        super.initObserve()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mViewModel.getUserInfo()
+    }
+
+    override fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
+        if (UserInfoStore.isLogin(userInfoEntity)) {
+            mViewBinding.clLogin.visibility = View.VISIBLE
+            mViewBinding.clNotLogin.visibility = View.GONE
+
+        } else {
+            mViewBinding.clNotLogin.visibility = View.VISIBLE
+            mViewBinding.clLogin.visibility = View.GONE
+            GlideCompat.loadImage(com.sbnh.comm.R.mipmap.icon_my_not_login, mViewBinding.civHead)
+            UICompat.setText(mViewBinding.atvNotLoginTitle,DataCompat.getResString(com.sbnh.comm.R.string.not_login))
+            UICompat.setText(mViewBinding.atvNotLoginDesc,DataCompat.getResString(com.sbnh.comm.R.string.login_read_you_digital_collection))
+        }
+
+
     }
 }

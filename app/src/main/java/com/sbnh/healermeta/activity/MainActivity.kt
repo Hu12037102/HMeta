@@ -29,24 +29,23 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
     override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
     override fun getViewModelClass(): Class<MainViewModel> = MainViewModel::class.java
     override fun initView() {
-        mViewBinding?.rvTab?.layoutManager =
+        mViewBinding.rvTab.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        mViewBinding?.vpContent?.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        mViewBinding.vpContent.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         mLoadingViewBinding?.cpbLoading?.hide()
     }
 
     override fun initData() {
+
         initBottomView()
         initPagerAdapter()
 
     }
 
     private fun initBottomView() {
-        mViewModel?.let {
-            mTabData.addAll(it.createBottomTabs())
-        }
+        mTabData.addAll(mViewModel.createBottomTabs())
         mTabAdapter = MainTabAdapter(this, mTabData)
-        mViewBinding?.rvTab?.adapter = mTabAdapter
+        mViewBinding.rvTab.adapter = mTabAdapter
     }
 
     private fun initPagerAdapter() {
@@ -66,7 +65,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
 
             override fun createFragment(position: Int): Fragment = mFragments[position]
         }
-        mViewBinding?.vpContent?.let {
+        mViewBinding.vpContent.let {
             it.offscreenPageLimit = mFragments.size
             it.isUserInputEnabled = false
             it.adapter = pagerAdapter
@@ -76,11 +75,11 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
     override fun initEvent() {
         mTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
             override fun onClickItem(view: View, position: Int) {
-                mViewBinding?.vpContent?.setCurrentItem(position, false)
+                mViewBinding.vpContent.setCurrentItem(position, false)
             }
 
         })
-        mViewBinding?.vpContent?.registerOnPageChangeCallback(mPagerCallback)
+        mViewBinding.vpContent.registerOnPageChangeCallback(mPagerCallback)
     }
 
     private val mPagerCallback = object : ViewPager2.OnPageChangeCallback() {
@@ -93,12 +92,13 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun initObserve() {
+        super.initObserve()
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mViewBinding?.vpContent?.unregisterOnPageChangeCallback(mPagerCallback)
+        mViewBinding.vpContent.unregisterOnPageChangeCallback(mPagerCallback)
     }
 
 

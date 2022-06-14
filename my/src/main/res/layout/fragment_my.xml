@@ -35,7 +35,7 @@
             tools:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/aiv_not_login_title"
+                android:id="@+id/atv_not_login_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/not_login"
@@ -55,7 +55,7 @@
                 android:textSize="@dimen/size_12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/aiv_not_login_title" />
+                app:layout_constraintTop_toBottomOf="@id/atv_not_login_title" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -115,7 +115,8 @@
                 android:padding="@dimen/size_10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/icon_my_setting" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView

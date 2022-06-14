@@ -1,8 +1,10 @@
 package com.sbnh.comm.base.fragment
 
+import androidx.annotation.StringRes
 import androidx.viewbinding.ViewBinding
 import com.google.permission.fragment.PermissionFragment
 import com.sbnh.comm.base.viewmodel.BaseViewModel
+import com.sbnh.comm.compat.ToastCompat
 
 /**
  * 作者: 胡庆岭
@@ -11,4 +13,11 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
  * 描述:
  */
 abstract class BaseFragment:PermissionFragment() {
+    protected fun showToast(text: CharSequence) {
+        ToastCompat.create().showToast(text)
+    }
+
+    protected fun showToast(@StringRes stringRes: Int) {
+        ToastCompat.create().showToast(stringRes)
+    }
 }

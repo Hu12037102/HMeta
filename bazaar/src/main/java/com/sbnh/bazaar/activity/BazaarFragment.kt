@@ -29,5 +29,6 @@ class BazaarFragment : BaseCompatFragment<FragmentBazaarBinding, BazaarViewModel
     }
 
     override fun initObserve() {
+        super.initObserve()
     }
 }
