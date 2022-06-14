@@ -2,6 +2,8 @@ package com.sbnh.comm.other.glide
 
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.Target
 import com.sbnh.comm.R
 
 /**
@@ -39,7 +41,8 @@ object GlideCompat {
     @JvmStatic
     fun loadFitCenterImage(
         any: Any?,
-        imageView: ImageView?) {
+        imageView: ImageView?
+    ) {
         if (any == null || imageView == null) {
             return
         }
@@ -56,7 +59,17 @@ object GlideCompat {
         if (any == null || imageView == null) {
             return
         }
-        HealerMetaGlide.with(imageView).load(any).centerInside().into(imageView)
+        HealerMetaGlide.with(imageView).load(any).centerInside().override(width, height)
+            .into(imageView)
+    }
+
+    @JvmStatic
+    fun loadWarpImage(
+        any: Any?,
+        imageView: ImageView?
+    ) {
+        loadFitCenterImage(any, imageView, Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+        //  Glide.with(imageView).load("").override()
     }
 
     @JvmStatic

@@ -1,18 +1,13 @@
 package com.sbnh.comm.base.activity
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import com.sbnh.comm.R
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
-import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
 
@@ -24,7 +19,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //  mViewBinding = getViewBinding()
-        val rootView = mViewBinding?.root
+        val rootView = mViewBinding.root
         initEmptyLoadingView(rootView)
         setContentView(rootView)
         init()

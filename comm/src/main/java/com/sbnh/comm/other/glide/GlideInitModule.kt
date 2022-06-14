@@ -72,8 +72,8 @@ class GlideInitModule : AppGlideModule() {
             .format(DecodeFormat.PREFER_RGB_565)
             .placeholder(R.color.colorPlaceholder)
             .encodeFormat(Bitmap.CompressFormat.JPEG)
-          //  .disallowHardwareConfig()
-           // .dontAnimate()
+            .disallowHardwareConfig()
+            // .dontAnimate()
             .priority(Priority.LOW)
         //.signature()
 

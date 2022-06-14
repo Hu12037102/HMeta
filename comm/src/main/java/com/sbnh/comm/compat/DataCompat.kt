@@ -53,4 +53,8 @@ object DataCompat {
     fun notEmpty(text: CharSequence?):Boolean{
         return !isEmpty(text)
     }
+    @JvmStatic
+    fun checkContext(context: Context?):Context{
+        return context?:getContext()
+    }
 }

@@ -2,6 +2,7 @@ package com.sbnh.my.fragment
 
 import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.DataCompat
@@ -11,6 +12,7 @@ import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.my.R
+import com.sbnh.my.adapter.MyTabAdapter
 import com.sbnh.my.databinding.FragmentMyBinding
 import com.sbnh.my.viewbinding.MyViewModel
 
@@ -22,15 +24,25 @@ import com.sbnh.my.viewbinding.MyViewModel
  */
 @Route(path = ARouterConfig.Path.My.FRAGMENT_MY)
 class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
+    private val mTabData by lazy { mViewModel.createTabs() }
+    private var mTabAdapter: MyTabAdapter? = null
+    private val mLineCount = 4
     override fun getViewBinding(): FragmentMyBinding = FragmentMyBinding.inflate(layoutInflater)
 
     override fun getViewModelClass(): Class<MyViewModel> = MyViewModel::class.java
 
     override fun initView() {
+        mViewBinding.rvTab.layoutManager = GridLayoutManager(context, mLineCount)
     }
 
     override fun initData() {
         mViewModel.getUserInfo()
+        iniTabAdapter()
+    }
+
+    private fun iniTabAdapter() {
+        mTabAdapter = MyTabAdapter(DataCompat.checkContext(context), mTabData, mLineCount)
+        mViewBinding.rvTab.adapter = mTabAdapter
     }
 
     override fun initEvent() {
@@ -54,8 +66,14 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
             mViewBinding.clNotLogin.visibility = View.VISIBLE
             mViewBinding.clLogin.visibility = View.GONE
             GlideCompat.loadImage(com.sbnh.comm.R.mipmap.icon_my_not_login, mViewBinding.civHead)
-            UICompat.setText(mViewBinding.atvNotLoginTitle,DataCompat.getResString(com.sbnh.comm.R.string.not_login))
-            UICompat.setText(mViewBinding.atvNotLoginDesc,DataCompat.getResString(com.sbnh.comm.R.string.login_read_you_digital_collection))
+            UICompat.setText(
+                mViewBinding.atvNotLoginTitle,
+                DataCompat.getResString(com.sbnh.comm.R.string.not_login)
+            )
+            UICompat.setText(
+                mViewBinding.atvNotLoginDesc,
+                DataCompat.getResString(com.sbnh.comm.R.string.login_read_you_digital_collection)
+            )
         }
 
 

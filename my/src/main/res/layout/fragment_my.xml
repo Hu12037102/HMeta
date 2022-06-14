@@ -120,7 +120,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_list"
+            android:id="@+id/rv_tab"
             android:layout_width="match_parent"
             android:layout_height="@dimen/size_0dp"
             android:layout_marginTop="@dimen/size_20dp"
