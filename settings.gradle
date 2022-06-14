@@ -38,3 +38,4 @@ dependencies {
 include ':home'
 include ':my'
 include ':bazaar'
+include ':login'
