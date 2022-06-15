@@ -5,13 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.viewbinding.ViewBinding
-import com.google.permission.fragment.PermissionFragment
-import com.sbnh.comm.R
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
@@ -21,6 +16,7 @@ import com.sbnh.comm.weight.view.EmptyLayout
 abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment() {
     protected val mViewBinding: VB by lazy { getViewBinding() }
     protected val mViewModel: VM by lazy { ViewModelProvider(this)[getViewModelClass()] }
+    protected var mEmptyLayout: EmptyLayout? = null
     protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
     protected var mRootView: View? = null
     private var isFirstCreate = true
@@ -46,12 +42,13 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     ): View? {
         LogUtils.w(TAG, "onCreateView:${this.javaClass.simpleName}")
         this.mRootView = mViewBinding.root
-        initEmptyLoadingView(context, mRootView)
+        // initEmptyLoadingView(context, mRootView)
         //init()
         return mRootView
     }
 
     private fun init() {
+        initEmptyLoadingView(context, mRootView)
         initView()
         initData()
         initEvent()
@@ -81,10 +78,13 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         }
         if (rootView is ViewGroup) {
             if (isLoadEmptyView()) {
-                val emptyLayout = EmptyLayout(context)
+                LogUtils.w(
+                    "initEmptyLoadingView--",
+                    "${isLoadEmptyView()}--${this.javaClass.simpleName}"
+                )
+                mEmptyLayout = EmptyLayout(context)
                 rootView.addView(
-                    emptyLayout,
-                    0,
+                    mEmptyLayout, 0,
                     ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT

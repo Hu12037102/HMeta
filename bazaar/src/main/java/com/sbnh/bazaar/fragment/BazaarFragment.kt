@@ -1,9 +1,10 @@
-package com.sbnh.bazaar.activity
+package com.sbnh.bazaar.fragment
 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.bazaar.databinding.FragmentBazaarBinding
 import com.sbnh.bazaar.viewmodel.BazaarViewModel
 import com.sbnh.comm.base.fragment.BaseCompatFragment
+import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.other.arouter.ARouterConfig
 
 /**
@@ -20,6 +21,7 @@ class BazaarFragment : BaseCompatFragment<FragmentBazaarBinding, BazaarViewModel
     override fun getViewModelClass(): Class<BazaarViewModel> = BazaarViewModel::class.java
 
     override fun initView() {
+        mEmptyLayout?.setText(DataCompat.getResString(com.sbnh.comm.R.string.bazaar_not_open))
     }
 
     override fun initData() {
@@ -31,4 +33,6 @@ class BazaarFragment : BaseCompatFragment<FragmentBazaarBinding, BazaarViewModel
     override fun initObserve() {
         super.initObserve()
     }
+
+    override fun isLoadEmptyView(): Boolean = true
 }

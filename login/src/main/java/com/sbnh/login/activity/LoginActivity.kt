@@ -69,6 +69,12 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
     override fun initEvent() {
         mViewBinding.atvGainCode.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
+                val phoneNumber =
+                    com.sbnh.comm.compat.ViewCompat.getTextViewText(mViewBinding.aetPhone)
+                if (!NumberCompat.isPhoneNumber(phoneNumber)) {
+                    showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
+                    return
+                }
                 mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH.toLong())
             }
         })

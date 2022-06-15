@@ -77,17 +77,18 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
     override fun initEvent() {
         mViewBinding.atvGainCode.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH.toLong())
-            }
-        })
-        mViewBinding.atvGoLogin.setOnClickListener(object : DelayedClick() {
-            override fun onDelayedClick(v: View?) {
                 val phoneNumber =
                     com.sbnh.comm.compat.ViewCompat.getTextViewText(mViewBinding.aetPhone)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
+                mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH.toLong())
+            }
+        })
+        mViewBinding.atvGoLogin.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+
                 ARouters.startActivity(ARouterConfig.Path.Login.ACTIVITY_LOGIN)
             }
 

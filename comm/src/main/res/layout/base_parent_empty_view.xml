@@ -13,14 +13,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/icon_comm_empty"
-        app:layout_constraintVertical_chainStyle="packed"/>
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@mipmap/icon_comm_empty" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/atv_empty_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="@string/this_is_null"

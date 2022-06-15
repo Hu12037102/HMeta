@@ -26,8 +26,8 @@ object DataCompat {
 
 
     @JvmStatic
-    fun dimen2Int(context: Context, @DimenRes dimenRes: Int): Float =
-        context.resources.getDimension(dimenRes)
+    fun dimen2Int(context: Context, @DimenRes dimenRes: Int): Int =
+        context.resources.getDimensionPixelSize(dimenRes)
 
     @JvmStatic
     fun <T> notNull(t: T?): Boolean = t != null

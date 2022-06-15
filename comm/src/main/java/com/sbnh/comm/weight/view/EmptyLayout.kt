@@ -7,6 +7,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.annotation.Px
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.sbnh.comm.R
@@ -23,9 +24,8 @@ import com.sbnh.comm.databinding.BaseParentEmptyViewBinding
  */
 class EmptyLayout : ConstraintLayout {
     private var mViewBinding: BaseParentEmptyViewBinding? = null
-    private var mTextSize: Int = PhoneCompat.px2dp(
-        context, DataCompat.dimen2Int(context, R.dimen.default_text_size)
-    )
+    @Px
+    private var mTextSize: Int = DataCompat.dimen2Int(context, R.dimen.default_text_size)
 
     @DrawableRes
     private var mResSrc: Int = R.mipmap.icon_comm_empty

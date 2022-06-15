@@ -8,6 +8,12 @@ import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sbnh.comm.config.AppConfig
 import com.sbnh.comm.manger.ActivityCompatManger
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.MaterialHeader
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.api.RefreshHeader
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.listener.DefaultRefreshHeaderCreator
 import kotlin.properties.Delegates
 
 /**
@@ -23,6 +29,19 @@ class BaseApplication : Application() {
         @JvmStatic
         fun getContext(): Context {
             return mContext
+        }
+
+        init {
+            SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ ->
+                MaterialHeader(
+                    context
+                )
+            }
+            SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ ->
+                ClassicsFooter(
+                    context
+                )
+            }
         }
     }
 
