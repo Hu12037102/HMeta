@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -46,9 +47,19 @@ object ViewCompat {
         ContextCompat.getDrawable(DataCompat.getContext(), drawableRes)
 
     @JvmStatic
-    fun setClickButton(view: View?) {
+    fun setClickButton(view: View?, dpValue: Float) {
         if (DataCompat.notNull(view)) {
-            ViewCompat.setBackground(view!!, GradientDrawableCompat.createClickDrawable())
+            ViewCompat.setBackground(view!!, GradientDrawableCompat.createClickDrawable(dpValue))
         }
+    }
+
+    @JvmStatic
+    fun textViewTextIsEmpty(textView: TextView?): Boolean {
+        return DataCompat.isEmpty(textView?.text)
+    }
+
+    @JvmStatic
+    fun getTextViewText(textView: TextView?): CharSequence {
+        return DataCompat.checkNotNull(textView?.text)
     }
 }

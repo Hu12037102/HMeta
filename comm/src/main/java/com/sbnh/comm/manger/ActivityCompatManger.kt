@@ -3,6 +3,8 @@ package com.sbnh.comm.manger
 import android.app.Activity
 import androidx.collection.ArrayMap
 import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARouters
 
 /**
  * 作者: 胡庆岭
@@ -16,6 +18,12 @@ class ActivityCompatManger private constructor() {
 
         @JvmStatic
         fun get() = mInstance
+
+        @JvmStatic
+        fun startToLoginActivity() {
+            mInstance.clear()
+            ARouters.startActivity(ARouterConfig.Path.Login.ACTIVITY_LOGIN)
+        }
     }
 
     private val mArrayMap: ArrayMap<String, Activity> by lazy { ArrayMap() }

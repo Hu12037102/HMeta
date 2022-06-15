@@ -1,6 +1,7 @@
 package com.sbnh.login.viewmodel
 
 import com.sbnh.comm.base.viewmodel.BaseViewModel
+import com.sbnh.comm.base.viewmodel.TimerViewModel
 
 /**
  * 作者: 胡庆岭
@@ -8,5 +9,5 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
  * 更新时间: 2022/6/14 19:52
  * 描述:
  */
-class LoginViewModel:BaseViewModel() {
+class LoginViewModel:TimerViewModel() {
 }

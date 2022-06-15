@@ -40,21 +40,29 @@ object DataCompat {
     fun getResString(@StringRes resString: Int): String {
         return getContext().getString(resString)
     }
+
     @JvmStatic
-    fun getResString(@StringRes resString: Int,any:Array< out Any> ): String {
-        return getContext().getString(resString,any)
+    fun getResString(@StringRes resString: Int, any: Array<out Any>): String {
+        return getContext().getString(resString, any)
     }
 
     @JvmStatic
-    fun getContext():Context{
+    fun getContext(): Context {
         return BaseApplication.getContext()
     }
+
     @JvmStatic
-    fun notEmpty(text: CharSequence?):Boolean{
+    fun notEmpty(text: CharSequence?): Boolean {
         return !isEmpty(text)
     }
+
     @JvmStatic
-    fun checkContext(context: Context?):Context{
-        return context?:getContext()
+    fun checkContext(context: Context?): Context {
+        return context ?: getContext()
+    }
+
+    @JvmStatic
+    fun getTextLength(text: CharSequence?): Int {
+        return text?.length ?: 0
     }
 }

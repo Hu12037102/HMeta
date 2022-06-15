@@ -11,6 +11,8 @@ import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.compat.ViewCompat
 import com.sbnh.comm.entity.base.TabEntity
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.weight.click.CheckLoginClick
+import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ItemMyTabViewBinding
 
 /**
@@ -47,7 +49,11 @@ class MyTabAdapter(
         val entity = data[position]
         UICompat.setText(holder.binding.atvContent, entity.text)
         GlideCompat.loadWarpImage(entity.resDrawable, holder.binding.aivContent)
+        holder.itemView.setOnClickListener(object : CheckLoginClick() {
+            override fun onCheckLoginClick(v: View?) {
 
+            }
+        })
     }
 
     override fun getItemCount(): Int = CollectionCompat.getListSize(data)

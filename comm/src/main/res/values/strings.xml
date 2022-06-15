@@ -16,4 +16,17 @@
     <string name="my_collection">我的藏品</string>
     <string name="login_immediately">立即登录</string>
     <string name="gain_message_code">获取验证码</string>
+    <string name="input_phone_number">输入手机号</string>
+    <string name="message_code">短信验证码</string>
+    <string name="second_s">%ss</string>
+    <string name="not_account_go">未有账号？去</string>
+    <string name="register">注册</string>
+    <string name="my_have_read_and_sure">我已阅读并同意</string>
+    <string name="user_agreement">《用户协议》</string>
+    <string name="and">和</string>
+    <string name="privacy_policy">《隐私政策》</string>
+    <string name="login">登录</string>
+    <string name="please_input_sure_phone_number">请输入正确手机号码</string>
+    <string name="please_input_message_code">请输入正确验证码</string>
+    <string name="please_again_user_agreement">请认真阅读并且同意《用户协议》和《隐私政策》</string>
 </resources>

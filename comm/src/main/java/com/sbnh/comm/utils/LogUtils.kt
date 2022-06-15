@@ -15,6 +15,7 @@ object LogUtils {
     private const val DEFAULT_VALUES = "Healer_Meta"
      const val TAG="HealerMeta"
 
+   @JvmStatic
     fun w(tag: String, msg: String? = DEFAULT_VALUES) {
         if (!AppConfig.isShowLog()) {
             return
@@ -38,7 +39,7 @@ object LogUtils {
         }
 
     }
-
+    @JvmStatic
     fun d(tag: String, msg: String? = DEFAULT_VALUES) {
         if (!AppConfig.isShowLog()) {
             return
@@ -62,7 +63,7 @@ object LogUtils {
         }
 
     }
-
+    @JvmStatic
     fun e(tag: String, msg: String? = DEFAULT_VALUES) {
         if (!AppConfig.isShowLog()) {
             return

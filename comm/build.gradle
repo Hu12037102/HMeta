@@ -69,8 +69,8 @@ dependencies {
     api "de.hdodenhof:circleimageview:$versions.circleimageview"
     //  implementation "androidx.datastore:datastore:1.0.0"
     implementation "androidx.datastore:datastore-preferences:1.0.0"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
     implementation "androidx.fragment:fragment-ktx:1.4.1"
 }

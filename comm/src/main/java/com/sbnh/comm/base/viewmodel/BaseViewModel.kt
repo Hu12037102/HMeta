@@ -25,6 +25,7 @@ open class BaseViewModel : ViewModel() {
     val mToastLiveData: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val mUserInfoLiveData: MutableLiveData<UserInfoEntity> by lazy { MutableLiveData<UserInfoEntity>() }
 
+
     fun getUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
             val entity = UserInfoStore.get().getEntity()
@@ -33,4 +34,7 @@ open class BaseViewModel : ViewModel() {
             mUserInfoLiveData.value = entity
         }
     }
+
+
+
 }

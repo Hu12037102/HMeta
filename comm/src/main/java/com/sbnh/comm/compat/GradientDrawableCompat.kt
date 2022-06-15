@@ -14,18 +14,26 @@ object GradientDrawableCompat {
     fun create(): GradientDrawable {
         val drawable = GradientDrawable()
         drawable.shape = GradientDrawable.RECTANGLE
-        // drawable.isAutoMirrored = true
         return drawable
     }
 
     @JvmStatic
-    fun createClickDrawable(): GradientDrawable {
+    fun createClickDrawable(dpValue: Float): GradientDrawable {
         val drawable = create()
-        drawable.cornerRadius = PhoneCompat.dp2px(DataCompat.getContext(), 8f).toFloat()
+        drawable.cornerRadius = PhoneCompat.dp2px(DataCompat.getContext(), dpValue).toFloat()
         drawable.colors = intArrayOf(
             ViewCompat.getColor(R.color.colorFF4A25BB),
             ViewCompat.getColor(R.color.colorFFA24DD0)
         )
+        drawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
+        return drawable
+    }
+
+    @JvmStatic
+    fun createLoginInputDrawable(): GradientDrawable {
+        val drawable = create()
+        drawable.cornerRadius = PhoneCompat.dp2px(DataCompat.getContext(), 50f).toFloat()
+        drawable.setColor(ViewCompat.getColor(R.color.colorFF2C2E4C))
         return drawable
     }
 }

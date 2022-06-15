@@ -34,10 +34,9 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
         initObserve()
     }
 
-    protected abstract fun initView()
-
     protected abstract fun getViewBinding(): VB
     protected abstract fun getViewModelClass(): Class<VM>
+    protected abstract fun initView()
     protected abstract fun initData()
     protected abstract fun initEvent()
     protected open fun initObserve() {
@@ -66,6 +65,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
             }
             mLoadingViewBinding =
                 BaseParentLoadingViewBinding.inflate(layoutInflater, rootView, false)
+            mLoadingViewBinding?.cpbLoading?.hide()
             rootView.addView(mLoadingViewBinding?.root)
         }
     }
