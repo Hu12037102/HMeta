@@ -88,7 +88,6 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
         })
         mViewBinding.atvGoLogin.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-
                 ARouters.startActivity(ARouterConfig.Path.Login.ACTIVITY_LOGIN)
             }
 

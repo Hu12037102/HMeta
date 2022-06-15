@@ -5,6 +5,8 @@ import androidx.annotation.AnimRes
 import androidx.annotation.StringRes
 import com.google.permission.activity.PermissionActivity
 import com.sbnh.comm.compat.ToastCompat
+import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.compat.ViewCompat
 
 /**
  * 作者: 胡庆岭
@@ -28,6 +30,8 @@ abstract class BaseActivity : PermissionActivity() {
             com.sbnh.comm.R.anim.anim_mormal
         )
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+        window.statusBarColor= ViewCompat.getColor(com.sbnh.comm.R.color.colorBlack)
     }
 
 

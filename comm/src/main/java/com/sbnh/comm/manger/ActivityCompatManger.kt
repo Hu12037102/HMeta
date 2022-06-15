@@ -21,7 +21,7 @@ class ActivityCompatManger private constructor() {
 
         @JvmStatic
         fun startToLoginActivity() {
-            mInstance.clear()
+           // mInstance.clear()
             ARouters.startActivity(ARouterConfig.Path.Login.ACTIVITY_LOGIN)
         }
     }
