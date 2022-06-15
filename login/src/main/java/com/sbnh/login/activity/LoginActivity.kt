@@ -8,6 +8,7 @@ import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.*
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
@@ -73,7 +74,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         })
         mViewBinding.atvGoRegister.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-
+                ARouters.startActivity(ARouterConfig.Path.Login.ACTIVITY_REGISTER)
             }
 
         })

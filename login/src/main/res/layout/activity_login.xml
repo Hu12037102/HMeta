@@ -98,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_44dp"
         android:layout_marginStart="@dimen/size_32dp"
-        android:layout_marginTop="@dimen/size_115dp"
+        android:layout_marginTop="@dimen/size_105dp"
         android:layout_marginEnd="@dimen/size_32dp"
         android:gravity="center"
         android:text="@string/login"

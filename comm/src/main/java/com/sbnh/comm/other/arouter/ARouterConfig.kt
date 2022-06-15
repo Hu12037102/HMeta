@@ -31,8 +31,10 @@ class ARouterConfig {
             const val FRAGMENT_MY = "/my/fragment/my"
             const val FRAGMENT_MY_COLLECTION = "/my/fragment/collection"
         }
-        object Login{
-            const val ACTIVITY_LOGIN="/login/activity/login"
+
+        object Login {
+            const val ACTIVITY_LOGIN = "/login/activity/login"
+            const val ACTIVITY_REGISTER = "/login/activity/register"
         }
 
     }
