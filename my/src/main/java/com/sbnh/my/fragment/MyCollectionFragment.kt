@@ -4,10 +4,10 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
-import com.sbnh.comm.compat.UICompat
-import com.sbnh.comm.compat.ViewCompat
+import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.manger.ActivityCompatManger
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.FragmentCollectionBinding
 import com.sbnh.my.viewbinding.MyCollectionViewModel
@@ -28,7 +28,7 @@ class MyCollectionFragment :
         MyCollectionViewModel::class.java
 
     override fun initView() {
-        ViewCompat.setClickButton(mViewBinding.atvLogin,Contract.DP.VALUE_8F)
+        MetaViewCompat.setClickButton(mViewBinding.atvLogin,Contract.DP.VALUE_8F)
     }
 
     override fun initData() {
@@ -44,7 +44,7 @@ class MyCollectionFragment :
     override fun initEvent() {
         mViewBinding.atvLogin.setOnClickListener(object :DelayedClick(){
             override fun onDelayedClick(v: View?) {
-                ActivityCompatManger.startToLoginActivity()
+                ARoutersActivity.startLoginActivity()
             }
 
         })

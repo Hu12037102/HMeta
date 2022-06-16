@@ -35,5 +35,12 @@ ext.versions = [
         PermissionLoader         : "v1.0.0",
         arouter                  : "1.5.2",
         circleimageview          : "3.1.0",
-        datastore_preferences  : "1.0.0"
+        datastore_preferences    : "1.0.0",
+        coroutines_core          : "1.6.1",
+        coroutines_android       : "1.6.1",
+        viewmodel                : "2.4.1",
+        refresh_footer_classics  : "2.0.5",
+        refresh_header_material  : "2.0.5",
+        banner                   : "2.2.2",
+        ProjectViewX             : "1.0.4"
 ]

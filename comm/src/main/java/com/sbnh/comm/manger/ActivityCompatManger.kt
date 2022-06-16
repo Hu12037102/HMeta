@@ -19,11 +19,7 @@ class ActivityCompatManger private constructor() {
         @JvmStatic
         fun get() = mInstance
 
-        @JvmStatic
-        fun startToLoginActivity() {
-           // mInstance.clear()
-            ARouters.startActivity(ARouterConfig.Path.Login.ACTIVITY_LOGIN)
-        }
+
     }
 
     private val mArrayMap: ArrayMap<String, Activity> by lazy { ArrayMap() }

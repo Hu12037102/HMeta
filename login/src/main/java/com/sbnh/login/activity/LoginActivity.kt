@@ -43,18 +43,18 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         SpanTextHelper.with().append(DataCompat.getResString(com.sbnh.comm.R.string.not_account_go))
             .appendBlank()
             .append(DataCompat.getResString(com.sbnh.comm.R.string.register))
-            .setColor(com.sbnh.comm.compat.ViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA))
+            .setColor(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA))
             .crete(mViewBinding.atvGoRegister)
-        com.sbnh.comm.compat.ViewCompat.setClickButton(mViewBinding.atvLogin, Contract.DP.VALUE_50F)
+        com.sbnh.comm.compat.MetaViewCompat.setClickButton(mViewBinding.atvLogin, Contract.DP.VALUE_50F)
         SpanTextHelper.with()
             .append(DataCompat.getResString(com.sbnh.comm.R.string.my_have_read_and_sure))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.user_agreement))
-            .setClick(com.sbnh.comm.compat.ViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
+            .setClick(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
 
             }
             .append(DataCompat.getResString(com.sbnh.comm.R.string.and))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.privacy_policy))
-            .setClick(com.sbnh.comm.compat.ViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
+            .setClick(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
 
             }
             .crete(mViewBinding.atvAgreement)
@@ -70,7 +70,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         mViewBinding.atvGainCode.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 val phoneNumber =
-                    com.sbnh.comm.compat.ViewCompat.getTextViewText(mViewBinding.aetPhone)
+                    com.sbnh.comm.compat.MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
@@ -105,13 +105,13 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
                     return
                 }
                 val phoneNumber =
-                    com.sbnh.comm.compat.ViewCompat.getTextViewText(mViewBinding.aetPhone)
+                    com.sbnh.comm.compat.MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
                 val isEmptyCode =
-                    com.sbnh.comm.compat.ViewCompat.textViewTextIsEmpty(mViewBinding.aetGainCode)
+                    com.sbnh.comm.compat.MetaViewCompat.textViewTextIsEmpty(mViewBinding.aetGainCode)
                 if (isEmptyCode) {
                     showToast(com.sbnh.comm.R.string.please_input_message_code)
                     return

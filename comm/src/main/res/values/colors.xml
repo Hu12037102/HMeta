@@ -24,4 +24,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorFF363639">#FF363639</color>
+    <color name="colorFF717171">#FF717171</color>
+    <color name="colorWindowBackground">@color/colorFF191919</color>
 </resources>

@@ -1,6 +1,5 @@
 package com.sbnh.my.fragment
 
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,7 +15,6 @@ import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
-import com.sbnh.my.R
 import com.sbnh.my.adapter.MyTabAdapter
 import com.sbnh.my.databinding.FragmentMyBinding
 import com.sbnh.my.viewbinding.MyViewModel
@@ -43,7 +41,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
     }
 
     override fun initData() {
-        mViewModel.getUserInfo()
+        mViewModel.loadUserInfo()
         iniTabAdapter()
 
     }
@@ -73,6 +71,9 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
     }
 
     override fun initEvent() {
+        mViewBinding.civHead.setOnClickListener {
+            ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_SETTING)
+        }
     }
 
     override fun initObserve() {
@@ -81,7 +82,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
 
     override fun onStart() {
         super.onStart()
-        mViewModel.getUserInfo()
+        mViewModel.loadUserInfo()
     }
 
     override fun resultUserInfo(userInfoEntity: UserInfoEntity?) {

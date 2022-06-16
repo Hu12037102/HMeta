@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground">
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pv_left_start_src="@mipmap/icon_comm_back_white" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/_cl_head"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:background="@drawable/shape_project_item_view"
+        app:layout_constraintTop_toBottomOf="@id/pv_title">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_head"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:text="@string/head"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_head"
+            android:layout_width="@dimen/size_38dp"
+            android:layout_height="@dimen/size_38dp"
+            android:layout_marginEnd="@dimen/default_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:background="@drawable/shape_project_item_view"
+        app:layout_constraintTop_toBottomOf="@id/_cl_head"
+        app:pv_left_drawable_padding="@dimen/size_10dp"
+        app:pv_left_text="@string/nickname"
+        app:pv_left_text_color="@color/colorWhite"
+        app:pv_left_text_size="@dimen/size_15sp"
+        app:pv_right_text_color="@color/colorFF9A9A9C"
+        app:pv_right_text_size="@dimen/size_15sp" />
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:background="@drawable/shape_project_item_view"
+        app:layout_constraintTop_toBottomOf="@id/pv_nickname"
+        app:pv_left_text="@string/phone_number"
+        app:pv_left_text_color="@color/colorWhite"
+        app:pv_left_text_size="@dimen/size_15sp"
+        app:pv_right_text_color="@color/colorFF9A9A9C"
+        app:pv_right_text_size="@dimen/size_15sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_exit_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_button_height"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_92dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:gravity="center"
+        android:text="@string/exit_login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_16sp"
+        app:layout_constraintTop_toBottomOf="@id/pv_phone" />
+</androidx.constraintlayout.widget.ConstraintLayout>

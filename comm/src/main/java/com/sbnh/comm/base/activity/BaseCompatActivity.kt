@@ -70,7 +70,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
         }
     }
 
-    protected open fun resultUserInfo(userInfoEntity: UserInfoEntity) {
+    protected open fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
 
     }
 

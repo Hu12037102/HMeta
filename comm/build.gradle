@@ -68,11 +68,12 @@ dependencies {
     kapt "com.alibaba:arouter-compiler:$versions.arouter"
     api "de.hdodenhof:circleimageview:$versions.circleimageview"
     //  implementation "androidx.datastore:datastore:1.0.0"
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation  'io.github.scwang90:refresh-footer-classics:2.0.5'
-    implementation  'io.github.scwang90:refresh-header-material:2.0.5'
-    implementation 'io.github.youth5201314:banner:2.2.2'
+    implementation "androidx.datastore:datastore-preferences:$versions.datastore_preferences"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines_core"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines_android"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.viewmodel"
+    implementation "io.github.scwang90:refresh-footer-classics:$versions.refresh_footer_classics"
+    implementation "io.github.scwang90:refresh-header-material:$versions.refresh_header_material"
+    implementation "io.github.youth5201314:banner:$versions.banner"
+    api "com.github.Hu12037102:ProjectViewX:$versions.ProjectViewX"
 }

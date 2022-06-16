@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground">
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        android:background="@color/colorWindowBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pv_left_start_src="@mipmap/icon_comm_back_white" />
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_account"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@id/pv_title"
+        app:pv_left_drawable_padding="@dimen/size_16dp"
+        app:pv_left_start_src="@mipmap/icon_my_setting_item_account"
+        app:pv_left_text="@string/accounts_and_security"
+        app:pv_left_text_color="@color/colorWhite"
+        app:pv_left_text_size="@dimen/size_15sp" />
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_service"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@id/pv_account"
+        app:pv_left_drawable_padding="@dimen/size_16dp"
+        app:pv_left_start_src="@mipmap/icon_my_setting_item_service"
+        app:pv_left_text="@string/contact_the_customer_service"
+        app:pv_left_text_color="@color/colorWhite"
+        app:pv_left_text_size="@dimen/size_15sp" />
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_real_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@id/pv_service"
+        app:pv_left_drawable_padding="@dimen/size_16dp"
+        app:pv_left_start_src="@mipmap/icon_my_setting_item_real_name"
+        app:pv_left_text="@string/real_name_authentication"
+        app:pv_left_text_color="@color/colorWhite"
+        app:pv_left_text_size="@dimen/size_15sp" />
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_setting_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@id/pv_real_name"
+        app:pv_left_drawable_padding="@dimen/size_16dp"
+        app:pv_left_start_src="@mipmap/icon_my_setting_item_password"
+        app:pv_left_text="@string/setting_pay_password"
+        app:pv_left_text_color="@color/colorWhite"
+        app:pv_left_text_size="@dimen/size_15sp" />
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_bank_card"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_60dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:layout_constraintTop_toBottomOf="@id/pv_setting_password"
+        app:pv_left_drawable_padding="@dimen/size_16dp"
+        app:pv_left_start_src="@mipmap/icon_my_setting_item_bank_card"
+        app:pv_left_text="@string/bank_card"
+        app:pv_left_text_color="@color/colorWhite"
+        app:pv_left_text_size="@dimen/size_15sp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

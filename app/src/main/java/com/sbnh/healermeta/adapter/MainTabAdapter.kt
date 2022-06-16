@@ -8,7 +8,7 @@ import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.PhoneCompat
 import com.sbnh.comm.compat.UICompat
-import com.sbnh.comm.compat.ViewCompat
+import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.entity.base.SelectorTabEntity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.healermeta.databinding.ItemMianTabViewBinding
@@ -30,7 +30,7 @@ class MainTabAdapter(private val context: Context, private val data: List<Select
         RecyclerView.ViewHolder(mBinding.root) {
         init {
             val context = mBinding.root.context
-            ViewCompat.setViewSize(mBinding.root, PhoneCompat.screenWidth(context) / itemSize)
+            MetaViewCompat.setViewSize(mBinding.root, PhoneCompat.screenWidth(context) / itemSize)
         }
         //  public val mBinding = binding
     }

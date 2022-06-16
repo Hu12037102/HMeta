@@ -8,11 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.PhoneCompat
 import com.sbnh.comm.compat.UICompat
-import com.sbnh.comm.compat.ViewCompat
+import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.entity.base.TabEntity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.CheckLoginClick
-import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ItemMyTabViewBinding
 
 /**
@@ -32,7 +31,7 @@ class MyTabAdapter(
 
         init {
             val mItemView: View = binding.root
-            ViewCompat.setViewSize(
+            MetaViewCompat.setViewSize(
                 mItemView,
                 PhoneCompat.screenWidth(mItemView.context) / lineCount,
                 PhoneCompat.dp2px(itemView.context, 74f)

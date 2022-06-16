@@ -126,5 +126,10 @@ class DataStoreManger private constructor() {
         return list
     }
 
+    suspend fun clear() {
+        DataCompat.getContext().dataStore.edit {
+            it.clear()
+        }
+    }
 
 }

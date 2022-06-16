@@ -37,6 +37,11 @@ class UserInfoStore private constructor() {
             return userInfoEntity != null && DataCompat.notEmpty(userInfoEntity.sid)
         }
 
+        @JvmStatic
+        fun isRealName(userInfoEntity: UserInfoEntity?): Boolean {
+            return userInfoEntity?.hasRealName ?: false
+        }
+
     }
 
     private val mDataStoreManger: DataStoreManger = DataStoreManger.get()
@@ -77,63 +82,65 @@ class UserInfoStore private constructor() {
 
     }
 
-    suspend fun putAddress(address: String?) {
+    private suspend fun putAddress(address: String?) {
         mDataStoreManger.putObject(KEY_ADDRESS, address ?: "")
     }
 
-    suspend fun getAddress() = mDataStoreManger.getString(KEY_ADDRESS)
+    private suspend fun getAddress() = mDataStoreManger.getString(KEY_ADDRESS)
 
-    suspend fun putPayPassword(hasPayPassword: Boolean?) {
+    private suspend fun putPayPassword(hasPayPassword: Boolean?) {
         mDataStoreManger.putObject(KEY_HAS_PAY_PASSWORD, hasPayPassword ?: false)
     }
 
-    suspend fun isPayPassWord() = mDataStoreManger.getBoolean(KEY_HAS_PAY_PASSWORD)
+    private suspend fun isPayPassWord() = mDataStoreManger.getBoolean(KEY_HAS_PAY_PASSWORD)
 
-    suspend fun putRealName(hasRealName: Boolean?) {
+    private suspend fun putRealName(hasRealName: Boolean?) {
         mDataStoreManger.putObject(KEY_HAS_REAL_NAME, hasRealName ?: "")
     }
 
-    suspend fun isRealName() = mDataStoreManger.getBoolean(KEY_HAS_REAL_NAME)
+    private suspend fun isRealName() = mDataStoreManger.getBoolean(KEY_HAS_REAL_NAME)
 
-    suspend fun putHeader(header: String?) {
+    private suspend fun putHeader(header: String?) {
         mDataStoreManger.putObject(KEY_HEADER, header ?: "")
     }
 
-    suspend fun getHeader() = mDataStoreManger.getString(KEY_HEADER)
+    private suspend fun getHeader() = mDataStoreManger.getString(KEY_HEADER)
 
-    suspend fun putId(id: String?) {
+    private suspend fun putId(id: String?) {
         mDataStoreManger.putObject(KEY_ID, id ?: "")
     }
 
-    suspend fun getId() = mDataStoreManger.getString(KEY_ID)
+    private suspend fun getId() = mDataStoreManger.getString(KEY_ID)
 
-    suspend fun putInviteCode(inviteCode: String?) {
+    private suspend fun putInviteCode(inviteCode: String?) {
         mDataStoreManger.putObject(KEY_INVITE_CODE, inviteCode ?: "")
     }
 
-    suspend fun getInviteCode() = mDataStoreManger.getString(KEY_INVITE_CODE)
+    private suspend fun getInviteCode() = mDataStoreManger.getString(KEY_INVITE_CODE)
 
-    suspend fun putMobile(mobile: String?) {
+    private suspend fun putMobile(mobile: String?) {
         mDataStoreManger.putObject(KEY_MOBILE, mobile ?: "")
     }
 
-    suspend fun getMobile(): String = mDataStoreManger.getString(KEY_MOBILE)
-    suspend fun putNickName(nickName: String?) {
+    private suspend fun getMobile(): String = mDataStoreManger.getString(KEY_MOBILE)
+    private suspend fun putNickName(nickName: String?) {
         mDataStoreManger.putObject(KEY_NICK_NAME, nickName ?: "")
     }
 
-    suspend fun getNickName() = mDataStoreManger.getString(KEY_NICK_NAME)
-    suspend fun putPrivateKey(privateKey: String?) {
+    private suspend fun getNickName() = mDataStoreManger.getString(KEY_NICK_NAME)
+    private suspend fun putPrivateKey(privateKey: String?) {
         mDataStoreManger.putObject(KEY_PRIVATE_KEY, privateKey ?: "")
     }
 
-    suspend fun getPrivateKey() = mDataStoreManger.getString(KEY_PRIVATE_KEY)
-    suspend fun putSid(sid: String?) {
+    private suspend fun getPrivateKey() = mDataStoreManger.getString(KEY_PRIVATE_KEY)
+    private suspend fun putSid(sid: String?) {
         mDataStoreManger.putObject(KEY_SID, sid ?: "")
     }
 
-    suspend fun getSid() = mDataStoreManger.getString(KEY_SID)
+    private suspend fun getSid() = mDataStoreManger.getString(KEY_SID)
     suspend fun isLogin() = DataCompat.notEmpty(getSid())
 
-
+    suspend fun clear() {
+        mDataStoreManger.clear()
+    }
 }

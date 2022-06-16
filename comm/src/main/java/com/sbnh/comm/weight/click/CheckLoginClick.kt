@@ -2,7 +2,7 @@ package com.sbnh.comm.weight.click
 
 import android.view.View
 import com.sbnh.comm.info.UserInfoStore
-import com.sbnh.comm.manger.ActivityCompatManger
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import kotlinx.coroutines.*
 
 /**
@@ -18,7 +18,7 @@ abstract class CheckLoginClick : DelayedClick() {
             val isLogin = UserInfoStore.get().isLogin()
             withContext(Dispatchers.Main) {
                 if (!isLogin) {
-                    ActivityCompatManger.startToLoginActivity()
+                    ARoutersActivity.startLoginActivity()
                 } else {
                     onCheckLoginClick(v)
 

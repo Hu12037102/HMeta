@@ -17,7 +17,7 @@ import androidx.core.view.ViewCompat
  * 更新时间: 2022/6/12 20:21
  * 描述:
  */
-object ViewCompat {
+object MetaViewCompat {
     @JvmStatic
     fun setViewSize(
         view: View?,

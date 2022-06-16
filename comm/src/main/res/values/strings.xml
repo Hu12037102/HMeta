@@ -32,4 +32,15 @@
     <string name="please_again_user_agreement">请认真阅读并且同意《用户协议》和《隐私政策》</string>
     <string name="input_invite_code">输入邀请码</string>
     <string name="bazaar_not_open">市场暂未放开</string>
+    <string name="accounts_and_security">账号与安全</string>
+    <string name="contact_the_customer_service">联系客服</string>
+    <string name="real_name_authentication">实名认证</string>
+    <string name="setting_pay_password">设置支付密码</string>
+    <string name="bank_card">银行卡</string>
+    <string name="not_authentication">未认证</string>
+    <string name="authentication">已认证</string>
+    <string name="head">头像</string>
+    <string name="nickname">昵称</string>
+    <string name="phone_number">手机号</string>
+    <string name="exit_login">退出登录</string>
 </resources>

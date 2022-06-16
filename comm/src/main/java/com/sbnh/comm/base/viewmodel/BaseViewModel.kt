@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.http.RetrofitManger
 import com.sbnh.comm.info.UserInfoStore
+import com.sbnh.comm.manger.ActivityCompatManger
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,7 +28,7 @@ open class BaseViewModel : ViewModel() {
     val mUserInfoLiveData: MutableLiveData<UserInfoEntity> by lazy { MutableLiveData<UserInfoEntity>() }
 
 
-    fun getUserInfo() {
+    fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
             val entity = UserInfoStore.get().getEntity()
             LogUtils.w(TAG, "$entity")
@@ -35,6 +37,13 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
+    fun exitLogin() {
+        viewModelScope.launch(Dispatchers.Main) {
+            UserInfoStore.get().clear()
+            ActivityCompatManger.get().clear()
+            ARoutersActivity.startLoginActivity()
+        }
+    }
 
 
 }

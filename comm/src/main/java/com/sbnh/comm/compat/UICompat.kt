@@ -6,8 +6,6 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 
 /**
  * 作者: 胡庆岭
@@ -23,7 +21,7 @@ object UICompat {
 
     @JvmStatic
     fun setTextSize(textView: TextView?, sizeSp: Float) {
-        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, sizeSp)
+        textView?.setTextSize(TypedValue.COMPLEX_UNIT_DIP, sizeSp)
     }
 
     @JvmStatic
@@ -38,6 +36,6 @@ object UICompat {
 
     @JvmStatic
     fun setTextColorRes(textView: TextView?, @ColorRes textColor: Int) {
-        textView?.setTextColor(ViewCompat.getColor(textColor))
+        textView?.setTextColor(MetaViewCompat.getColor(textColor))
     }
 }
