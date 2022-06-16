@@ -1,8 +1,8 @@
 package com.sbnh.my.activity
 
-import android.text.InputType
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
-import androidx.core.view.ViewCompat
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
@@ -23,7 +23,7 @@ import com.sbnh.my.viewmodel.SetPaymentPasswordViewModel
 @Route(path = ARouterConfig.Path.My.ACTIVITY_SET_PAYMENT_PASSWORD)
 class SetPaymentPasswordActivity :
     BaseCompatActivity<ActivitySetPaymentPasswordBinding, SetPaymentPasswordViewModel>() {
-    private var isClose = true
+    private var isPassword = true
     override fun getViewBinding(): ActivitySetPaymentPasswordBinding =
         ActivitySetPaymentPasswordBinding.inflate(layoutInflater)
 
@@ -47,7 +47,7 @@ class SetPaymentPasswordActivity :
 
         })
         mViewBinding.aivCheckReadPassword.setOnClickListener {
-            isClose = !isClose
+            isPassword = !isPassword
             updateInputPasswordStatus()
         }
         mViewBinding.atvCommit.setOnClickListener(object : DelayedClick() {
@@ -69,16 +69,14 @@ class SetPaymentPasswordActivity :
 
     private fun updateInputPasswordStatus() {
         GlideCompat.loadWarpImage(
-            if (isClose) com.sbnh.comm.R.mipmap.icon_my_set_payment_password_close else com.sbnh.comm.R.mipmap.icon_my_set_payment_password_open,
+            if (isPassword) com.sbnh.comm.R.mipmap.icon_my_set_payment_password_close else com.sbnh.comm.R.mipmap.icon_my_set_payment_password_open,
             mViewBinding.aivCheckReadPassword
         )
-        mViewBinding.aetPassword.inputType =
-                    if (isClose) {
-                        InputType.TYPE_NUMBER_VARIATION_PASSWORD
-                    } else {
-                        InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-
-                    }
+        mViewBinding.aetPassword.transformationMethod =
+            if (isPassword)
+                PasswordTransformationMethod.getInstance()
+            else
+                HideReturnsTransformationMethod.getInstance()
 
         val text = MetaViewCompat.getTextViewText(mViewBinding.aetPassword)
         mViewBinding.aetPassword.setSelection(DataCompat.getTextLength(text))
