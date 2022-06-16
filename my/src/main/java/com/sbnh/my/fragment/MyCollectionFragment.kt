@@ -5,12 +5,11 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.MetaViewCompat
-import com.sbnh.comm.manger.ActivityCompatManger
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.FragmentCollectionBinding
-import com.sbnh.my.viewbinding.MyCollectionViewModel
+import com.sbnh.my.viewmodel.MyCollectionViewModel
 
 /**
  * 作者: 胡庆岭

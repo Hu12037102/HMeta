@@ -12,6 +12,7 @@
         android:layout_height="@dimen/size_50dp"
         android:background="@color/colorWindowBackground"
         app:layout_constraintTop_toTopOf="parent"
+        app:pv_left_click_finish="true"
         app:pv_left_start_src="@mipmap/icon_comm_back_white" />
 
     <io.google.projectview.weight.ProjectView

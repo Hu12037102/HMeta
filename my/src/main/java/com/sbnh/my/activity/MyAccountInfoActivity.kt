@@ -7,13 +7,11 @@ import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.UserInfoEntity
-import com.sbnh.comm.manger.ActivityCompatManger
 import com.sbnh.comm.other.arouter.ARouterConfig
-import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivityMyAccountInfoBinding
-import com.sbnh.my.viewbinding.MyAccountInfoViewModel
+import com.sbnh.my.viewmodel.MyAccountInfoViewModel
 
 /**
  * 作者: 胡庆岭

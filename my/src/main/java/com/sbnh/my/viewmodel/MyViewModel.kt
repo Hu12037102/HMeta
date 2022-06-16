@@ -1,4 +1,4 @@
-package com.sbnh.my.viewbinding
+package com.sbnh.my.viewmodel
 
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.DataCompat

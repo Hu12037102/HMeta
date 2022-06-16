@@ -62,4 +62,5 @@ object MetaViewCompat {
     fun getTextViewText(textView: TextView?): CharSequence {
         return DataCompat.checkNotNull(textView?.text)
     }
+
 }

@@ -17,7 +17,7 @@ import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.my.adapter.MyTabAdapter
 import com.sbnh.my.databinding.FragmentMyBinding
-import com.sbnh.my.viewbinding.MyViewModel
+import com.sbnh.my.viewmodel.MyViewModel
 
 /**
  * 作者: 胡庆岭

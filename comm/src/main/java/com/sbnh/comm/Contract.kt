@@ -7,8 +7,10 @@ package com.sbnh.comm
  * 描述:
  */
 object Contract {
-    const val MESSAGE_CODE_DOWN_TIME_LENGTH = 10
+    const val MESSAGE_CODE_DOWN_TIME_LENGTH = 10L
     const val PHONE_NUMBER_LENGTH = 11
+    const val PAY_PASSWORD_LENGTH = 6
+    const val MESSAGE_CODE_LENGTH = 6
 
     object DP {
         const val VALUE_8F = 8f

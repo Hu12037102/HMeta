@@ -83,7 +83,7 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
-                mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH.toLong())
+                mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
             }
         })
         mViewBinding.atvGoLogin.setOnClickListener(object : DelayedClick() {

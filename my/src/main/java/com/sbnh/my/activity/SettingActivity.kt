@@ -12,7 +12,7 @@ import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivitySettingBinding
-import com.sbnh.my.viewbinding.SettingViewModel
+import com.sbnh.my.viewmodel.SettingViewModel
 
 /**
  * 作者: 胡庆岭
@@ -46,6 +46,12 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
         mViewBinding.pvAccount.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_ACCOUNT_INFO)
+            }
+
+        })
+        mViewBinding.pvSettingPassword.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_SET_PAYMENT_PASSWORD)
             }
 
         })

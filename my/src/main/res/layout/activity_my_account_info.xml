@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"
         app:layout_constraintTop_toTopOf="parent"
+        app:pv_left_click_finish="true"
         app:pv_left_start_src="@mipmap/icon_comm_back_white" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -43,4 +43,9 @@
     <string name="nickname">昵称</string>
     <string name="phone_number">手机号</string>
     <string name="exit_login">退出登录</string>
+    <string name="set_payment_password_please_six_password">支付密码，请输入6位数字</string>
+    <string name="send_message_code">发送验证码</string>
+    <string name="please_input_phone_code">请输入手机验证码</string>
+    <string name="commit">提交</string>
+    <string name="please_six_length_password">请输入6位数字密码</string>
 </resources>

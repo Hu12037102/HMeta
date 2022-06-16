@@ -12,4 +12,12 @@ object NumberCompat {
     @JvmStatic
     fun isPhoneNumber(phone: CharSequence?) =
         DataCompat.getTextLength(phone) == Contract.PHONE_NUMBER_LENGTH
+
+    @JvmStatic
+    fun isPayPassword(password: CharSequence?) =
+        DataCompat.getTextLength(password) == Contract.PAY_PASSWORD_LENGTH
+
+    @JvmStatic
+    fun isMessageCode(messageCode: CharSequence?) =
+        DataCompat.getTextLength(messageCode) == Contract.MESSAGE_CODE_LENGTH
 }
