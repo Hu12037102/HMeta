@@ -42,5 +42,5 @@ ext.versions = [
         refresh_footer_classics  : "2.0.5",
         refresh_header_material  : "2.0.5",
         banner                   : "2.2.2",
-        ProjectViewX             : "1.0.5"
+        ProjectViewX             : "1.0.6"
 ]
