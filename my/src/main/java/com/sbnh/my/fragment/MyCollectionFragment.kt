@@ -6,6 +6,7 @@ import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.FragmentCollectionBinding
@@ -47,5 +48,13 @@ class MyCollectionFragment :
             }
 
         })
+        mEmptyLayout?.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
+
+            }
+
+        })
     }
+    override fun isLoadEmptyView(): Boolean = true
 }

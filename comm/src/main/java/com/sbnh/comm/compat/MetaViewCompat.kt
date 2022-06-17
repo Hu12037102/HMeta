@@ -10,6 +10,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 /**
  * 作者: 胡庆岭
@@ -63,4 +64,17 @@ object MetaViewCompat {
         return DataCompat.checkNotNull(textView?.text)
     }
 
+
+    @JvmStatic
+    fun showSoftKeyBoard(view: View?) {
+        if (DataCompat.notNull(view)) {
+            ViewCompat.getWindowInsetsController(view!!)?.show(WindowInsetsCompat.Type.ime())
+        }
+    }
+    @JvmStatic
+    fun hideSoftKeyBoard(view: View?){
+        if (DataCompat.notNull(view)) {
+            ViewCompat.getWindowInsetsController(view!!)?.hide(WindowInsetsCompat.Type.ime())
+        }
+    }
 }

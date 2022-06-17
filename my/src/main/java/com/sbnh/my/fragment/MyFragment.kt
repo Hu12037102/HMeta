@@ -15,6 +15,7 @@ import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.adapter.MyTabAdapter
 import com.sbnh.my.databinding.FragmentMyBinding
 import com.sbnh.my.viewmodel.MyViewModel
@@ -39,6 +40,8 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
         mViewBinding.rvTab.layoutManager = GridLayoutManager(context, mLineCount)
         mViewBinding.vpContent.orientation = ViewPager2.ORIENTATION_HORIZONTAL
     }
+
+
 
     override fun initData() {
         mViewModel.loadUserInfo()
@@ -74,6 +77,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
         mViewBinding.civHead.setOnClickListener {
             ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_SETTING)
         }
+
     }
 
     override fun initObserve() {

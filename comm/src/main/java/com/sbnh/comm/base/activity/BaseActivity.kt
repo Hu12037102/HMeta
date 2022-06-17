@@ -13,7 +13,7 @@ import com.sbnh.comm.compat.ToastCompat
  * 描述:
  */
 abstract class BaseActivity : PermissionActivity() {
-
+    private var isFirstCreate = true
     protected fun showToast(text: CharSequence) {
         ToastCompat.create().showToast(text)
     }
@@ -48,4 +48,15 @@ abstract class BaseActivity : PermissionActivity() {
     @AnimRes
     protected open fun getOutActivityAnimationRes(): Int = com.sbnh.comm.R.anim.anim_center_to_right
     protected open fun isLoadActivityAnimation() = true
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (isFirstCreate) {
+            onWindowFirstFocusChanged(hasFocus)
+            isFirstCreate = false
+        }
+    }
+
+    protected open fun onWindowFirstFocusChanged(hasFocus: Boolean) {
+
+    }
 }

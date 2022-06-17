@@ -60,4 +60,12 @@
     <string name="agree">同意</string>
     <string name="shou_xin_pay_user_agreement">《首易信支付用户协议》</string>
     <string name="please_input_succeed_bank_number">请输入正确银行卡号</string>
+    <string name="this_collection_support_phone_number_give">此藏品仅支持手机号转赠</string>
+    <string name="receiver_people">接收人</string>
+    <string name="please_input_receiver_people_phone_number">请填写接收人的手机号</string>
+    <string name="traders_password">交易密码</string>
+    <string name="please_input_payment_password">请输入交易密码</string>
+    <string name="sure_give">确认转赠</string>
+    <string name="my_have_read_it_carefully_and_agree">我已仔细阅读、明白并同意下列警示：</string>
+    <string name="give_collection_ruled">1.本藏品只支持手机号转赠。\n2.如果填写的接收人手机号未在Healer Meta注册，将无法转赠。\n3.请慎重确认接收人手机号正确性，Healer Meta对不准确信息、错误或损害概不负责;\n4.一旦发生转赠操作将无法撤销，且转赠成功后，与数字藏品相关的权利将全部转移至受赠人;\n5.转赠为用户个人行为，请勿对数字藏品进行炒作、场外交易、欺诈等行为，转赠过程中发生资产损失或损害的，Healer Meta不承担任何责任。</string>
 </resources>

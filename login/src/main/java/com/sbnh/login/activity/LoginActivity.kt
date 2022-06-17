@@ -36,6 +36,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
     override fun getOutActivityAnimationRes(): Int {
         return com.sbnh.comm.R.anim.anim_center_to_bottom
     }
+
     override fun initView() {
         GlideCompat.loadImage(com.sbnh.comm.R.mipmap.icon_login_background, mViewBinding.aivContent)
         GlideCompat.loadWarpImage(com.sbnh.comm.R.mipmap.icon_login_logo, mViewBinding.aivLogo)
@@ -52,7 +53,10 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             .append(DataCompat.getResString(com.sbnh.comm.R.string.register))
             .setColor(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA))
             .crete(mViewBinding.atvGoRegister)
-        com.sbnh.comm.compat.MetaViewCompat.setClickButton(mViewBinding.atvLogin, Contract.DP.VALUE_50F)
+        com.sbnh.comm.compat.MetaViewCompat.setClickButton(
+            mViewBinding.atvLogin,
+            Contract.DP.VALUE_50F
+        )
         SpanTextHelper.with()
             .append(DataCompat.getResString(com.sbnh.comm.R.string.my_have_read_and_sure))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.user_agreement))
@@ -126,6 +130,12 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             }
 
         })
+        mViewBinding.root.setOnClickListener(object :DelayedClick(){
+            override fun onDelayedClick(v: View?) {
+                MetaViewCompat.hideSoftKeyBoard( mViewBinding.root)
+            }
+
+        })
     }
 
     override fun initObserve() {
@@ -146,6 +156,12 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             }
 
         }
+    }
+
+
+    override fun onWindowFirstFocusChanged(hasFocus: Boolean) {
+        super.onWindowFirstFocusChanged(hasFocus)
+        MetaViewCompat.showSoftKeyBoard(mViewBinding.aetPhone)
     }
 
 

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground">
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pv_left_click_finish="true"
+        app:pv_left_custom_click_enable="true"
+        app:pv_left_start_src="@mipmap/icon_comm_back_white" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_10dp"
+        android:drawablePadding="@dimen/size_8dp"
+        android:text="@string/this_collection_support_phone_number_give"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_text_size"
+        app:drawableStartCompat="@mipmap/icon_comm_keep_hint_big"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pv_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_receiver_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_28dp"
+        android:layout_marginTop="@dimen/size_20dp"
+        android:text="@string/receiver_people"
+        android:textColor="@color/white"
+        android:textSize="@dimen/default_text_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/atv_hint" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/aet_phone_number"
+        style="@style/InputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_46dp"
+        android:layout_marginTop="@dimen/size_6dp"
+        android:hint="@string/please_input_receiver_people_phone_number"
+        android:inputType="phone"
+        android:maxLength="11"
+        app:layout_constraintTop_toBottomOf="@id/atv_receiver_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_payment_password_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_24dp"
+        android:text="@string/traders_password"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_14sp"
+        app:layout_constraintLeft_toLeftOf="@id/atv_receiver_title"
+        app:layout_constraintTop_toBottomOf="@id/aet_phone_number" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/aet_payment_password"
+        style="@style/InputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_46dp"
+        android:layout_marginTop="@dimen/size_6dp"
+        android:hint="@string/please_input_payment_password"
+        android:inputType="numberPassword"
+        android:maxLength="6"
+        app:layout_constraintTop_toBottomOf="@id/atv_payment_password_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_sure_give"
+        style="@style/SureClickButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_button_height"
+        android:layout_marginTop="@dimen/size_90dp"
+        android:text="@string/sure_give"
+        app:layout_constraintTop_toBottomOf="@id/aet_payment_password" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aiv_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_30dp"
+        android:padding="@dimen/size_5dp"
+        app:layout_constraintLeft_toLeftOf="@id/atv_sure_give"
+        app:layout_constraintTop_toBottomOf="@id/atv_sure_give"
+        app:srcCompat="@mipmap/icon_comm_normal_agreement" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/my_have_read_it_carefully_and_agree"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@id/aiv_check"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toRightOf="@id/aiv_check"
+        app:layout_constraintRight_toRightOf="@id/atv_sure_give"
+        app:layout_constraintTop_toTopOf="@id/aiv_check" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:gravity="fill_horizontal"
+        android:lineSpacingExtra="@dimen/size_2dp"
+        android:padding="@dimen/size_5dp"
+        android:text="@string/give_collection_ruled"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintLeft_toLeftOf="@id/atv_sure_give"
+        app:layout_constraintRight_toRightOf="@id/atv_sure_give"
+        app:layout_constraintTop_toBottomOf="@id/aiv_check" />
+</androidx.constraintlayout.widget.ConstraintLayout>

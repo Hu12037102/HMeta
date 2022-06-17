@@ -28,7 +28,7 @@
         android:text="@string/add_bank_card_keep"
         android:textColor="@color/white"
         android:textSize="@dimen/size_10sp"
-        app:drawableStartCompat="@mipmap/icon_pay_add_bank_card_keep"
+        app:drawableStartCompat="@mipmap/icon_comm_keep_hint_small"
         app:layout_constrainedWidth="true"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"

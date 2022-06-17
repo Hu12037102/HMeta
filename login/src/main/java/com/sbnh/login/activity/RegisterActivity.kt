@@ -5,10 +5,7 @@ import androidx.core.view.ViewCompat
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
-import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.compat.GradientDrawableCompat
-import com.sbnh.comm.compat.NumberCompat
-import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.STATUS_RUNNING
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
@@ -127,6 +124,12 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
             }
 
         })
+        mViewBinding.root.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                MetaViewCompat.hideSoftKeyBoard( mViewBinding.root)
+            }
+
+        })
     }
 
     override fun initObserve() {
@@ -147,5 +150,10 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
             }
 
         }
+    }
+
+    override fun onWindowFirstFocusChanged(hasFocus: Boolean) {
+        super.onWindowFirstFocusChanged(hasFocus)
+        MetaViewCompat.showSoftKeyBoard(mViewBinding.aetPhone)
     }
 }
