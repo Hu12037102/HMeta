@@ -29,6 +29,13 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         ActivityLoginBinding.inflate(layoutInflater)
 
     override fun getViewModelClass(): Class<LoginViewModel> = LoginViewModel::class.java
+    override fun getInActivityAnimationRes(): Int {
+        return com.sbnh.comm.R.anim.anim_bottom_to_center
+    }
+
+    override fun getOutActivityAnimationRes(): Int {
+        return com.sbnh.comm.R.anim.anim_center_to_bottom
+    }
     override fun initView() {
         GlideCompat.loadImage(com.sbnh.comm.R.mipmap.icon_login_background, mViewBinding.aivContent)
         GlideCompat.loadWarpImage(com.sbnh.comm.R.mipmap.icon_login_logo, mViewBinding.aivLogo)

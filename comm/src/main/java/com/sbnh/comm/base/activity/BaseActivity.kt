@@ -23,22 +23,23 @@ abstract class BaseActivity : PermissionActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        overridePendingTransition(
-            getInActivityAnimationRes(),
-            com.sbnh.comm.R.anim.anim_mormal
-        )
+        if (isLoadActivityAnimation())
+            overridePendingTransition(
+                getInActivityAnimationRes(),
+                com.sbnh.comm.R.anim.anim_mormal
+            )
         super.onCreate(savedInstanceState)
-      //  supportActionBar?.hide()
-      //  window.statusBarColor= ViewCompat.getColor(com.sbnh.comm.R.color.colorBlack)
     }
 
 
     override fun finish() {
         super.finish()
-        overridePendingTransition(
-            com.sbnh.comm.R.anim.anim_mormal,
-            getOutActivityAnimationRes()
-        )
+        if (isLoadActivityAnimation())
+            overridePendingTransition(
+                com.sbnh.comm.R.anim.anim_mormal,
+                getOutActivityAnimationRes()
+            )
+
     }
 
     @AnimRes
@@ -46,4 +47,5 @@ abstract class BaseActivity : PermissionActivity() {
 
     @AnimRes
     protected open fun getOutActivityAnimationRes(): Int = com.sbnh.comm.R.anim.anim_center_to_right
+    protected open fun isLoadActivityAnimation() = true
 }
