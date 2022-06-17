@@ -10,8 +10,10 @@ import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment() {
     protected val mViewBinding: VB by lazy { getViewBinding() }
@@ -48,7 +50,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     }
 
     private fun init() {
-        initEmptyLoadingView(context, mRootView)
+        initParentView(context, mRootView)
         initView()
         initData()
         initEvent()
@@ -72,11 +74,18 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     }
 
     protected open fun isLoadEmptyView(): Boolean = false
-    private fun initEmptyLoadingView(context: Context?, rootView: View?) {
+    private fun initParentView(context: Context?, rootView: View?) {
         if (context == null || rootView == null) {
             return
         }
         if (rootView is ViewGroup) {
+            for (i in 0 until rootView.childCount) {
+                val childView = rootView.getChildAt(i)
+                if (childView is SmartRefreshLayout) {
+                    SmartRefreshLayoutCompat.initDefault(childView)
+                    break
+                }
+            }
             if (isLoadEmptyView()) {
                 LogUtils.w(
                     "initEmptyLoadingView--",

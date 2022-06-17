@@ -29,7 +29,7 @@
     <string name="login">登录</string>
     <string name="please_input_sure_phone_number">请输入正确手机号码</string>
     <string name="please_input_message_code">请输入正确验证码</string>
-    <string name="please_again_user_agreement">请认真阅读并且同意《用户协议》和《隐私政策》</string>
+    <string name="please_agree_user_agreement">请认真阅读并且同意《用户协议》和《隐私政策》</string>
     <string name="input_invite_code">输入邀请码</string>
     <string name="bazaar_not_open">市场暂未放开</string>
     <string name="accounts_and_security">账号与安全</string>
@@ -48,4 +48,16 @@
     <string name="please_input_phone_code">请输入手机验证码</string>
     <string name="commit">提交</string>
     <string name="please_six_length_password">请输入6位数字密码</string>
+    <string name="add_my_bank_card">添加本人的储蓄卡</string>
+    <string name="add_bank_card">添加银行卡</string>
+    <string name="add_bank_card_keep">成功绑定银行卡后不能修改\t\t银行卡绑定手机默认为您注册手机号</string>
+    <string name="bank_card_number">银行卡号</string>
+    <string name="please_input_bank_card_number">请输入银行卡号</string>
+    <string name="not_support_bank_have_this">暂不支持农业、兴业、招商银行</string>
+    <string name="bank_reserves_mobile_number">银行预留手机号</string>
+    <string name="verification_code">验证码</string>
+    <string name="binding">绑定</string>
+    <string name="agree">同意</string>
+    <string name="shou_xin_pay_user_agreement">《首易信支付用户协议》</string>
+    <string name="please_input_succeed_bank_number">请输入正确银行卡号</string>
 </resources>

@@ -55,6 +55,12 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
             }
 
         })
+        mViewBinding.pvBankCard.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_BANK_CARD_LIST)
+            }
+
+        })
     }
 
     override fun initObserve() {

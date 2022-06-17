@@ -26,5 +26,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorFF363639">#FF363639</color>
     <color name="colorFF717171">#FF717171</color>
+    <color name="colorFFFAAD14">#FFFAAD14</color>
+    <color name="colorFFA56CFF">#FFA56CFF</color>
     <color name="colorWindowBackground">@color/colorFF191919</color>
+    <color name="color_title_view_center_text_color">@color/white</color>
 </resources>

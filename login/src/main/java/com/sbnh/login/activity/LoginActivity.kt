@@ -96,19 +96,19 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             if (isCheckAgreement) {
                 UICompat.setImageRes(
                     mViewBinding.aivCheckAgreement,
-                    com.sbnh.comm.R.mipmap.icon_login_check_user_agreement
+                    com.sbnh.comm.R.mipmap.icon_comm_check_agreement
                 )
             } else {
                 UICompat.setImageRes(
                     mViewBinding.aivCheckAgreement,
-                    com.sbnh.comm.R.mipmap.icon_login_normal_user_agreement
+                    com.sbnh.comm.R.mipmap.icon_comm_normal_agreement
                 )
             }
         }
         mViewBinding.atvLogin.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 if (!isCheckAgreement) {
-                    showToast(com.sbnh.comm.R.string.please_again_user_agreement)
+                    showToast(com.sbnh.comm.R.string.please_agree_user_agreement)
                     return
                 }
                 val phoneNumber =

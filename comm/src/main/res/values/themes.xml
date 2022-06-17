@@ -21,4 +21,13 @@
     <style name="Theme.Hide.StatusBar" parent="Theme.Healer_meta">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+    <style name="SureClickButton" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginEnd">@dimen/default_margin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/size_16sp</item>
+        <item name="android:background">@drawable/shape_click_view</item>
+
+    </style>
 </resources>

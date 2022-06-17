@@ -11,6 +11,8 @@ object Contract {
     const val PHONE_NUMBER_LENGTH = 11
     const val PAY_PASSWORD_LENGTH = 6
     const val MESSAGE_CODE_LENGTH = 6
+    const val BANK_CARD_NUMBER_MIN = 16
+    const val BANK_CARD_NUMBER_MAX = 19
 
     object DP {
         const val VALUE_8F = 8f

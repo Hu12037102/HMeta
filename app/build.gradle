@@ -54,6 +54,7 @@ dependencies {
     implementation project(path: ':home')
     implementation project(path: ':bazaar')
     implementation project(path: ':login')
+    implementation project(path: ':pay')
     testImplementation "junit:junit:$versions.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$versions.junitTestVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoVersion"

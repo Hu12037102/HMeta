@@ -20,4 +20,10 @@ object NumberCompat {
     @JvmStatic
     fun isMessageCode(messageCode: CharSequence?) =
         DataCompat.getTextLength(messageCode) == Contract.MESSAGE_CODE_LENGTH
+
+    @JvmStatic
+    fun isBankCardNumber(number: CharSequence?) =
+        DataCompat.getTextLength(number) >= Contract.BANK_CARD_NUMBER_MIN
+                &&
+                DataCompat.getTextLength(number) <= Contract.BANK_CARD_NUMBER_MAX
 }

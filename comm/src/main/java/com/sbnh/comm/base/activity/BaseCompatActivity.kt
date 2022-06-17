@@ -8,11 +8,15 @@ import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseActivity() {
-    protected val mViewBinding: VB by lazy { getViewBinding() }
+    protected val mViewBinding: VB by lazy {
+        getViewBinding()
+    }
     protected open val mViewModel: VM by lazy { ViewModelProvider(this)[getViewModelClass()] }
     protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
     protected var mEmptyView: EmptyLayout? = null
@@ -20,7 +24,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
         super.onCreate(savedInstanceState)
         //  mViewBinding = getViewBinding()
         val rootView = mViewBinding.root
-        initEmptyLoadingView(rootView)
+        initParentView(rootView)
         setContentView(rootView)
         init()
         LogUtils.w(LogUtils.TAG, "onCreate:${this.javaClass.simpleName}")
@@ -50,8 +54,16 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
 
     protected open fun isLoadEmptyView(): Boolean = false
 
-    private fun initEmptyLoadingView(rootView: View?) {
+    private fun initParentView(rootView: View?) {
         if (rootView is ViewGroup) {
+            for (i in 0 until rootView.childCount) {
+                val childView = rootView.getChildAt(i)
+                if (childView is SmartRefreshLayout) {
+                    SmartRefreshLayoutCompat.initDefault(childView)
+                    break
+                }
+            }
+
             if (isLoadEmptyView()) {
                 mEmptyView = EmptyLayout(this)
                 rootView.addView(
