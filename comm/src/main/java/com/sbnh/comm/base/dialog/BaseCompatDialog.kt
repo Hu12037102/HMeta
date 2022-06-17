@@ -3,9 +3,8 @@ package com.sbnh.comm.base.dialog
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.annotation.GravityInt
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -30,6 +29,7 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
     protected var mRootView: View? = null
     private var isFirstCreate = true
+    protected var mDialog: BottomSheetDialog? = null
 
     companion object {
         const val TAG = "BaseCompatDialog"
@@ -58,13 +58,16 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        var dialog = super.onCreateDialog(savedInstanceState)
-        dialog = if (dialog is BottomSheetDialog) {
+        val dialog = super.onCreateDialog(savedInstanceState)
+        mDialog = if (dialog is BottomSheetDialog) {
             dialog
         } else {
             BottomSheetDialog(requireContext())
         }
-        return dialog
+        val windowParams = mDialog?.window?.attributes
+        windowParams?.gravity = Gravity.CENTER
+        mDialog?.window?.attributes = windowParams
+        return mDialog!!
     }
 
     private fun init() {
@@ -170,4 +173,7 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     protected open fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
 
     }
+
+    @GravityInt
+    protected fun getGravity(): Int = Gravity.BOTTOM
 }

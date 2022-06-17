@@ -17,6 +17,7 @@ class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, BaseDialogViewMod
     override fun getViewModelClass(): Class<BaseDialogViewModel> = BaseDialogViewModel::class.java
 
     override fun initView() {
+
     }
 
     override fun initData() {
@@ -24,4 +25,5 @@ class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, BaseDialogViewMod
 
     override fun initEvent() {
     }
+
 }

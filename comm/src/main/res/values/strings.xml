@@ -68,4 +68,9 @@
     <string name="sure_give">确认转赠</string>
     <string name="my_have_read_it_carefully_and_agree">我已仔细阅读、明白并同意下列警示：</string>
     <string name="give_collection_ruled">1.本藏品只支持手机号转赠。\n2.如果填写的接收人手机号未在Healer Meta注册，将无法转赠。\n3.请慎重确认接收人手机号正确性，Healer Meta对不准确信息、错误或损害概不负责;\n4.一旦发生转赠操作将无法撤销，且转赠成功后，与数字藏品相关的权利将全部转移至受赠人;\n5.转赠为用户个人行为，请勿对数字藏品进行炒作、场外交易、欺诈等行为，转赠过程中发生资产损失或损害的，Healer Meta不承担任何责任。</string>
+    <string name="real_name_authentication_hint">根据国家相关政策法律规定，先完成身份证验证可进行下一步</string>
+    <string name="id_card_name">身份证姓名</string>
+    <string name="input_name">输入姓名</string>
+    <string name="input_15_to_18_id_card">输入15&#045;18位身份证号</string>
+    <string name="real_name_authentication_purpose">身份证信息仅做验证，不用作其它用途</string>
 </resources>

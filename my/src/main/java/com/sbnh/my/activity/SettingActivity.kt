@@ -6,6 +6,7 @@ import androidx.core.view.ViewCompat
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
+import com.sbnh.comm.dialog.RealNameDialog
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
@@ -58,6 +59,13 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
         mViewBinding.pvBankCard.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_BANK_CARD_LIST)
+            }
+
+        })
+        mViewBinding.pvRealName.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                val dialog = RealNameDialog()
+                dialog.showNow(this@SettingActivity.supportFragmentManager, null)
             }
 
         })
