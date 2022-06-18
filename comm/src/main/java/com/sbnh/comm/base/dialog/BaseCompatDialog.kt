@@ -115,6 +115,9 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
             LogUtils.w(TAG, "我收到数据回调:${this.javaClass.simpleName}----$it")
             resultUserInfo(it)
         }
+        mViewModel.mGainMessageCodeLiveData.observe(this){
+            resultGainMessageCode()
+        }
     }
 
     protected open fun isLoadEmptyView(): Boolean = false
@@ -192,11 +195,12 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
         super.onDetach()
         LogUtils.w(TAG, "onDetach:${this.javaClass.simpleName}")
     }
-
+    @GravityInt
+    protected open fun getGravity(): Int = Gravity.BOTTOM
     protected open fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
 
     }
+    protected open fun resultGainMessageCode(){}
 
-    @GravityInt
-    protected open fun getGravity(): Int = Gravity.BOTTOM
+
 }

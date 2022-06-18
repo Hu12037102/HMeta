@@ -74,6 +74,9 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
             LogUtils.w(TAG, "我收到数据回调:${this.javaClass.simpleName}----$it")
             resultUserInfo(it)
         }
+        mViewModel.mGainMessageCodeLiveData.observe(this){
+            resultGainMessageCode()
+        }
     }
 
     protected open fun isLoadEmptyView(): Boolean = false
@@ -155,4 +158,5 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     protected open fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
 
     }
+    protected open fun resultGainMessageCode(){}
 }

@@ -12,6 +12,7 @@ class ApiService {
     object Path {
         const val USER_LOGIN = "/healer_nft/user/login"
         const val GAIN_MESSAGE_CODE="/healer_nft/user/validate_code"
+        const val REGISTER="/healer_nft/user/registered"
     }
 
     object HttpCode {

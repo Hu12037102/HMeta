@@ -53,6 +53,9 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
         mViewModel.mUserInfoLiveData.observe(this) {
             resultUserInfo(it)
         }
+        mViewModel.mGainMessageCodeLiveData.observe(this){
+            resultGainMessageCode()
+        }
     }
 
     protected open fun isLoadEmptyView(): Boolean = false
@@ -88,5 +91,6 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
     protected open fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
 
     }
+    protected open fun resultGainMessageCode(){}
 
 }

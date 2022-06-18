@@ -2,18 +2,24 @@ package com.sbnh.login.activity
 
 import android.view.View
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.STATUS_RUNNING
+import com.sbnh.comm.entity.request.RequestMessageCodeEntity
+import com.sbnh.comm.entity.request.RequestRegisterEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.login.databinding.ActivityRegisterBinding
 import com.sbnh.login.viewmodel.RegisterViewModel
+import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -80,7 +86,8 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
-                mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
+                mViewModel.gainMessageCode(RequestMessageCodeEntity(DataCompat.toString(phoneNumber)))
+
             }
         })
         mViewBinding.atvGoLogin.setOnClickListener(object : DelayedClick() {
@@ -105,28 +112,37 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
         }
         mViewBinding.atvRegister.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                if (!isCheckAgreement) {
-                    showToast(com.sbnh.comm.R.string.please_agree_user_agreement)
-                    return
-                }
+
                 val phoneNumber =
                     com.sbnh.comm.compat.MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
-                val isEmptyCode =
-                    com.sbnh.comm.compat.MetaViewCompat.textViewTextIsEmpty(mViewBinding.aetGainCode)
-                if (isEmptyCode) {
+                val messageCode = MetaViewCompat.getTextViewText(mViewBinding.aetGainCode)
+                if (DataCompat.isEmpty(messageCode)) {
                     showToast(com.sbnh.comm.R.string.please_input_message_code)
                     return
                 }
+                if (!isCheckAgreement) {
+                    showToast(com.sbnh.comm.R.string.please_agree_user_agreement)
+                    return
+                }
+                val inviteCode = MetaViewCompat.getTextViewText(mViewBinding.aetInviteCode)
+
+                mViewModel.register(
+                    RequestRegisterEntity(
+                        DataCompat.toString(phoneNumber),
+                        DataCompat.toString(messageCode),
+                        DataCompat.toString(inviteCode)
+                    )
+                )
             }
 
         })
         mViewBinding.root.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                MetaViewCompat.hideSoftKeyBoard( mViewBinding.root)
+                MetaViewCompat.hideSoftKeyBoard(mViewBinding.root)
             }
 
         })
@@ -150,6 +166,17 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
             }
 
         }
+        mViewModel.mRegisterLiveData.observe(this) {
+            lifecycleScope.launch {
+                UserInfoStore.get().putEntity(it)
+                ARoutersActivity.startMainActivity()
+            }
+        }
+
+    }
+
+    override fun resultGainMessageCode() {
+        mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
     }
 
     override fun onWindowFirstFocusChanged(hasFocus: Boolean) {

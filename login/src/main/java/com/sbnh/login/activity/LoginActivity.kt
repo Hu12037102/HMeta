@@ -178,9 +178,11 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             }
 
         }
-        mViewModel.mGainMessageCodeLiveData.observe(this) {
-            mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
-        }
+
+    }
+
+    override fun resultGainMessageCode() {
+        mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
     }
 
 
