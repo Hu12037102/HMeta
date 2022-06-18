@@ -73,4 +73,7 @@
     <string name="input_name">输入姓名</string>
     <string name="input_15_to_18_id_card">输入15&#045;18位身份证号</string>
     <string name="real_name_authentication_purpose">身份证信息仅做验证，不用作其它用途</string>
+    <string name="id_card_digits">0123456789Xx</string>
+    <string name="please_inout_name">请输入姓名</string>
+    <string name="please_inout_id_card_number">请输入正确身份证号</string>
 </resources>

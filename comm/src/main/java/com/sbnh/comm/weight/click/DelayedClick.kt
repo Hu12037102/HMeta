@@ -1,6 +1,7 @@
 package com.sbnh.comm.weight.click
 
 import android.view.View
+import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -21,9 +22,14 @@ abstract class DelayedClick : View.OnClickListener {
 
     override fun onClick(v: View?) {
         val newTimeMillis = System.currentTimeMillis()
-        if (newTimeMillis - mTimeLength > mTimeLength) {
+        if ((newTimeMillis - mLastTimeMills) > mTimeLength) {
             onDelayedClick(v)
+            LogUtils.w(
+                "onClick--",
+                "我被点击$mLastTimeMills-----$newTimeMillis---${(newTimeMillis - mTimeLength)}"
+            )
             mLastTimeMills = newTimeMillis
+
         }
 
     }

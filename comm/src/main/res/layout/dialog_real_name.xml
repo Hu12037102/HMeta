@@ -3,116 +3,130 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/size_42dp"
-    android:layout_marginEnd="@dimen/size_42dp"
-    android:background="@color/colorWindowBackground"
-    android:paddingTop="@dimen/size_20dp"
-    android:paddingBottom="@dimen/size_30dp">
+    android:layout_height="match_parent"
+    android:background="@color/colorTransparent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/atv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/real_name_authentication"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_15sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/aiv_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/size_10dp"
-        android:padding="@dimen/size_5dp"
-        app:layout_constraintBottom_toBottomOf="@id/atv_title"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/atv_title"
-        app:srcCompat="@mipmap/icon_real_name_close"
-
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/atv_hint"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/default_margin"
-        android:layout_marginTop="@dimen/size_10dp"
-        android:layout_marginEnd="@dimen/default_margin"
-        android:gravity="center_horizontal"
-        android:lineSpacingExtra="@dimen/size_2dp"
-        android:text="@string/real_name_authentication_hint"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_12sp"
-        app:layout_constraintTop_toBottomOf="@id/atv_title" />
+        android:layout_marginStart="@dimen/size_42dp"
+        android:layout_marginEnd="@dimen/size_42dp"
+        android:background="@color/colorWindowBackground"
+        android:paddingTop="@dimen/size_20dp"
+        android:paddingBottom="@dimen/size_30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/atv_name_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/size_26dp"
-        android:layout_marginTop="@dimen/size_16dp"
-        android:text="@string/id_card_name"
-        android:textColor="@color/white"
-        android:textSize="@dimen/default_text_size"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/atv_hint" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/real_name_authentication"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_15sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/aet_name"
-        style="@style/InputEditText"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_46dp"
-        android:layout_marginTop="@dimen/size_6dp"
-        android:hint="@string/input_name"
-        app:layout_constraintTop_toBottomOf="@id/atv_name_title" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/aiv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:padding="@dimen/size_5dp"
+            app:layout_constraintBottom_toBottomOf="@id/atv_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/atv_title"
+            app:srcCompat="@mipmap/icon_real_name_close"
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/atv_id_card_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/size_26dp"
-        android:layout_marginTop="@dimen/size_20dp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/default_text_size"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/aet_name"
-        tools:text="身份证号" />
+            />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/aet_ic_card"
-        style="@style/InputEditText"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_46dp"
-        android:layout_marginTop="@dimen/size_6dp"
-        android:hint="@string/input_15_to_18_id_card"
-        app:layout_constraintTop_toBottomOf="@id/atv_id_card_title" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/default_margin"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/default_margin"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="@dimen/size_2dp"
+            android:text="@string/real_name_authentication_hint"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintTop_toBottomOf="@id/atv_title" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/atv_commit"
-        style="@style/SureClickButton"
-        android:layout_width="@dimen/size_174dp"
-        android:layout_height="@dimen/size_44dp"
-        android:layout_marginTop="@dimen/size_32dp"
-        android:text="@string/commit"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/aet_ic_card" />
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_26dp"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:text="@string/id_card_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/atv_hint" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/size_8dp"
-        android:drawableStart="@mipmap/icon_comm_keep_hint_small"
-        android:drawablePadding="@dimen/size_2dp"
-        android:gravity="center_vertical"
-        android:text="@string/real_name_authentication_purpose"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_10sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/atv_commit" />
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/aet_name"
+            style="@style/InputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_46dp"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:hint="@string/input_name"
+            android:inputType="text"
+            android:maxLength="10"
+            app:layout_constraintTop_toBottomOf="@id/atv_name_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_id_card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_26dp"
+            android:layout_marginTop="@dimen/size_20dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_text_size"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aet_name"
+            tools:text="身份证号" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/aet_id_card"
+            style="@style/InputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_46dp"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:digits="@string/id_card_digits"
+            android:hint="@string/input_15_to_18_id_card"
+            android:inputType="text"
+            android:maxLength="18"
+            app:layout_constraintTop_toBottomOf="@id/atv_id_card_title" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_commit"
+            style="@style/SureClickButton"
+            android:layout_width="@dimen/size_174dp"
+            android:layout_height="@dimen/size_44dp"
+            android:layout_marginTop="@dimen/size_32dp"
+            android:text="@string/commit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/aet_id_card" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_8dp"
+            android:drawableStart="@mipmap/icon_comm_keep_hint_small"
+            android:drawablePadding="@dimen/size_2dp"
+            android:gravity="center_vertical"
+            android:text="@string/real_name_authentication_purpose"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_10sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/atv_commit" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,17 +4,22 @@ import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.FrameLayout
 import androidx.annotation.GravityInt
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.sbnh.comm.R
 import com.sbnh.comm.base.viewmodel.BaseViewModel
+import com.sbnh.comm.compat.PhoneCompat
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+
 
 /**
  * 作者: 胡庆岭
@@ -29,7 +34,7 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
     protected var mRootView: View? = null
     private var isFirstCreate = true
-    protected var mDialog: BottomSheetDialog? = null
+    protected var mDialog: Dialog? = null
 
     companion object {
         const val TAG = "BaseCompatDialog"
@@ -43,6 +48,7 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LogUtils.w(TAG, "onCreate:${this.javaClass.simpleName}")
+        //  setStyle(STYLE_NO_TITLE, R.style.BaseDialogTheme);
     }
 
     override fun onCreateView(
@@ -58,24 +64,41 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        mDialog = if (dialog is BottomSheetDialog) {
+        mDialog = super.onCreateDialog(savedInstanceState)
+      /*  mDialog = if (dialog is BottomSheetDialog) {
             dialog
         } else {
             BottomSheetDialog(requireContext())
-        }
-        val windowParams = mDialog?.window?.attributes
-        windowParams?.gravity = Gravity.CENTER
-        mDialog?.window?.attributes = windowParams
+        }*/
         return mDialog!!
     }
 
+
+    override fun getTheme(): Int = R.style.BaseDialogTheme
+
     private fun init() {
+        initDialogParams()
         initParentView(context, mRootView)
         initView()
         initData()
         initEvent()
         initObserve()
+    }
+
+    private fun initDialogParams() {
+
+
+        val windowParams = mDialog?.window?.attributes
+        mDialog?.window?.setLayout(
+            PhoneCompat.screenWidth(requireContext()),
+            PhoneCompat.screenHeight(requireContext())
+        )
+        windowParams?.let {
+            it.width = ViewGroup.LayoutParams.MATCH_PARENT
+            it.height = ViewGroup.LayoutParams.MATCH_PARENT
+            it.gravity = getGravity()
+            mDialog?.window?.attributes = it
+        }
     }
 
     protected abstract fun getViewBinding(): VB
@@ -175,5 +198,5 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     }
 
     @GravityInt
-    protected fun getGravity(): Int = Gravity.BOTTOM
+    protected open fun getGravity(): Int = Gravity.BOTTOM
 }

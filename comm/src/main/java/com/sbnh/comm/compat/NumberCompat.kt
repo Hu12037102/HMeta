@@ -26,4 +26,10 @@ object NumberCompat {
         DataCompat.getTextLength(number) >= Contract.BANK_CARD_NUMBER_MIN
                 &&
                 DataCompat.getTextLength(number) <= Contract.BANK_CARD_NUMBER_MAX
+
+    @JvmStatic
+    fun isIdCard(idCard: CharSequence?) =
+        DataCompat.getTextLength(idCard) >= Contract.ID_CARD_NUMBER_MIN
+                &&
+                DataCompat.getTextLength(idCard) <= Contract.ID_CARD_NUMBER_MAX
 }
