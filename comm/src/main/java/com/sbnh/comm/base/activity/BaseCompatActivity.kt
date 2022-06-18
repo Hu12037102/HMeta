@@ -53,8 +53,20 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
         mViewModel.mUserInfoLiveData.observe(this) {
             resultUserInfo(it)
         }
-        mViewModel.mGainMessageCodeLiveData.observe(this){
+        mViewModel.mGainMessageCodeLiveData.observe(this) {
             resultGainMessageCode()
+        }
+        mViewModel.mLoadingLiveData.observe(this) {
+            if (it) {
+                mLoadingViewBinding?.cpbLoading?.show()
+            } else {
+              /*  mLoadingViewBinding?.cpbLoading?.postDelayed(
+                    { mLoadingViewBinding?.cpbLoading?.hide() },
+                    500
+                )*/
+                mLoadingViewBinding?.cpbLoading?.hide()
+            }
+
         }
     }
 
@@ -91,6 +103,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
     protected open fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
 
     }
-    protected open fun resultGainMessageCode(){}
+
+    protected open fun resultGainMessageCode() {}
 
 }

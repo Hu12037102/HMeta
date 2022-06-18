@@ -22,11 +22,14 @@ class LoginViewModel : TimerViewModel() {
 
         viewModelScope.launch(Dispatchers.Main) {
             try {
+                showLoading()
                 val response = mRetrofitManger.create(LoginService::class.java)
                     .login(requestLoginEntity)
                 disposeRetrofit(mLoginLiveData, response)
             } catch (e: Exception) {
                 e.printStackTrace()
+            } finally {
+                dismissLoading()
             }
 
         }

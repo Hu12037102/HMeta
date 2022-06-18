@@ -35,6 +35,7 @@ open class BaseViewModel : ViewModel() {
     val mToastLiveData: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val mUserInfoLiveData: MutableLiveData<UserInfoEntity> by lazy { MutableLiveData<UserInfoEntity>() }
     val mGainMessageCodeLiveData: MutableLiveData<Unit> by lazy { MutableLiveData<Unit>() }
+    val mLoadingLiveData: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
 
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -62,7 +63,7 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
-    fun <T> disposeRetrofit(liveData: MutableLiveData<T>?, response: Response<T>?){
+    fun <T> disposeRetrofit(liveData: MutableLiveData<T>?, response: Response<T>?) {
         if (response == null) {
             mToastLiveData.value =
                 DataCompat.getResString(com.sbnh.comm.R.string.default_http_error)
@@ -103,6 +104,12 @@ open class BaseViewModel : ViewModel() {
         }
 
 
+    }
+    fun showLoading(){
+        mLoadingLiveData.value = true
+    }
+    fun dismissLoading(){
+        mLoadingLiveData.value = false
     }
 
 }
