@@ -76,4 +76,5 @@
     <string name="id_card_digits">0123456789Xx</string>
     <string name="please_inout_name">请输入姓名</string>
     <string name="please_inout_id_card_number">请输入正确身份证号</string>
+    <string name="default_http_error">网络异常~</string>
 </resources>

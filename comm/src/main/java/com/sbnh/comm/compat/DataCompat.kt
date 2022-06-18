@@ -65,4 +65,7 @@ object DataCompat {
     fun getTextLength(text: CharSequence?): Int {
         return text?.length ?: 0
     }
+
+    @JvmStatic
+    fun toString(any: Any?): String = any?.toString() ?: ""
 }

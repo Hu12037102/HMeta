@@ -66,10 +66,12 @@
             android:layout_height="@dimen/size_0dp"
             android:layout_marginStart="@dimen/size_10dp"
             android:layout_marginEnd="@dimen/size_10dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/civ_head"
             app:layout_constraintLeft_toRightOf="@id/civ_head"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/civ_head">
+            app:layout_constraintTop_toTopOf="@id/civ_head"
+            tools:visibility="visible">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
@@ -134,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_title"/>
+        app:layout_constraintTop_toBottomOf="@id/cl_title" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

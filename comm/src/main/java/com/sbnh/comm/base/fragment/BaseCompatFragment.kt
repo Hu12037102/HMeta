@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import kotlinx.coroutines.launch
 
 abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment() {
     protected val mViewBinding: VB by lazy { getViewBinding() }

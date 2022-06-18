@@ -2,19 +2,25 @@ package com.sbnh.login.activity
 
 import android.view.View
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.*
+import com.sbnh.comm.entity.request.RequestLoginEntity
+import com.sbnh.comm.entity.request.RequestMessageCodeEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 
 import com.sbnh.login.databinding.ActivityLoginBinding
 import com.sbnh.login.viewmodel.LoginViewModel
+import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -81,12 +87,14 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         mViewBinding.atvGainCode.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 val phoneNumber =
-                    com.sbnh.comm.compat.MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
+                    MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
-                mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH.toLong())
+                val request = RequestMessageCodeEntity(DataCompat.toString(phoneNumber))
+                mViewModel.gainMessageCode(request)
+                //   mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
             }
         })
         mViewBinding.atvGoRegister.setOnClickListener(object : DelayedClick() {
@@ -111,28 +119,35 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         }
         mViewBinding.atvLogin.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                if (!isCheckAgreement) {
-                    showToast(com.sbnh.comm.R.string.please_agree_user_agreement)
-                    return
-                }
+
                 val phoneNumber =
-                    com.sbnh.comm.compat.MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
+                    MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
+                val messageCode = MetaViewCompat.getTextViewText(mViewBinding.aetGainCode)
                 val isEmptyCode =
-                    com.sbnh.comm.compat.MetaViewCompat.textViewTextIsEmpty(mViewBinding.aetGainCode)
+                    MetaViewCompat.textViewTextIsEmpty(mViewBinding.aetGainCode)
                 if (isEmptyCode) {
                     showToast(com.sbnh.comm.R.string.please_input_message_code)
                     return
                 }
+                if (!isCheckAgreement) {
+                    showToast(com.sbnh.comm.R.string.please_agree_user_agreement)
+                    return
+                }
+                val request = RequestLoginEntity(
+                    DataCompat.toString(phoneNumber),
+                    DataCompat.toString(messageCode)
+                )
+                mViewModel.login(request)
             }
 
         })
-        mViewBinding.root.setOnClickListener(object :DelayedClick(){
+        mViewBinding.root.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                MetaViewCompat.hideSoftKeyBoard( mViewBinding.root)
+                MetaViewCompat.hideSoftKeyBoard(mViewBinding.root)
             }
 
         })
@@ -155,6 +170,16 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
                 )
             }
 
+        }
+        mViewModel.mLoginLiveData.observe(this) {
+            lifecycleScope.launch {
+                UserInfoStore.get().putEntity(it)
+                ARoutersActivity.startMainActivity()
+            }
+
+        }
+        mViewModel.mGainMessageCodeLiveData.observe(this) {
+            mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
         }
     }
 

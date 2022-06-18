@@ -14,8 +14,18 @@ object AppConfig {
     fun isShowLog(): Boolean {
         return isDebug()
     }
+
     @JvmStatic
-    fun isDebug():Boolean{
+    fun isDebug(): Boolean {
         return BuildConfig.DEBUG
     }
+
+    @JvmStatic
+    fun getBaseUrl() = BuildConfig.BASE_URL
+
+    @JvmStatic
+    fun getHealerMetaAppId() = BuildConfig.HEALER_META_APP_ID
+
+    @JvmStatic
+    fun getHealerMetaAppKey() = BuildConfig.HEALER_META_APP_KEY
 }

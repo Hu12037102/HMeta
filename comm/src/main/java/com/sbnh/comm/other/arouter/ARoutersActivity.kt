@@ -1,5 +1,6 @@
 package com.sbnh.comm.other.arouter
 
+import com.sbnh.comm.manger.ActivityCompatManger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -12,8 +13,14 @@ import kotlinx.coroutines.launch
  */
 object ARoutersActivity {
     @JvmStatic
-    fun startLoginActivity(){
+    fun startLoginActivity() {
         ARouters.startActivity(ARouterConfig.Path.Login.ACTIVITY_LOGIN)
+    }
+
+    @JvmStatic
+    fun startMainActivity() {
+        ActivityCompatManger.get().clear()
+        ARouters.startActivity(ARouterConfig.Path.Main.ACTIVITY_MAIN)
     }
 
 }

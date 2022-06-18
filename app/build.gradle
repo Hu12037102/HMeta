@@ -1,14 +1,16 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-   // id 'kotlin-parcelize'
+    // id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'walle'
 }
 apply from: "$rootDir/config.gradle"
 android {
     compileSdk versions.compileSdk
 
     defaultConfig {
+        resConfigs "zh-rCN"
         //  applicationId "com.sbnh.healer_meta"
         // applicationId "com.sbnh.healermeta"
         applicationId versions.applicationId
@@ -25,11 +27,38 @@ android {
             }
         }
     }
+    signingConfigs {
+        release {
+            storeFile file('../healer_meta_store.jks')
+            keyAlias 'healermeta'
+            storePassword 'healermeta666888'
+            keyPassword 'healermeta666888'
+            //SHA256: 28:53:E0:A6:D0:4C:5D:AF:9D:6E:35:AF:0D:F7:00:EA:BA:3D:BC:40:50:77:9D:FA:4B:25:10:CB:1D:32:28:42
+        }
+        debug {
+            storeFile file('../healer_meta_store.jks')
+            keyAlias 'healermeta'
+            storePassword 'healermeta666888'
+            keyPassword 'healermeta666888'
+        }
+    }
 
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources false
+            zipAlignEnabled false
+            pseudoLocalesEnabled false
+        }
+        debug {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            shrinkResources false
+            zipAlignEnabled false
+            pseudoLocalesEnabled false
         }
     }
     compileOptions {
@@ -43,6 +72,14 @@ android {
         enabled = true
     }
 
+}
+walle {
+    // 指定渠道包的输出路径
+    apkOutputFolder = new File("${project.buildDir}/outputs/channels");
+    // 定制渠道包的APK的文件名称
+    apkFileNameFormat = 'Healer-${channel}-${buildType}-${versionName}-c${versionCode}-${buildTime}.apk'
+    // 渠道配置文件
+    channelFile = new File("${project.getProjectDir()}/channel")
 }
 
 dependencies {

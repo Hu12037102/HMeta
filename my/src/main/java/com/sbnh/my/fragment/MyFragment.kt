@@ -42,7 +42,6 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
     }
 
 
-
     override fun initData() {
         mViewModel.loadUserInfo()
         iniTabAdapter()
@@ -75,8 +74,14 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
 
     override fun initEvent() {
         mViewBinding.civHead.setOnClickListener {
-            ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_SETTING)
+
         }
+        mViewBinding.aivSetting.setOnClickListener(object :DelayedClick(){
+            override fun onDelayedClick(v: View?) {
+                ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_SETTING)
+            }
+
+        })
 
     }
 
@@ -84,8 +89,8 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
         super.initObserve()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         mViewModel.loadUserInfo()
     }
 
@@ -94,7 +99,8 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
         if (isLogin) {
             mViewBinding.clLogin.visibility = View.VISIBLE
             mViewBinding.clNotLogin.visibility = View.GONE
-
+            GlideCompat.loadImage(userInfoEntity?.header, mViewBinding.civHead)
+            UICompat.setText(mViewBinding.atvName, userInfoEntity?.nickName)
         } else {
             mViewBinding.clNotLogin.visibility = View.VISIBLE
             mViewBinding.clLogin.visibility = View.GONE
