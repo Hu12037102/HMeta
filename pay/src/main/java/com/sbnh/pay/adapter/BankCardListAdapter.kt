@@ -21,7 +21,7 @@ class BankCardListAdapter(context: Context, data: List<BankCardEntity>) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onBindChildViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val entity = mData[position]
+      //  val entity = mData[position]
         /*if (holder is ViewHolder) {
             holder.binding
         }*/

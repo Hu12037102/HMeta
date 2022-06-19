@@ -57,6 +57,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.appcompatVersion"
     implementation "com.google.android.material:material:$versions.materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayoutVersion"
+   // implementation project(path: ':walle')
     testImplementation "junit:junit:$versions.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$versions.junitTestVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoVersion"
@@ -90,4 +91,5 @@ dependencies {
     api "com.github.Hu12037102:ProjectViewX:$versions.ProjectViewX"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
    // api 'com.meituan.android.walle:library:1.1.7'
+    api 'com.tencent.vasdolly:helper:3.0.4'
 }

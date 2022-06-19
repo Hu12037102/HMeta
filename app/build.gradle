@@ -3,7 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     // id 'kotlin-parcelize'
     id 'kotlin-kapt'
-    id 'walle'
+   // id 'walle'
+    id 'com.tencent.vasdolly'
 }
 apply from: "$rootDir/config.gradle"
 android {
@@ -33,6 +34,8 @@ android {
             keyAlias 'healermeta'
             storePassword 'healermeta666888'
             keyPassword 'healermeta666888'
+            enableV1Signing true
+            enableV2Signing true
             //SHA256: 28:53:E0:A6:D0:4C:5D:AF:9D:6E:35:AF:0D:F7:00:EA:BA:3D:BC:40:50:77:9D:FA:4B:25:10:CB:1D:32:28:42
         }
         debug {
@@ -40,6 +43,8 @@ android {
             keyAlias 'healermeta'
             storePassword 'healermeta666888'
             keyPassword 'healermeta666888'
+            enableV1Signing true
+            enableV2Signing false
         }
     }
 
@@ -61,6 +66,9 @@ android {
             pseudoLocalesEnabled false
         }
     }
+   /* lintOptions {
+        abortOnError false
+    }*/
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -73,13 +81,42 @@ android {
     }
 
 }
-walle {
+/*walle {
     // 指定渠道包的输出路径
     apkOutputFolder = new File("${project.buildDir}/outputs/channels");
     // 定制渠道包的APK的文件名称
     apkFileNameFormat = 'Healer-${channel}-${buildType}-${versionName}-c${versionCode}-${buildTime}.apk'
     // 渠道配置文件
     channelFile = new File("${project.getProjectDir()}/channel")
+}*/
+
+//VasDolly插件配置
+//gradle channelDebug/channelRelease 编译生成apk后，再根据生成的Apk生成渠道包
+channel{
+    channelFile = file("channel")
+    //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
+    outputDir = new File(project.buildDir,"channels")
+    //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}-${buildTime}
+    apkNameFormat ='${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
+    //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
+    fastMode = false
+    //buildTime的时间格式，默认格式：yyyyMMdd-HHmmss
+    buildTimeDateFormat = 'yyyyMMdd-HH:mm:ss'
+    //低内存模式（仅针对V2签名，默认为false）：只把签名块、中央目录和EOCD读取到内存，不把最大头的内容块读取到内存，在手机上合成APK时，可以使用该模式
+    lowMemory = false
+}
+
+// gradle rebuildChannel 配置此任务用于不希望重新构建apk，直接根据指定的apk生成渠道包
+rebuildChannel {
+    channelFile = file("channel")
+    //指定的apk生成渠道包,文件名中如果有base将被替换为渠道名，否则渠道名将作为前缀
+    baseApk = new File(project.buildDir, "outputs/apk/debug/app-debug.apk")
+    //默认为new File(project.buildDir, "rebuildChannel")
+    outputDir = new File(project.buildDir, "rebuildChannels")
+    //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
+    fastMode = false
+    //低内存模式（仅针对V2签名，默认为false）：只把签名块、中央目录和EOCD读取到内存，不把最大头的内容块读取到内存，在手机上合成APK时，可以使用该模式
+    lowMemory = false
 }
 
 dependencies {
