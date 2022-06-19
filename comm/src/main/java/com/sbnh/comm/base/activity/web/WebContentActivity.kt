@@ -31,7 +31,7 @@ class WebContentActivity : BaseWebActivity<ActivityWebContentBinding, WebContent
     }
 
     override fun initData() {
-        loadUrl("http://www.baidu.com")
+        loadUrl("https://www.baidu.com")
     }
 
 
