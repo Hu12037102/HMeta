@@ -1,10 +1,11 @@
 package com.sbnh.comm.http
 
-import com.sbnh.comm.BuildConfig
 import com.sbnh.comm.compat.NetWorkCompat
 import com.sbnh.comm.config.AppConfig
 import com.sbnh.comm.digest.SHA1Compat
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.utils.LogUtils
+import kotlinx.coroutines.runBlocking
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -58,20 +59,23 @@ class RetrofitManger private constructor() {
             val appId = AppConfig.getHealerMetaAppId()
             val appKey = AppConfig.getHealerMetaAppKey()
             val all = "$appId$appKey$timestamp$uuid"
-         //    val encryptText = SHA1Compat.encryptText("$appId$appKey$timestamp$uuid")
+            //    val encryptText = SHA1Compat.encryptText("$appId$appKey$timestamp$uuid")
             val encryptText = SHA1Compat.hamcsha1(
                 all.toByteArray(Charset.defaultCharset()),
                 appKey.toByteArray(Charset.defaultCharset())
             )
+            val sid = runBlocking { UserInfoStore.get().getEntity()?.sid }
             val request: Request = chain.request()
                 .newBuilder()
-                 .addHeader("Content-Type", "application/json")
-                 .addHeader("charset", Charsets.UTF_8.name())
-                .addHeader("accessToken", encryptText)
-                .addHeader("ts", "$timestamp")
-                .addHeader("uuid", uuid)
+                .addHeader(IApiService.Key.CONTENT_TYPE, "application/json")
+                .addHeader(IApiService.Key.CHARSET, Charsets.UTF_8.name())
+                .addHeader(IApiService.Key.ACCESS_TOKEN, encryptText)
+                .addHeader(IApiService.Key.TS, "$timestamp")
+                .addHeader(IApiService.Key.UUID, uuid)
+                .addHeader(IApiService.Key.SID, sid ?: "")
                 .build()
             return@Interceptor chain.proceed(request)
+
         }
 
 

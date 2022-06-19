@@ -77,4 +77,7 @@
     <string name="please_inout_name">请输入姓名</string>
     <string name="please_inout_id_card_number">请输入正确身份证号</string>
     <string name="default_http_error">网络异常~</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="arc_you_sure_exit_login">确当退出登录</string>
 </resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_42dp"
+        android:layout_marginEnd="@dimen/size_42dp"
+        app:cardCornerRadius="@dimen/size_14dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorFF1A1A1A"
+                android:gravity="center"
+                android:paddingStart="@dimen/default_margin"
+                android:paddingTop="@dimen/size_46dp"
+                android:paddingEnd="@dimen/default_margin"
+                android:paddingBottom="@dimen/size_36dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_15sp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="下架商品" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_cancel"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="@dimen/size_48dp"
+                android:background="@color/colorFF363639"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:textColor="@color/white"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/atv_confirm"
+                app:layout_constraintTop_toBottomOf="@id/atv_title"
+                android:textSize="@dimen/size_16sp"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_confirm"
+                android:layout_width="@dimen/size_0dp"
+                android:layout_height="@dimen/size_48dp"
+                android:background="@color/colorFF363639"
+                android:gravity="center"
+                android:text="@string/confirm"
+                android:textColor="@color/white"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintLeft_toRightOf="@id/atv_cancel"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/atv_cancel"
+                android:textSize="@dimen/size_16sp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

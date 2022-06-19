@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
-import com.sbnh.comm.http.ApiService
+import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.BaseService
 import com.sbnh.comm.http.ErrorResponse
 import com.sbnh.comm.http.RetrofitManger
@@ -17,7 +17,6 @@ import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.ResponseBody
 import retrofit2.Response
 
 /**
@@ -55,7 +54,7 @@ open class BaseViewModel : ViewModel() {
     }
 
 
-    fun exitLogin() {
+    fun exitLoginLocal() {
         viewModelScope.launch(Dispatchers.Main) {
             UserInfoStore.get().clear()
             ActivityCompatManger.get().clear()
@@ -78,10 +77,10 @@ open class BaseViewModel : ViewModel() {
                 LogUtils.w("disposeRetrofit--", "成功")
             } else {
                 when (response.code()) {
-                    ApiService.HttpCode.CLIENT_ERROR -> {
+                    IApiService.HttpCode.CLIENT_ERROR -> {
                         LogUtils.w("disposeRetrofit--", "客户端异常")
                     }
-                    ApiService.HttpCode.SERVICE_ERROR -> {
+                    IApiService.HttpCode.SERVICE_ERROR -> {
                         LogUtils.w("disposeRetrofit--", "服务器异常")
                     }
                     else -> {

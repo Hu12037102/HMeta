@@ -28,6 +28,7 @@
     <color name="colorFF717171">#FF717171</color>
     <color name="colorFFFAAD14">#FFFAAD14</color>
     <color name="colorFFA56CFF">#FFA56CFF</color>
+    <color name="colorFF1A1A1A">#FF1A1A1A</color>
     <color name="colorWindowBackground">@color/colorFF191919</color>
     <color name="color_title_view_center_text_color">@color/white</color>
 </resources>

@@ -3,12 +3,12 @@ package com.sbnh.comm.dialog
 import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import com.sbnh.comm.base.dialog.BaseCompatDialog
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.databinding.DialogRealNameBinding
-import com.sbnh.comm.viewmodel.BaseDialogViewModel
+import com.sbnh.comm.dialog.viewmodel.RealNameDialogViewModel
+import com.sbnh.comm.entity.request.RequestRealNameEmpty
 import com.sbnh.comm.weight.click.DelayedClick
 
 /**
@@ -17,13 +17,14 @@ import com.sbnh.comm.weight.click.DelayedClick
  * 更新时间: 2022/6/17 17:55
  * 描述:
  */
-class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, BaseDialogViewModel>() {
+class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, RealNameDialogViewModel>() {
     override fun getViewBinding(): DialogRealNameBinding =
         DialogRealNameBinding.inflate(
             layoutInflater
         )
 
-    override fun getViewModelClass(): Class<BaseDialogViewModel> = BaseDialogViewModel::class.java
+    override fun getViewModelClass(): Class<RealNameDialogViewModel> =
+        RealNameDialogViewModel::class.java
 
     override fun initView() {
         ViewCompat.setBackground(mViewBinding.clParent, createWindowBackground())
@@ -45,7 +46,12 @@ class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, BaseDialogViewMod
                     showToast(com.sbnh.comm.R.string.please_inout_id_card_number)
                     return
                 }
-
+                mViewModel.realNameAuthentication(
+                    RequestRealNameEmpty(
+                        DataCompat.toString(name),
+                        DataCompat.toString(idCard)
+                    )
+                )
             }
 
         })

@@ -1,5 +1,6 @@
 package com.sbnh.comm.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 
 /**
@@ -9,4 +10,6 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
  * 描述:
  */
 open class BaseDialogViewModel:BaseViewModel() {
+
+
 }

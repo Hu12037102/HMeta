@@ -4,8 +4,12 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
+import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.DialogCompat
 import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.glide.GlideCompat
@@ -39,10 +43,31 @@ class MyAccountInfoActivity :
     override fun initEvent() {
         mViewBinding.atvExitLogin.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                mViewModel.exitLogin()
+                val titleDialog =
+                    TitleDialog(DataCompat.getResString(com.sbnh.comm.R.string.arc_you_sure_exit_login))
+                titleDialog.setOnDialogItemInfoClickListener(object :OnDialogItemInfoClickListener{
+                    override fun onClickConfirm(view: View?) {
+                        mViewModel.exitLoginService()
+                        titleDialog.dismiss()
+                    }
+
+                    override fun onClickCancel(view: View?) {
+                        titleDialog.dismiss()
+                    }
+
+                })
+                DialogCompat.showFragmentDialog(titleDialog, supportFragmentManager)
+                // mViewModel.exitLogin()
             }
 
         })
+    }
+
+    override fun initObserve() {
+        super.initObserve()
+        mViewModel.mExitLoginLiveData.observe(this) {
+            mViewModel.exitLoginLocal()
+        }
     }
 
     override fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
