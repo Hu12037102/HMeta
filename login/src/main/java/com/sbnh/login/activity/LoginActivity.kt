@@ -67,7 +67,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             .append(DataCompat.getResString(com.sbnh.comm.R.string.my_have_read_and_sure))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.user_agreement))
             .setClick(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
-
+                ARouters.startActivity(ARouterConfig.Path.Comm.ACTIVITY_WEB_CONTENT)
             }
             .append(DataCompat.getResString(com.sbnh.comm.R.string.and))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.privacy_policy))

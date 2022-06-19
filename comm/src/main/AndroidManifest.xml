@@ -8,4 +8,12 @@
         android:name="android.permission.INSTALL_PACKAGES"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <activity
+            android:name=".base.activity.web.WebContentActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+    </application>
 </manifest>

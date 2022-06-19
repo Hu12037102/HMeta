@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground">
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_title_view_height"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pv_left_custom_click_enable="true"
+        app:pv_left_start_src="@mipmap/icon_comm_back_white" />
+
+    <ProgressBar
+        android:id="@+id/pb_schedule"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_2dp"
+        app:layout_constraintTop_toBottomOf="@id/pv_title"
+        tools:progress="50" />
+
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pb_schedule" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

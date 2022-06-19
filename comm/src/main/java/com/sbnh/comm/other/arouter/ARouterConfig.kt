@@ -46,6 +46,9 @@ class ARouterConfig {
             const val ACTIVITY_BANK_CARD_LIST = "/pay/activity/bank/card/list"
             const val ACTIVITY_ADD_BANK_CARD = "/pay/activity/add/bank/card"
         }
+        object Comm{
+            const val ACTIVITY_WEB_CONTENT="comm/activity/web/content"
+        }
 
     }
 }
