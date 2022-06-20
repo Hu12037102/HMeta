@@ -18,6 +18,8 @@ import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import java.io.File
+import java.io.FileOutputStream
 
 /**
  * 作者: 胡庆岭
@@ -47,9 +49,13 @@ open class BaseViewModel : ViewModel() {
 
     fun gainMessageCode(entity: RequestMessageCodeEntity) {
         viewModelScope.launch(Dispatchers.Main) {
-            val result = mRetrofitManger.create(BaseService::class.java)
-                .gainMessageCode(entity)
-            disposeRetrofit(mGainMessageCodeLiveData, result)
+            try {
+                val result = mRetrofitManger.create(BaseService::class.java)
+                    .gainMessageCode(entity)
+                disposeRetrofit(mGainMessageCodeLiveData, result)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
@@ -104,10 +110,12 @@ open class BaseViewModel : ViewModel() {
 
 
     }
-    fun showLoading(){
+
+    fun showLoading() {
         mLoadingLiveData.value = true
     }
-    fun dismissLoading(){
+
+    fun dismissLoading() {
         mLoadingLiveData.value = false
     }
 
