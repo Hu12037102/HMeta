@@ -28,6 +28,13 @@ object GradientDrawableCompat {
         drawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
         return drawable
     }
+    @JvmStatic
+    fun createNoClickDrawable(dpValue: Float): GradientDrawable {
+        val drawable = create()
+        drawable.cornerRadius = PhoneCompat.dp2px(DataCompat.getContext(), dpValue).toFloat()
+        drawable.setColor(MetaViewCompat.getColor(R.color.colorFF717171))
+        return drawable
+    }
 
     @JvmStatic
     fun createLoginInputDrawable(): GradientDrawable {

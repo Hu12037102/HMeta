@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 class ARouterConfig {
     object Key {
         const val HAS_LOGIN = "has_login"
+        const val WEB_URL = "web_url"
+        const val ID = "id"
     }
 
     class Path {
@@ -20,6 +22,7 @@ class ARouterConfig {
 
         object Home {
             const val FRAGMENT_HOME = "/home/fragment/home"
+            const val ACTIVITY_COLLECTION_DETAILS = "/home/activity/collection/details"
 
         }
 
@@ -33,7 +36,7 @@ class ARouterConfig {
             const val ACTIVITY_SETTING = "/my/activity/setting"
             const val ACTIVITY_MY_ACCOUNT_INFO = "/my/activity/my/account/info"
             const val ACTIVITY_SET_PAYMENT_PASSWORD = "/my/activity/set/payment/password"
-            const val ACTIVITY_GIVE_COLLECTION="/my/activity/give/collection"
+            const val ACTIVITY_GIVE_COLLECTION = "/my/activity/give/collection"
         }
 
         object Login {
@@ -46,8 +49,9 @@ class ARouterConfig {
             const val ACTIVITY_BANK_CARD_LIST = "/pay/activity/bank/card/list"
             const val ACTIVITY_ADD_BANK_CARD = "/pay/activity/add/bank/card"
         }
-        object Comm{
-            const val ACTIVITY_WEB_CONTENT="comm/activity/web/content"
+
+        object Comm {
+            const val ACTIVITY_WEB_CONTENT = "/comm/activity/web/content"
         }
 
     }

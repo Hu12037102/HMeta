@@ -1029,6 +1029,7 @@
     <dimen name="size_26sp">26dp</dimen>
     <dimen name="size_28sp">28dp</dimen>
     <dimen name="size_30sp">30dp</dimen>
+    <dimen name="size_34sp">34dp</dimen>
     <dimen name="size_40sp">40dp</dimen>
 
     <dimen name="default_margin">@dimen/size_16dp</dimen>

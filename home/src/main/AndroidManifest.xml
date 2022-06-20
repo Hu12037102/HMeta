@@ -2,4 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sbnh.home">
 
+    <application>
+        <activity
+            android:name=".activity.CollectionDetailsActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Hide.StatusBar"/>
+    </application>
 </manifest>

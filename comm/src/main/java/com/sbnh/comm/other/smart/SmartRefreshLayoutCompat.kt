@@ -18,4 +18,12 @@ object SmartRefreshLayoutCompat {
             it.setEnableOverScrollBounce(true)
         }
     }
+
+    @JvmStatic
+    fun wipeDamp(refreshLayout: SmartRefreshLayout?) {
+        refreshLayout?.let {
+            it.setEnableOverScrollDrag(false)
+            it.setEnableOverScrollBounce(false)
+        }
+    }
 }

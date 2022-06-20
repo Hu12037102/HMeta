@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_limit_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/share_collection_limit_count_left_view"
+        android:paddingStart="@dimen/size_8dp"
+        android:paddingTop="@dimen/size_4dp"
+        android:paddingEnd="@dimen/size_8dp"
+        android:paddingBottom="@dimen/size_4dp"
+        android:text="@string/limit_number"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_limit_count"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/size_0dp"
+        android:background="@mipmap/icon_home_collection_limit_count"
+        android:gravity="center"
+        android:paddingStart="@dimen/size_8dp"
+        android:paddingTop="@dimen/size_4dp"
+        android:paddingEnd="@dimen/size_8dp"
+        android:paddingBottom="@dimen/size_4dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintBottom_toBottomOf="@id/atv_limit_title"
+        app:layout_constraintLeft_toRightOf="@id/atv_limit_title"
+        app:layout_constraintTop_toTopOf="@id/atv_limit_title"
+        tools:text="12012" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

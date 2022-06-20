@@ -60,10 +60,10 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
             if (it) {
                 mLoadingViewBinding?.cpbLoading?.show()
             } else {
-              /*  mLoadingViewBinding?.cpbLoading?.postDelayed(
-                    { mLoadingViewBinding?.cpbLoading?.hide() },
-                    500
-                )*/
+                /*  mLoadingViewBinding?.cpbLoading?.postDelayed(
+                      { mLoadingViewBinding?.cpbLoading?.hide() },
+                      500
+                  )*/
                 mLoadingViewBinding?.cpbLoading?.hide()
             }
 
@@ -74,11 +74,15 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
 
     private fun initParentView(rootView: View?) {
         if (rootView is ViewGroup) {
-            for (i in 0 until rootView.childCount) {
-                val childView = rootView.getChildAt(i)
-                if (childView is SmartRefreshLayout) {
-                    SmartRefreshLayoutCompat.initDefault(childView)
-                    break
+            if (rootView is SmartRefreshLayout) {
+                SmartRefreshLayoutCompat.initDefault(rootView)
+            } else {
+                for (i in 0 until rootView.childCount) {
+                    val childView = rootView.getChildAt(i)
+                    if (childView is SmartRefreshLayout) {
+                        SmartRefreshLayoutCompat.initDefault(childView)
+                        break
+                    }
                 }
             }
 

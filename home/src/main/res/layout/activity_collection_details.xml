@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/cl_bottom_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/size_20dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_title_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/aiv_content_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/size_10dp"
+                    android:scrollY="@dimen/size_10dp"
+                    app:layout_constraintHeight_min="@dimen/size_610dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@mipmap/icon_comm_collection_details_background" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/aiv_content"
+                    android:layout_width="@dimen/size_0dp"
+                    android:layout_height="@dimen/size_0dp"
+                    android:layout_marginStart="@dimen/size_30dp"
+                    android:layout_marginEnd="@dimen/size_30dp"
+                    android:scaleX="0.6"
+                    android:scaleY="0.6"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="h,1:1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/line_content"
+                    style="@style/CollectionDetailsLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_1dp"
+                    android:layout_marginBottom="@dimen/size_10dp"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_user_head"
+                    android:layout_width="@dimen/size_20dp"
+                    android:layout_height="@dimen/size_20dp"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginBottom="@dimen/size_20dp"
+                    app:layout_constraintBottom_toTopOf="@id/line_content"
+                    app:layout_constraintLeft_toLeftOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/atv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_4dp"
+                    android:textColor="@color/colorFF9A9A9C"
+                    android:textSize="@dimen/size_13sp"
+                    app:layout_constraintBottom_toBottomOf="@id/civ_user_head"
+                    app:layout_constraintLeft_toRightOf="@id/civ_user_head"
+                    app:layout_constraintTop_toTopOf="@id/civ_user_head"
+                    tools:text="胡歌小王子" />
+
+                <!-- <androidx.appcompat.widget.AppCompatTextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginEnd="@dimen/size_20dp"
+                     android:background="@mipmap/icon_comm_collection_how_long_part"
+                     android:gravity="center_vertical"
+                     android:paddingLeft="@dimen/size_45dp"
+                     android:paddingEnd="@dimen/size_5dp"
+                     android:singleLine="true"
+                     android:textColor="@color/white"
+                     android:textSize="@dimen/size_12sp"
+                     app:layout_constraintBottom_toBottomOf="@id/civ_user_head"
+                     app:layout_constraintRight_toRightOf="parent"
+                     app:layout_constraintTop_toTopOf="@id/civ_user_head"
+                     tools:text="1000/10000" />-->
+                <include
+                    android:id="@+id/included_limit"
+                    layout="@layout/include_collection_limit_count_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/size_20dp"
+                    app:layout_constraintBottom_toBottomOf="@id/civ_user_head"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/civ_user_head" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/atv_collection_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/size_20dp"
+                    android:layout_marginBottom="@dimen/size_12dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_22sp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toTopOf="@id/civ_user_head"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/atv_collection_number"
+
+                    tools:text="身份限定卡" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/atv_collection_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/size_20dp"
+                    android:textColor="@color/colorFF9A9A9C"
+                    android:textSize="@dimen/size_12sp"
+                    app:layout_constraintBottom_toBottomOf="@id/atv_collection_name"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/atv_collection_name"
+                    tools:text="#2000/200" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_authentication_info_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_5dp"
+                android:drawablePadding="@dimen/size_8dp"
+                android:text="@string/authentication_information"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_16sp"
+                app:drawableStartCompat="@mipmap/icon_home_collection_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cl_title_content" />
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_authentication_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:layout_marginEnd="@dimen/default_margin"
+                app:cardBackgroundColor="@color/colorFF202020"
+                app:cardCornerRadius="@dimen/size_10dp"
+                app:cardElevation="@dimen/size_0dp"
+                app:layout_constraintHeight_min="@dimen/size_102dp"
+                app:layout_constraintTop_toBottomOf="@id/atv_authentication_info_title">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/atv_owner_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/size_16dp"
+                        android:text="@string/owner"
+                        android:textColor="@color/colorFF9A9A9C"
+                        android:textSize="@dimen/size_13sp"
+                        app:layout_constraintBottom_toTopOf="@id/atv_contract_address_title"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/atv_contract_address_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contract_address"
+                        android:textColor="@color/colorFF9A9A9C"
+                        android:textSize="@dimen/size_12sp"
+                        app:layout_constraintBottom_toTopOf="@id/atv_chain_logo_title"
+                        app:layout_constraintLeft_toLeftOf="@id/atv_owner_title"
+                        app:layout_constraintTop_toBottomOf="@id/atv_owner_title" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/atv_chain_logo_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chain_logo"
+                        android:textColor="@color/colorFF9A9A9C"
+                        android:textSize="@dimen/size_12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="@id/atv_owner_title"
+                        app:layout_constraintTop_toBottomOf="@id/atv_contract_address_title" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/atv_owner_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:layout_marginEnd="@dimen/default_margin"
+                        android:drawablePadding="@dimen/size_6dp"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/white"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintBottom_toBottomOf="@id/atv_owner_title"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintLeft_toRightOf="@id/atv_owner_title"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/atv_owner_title"
+                        android:textSize="@dimen/size_13sp"
+                        tools:text="hi感觉凯撒hi" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/aiv_contract_address_copy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/size_10dp"
+                        android:padding="@dimen/size_6dp"
+                        app:layout_constraintBottom_toBottomOf="@id/atv_contract_address"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/atv_contract_address"
+                        app:srcCompat="@mipmap/icon_comm_copy" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/atv_contract_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/colorFFDCDCDC"
+                        android:textSize="@dimen/size_13sp"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintBottom_toBottomOf="@id/atv_contract_address_title"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintLeft_toRightOf="@id/atv_contract_address_title"
+                        app:layout_constraintRight_toLeftOf="@id/aiv_contract_address_copy"
+                        app:layout_constraintTop_toTopOf="@id/atv_contract_address_title"
+                        tools:text="合约地址" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/atv_chain_logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_margin"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:textColor="@color/colorFFDCDCDC"
+                        android:textSize="@dimen/size_13sp"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintBottom_toBottomOf="@id/atv_chain_logo_title"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constraintLeft_toRightOf="@id/atv_chain_logo_title"
+                        app:layout_constraintRight_toLeftOf="@id/aiv_chain_logo_copy"
+                        app:layout_constraintTop_toTopOf="@id/atv_chain_logo_title"
+                        tools:text="哈哈哈哈" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/aiv_chain_logo_copy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/size_10dp"
+                        android:padding="@dimen/size_6dp"
+                        app:layout_constraintBottom_toBottomOf="@id/atv_chain_logo"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/atv_chain_logo"
+                        app:srcCompat="@mipmap/icon_comm_copy" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_work_details_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_26dp"
+                android:drawablePadding="@dimen/size_8dp"
+                android:text="@string/work_details"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_16sp"
+                app:drawableStartCompat="@mipmap/icon_home_collection_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mcv_authentication_info" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_work_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_16dp"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:layout_marginEnd="@dimen/size_16dp"
+                app:cardBackgroundColor="@color/colorFF202020"
+                app:cardCornerRadius="@dimen/size_10dp"
+                app:cardElevation="@dimen/size_0dp"
+                app:layout_constraintHeight_min="@dimen/size_78dp"
+                app:layout_constraintTop_toBottomOf="@id/atv_work_details_title">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/atv_work"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="@dimen/size_2dp"
+                    android:padding="@dimen/size_16dp"
+                    android:textColor="@color/colorFFC9C9C9"
+                    android:textSize="@dimen/size_13sp"
+                    tools:text="我是作品详情我是作品详情我是作品详情我是作品详情我是作品详情" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_buy_notes_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_20dp"
+                android:layout_marginTop="@dimen/size_26dp"
+                android:drawablePadding="@dimen/size_8dp"
+                android:text="@string/buy_notes"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_16sp"
+                app:drawableStartCompat="@mipmap/icon_home_collection_indicator"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mcv_work_details" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/mcv_buy_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:layout_marginEnd="@dimen/default_margin"
+                app:cardBackgroundColor="@color/colorFF202020"
+                app:cardCornerRadius="@dimen/size_10dp"
+                app:layout_constraintTop_toBottomOf="@id/atv_buy_notes_title">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/atv_mcv_buy_note_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="@dimen/size_2dp"
+                    android:padding="@dimen/size_16dp"
+                    android:text="@string/buy_notes_details"
+                    android:textColor="@color/colorFFC9C9C9"
+                    android:textSize="@dimen/size_13sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_48dp"
+                android:drawablePadding="@dimen/size_8dp"
+                android:text="@string/provide_technical_support"
+                android:textColor="@color/colorFF9A9A9C"
+                android:textSize="@dimen/size_12sp"
+                app:drawableStartCompat="@mipmap/icon_comm_tian_he_link"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/mcv_buy_notes" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bottom_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_92dp"
+        android:background="@color/colorFF202020"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/size_20dp"
+            android:layout_marginEnd="@dimen/size_20dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_28sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/atv_sure"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="￥40.00" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_sure"
+            android:layout_width="@dimen/size_170dp"
+            android:layout_height="@dimen/size_44dp"
+            android:layout_marginEnd="@dimen/size_20dp"
+            android:background="@drawable/share_normal_view"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

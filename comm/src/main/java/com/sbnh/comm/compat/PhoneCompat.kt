@@ -1,5 +1,7 @@
 package com.sbnh.comm.compat
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 
 /**
@@ -26,5 +28,13 @@ object PhoneCompat {
     @JvmStatic
     fun px2dp(context: Context, pxValue: Float): Int {
         return (pxValue / density(context) + 0.5f).toInt()
+    }
+
+    @JvmStatic
+    fun copyText(text:CharSequence) {
+        val service = DataCompat.getContext().getSystemService(Context.CLIPBOARD_SERVICE)
+        if (service is ClipboardManager){
+            service.setPrimaryClip(ClipData.newPlainText(null,text))
+        }
     }
 }

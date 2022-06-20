@@ -80,4 +80,19 @@
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
     <string name="arc_you_sure_exit_login">确当退出登录</string>
+    <string name="authentication_information">认证信息</string>
+    <string name="owner">拥有者</string>
+    <string name="contract_address">合约地址</string>
+    <string name="chain_logo">链上标识</string>
+    <string name="work_details">作品详情</string>
+    <string name="buy_notes">购买须知</string>
+    <string name="provide_technical_support">提供技术支持</string>
+    <string name="sale">预售</string>
+    <string name="limit_number">限量</string>
+    <string name="tian_he_lian">天河链</string>
+    <string name="ma_yi_lian">蚂蚁链</string>
+    <string name="buy_notes_details">数字藏品为虚拟数字商品，而非实物，仅限实名认证为年满14周岁的中国大陆用户购买。数字藏品的版权由发行方或原创者拥有，除另行取得版权拥有者书面同意外，用户不得将数字藏品用于任何商业用途。本商品一经售出，不支持退换。本商品源文件不支持本地下载。请勿对数字藏品进行炒作、场外交易、欺诈、或以任何其他非法方式进行使用。</string>
+    <string name="copy_succeed">复制成功</string>
+    <string name="buy">购买</string>
+    <string name="sold_out">已售罄</string>
 </resources>

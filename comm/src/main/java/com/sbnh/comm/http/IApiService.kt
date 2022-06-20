@@ -15,7 +15,9 @@ class IApiService {
         const val GAIN_MESSAGE_CODE = "/healer_nft/user/validate_code"
         const val REGISTER = "/healer_nft/user/registered"
         const val REAL_NAME_AUTHENTICATION = "/healer_nft/user/realName"
-        const val EXIT_LOGIN="healer_nft/user/login_out"
+        const val EXIT_LOGIN="/healer_nft/user/login_out"
+        const val HOME_PAGER_LIST="/healer_nft/Merchandise/pageList"
+        const val COLLECTION_DETAILS="/healer_nft/Merchandise/home_page_details/{id}"
     }
 
     object HttpCode {
@@ -31,5 +33,6 @@ class IApiService {
         const val TS = "ts";
         const val UUID = "uuid";
         const val SID = "sid";
+        const val ID="id"
     }
 }

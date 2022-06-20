@@ -57,21 +57,21 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         SpanTextHelper.with().append(DataCompat.getResString(com.sbnh.comm.R.string.not_account_go))
             .appendBlank()
             .append(DataCompat.getResString(com.sbnh.comm.R.string.register))
-            .setColor(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA))
+            .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA))
             .crete(mViewBinding.atvGoRegister)
-        com.sbnh.comm.compat.MetaViewCompat.setClickButton(
+        MetaViewCompat.setClickButton(
             mViewBinding.atvLogin,
             Contract.DP.VALUE_50F
         )
         SpanTextHelper.with()
             .append(DataCompat.getResString(com.sbnh.comm.R.string.my_have_read_and_sure))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.user_agreement))
-            .setClick(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
-                ARouters.startActivity(ARouterConfig.Path.Comm.ACTIVITY_WEB_CONTENT)
+            .setClick(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
+                ARoutersActivity.startWebContentActivity("http://www.baidu.com")
             }
             .append(DataCompat.getResString(com.sbnh.comm.R.string.and))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.privacy_policy))
-            .setClick(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
+            .setClick(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
 
             }
             .crete(mViewBinding.atvAgreement)

@@ -11,6 +11,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.sbnh.comm.Contract
 
 /**
  * 作者: 胡庆岭
@@ -55,6 +56,18 @@ object MetaViewCompat {
     }
 
     @JvmStatic
+    fun setClickViewEnable(view: View?, isClick: Boolean) {
+        if (DataCompat.notNull(view)) {
+            val drawable =
+                if (isClick) GradientDrawableCompat.createClickDrawable(Contract.DP.VALUE_8F)
+                else GradientDrawableCompat.createNoClickDrawable(Contract.DP.VALUE_8F)
+            view?.isEnabled = isClick
+            ViewCompat.setBackground(view!!, drawable)
+
+        }
+    }
+
+    @JvmStatic
     fun textViewTextIsEmpty(textView: TextView?): Boolean {
         return DataCompat.isEmpty(textView?.text)
     }
@@ -71,8 +84,9 @@ object MetaViewCompat {
             ViewCompat.getWindowInsetsController(view!!)?.show(WindowInsetsCompat.Type.ime())
         }
     }
+
     @JvmStatic
-    fun hideSoftKeyBoard(view: View?){
+    fun hideSoftKeyBoard(view: View?) {
         if (DataCompat.notNull(view)) {
             ViewCompat.getWindowInsetsController(view!!)?.hide(WindowInsetsCompat.Type.ime())
         }

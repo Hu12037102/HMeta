@@ -31,7 +31,8 @@ class WebContentActivity : BaseWebActivity<ActivityWebContentBinding, WebContent
     }
 
     override fun initData() {
-        loadUrl("https://www.baidu.com")
+        val url = intent?.getStringExtra(ARouterConfig.Key.WEB_URL)
+        loadUrl(url)
     }
 
 
