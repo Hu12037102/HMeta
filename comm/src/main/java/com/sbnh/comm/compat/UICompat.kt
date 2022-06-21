@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 
 /**
  * 作者: 胡庆岭
@@ -17,6 +18,16 @@ object UICompat {
     @JvmStatic
     fun setText(textView: TextView?, text: CharSequence? = "") {
         textView?.text = text
+    }
+
+    @JvmStatic
+    fun setText(textView: TextView?, @StringRes res: Int) {
+        textView?.text = DataCompat.getResString(res)
+    }
+
+    @JvmStatic
+    fun setText(textView: TextView?, @StringRes res: Int, vararg formatAny: Any) {
+        textView?.text = DataCompat.getResString(res, *formatAny)
     }
 
     @JvmStatic

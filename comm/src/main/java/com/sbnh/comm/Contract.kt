@@ -16,6 +16,7 @@ object Contract {
     const val ID_CARD_NUMBER_MIN = 15
     const val ID_CARD_NUMBER_MAX = 18
     const val PAGE_LIST_SIZE = 20
+    const val DEFAULT_TIME_FORMAT="yyyy-MM-dd HH:mm"
 
     object DP {
         const val VALUE_8F = 8f

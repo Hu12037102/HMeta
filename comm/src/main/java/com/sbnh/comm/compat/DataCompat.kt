@@ -42,8 +42,8 @@ object DataCompat {
     }
 
     @JvmStatic
-    fun getResString(@StringRes resString: Int, any: Array<out Any>): String {
-        return getContext().getString(resString, any)
+    fun getResString(@StringRes resString: Int, vararg formatArgs: Any): String {
+        return getContext().getString(resString,*formatArgs)
     }
 
     @JvmStatic

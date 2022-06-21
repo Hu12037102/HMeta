@@ -73,6 +73,17 @@ object GlideCompat {
     }
 
     @JvmStatic
+    fun loadWarpImage(
+        any: Any?,
+        imageView: ImageView?,
+        width: Int = 200,
+        height: Int = width
+    ) {
+        loadFitCenterImage(any, imageView, width, height)
+        //  Glide.with(imageView).load("").override()
+    }
+
+    @JvmStatic
     fun createGlide(
         any: Any,
         imageView: ImageView
