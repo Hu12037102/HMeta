@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
@@ -76,13 +77,21 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
         mViewBinding.civHead.setOnClickListener {
 
         }
-        mViewBinding.aivSetting.setOnClickListener(object :DelayedClick(){
+        mViewBinding.aivSetting.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_SETTING)
             }
 
         })
 
+        mTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
+            override fun onClickItem(view: View, position: Int) {
+                if (position == 0) {
+                    ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_ORDER_LIST)
+                }
+            }
+
+        })
     }
 
     override fun initObserve() {

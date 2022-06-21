@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.PhoneCompat
 import com.sbnh.comm.compat.UICompat
@@ -26,6 +27,12 @@ class MyTabAdapter(
     private val lineCount: Int
 ) :
     RecyclerView.Adapter<MyTabAdapter.ViewHolder>() {
+    private var mOnRecyclerItemClickListener: OnRecyclerItemClickListener? = null
+    fun setOnRecyclerItemClickListener(onRecyclerItemClickListener: OnRecyclerItemClickListener) {
+        this.mOnRecyclerItemClickListener = onRecyclerItemClickListener
+
+    }
+
     class ViewHolder(val binding: ItemMyTabViewBinding, lineCount: Int) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -48,9 +55,13 @@ class MyTabAdapter(
         val entity = data[position]
         UICompat.setText(holder.binding.atvContent, entity.text)
         GlideCompat.loadWarpImage(entity.resDrawable, holder.binding.aivContent)
+        initHolderEvent(holder,position)
+    }
+
+    private fun initHolderEvent(holder: ViewHolder, position: Int) {
         holder.itemView.setOnClickListener(object : CheckLoginClick() {
             override fun onCheckLoginClick(v: View?) {
-
+                mOnRecyclerItemClickListener?.onClickItem(v,position)
             }
         })
     }

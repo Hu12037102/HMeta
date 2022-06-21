@@ -38,6 +38,7 @@ class ARouterConfig {
             const val ACTIVITY_MY_ACCOUNT_INFO = "/my/activity/my/account/info"
             const val ACTIVITY_SET_PAYMENT_PASSWORD = "/my/activity/set/payment/password"
             const val ACTIVITY_GIVE_COLLECTION = "/my/activity/give/collection"
+            const val ACTIVITY_MY_ORDER_LIST = "/my/activity/my/order/list"
         }
 
         object Login {

@@ -9,5 +9,5 @@ import android.view.View
  * 描述:
  */
 interface OnRecyclerItemClickListener {
-    fun onClickItem(view: View, position: Int)
+    fun onClickItem(view: View?, position: Int)
 }
