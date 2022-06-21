@@ -5,7 +5,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.entity.base.BaseEntity
+import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.entity.request.RequestCreateOrderEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.BaseService
@@ -38,6 +41,7 @@ open class BaseViewModel : ViewModel() {
     val mGainMessageCodeLiveData: MutableLiveData<Unit> by lazy { MutableLiveData<Unit>() }
     val mLoadingLiveData: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
 
+
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
             val result = UserInfoStore.get().getEntity()
@@ -67,6 +71,8 @@ open class BaseViewModel : ViewModel() {
             ARoutersActivity.startLoginActivity()
         }
     }
+
+
 
     fun <T> disposeRetrofit(liveData: MutableLiveData<T>?, response: Response<T>?) {
         if (response == null) {

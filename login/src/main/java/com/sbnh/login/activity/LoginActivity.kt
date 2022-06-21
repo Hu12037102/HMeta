@@ -108,12 +108,12 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             if (isCheckAgreement) {
                 UICompat.setImageRes(
                     mViewBinding.aivCheckAgreement,
-                    com.sbnh.comm.R.mipmap.icon_comm_check_agreement
+                    com.sbnh.comm.R.mipmap.icon_comm_check
                 )
             } else {
                 UICompat.setImageRes(
                     mViewBinding.aivCheckAgreement,
-                    com.sbnh.comm.R.mipmap.icon_comm_normal_agreement
+                    com.sbnh.comm.R.mipmap.icon_comm_normal
                 )
             }
         }
@@ -174,7 +174,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         mViewModel.mLoginLiveData.observe(this) {
             lifecycleScope.launch {
                 UserInfoStore.get().putEntity(it)
-                ARoutersActivity.startMainActivity()
+                ARoutersActivity.loginActivityComplete()
             }
 
         }

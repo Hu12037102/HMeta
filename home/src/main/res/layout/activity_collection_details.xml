@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@id/cl_bottom_content"
+        app:layout_constraintBottom_toTopOf="@id/included_bottom_content"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -370,7 +370,7 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!--<androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_bottom_content"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_92dp"
@@ -406,7 +406,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>-->
+    <include
+        android:id="@+id/included_bottom_content"
+        layout="@layout/include_wait_pay_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_92dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:visibility="visible" />
 
     <io.google.projectview.weight.ProjectView
         android:layout_width="match_parent"

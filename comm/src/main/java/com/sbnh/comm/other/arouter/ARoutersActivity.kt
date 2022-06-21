@@ -18,9 +18,9 @@ object ARoutersActivity {
     }
 
     @JvmStatic
-    fun startMainActivity() {
-        ActivityCompatManger.get().clear()
-        ARouters.startActivity(ARouterConfig.Path.Main.ACTIVITY_MAIN)
+    fun loginActivityComplete() {
+        ActivityCompatManger.get().removeLoginAndRegisterActivity()
+        //ARouters.startActivity(ARouterConfig.Path.Main.ACTIVITY_MAIN)
     }
 
     @JvmStatic

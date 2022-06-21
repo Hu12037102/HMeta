@@ -21,7 +21,5 @@ interface HomeService {
     suspend fun loadCollectionList(@Body requestPagerList: RequestPagerListEntity): Response<BasePagerEntity<List<CollectionEntity>>>
 
     @GET(IApiService.Path.COLLECTION_DETAILS)
-
-
     suspend fun loadCollectionDetails(@Path(IApiService.Key.ID) path: String)  : Response<CollectionEntity>
 }

@@ -95,4 +95,14 @@
     <string name="copy_succeed">复制成功</string>
     <string name="buy">购买</string>
     <string name="sold_out">已售罄</string>
+    <string name="wait_pay">等待支付</string>
+    <string name="shop_details">商品详情</string>
+    <string name="deal_with_money">应付金额</string>
+    <string name="bank_card_payment">银行卡支付</string>
+    <string name="buy_way_have">购买途径:</string>
+    <string name="buy_model_have">支付方式:</string>
+    <string name="market_push">市场发行</string>
+    <string name="cancel_order">取消订单</string>
+    <string name="continue_buy">继续购买</string>
+    <string name="return_to_personal_center">返回个人中心</string>
 </resources>

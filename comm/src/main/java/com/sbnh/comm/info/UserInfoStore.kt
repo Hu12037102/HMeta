@@ -110,7 +110,7 @@ class UserInfoStore private constructor() {
         mDataStoreManger.putObject(KEY_ID, id ?: "")
     }
 
-    private suspend fun getId() = mDataStoreManger.getString(KEY_ID)
+     suspend fun getId() = mDataStoreManger.getString(KEY_ID)
 
     private suspend fun putInviteCode(inviteCode: String?) {
         mDataStoreManger.putObject(KEY_INVITE_CODE, inviteCode ?: "")

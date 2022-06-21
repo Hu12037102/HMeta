@@ -1,8 +1,6 @@
 package com.sbnh.my.activity
 
 import android.view.View
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.MetaViewCompat
@@ -11,7 +9,6 @@ import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivityGiveCollectionBinding
-import com.sbnh.my.databinding.ActivityMyAccountInfoBinding
 import com.sbnh.my.viewmodel.GiveCollectionViewModel
 
 /**
@@ -49,7 +46,7 @@ class GiveCollectionActivity :
             isAgreeAgreement = !isAgreeAgreement
             UICompat.setImageRes(
                 mViewBinding.aivCheck,
-                if (isAgreeAgreement) com.sbnh.comm.R.mipmap.icon_comm_check_agreement else com.sbnh.comm.R.mipmap.icon_comm_normal_agreement
+                if (isAgreeAgreement) com.sbnh.comm.R.mipmap.icon_comm_check else com.sbnh.comm.R.mipmap.icon_comm_normal
             )
         }
         mViewBinding.atvSureGive.setOnClickListener(object : DelayedClick() {

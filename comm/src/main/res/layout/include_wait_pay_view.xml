@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_92dp"
+    android:background="@color/colorFF202020">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/size_20dp"
+        android:layout_marginEnd="@dimen/size_20dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_28sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/atv_sure"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="￥40.00" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_sure"
+        android:layout_width="@dimen/size_170dp"
+        android:layout_height="@dimen/size_44dp"
+        android:layout_marginEnd="@dimen/size_20dp"
+        android:background="@drawable/share_normal_view"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

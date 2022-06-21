@@ -50,9 +50,9 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                 UICompat.setImageRes(
                     mViewBinding.aivCheck,
                     if (isAgreeAgreement)
-                        com.sbnh.comm.R.mipmap.icon_comm_check_agreement
+                        com.sbnh.comm.R.mipmap.icon_comm_check
                     else
-                        com.sbnh.comm.R.mipmap.icon_comm_normal_agreement
+                        com.sbnh.comm.R.mipmap.icon_comm_normal
                 )
 
             }

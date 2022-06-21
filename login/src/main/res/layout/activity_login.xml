@@ -139,7 +139,7 @@
             android:padding="@dimen/size_5dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/icon_comm_normal_agreement" />
+            app:srcCompat="@mipmap/icon_comm_normal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

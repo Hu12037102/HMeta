@@ -3,6 +3,7 @@ package com.sbnh.home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.sbnh.comm.base.viewmodel.BaseOrderViewModel
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.home.HomeService
@@ -18,7 +19,7 @@ import java.nio.charset.Charset
  * 更新时间: 2022/6/20 9:35
  * 描述:藏品详情model
  */
-class CollectionDetailsViewModel : BaseViewModel() {
+class CollectionDetailsViewModel : BaseOrderViewModel() {
     val mCollectionDetailsLiveData = MutableLiveData<CollectionEntity>()
     fun loadCollectionDetails(id: String) {
         viewModelScope.launch {

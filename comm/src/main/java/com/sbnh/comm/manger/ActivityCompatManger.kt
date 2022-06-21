@@ -52,5 +52,18 @@ class ActivityCompatManger private constructor() {
         }
     }
 
+    fun removeLoginAndRegisterActivity() {
+        val iterator = mArrayMap.iterator()
+        while (iterator.hasNext()) {
+            val entity: MutableMap.MutableEntry<String, Activity> = iterator.next()
+            if (entity.key.contains("LoginActivity") || entity.key.contains("RegisterActivity")) {
+                if (!entity.value.isFinishing) {
+                    entity.value.finish()
+                }
+                iterator.remove()
+            }
+
+        }
+    }
 
 }

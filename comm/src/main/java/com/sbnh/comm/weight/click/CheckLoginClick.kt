@@ -12,16 +12,15 @@ import kotlinx.coroutines.*
  * 描述:
  */
 abstract class CheckLoginClick : DelayedClick() {
-
+   private val scope = MainScope()
     override fun onDelayedClick(v: View?) {
-        MainScope().launch(Dispatchers.IO) {
+        scope.launch(Dispatchers.IO) {
             val isLogin = UserInfoStore.get().isLogin()
             withContext(Dispatchers.Main) {
                 if (!isLogin) {
                     ARoutersActivity.startLoginActivity()
                 } else {
                     onCheckLoginClick(v)
-
                 }
 
             }

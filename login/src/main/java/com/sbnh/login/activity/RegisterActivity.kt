@@ -101,12 +101,12 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
             if (isCheckAgreement) {
                 UICompat.setImageRes(
                     mViewBinding.aivCheckAgreement,
-                    com.sbnh.comm.R.mipmap.icon_comm_check_agreement
+                    com.sbnh.comm.R.mipmap.icon_comm_check
                 )
             } else {
                 UICompat.setImageRes(
                     mViewBinding.aivCheckAgreement,
-                    com.sbnh.comm.R.mipmap.icon_comm_normal_agreement
+                    com.sbnh.comm.R.mipmap.icon_comm_normal
                 )
             }
         }
@@ -169,7 +169,7 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
         mViewModel.mRegisterLiveData.observe(this) {
             lifecycleScope.launch {
                 UserInfoStore.get().putEntity(it)
-                ARoutersActivity.startMainActivity()
+                ARoutersActivity.loginActivityComplete()
             }
         }
 

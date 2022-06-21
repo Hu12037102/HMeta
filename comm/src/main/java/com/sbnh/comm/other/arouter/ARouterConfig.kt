@@ -13,6 +13,7 @@ class ARouterConfig {
         const val HAS_LOGIN = "has_login"
         const val WEB_URL = "web_url"
         const val ID = "id"
+
     }
 
     class Path {
@@ -54,5 +55,8 @@ class ARouterConfig {
             const val ACTIVITY_WEB_CONTENT = "/comm/activity/web/content"
         }
 
+        object Order {
+            const val ACTIVITY_ORDER_DETAILS = "/order/activity/order/details"
+        }
     }
 }
