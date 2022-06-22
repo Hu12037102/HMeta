@@ -21,7 +21,10 @@ class IApiService {
         const val COMMIT_ORDER = "/payment/thirdPayment/submitOrder"
         const val QUERY_ORDER_DETAILS = "/payment/thirdPayment/getOrder/{id}"
         const val QUERY_MY_ORDER_LIST = "/payment/thirdPayment/queryUserOrder"
-        const val SET_PAYMENT_PASSWORD="/healer_nft/user/userPayPassword"
+        const val SET_PAYMENT_PASSWORD = "/healer_nft/user/userPayPassword"
+        const val QUERY_BANK_CARD_INFO = "/payment/thirdPayment/getBank"
+        const val BINDING_BANK_CARD_BEFORE = "/payment/thirdPayment/bindCard"
+        const val BINDING_BANK_CARD_AFTER = "/payment/thirdPayment/bindCardConfirm"
     }
 
     object HttpCode {

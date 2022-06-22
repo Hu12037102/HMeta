@@ -1,5 +1,7 @@
 package com.sbnh.pay.activity
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
@@ -8,8 +10,14 @@ import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.compat.NumberCompat
 import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.STATUS_RUNNING
+import com.sbnh.comm.entity.other.CaptchaCheckResultEntity
+import com.sbnh.comm.entity.request.RequestBankCardInfoEntity
+import com.sbnh.comm.entity.request.RequestBindingBankCardBeforeEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.other.tencent.CaptchaDialogHelper
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.pay.databinding.ActivityAddBankCardBinding
@@ -23,6 +31,10 @@ import com.sbnh.pay.viewmodel.AddBankCardViewModel
  */
 @Route(path = ARouterConfig.Path.Pay.ACTIVITY_ADD_BANK_CARD)
 class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBankCardViewModel>() {
+    companion object {
+        const val QUERY_CARD_INFO_LENGTH = 6
+    }
+
     private var isAgreeAgreement = false
     override fun getViewBinding(): ActivityAddBankCardBinding =
         ActivityAddBankCardBinding.inflate(layoutInflater)
@@ -60,7 +72,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         })
         mViewBinding.atvBinding.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                val bankCardNumber = MetaViewCompat.getTextViewText(mViewBinding.aetBankNumber)
+                val bankCardNumber = MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber)
                 if (!NumberCompat.isBankCardNumber(bankCardNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_succeed_bank_number)
                     return
@@ -90,15 +102,55 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
-                mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
+                CaptchaDialogHelper.showDialog(this@AddBankCardActivity,
+                    object : CaptchaDialogHelper.OnDialogCallback {
+                        override fun onResult(entity: CaptchaCheckResultEntity?) {
+                            if (CaptchaCheckResultEntity.isSucceed(entity)) {
+                              /*  mViewModel.gainMessageCode(
+                                    RequestMessageCodeEntity(
+                                        DataCompat.toString(
+                                            phoneNumber
+                                        ), entity?.randstr, entity?.ticket
+                                    )
+                                )*/
+                                val bankCardNumber = DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber))
+                                mViewModel.bindingBankCardBefore(RequestBindingBankCardBeforeEntity(bankCardNumber))
+                            }
+                        }
+
+                    })
+                //
             }
 
         })
+        mViewBinding.aetBankCardNumber.addTextChangedListener(mAetBankCardNumberTextWatcher)
     }
+
+    private val mAetBankCardNumberTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            val length = MetaViewCompat.getTextViewLength(mViewBinding.aetBankCardNumber)
+            val text =
+                DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber))
+            if (length == QUERY_CARD_INFO_LENGTH) {
+                mViewModel.queryBankCardInfo(RequestBankCardInfoEntity(text))
+            } else if (length < QUERY_CARD_INFO_LENGTH) {
+                UICompat.setImageDrawable(mViewBinding.civBankIcon, null)
+                UICompat.setText(mViewBinding.atvBankName, null)
+            }
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+    }
+
 
     override fun initObserve() {
         super.initObserve()
-        mViewModel.mTimerLiveData.observe(this){
+        mViewModel.mTimerLiveData.observe(this) {
             if (it.status == STATUS_RUNNING) {
                 mViewBinding.atvGainMessageCode.isEnabled = false
                 UICompat.setText(
@@ -113,6 +165,18 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                 )
             }
         }
+        mViewModel.mQueryBankCardLiveData.observe(this) {
+            val entity = BaseEntity.getData(it)
+            GlideCompat.loadImage(entity?.logo, mViewBinding.civBankIcon)
+            UICompat.setText(mViewBinding.atvBankName, entity?.name)
+        }
+        mViewModel.mGainMessageCodeLiveData.observe(this){
+            mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
+        }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mViewBinding.aetBankCardNumber.removeTextChangedListener(mAetBankCardNumberTextWatcher)
+    }
 }

@@ -111,4 +111,13 @@ object MetaViewCompat {
         activity.setResult(Activity.RESULT_OK, intent)
         finishActivity(activity)
     }
+
+    @JvmStatic
+    fun getTextViewLength(textView: TextView?): Int {
+        return if (textView == null) {
+            0
+        } else {
+            DataCompat.getTextLength(getTextViewText(textView))
+        }
+    }
 }

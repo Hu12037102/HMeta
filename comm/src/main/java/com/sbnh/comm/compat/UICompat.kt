@@ -1,5 +1,6 @@
 package com.sbnh.comm.compat
 
+import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.widget.ImageView
 import android.widget.TextView
@@ -38,6 +39,11 @@ object UICompat {
     @JvmStatic
     fun setImageRes(imageView: ImageView?, @DrawableRes resDrawable: Int?) {
         imageView?.setImageResource(resDrawable ?: 0)
+    }
+
+    @JvmStatic
+    fun setImageDrawable(imageView: ImageView?, drawable: Drawable? = null) {
+        imageView?.setImageDrawable(drawable)
     }
 
     @JvmStatic
