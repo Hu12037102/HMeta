@@ -77,17 +77,11 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
             }
 
         })
-        mViewBinding.pvRealName.setOnClickListener(object : DelayedClick() {
-            override fun onDelayedClick(v: View?) {
-                val dialog = RealNameDialog()
-                dialog.showNow(this@SettingActivity.supportFragmentManager, null)
-            }
 
-        })
     }
 
-    override fun onRestart() {
-        super.onRestart()
+    override fun onResume() {
+        super.onResume()
         mViewModel.loadUserInfo()
     }
 
@@ -102,7 +96,8 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
             MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFF717171)
         )
         UICompat.setTextSize(textView, 15f)
-        if (UserInfoStore.isRealName(userInfoEntity)) {
+        val isRealName = UserInfoStore.isRealName(userInfoEntity)
+        if (isRealName) {
             UICompat.setText(
                 textView,
                 DataCompat.getResString(com.sbnh.comm.R.string.authentication)
@@ -121,7 +116,15 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
             )
 
         }
+        mViewBinding.pvRealName.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                if (!isRealName) {
+                    DialogCompat.showFragmentDialog(RealNameDialog())
+                }
 
+            }
+
+        })
     }
 
     private fun createItemBackground(): Drawable {

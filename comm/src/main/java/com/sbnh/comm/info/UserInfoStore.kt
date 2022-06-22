@@ -94,7 +94,7 @@ class UserInfoStore private constructor() {
 
     private suspend fun isPayPassWord() = mDataStoreManger.getBoolean(KEY_HAS_PAY_PASSWORD)
 
-     suspend fun putRealName(hasRealName: Boolean?) {
+    suspend fun putRealName(hasRealName: Boolean?) {
         mDataStoreManger.putObject(KEY_HAS_REAL_NAME, hasRealName ?: "")
     }
 
@@ -110,7 +110,7 @@ class UserInfoStore private constructor() {
         mDataStoreManger.putObject(KEY_ID, id ?: "")
     }
 
-     suspend fun getId() = mDataStoreManger.getString(KEY_ID)
+    suspend fun getId() = mDataStoreManger.getString(KEY_ID)
 
     private suspend fun putInviteCode(inviteCode: String?) {
         mDataStoreManger.putObject(KEY_INVITE_CODE, inviteCode ?: "")
@@ -122,7 +122,7 @@ class UserInfoStore private constructor() {
         mDataStoreManger.putObject(KEY_MOBILE, mobile ?: "")
     }
 
-    private suspend fun getMobile(): String = mDataStoreManger.getString(KEY_MOBILE)
+    suspend fun getMobile(): String = mDataStoreManger.getString(KEY_MOBILE)
     private suspend fun putNickName(nickName: String?) {
         mDataStoreManger.putObject(KEY_NICK_NAME, nickName ?: "")
     }

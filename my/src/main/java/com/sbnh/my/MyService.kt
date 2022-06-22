@@ -4,6 +4,7 @@ import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.RequestOrderListEntity
+import com.sbnh.comm.entity.request.RequestSetPaymentPasswordEntity
 import com.sbnh.comm.http.IApiService
 import retrofit2.Response
 import retrofit2.http.Body
@@ -22,5 +23,8 @@ interface MyService {
 
     @POST(IApiService.Path.QUERY_MY_ORDER_LIST)
     suspend fun queryMyLoadList(@Body entity: RequestOrderListEntity): Response<BaseEntity<BasePagerEntity2<List<OrderEntity>>>>
+
+    @POST(IApiService.Path.SET_PAYMENT_PASSWORD)
+    suspend fun setPaymentPassword(@Body entity: RequestSetPaymentPasswordEntity): Response<Unit>
 
 }

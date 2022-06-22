@@ -3,16 +3,23 @@ package com.sbnh.my.activity
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.STATUS_RUNNING
+import com.sbnh.comm.entity.other.CaptchaCheckResultEntity
+import com.sbnh.comm.entity.request.RequestMessageCodeEntity
+import com.sbnh.comm.entity.request.RequestSetPaymentPasswordEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.other.tencent.CaptchaDialogHelper
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivitySetPaymentPasswordBinding
 import com.sbnh.my.viewmodel.SetPaymentPasswordViewModel
+import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -42,7 +49,25 @@ class SetPaymentPasswordActivity :
     override fun initEvent() {
         mViewBinding.atvGainMessageCode.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
+                CaptchaDialogHelper.showDialog(this@SetPaymentPasswordActivity,
+                    object : CaptchaDialogHelper.OnDialogCallback {
+                        override fun onResult(entity: CaptchaCheckResultEntity?) {
+                            if (CaptchaCheckResultEntity.isSucceed(entity)) {
+                                lifecycleScope.launch {
+                                    val phone = UserInfoStore.get().getMobile()
+                                    mViewModel.gainMessageCode(
+                                        RequestMessageCodeEntity(
+                                            phone,
+                                            entity?.randstr,
+                                            entity?.ticket
+                                        )
+                                    )
+                                }
+                            }
+                        }
+
+                    })
+                //
             }
 
         })
@@ -57,11 +82,18 @@ class SetPaymentPasswordActivity :
                     showToast(com.sbnh.comm.R.string.please_six_length_password)
                     return
                 }
-                val messageCode = MetaViewCompat.getTextViewText(mViewBinding.atvGainMessageCode)
+                val messageCode = MetaViewCompat.getTextViewText(mViewBinding.aetMessageCode)
                 if (!NumberCompat.isMessageCode(messageCode)) {
                     showToast(com.sbnh.comm.R.string.please_input_message_code)
                     return
                 }
+                mViewModel.setPaymentPassword(
+                    RequestSetPaymentPasswordEntity(
+                        DataCompat.toString(
+                            password
+                        ), DataCompat.toString(messageCode)
+                    )
+                )
             }
 
         })
@@ -99,6 +131,13 @@ class SetPaymentPasswordActivity :
                     )
                 )
             }
+        }
+        mViewModel.mGainMessageCodeLiveData.observe(this) {
+            mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
+        }
+        mViewModel.mPaymentPasswordLiveData.observe(this) {
+            showToast(com.sbnh.comm.R.string.set_payment_password_succeed)
+            MetaViewCompat.finishActivity(this)
         }
     }
 }
