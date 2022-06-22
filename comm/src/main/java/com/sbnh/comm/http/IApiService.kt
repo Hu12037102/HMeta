@@ -20,6 +20,7 @@ class IApiService {
         const val COLLECTION_DETAILS = "/healer_nft/Merchandise/home_page_details/{id}"
         const val COMMIT_ORDER = "/payment/thirdPayment/submitOrder"
         const val QUERY_ORDER_DETAILS = "/payment/thirdPayment/getOrder/{id}"
+        const val QUERY_MY_ORDER_LIST = "/payment/thirdPayment/queryUserOrder"
     }
 
     object HttpCode {

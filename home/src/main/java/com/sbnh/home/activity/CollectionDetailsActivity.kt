@@ -15,6 +15,7 @@ import com.sbnh.comm.entity.request.RequestCreateOrderEntity
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.CheckLoginClick
@@ -136,9 +137,7 @@ class CollectionDetailsActivity :
         mViewModel.mCommitOrderLiveData.observe(this) {
             val body = BaseEntity.getData(it)
             LogUtils.w("observe--", body?.id + "---")
-            ARouters.build(ARouterConfig.Path.Order.ACTIVITY_ORDER_DETAILS)
-                .withString(ARouterConfig.Key.ID, body?.id)
-                .navigation()
+            ARoutersActivity.startOrderDetailsActivity(body?.id)
         }
     }
 }

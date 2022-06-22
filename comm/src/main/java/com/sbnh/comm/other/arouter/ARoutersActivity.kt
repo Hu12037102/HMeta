@@ -29,4 +29,16 @@ object ARoutersActivity {
             .withString(ARouterConfig.Key.WEB_URL, url).navigation()
     }
 
+    @JvmStatic
+    fun startCollectionDetailsActivity(id:String?){
+        ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
+            .withString(ARouterConfig.Key.ID, id)
+            .navigation()
+    }
+    @JvmStatic
+    fun startOrderDetailsActivity(id: String?){
+        ARouters.build(ARouterConfig.Path.Order.ACTIVITY_ORDER_DETAILS)
+            .withString(ARouterConfig.Key.ID, id)
+            .navigation()
+    }
 }

@@ -69,7 +69,7 @@ class MyOrderTabAdapter(private val context: Context, private val data: List<Ord
 
     }
 
-    private fun selectorTab(index: Int) {
+     fun selectorTab(index: Int) {
         for (i in data.indices) {
             val entity = data[i]
             entity.isSelector = i == index

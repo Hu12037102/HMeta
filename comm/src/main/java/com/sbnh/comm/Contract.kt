@@ -15,12 +15,15 @@ object Contract {
     const val BANK_CARD_NUMBER_MAX = 19
     const val ID_CARD_NUMBER_MIN = 15
     const val ID_CARD_NUMBER_MAX = 18
-    const val PAGE_LIST_SIZE = 20
-    const val DEFAULT_TIME_FORMAT="yyyy-MM-dd HH:mm"
+    const val PAGE_SIZE = 20
+    const val PAGE_NUM = 1
+    const val DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm"
+    const val UNKNOWN_INT_VALUE = -1
 
     object DP {
         const val VALUE_8F = 8f
         const val VALUE_50F = 50f
+        const val COLLECTION_IMAGE_SMALL_SIZE = 86
     }
 
     object Judge {

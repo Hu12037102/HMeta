@@ -32,12 +32,12 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        LogUtils.w(TAG, "onAttach:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onAttach:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        LogUtils.w(TAG, "onCreate:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onCreate:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     override fun onCreateView(
@@ -45,7 +45,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        LogUtils.w(TAG, "onCreateView:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onCreateView:${this.javaClass.simpleName}--${this.hashCode()}")
         this.mRootView = mViewBinding.root
         // initEmptyLoadingView(context, mRootView)
         //init()
@@ -100,7 +100,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
             if (isLoadEmptyView()) {
                 LogUtils.w(
                     "initEmptyLoadingView--",
-                    "${isLoadEmptyView()}--${this.javaClass.simpleName}"
+                    "${isLoadEmptyView()}--${this.javaClass.simpleName}--${this.hashCode()}"
                 )
                 mEmptyLayout = EmptyLayout(context)
                 rootView.addView(
@@ -123,7 +123,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
 
     override fun onStart() {
         super.onStart()
-        LogUtils.w(TAG, "onStart:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onStart:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     override fun onResume() {
@@ -132,32 +132,32 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
             init()
             isFirstCreate = false
         }
-        LogUtils.w(TAG, "onResume:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onResume:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     override fun onPause() {
         super.onPause()
-        LogUtils.w(TAG, "onPause:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onPause:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     override fun onStop() {
         super.onStop()
-        LogUtils.w(TAG, "onStop:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onStop:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        LogUtils.w(TAG, "onDestroy:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onDestroy:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        LogUtils.w(TAG, "onDestroyView:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onDestroyView:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     override fun onDetach() {
         super.onDetach()
-        LogUtils.w(TAG, "onDetach:${this.javaClass.simpleName}")
+        LogUtils.w(TAG, "onDetach:${this.javaClass.simpleName}--${this.hashCode()}")
     }
 
     protected open fun resultUserInfo(userInfoEntity: UserInfoEntity?) {

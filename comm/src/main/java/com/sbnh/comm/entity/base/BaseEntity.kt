@@ -7,7 +7,7 @@ package com.sbnh.comm.entity.base
  * 描述:
  */
 data class BaseEntity<T>(var data: T?) {
-    var code: String? = ""
+    var code: String = ""
     var error: String? = ""
     var message: String? = ""
     var msg: String? = ""

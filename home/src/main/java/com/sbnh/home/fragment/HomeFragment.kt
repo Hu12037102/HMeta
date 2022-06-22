@@ -4,15 +4,14 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
-import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
-import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.home.adapter.HomeCollectionListAdapter
 import com.sbnh.home.databinding.FragmentHomeBinding
 import com.sbnh.home.viewmodel.HomeViewModel
@@ -45,7 +44,7 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun isLoadEmptyView(): Boolean = true
     override fun initEvent() {
         mEmptyLayout?.setOnClickListener {
-            ARouters.startActivity(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
+
         }
         mCollectionAdapter?.setOnRecyclerViewItemClickListener(object :
             OnRecyclerViewItemClickListener {
@@ -54,9 +53,7 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
             }
 
             override fun clickItem(view: View, position: Int) {
-                ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
-                    .withString(ARouterConfig.Key.ID, mCollectionData[position].id)
-                    .navigation()
+                ARoutersActivity.startCollectionDetailsActivity(mCollectionData[position].id)
             }
 
             override fun longClickItem(view: View, position: Int) {

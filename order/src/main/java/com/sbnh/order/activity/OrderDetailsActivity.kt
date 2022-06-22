@@ -83,6 +83,7 @@ class OrderDetailsActivity :
                         )
                         mViewBinding.atvContinueBuy.visibility = View.GONE
                         mViewBinding.atvBackCenter.visibility = View.GONE
+                        mViewBinding.includedWaitPay.root.visibility = View.VISIBLE
                     }
                     STATUS_COMPLETE -> {
                         mViewBinding.clContent.visibility = View.VISIBLE
@@ -110,6 +111,7 @@ class OrderDetailsActivity :
                         mViewBinding.atvCancelOrder.visibility = View.GONE
                         mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                         mViewBinding.atvBackCenter.visibility = View.VISIBLE
+                        mViewBinding.includedWaitPay.root.visibility = View.GONE
                     }
                     STATUS_CANCEL -> {
                         mViewBinding.clContent.visibility = View.VISIBLE
@@ -137,6 +139,7 @@ class OrderDetailsActivity :
                         mViewBinding.atvCancelOrder.visibility = View.GONE
                         mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                         mViewBinding.atvBackCenter.visibility = View.VISIBLE
+                        mViewBinding.includedWaitPay.root.visibility = View.GONE
                     }
                     STATUS_PAY_CALLBACK -> {
                         mViewBinding.clContent.visibility = View.VISIBLE
@@ -164,6 +167,7 @@ class OrderDetailsActivity :
                         mViewBinding.atvCancelOrder.visibility = View.GONE
                         mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                         mViewBinding.atvBackCenter.visibility = View.VISIBLE
+                        mViewBinding.includedWaitPay.root.visibility = View.GONE
                     }
                     else -> {
                         mViewBinding.clContent.visibility = View.GONE
