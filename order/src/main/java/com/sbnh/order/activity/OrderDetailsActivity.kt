@@ -97,6 +97,7 @@ class OrderDetailsActivity :
                             mViewBinding.atvStatusOtherTitle,
                             com.sbnh.comm.R.string.account_paid
                         )
+                        mViewBinding.atvStatusOtherDesc.visibility= View.VISIBLE
                         UICompat.setText(
                             mViewBinding.atvStatusOtherDesc,
                             com.sbnh.comm.R.string.good_shave_been_released
@@ -112,6 +113,10 @@ class OrderDetailsActivity :
                         mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                         mViewBinding.atvBackCenter.visibility = View.VISIBLE
                         mViewBinding.includedWaitPay.root.visibility = View.GONE
+                        UICompat.setText(
+                            mViewBinding.atvWayTitle,
+                            DataCompat.getResString(com.sbnh.comm.R.string.buy_details)
+                        )
                     }
                     STATUS_CANCEL -> {
                         mViewBinding.clContent.visibility = View.VISIBLE
@@ -125,10 +130,7 @@ class OrderDetailsActivity :
                             mViewBinding.atvStatusOtherTitle,
                             com.sbnh.comm.R.string.order_has_been_cancel
                         )
-                        UICompat.setText(
-                            mViewBinding.atvStatusOtherDesc,
-                            null
-                        )
+                        mViewBinding.atvStatusOtherDesc.visibility= View.GONE
                         setPublicOrderInfo(entity)
                         mViewBinding.clWayWaitPay.visibility = View.GONE
                         mViewBinding.clWayOther.visibility = View.VISIBLE
@@ -140,6 +142,10 @@ class OrderDetailsActivity :
                         mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                         mViewBinding.atvBackCenter.visibility = View.VISIBLE
                         mViewBinding.includedWaitPay.root.visibility = View.GONE
+                        UICompat.setText(
+                            mViewBinding.atvWayTitle,
+                            DataCompat.getResString(com.sbnh.comm.R.string.buy_details)
+                        )
                     }
                     STATUS_PAY_CALLBACK -> {
                         mViewBinding.clContent.visibility = View.VISIBLE
@@ -153,10 +159,7 @@ class OrderDetailsActivity :
                             mViewBinding.atvStatusOtherTitle,
                             com.sbnh.comm.R.string.on_the_march
                         )
-                        UICompat.setText(
-                            mViewBinding.atvStatusOtherDesc,
-                            null
-                        )
+                        mViewBinding.atvStatusOtherDesc.visibility= View.GONE
                         setPublicOrderInfo(entity)
                         mViewBinding.clWayWaitPay.visibility = View.GONE
                         mViewBinding.clWayOther.visibility = View.VISIBLE
@@ -168,6 +171,10 @@ class OrderDetailsActivity :
                         mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                         mViewBinding.atvBackCenter.visibility = View.VISIBLE
                         mViewBinding.includedWaitPay.root.visibility = View.GONE
+                        UICompat.setText(
+                            mViewBinding.atvWayTitle,
+                            DataCompat.getResString(com.sbnh.comm.R.string.buy_details)
+                        )
                     }
                     else -> {
                         mViewBinding.clContent.visibility = View.GONE

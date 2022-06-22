@@ -122,4 +122,5 @@
     <string name="save_image_succeed">保存图片成功</string>
     <string name="save_image_fail">保存图片失败</string>
     <string name="real_name_authentication_succeed">实名认证成功</string>
+    <string name="buy_details">购买详情</string>
 </resources>
