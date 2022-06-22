@@ -8,12 +8,12 @@ package com.sbnh.comm.entity.request
  */
 data class RequestMessageCodeEntity(
     val mobile: String,
-    val businessId: String? = "",
-    val imei: String? = "",
-    val macAddress: String? = "",
-    val needGetCaptchaTime: Int? = 0,
+   // val businessId: String? = "",
+  //  val imei: String? = "",
+   // val macAddress: String? = "",
+   // val needGetCaptchaTime: Int? = 0,
     val randstr: String? = "",
-    var sceneId: String? = "",
+   // var sceneId: String? = "",
     var ticket: String? = "",
-    var userIp: String? = ""
+   // var userIp: String? = ""
 )

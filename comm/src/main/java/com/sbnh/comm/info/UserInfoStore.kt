@@ -94,7 +94,7 @@ class UserInfoStore private constructor() {
 
     private suspend fun isPayPassWord() = mDataStoreManger.getBoolean(KEY_HAS_PAY_PASSWORD)
 
-    private suspend fun putRealName(hasRealName: Boolean?) {
+     suspend fun putRealName(hasRealName: Boolean?) {
         mDataStoreManger.putObject(KEY_HAS_REAL_NAME, hasRealName ?: "")
     }
 

@@ -1,8 +1,10 @@
 package com.sbnh.comm.other.glide
 
+import android.content.Context
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
+import com.bumptech.glide.GlideContext
 import com.bumptech.glide.request.target.Target
 import com.sbnh.comm.R
 
@@ -86,9 +88,9 @@ object GlideCompat {
     @JvmStatic
     fun createGlide(
         any: Any,
-        imageView: ImageView
+        context: Context
     ): GlideRequest<*> {
-        return HealerMetaGlide.with(imageView).load(any)
+        return HealerMetaGlide.with(context).load(any)
     }
 
 }

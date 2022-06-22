@@ -97,6 +97,7 @@
                     android:id="@+id/atv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/size_10dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textColor="@color/colorWhite"

@@ -79,6 +79,7 @@ android {
     viewBinding {
         enabled = true
     }
+    buildToolsVersion '32.0.0'
 
 }
 /*walle {

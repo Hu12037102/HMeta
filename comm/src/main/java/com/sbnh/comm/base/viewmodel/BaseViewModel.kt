@@ -1,9 +1,13 @@
 package com.sbnh.comm.base.viewmodel
 
+import android.content.ContentValues
+import android.provider.MediaStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.huxiaobai.compress.CompressGlide
+import com.huxiaobai.compress.imp.OnCompressGlideImageCallback
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
@@ -13,10 +17,16 @@ import com.sbnh.comm.http.ErrorResponse
 import com.sbnh.comm.http.RetrofitManger
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARoutersActivity
+import com.sbnh.comm.other.glide.HealerMetaGlide
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import retrofit2.Response
+import java.io.File
+import java.io.FileInputStream
+import java.io.OutputStream
 
 /**
  * 作者: 胡庆岭
@@ -123,4 +133,64 @@ open class BaseViewModel : ViewModel() {
         mLoadingLiveData.value = false
     }
 
+    fun savePicture(pictureAny: Any) {
+        val content = DataCompat.getContext()
+        viewModelScope.launch(Dispatchers.IO) {
+            val target = HealerMetaGlide.with(content)
+                .asFile()
+                .load(pictureAny)
+                .submit()
+            val glideFile = target.get()
+            LogUtils.w("savePicture--", "${Thread.currentThread()}---1")
+            CompressGlide.fromImage().create(content)
+                .compressImage(glideFile.absolutePath, object : OnCompressGlideImageCallback {
+                    override fun onResult(file: File) {
+                        LogUtils.w("savePicture--", "${Thread.currentThread()}---2")
+                        viewModelScope.launch(Dispatchers.IO) {
+                            LogUtils.w("savePicture--", "${Thread.currentThread()}---3")
+                            var os: OutputStream? = null
+                            var fis: FileInputStream? = null
+                            try {
+                                val uri = content.contentResolver.insert(
+                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                                    ContentValues()
+                                )
+                                os = content.contentResolver.openOutputStream(uri!!, "rw")
+                                fis = FileInputStream(file.absolutePath)
+                                val bytes = ByteArray(1024)
+                                var read: Int
+                                while (fis.read(bytes).also { read = it } != -1) {
+                                    if (os != null) {
+                                        os.write(bytes, 0, read)
+                                        os.flush()
+                                    }
+                                }
+
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            } finally {
+                                fis?.close()
+                                os?.close()
+                            }
+                            withContext(Dispatchers.Main) {
+                                LogUtils.w("savePicture--", "${Thread.currentThread()}---4")
+                                mToastLiveData.value =
+                                    DataCompat.getResString(com.sbnh.comm.R.string.save_image_succeed)
+                            }
+                        }
+
+
+                    }
+
+                    override fun onError(errorMessage: String?) {
+                        mToastLiveData.value =
+                            DataCompat.getResString(com.sbnh.comm.R.string.save_image_fail)
+
+                    }
+
+                })
+
+        }
+
+    }
 }

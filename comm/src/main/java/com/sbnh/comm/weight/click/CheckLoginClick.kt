@@ -11,21 +11,34 @@ import kotlinx.coroutines.*
  * 更新时间: 2022/6/15 9:51
  * 描述:
  */
-abstract class CheckLoginClick : DelayedClick() {
-   private val scope = MainScope()
+abstract class CheckLoginClick : DelayedClick {
+    private var checkLogin = true
+
+    constructor(checkLogin: Boolean) {
+        this.checkLogin = checkLogin
+    }
+
+    constructor()
+
+    private val scope = MainScope()
     override fun onDelayedClick(v: View?) {
-        scope.launch(Dispatchers.IO) {
-            val isLogin = UserInfoStore.get().isLogin()
-            withContext(Dispatchers.Main) {
-                if (!isLogin) {
-                    ARoutersActivity.startLoginActivity()
-                } else {
-                    onCheckLoginClick(v)
+        if (checkLogin) {
+            scope.launch(Dispatchers.IO) {
+                val isLogin = UserInfoStore.get().isLogin()
+                withContext(Dispatchers.Main) {
+                    if (!isLogin) {
+                        ARoutersActivity.startLoginActivity()
+                    } else {
+                        onCheckLoginClick(v)
+                    }
+
                 }
 
             }
-
+        } else {
+            onCheckLoginClick(v)
         }
+
     }
 
     abstract fun onCheckLoginClick(v: View?)

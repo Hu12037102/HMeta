@@ -29,6 +29,7 @@ android {
             buildConfigField("String", "BASE_URL", '"https://test.todoapp.cn/"')
             buildConfigField("String", "HEALER_META_APP_ID", '"b08eeb94a7ac45e8ae311b9e2cd01ad8"')
             buildConfigField("String", "HEALER_META_APP_KEY", '"e565f1b71c134c8cb256d4bfde713cab"')
+            buildConfigField("String", "TENCENT_CAPTCHA_APP_ID", '"2053608214"')
         }
         debug {
             minifyEnabled false
@@ -36,6 +37,7 @@ android {
             buildConfigField("String", "BASE_URL", '"https://test.todoapp.cn/"')
             buildConfigField("String", "HEALER_META_APP_ID", '"b08eeb94a7ac45e8ae311b9e2cd01ad8"')
             buildConfigField("String", "HEALER_META_APP_KEY", '"e565f1b71c134c8cb256d4bfde713cab"')
+            buildConfigField("String", "TENCENT_CAPTCHA_APP_ID", '"2053608214"')
         }
     }
     compileOptions {
@@ -57,7 +59,7 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$versions.appcompatVersion"
     implementation "com.google.android.material:material:$versions.materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$versions.constraintlayoutVersion"
-   // implementation project(path: ':walle')
+    // implementation project(path: ':walle')
     testImplementation "junit:junit:$versions.junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$versions.junitTestVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.espressoVersion"
@@ -90,6 +92,7 @@ dependencies {
     api "io.github.youth5201314:banner:$versions.banner"
     api "com.github.Hu12037102:ProjectViewX:$versions.ProjectViewX"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
-   // api 'com.meituan.android.walle:library:1.1.7'
+    // api 'com.meituan.android.walle:library:1.1.7'
     api 'com.tencent.vasdolly:helper:3.0.4'
+    api 'com.github.Hu12037102:MediaXCompress:1.2.0'
 }

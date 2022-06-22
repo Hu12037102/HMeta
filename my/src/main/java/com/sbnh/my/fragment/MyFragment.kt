@@ -10,7 +10,11 @@ import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.DialogCompat
 import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.dialog.RealNameDialog
+import com.sbnh.comm.entity.base.TAB_OFFICIAL_ACCOUNTS
+import com.sbnh.comm.entity.base.TAB_ORDER
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
@@ -86,12 +90,22 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
 
         mTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
             override fun onClickItem(view: View?, position: Int) {
-                if (position == 0) {
-                    ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_ORDER_LIST)
+
+                when (mTabData[position].id) {
+                    TAB_ORDER -> {
+                        ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_ORDER_LIST)
+                    }
+                    TAB_OFFICIAL_ACCOUNTS -> {
+                        ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_OFFICIAL_ACCOUNTS)
+                    }
+                    else -> {
+
+                    }
                 }
             }
 
         })
+
     }
 
     override fun initObserve() {
@@ -110,6 +124,20 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
             mViewBinding.clNotLogin.visibility = View.GONE
             GlideCompat.loadImage(userInfoEntity?.header, mViewBinding.civHead)
             UICompat.setText(mViewBinding.atvName, userInfoEntity?.nickName)
+            UICompat.setImageRes(
+                mViewBinding.aivRealNameStatus,
+                if (userInfoEntity?.hasRealName == true) com.sbnh.comm.R.mipmap.icon_my_have_real_name else com.sbnh.comm.R.mipmap.icon_my_not_real_name
+            )
+            mViewBinding.aivRealNameStatus.setOnClickListener(object : DelayedClick() {
+                override fun onDelayedClick(v: View?) {
+                    if (userInfoEntity?.hasRealName == false) {
+                        DialogCompat.showFragmentDialog(RealNameDialog())
+                    }
+
+                }
+
+            })
+
         } else {
             mViewBinding.clNotLogin.visibility = View.VISIBLE
             mViewBinding.clLogin.visibility = View.GONE

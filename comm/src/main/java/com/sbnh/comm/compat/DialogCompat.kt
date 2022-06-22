@@ -13,7 +13,7 @@ object DialogCompat {
     private const val TAG = "DialogFragment"
 
     @JvmStatic
-    fun showFragmentDialog(dialog: DialogFragment?, fragmentManager: FragmentManager?) {
+    fun showFragmentDialog(dialog: DialogFragment?, fragmentManager: FragmentManager?=null) {
         fragmentManager?.let {
             dialog?.showNow(it, TAG)
         }

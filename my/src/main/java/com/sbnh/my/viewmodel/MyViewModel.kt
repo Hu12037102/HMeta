@@ -2,7 +2,7 @@ package com.sbnh.my.viewmodel
 
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.entity.base.TabEntity
+import com.sbnh.comm.entity.base.*
 
 /**
  * 作者: 胡庆岭
@@ -16,45 +16,52 @@ class MyViewModel : BaseViewModel() {
         list.add(
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.my_order),
-                com.sbnh.comm.R.mipmap.icon_my_tab_order
+                com.sbnh.comm.R.mipmap.icon_my_tab_order,
+                TAB_ORDER
             )
         )
         list.add(
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.official_accounts),
-                com.sbnh.comm.R.mipmap.icon_my_tab_offcial_accounts
+                com.sbnh.comm.R.mipmap.icon_my_tab_offcial_accounts,
+                TAB_OFFICIAL_ACCOUNTS,
+                false
             )
         )
         list.add(
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.invite_friends),
-                com.sbnh.comm.R.mipmap.icon_my_tab_invite_friends
+                com.sbnh.comm.R.mipmap.icon_my_tab_invite_friends,
+                TAB_INVITE_FRIEND
             )
         )
         list.add(
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.examples_record),
-                com.sbnh.comm.R.mipmap.icon_my_tab_examples_record
+                com.sbnh.comm.R.mipmap.icon_my_tab_examples_record,
+                TAB_COMPOUND
             )
         )
         list.add(
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.lottery_assistant),
-                com.sbnh.comm.R.mipmap.icon_my_tab_lottery_assistant
+                com.sbnh.comm.R.mipmap.icon_my_tab_lottery_assistant,
+                TAB_LOTTERY_HELP
             )
         )
         list.add(
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.my_wallet),
-                com.sbnh.comm.R.mipmap.icon_my_tab_my_wallet
+                com.sbnh.comm.R.mipmap.icon_my_tab_my_wallet,
+                TAB_MY_WALLET
             )
         )
-        list.add(
-            TabEntity(
-                DataCompat.getResString(com.sbnh.comm.R.string.compound),
-                com.sbnh.comm.R.mipmap.icon_my_tab_compound
-            )
-        )
+        /*    list.add(
+                TabEntity(
+                    DataCompat.getResString(com.sbnh.comm.R.string.compound),
+                    com.sbnh.comm.R.mipmap.icon_my_tab_compound
+                )
+            )*/
         return list
     }
 

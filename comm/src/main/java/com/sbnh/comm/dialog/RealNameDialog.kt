@@ -4,12 +4,17 @@ import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
 import androidx.core.view.ViewCompat
+import androidx.lifecycle.lifecycleScope
 import com.sbnh.comm.base.dialog.BaseCompatDialog
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.databinding.DialogRealNameBinding
 import com.sbnh.comm.dialog.viewmodel.RealNameDialogViewModel
+import com.sbnh.comm.entity.other.CaptchaCheckResultEntity
 import com.sbnh.comm.entity.request.RequestRealNameEmpty
+import com.sbnh.comm.info.UserInfoStore
+import com.sbnh.comm.other.tencent.CaptchaDialogHelper
 import com.sbnh.comm.weight.click.DelayedClick
+import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -46,12 +51,23 @@ class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, RealNameDialogVie
                     showToast(com.sbnh.comm.R.string.please_inout_id_card_number)
                     return
                 }
-                mViewModel.realNameAuthentication(
-                    RequestRealNameEmpty(
-                        DataCompat.toString(name),
-                        DataCompat.toString(idCard)
-                    )
-                )
+                CaptchaDialogHelper.showDialog(requireContext(),
+                    object : CaptchaDialogHelper.OnDialogCallback {
+                        override fun onResult(entity: CaptchaCheckResultEntity?) {
+                            if (CaptchaCheckResultEntity.isSucceed(entity)) {
+                                mViewModel.realNameAuthentication(
+                                    RequestRealNameEmpty(
+                                        DataCompat.toString(name),
+                                        DataCompat.toString(idCard),
+                                        entity?.ticket,
+                                        entity?.randstr
+                                    )
+                                )
+                            }
+                        }
+
+                    })
+
             }
 
         })
@@ -61,6 +77,18 @@ class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, RealNameDialogVie
             }
 
         })
+    }
+
+    override fun initObserve() {
+        super.initObserve()
+        mViewModel.mRealNameLiveData.observe(this) {
+            lifecycleScope.launch {
+                UserInfoStore.get().putRealName(true)
+                showToast(com.sbnh.comm.R.string.real_name_authentication_succeed)
+                dismiss()
+
+            }
+        }
     }
 
     override fun getGravity(): Int = Gravity.CENTER

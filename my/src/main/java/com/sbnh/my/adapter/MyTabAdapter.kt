@@ -55,13 +55,13 @@ class MyTabAdapter(
         val entity = data[position]
         UICompat.setText(holder.binding.atvContent, entity.text)
         GlideCompat.loadWarpImage(entity.resDrawable, holder.binding.aivContent)
-        initHolderEvent(holder,position)
+        initHolderEvent(holder, position)
     }
 
     private fun initHolderEvent(holder: ViewHolder, position: Int) {
-        holder.itemView.setOnClickListener(object : CheckLoginClick() {
+        holder.itemView.setOnClickListener(object : CheckLoginClick(data[position].checkLogin) {
             override fun onCheckLoginClick(v: View?) {
-                mOnRecyclerItemClickListener?.onClickItem(v,position)
+                mOnRecyclerItemClickListener?.onClickItem(v, position)
             }
         })
     }

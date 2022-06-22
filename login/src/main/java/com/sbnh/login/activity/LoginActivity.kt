@@ -1,13 +1,16 @@
 package com.sbnh.login.activity
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.sbnh.comm.BuildConfig
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.*
+import com.sbnh.comm.entity.other.CaptchaCheckResultEntity
 import com.sbnh.comm.entity.request.RequestLoginEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.info.UserInfoStore
@@ -15,11 +18,14 @@ import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.other.tencent.CaptchaDialogHelper
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 
 import com.sbnh.login.databinding.ActivityLoginBinding
 import com.sbnh.login.viewmodel.LoginViewModel
+import com.tencent.captchasdk.TCaptchaDialog
 import kotlinx.coroutines.launch
 
 /**
@@ -82,7 +88,6 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
 
     }
 
-
     override fun initEvent() {
         mViewBinding.atvGainCode.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
@@ -92,8 +97,20 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
-                val request = RequestMessageCodeEntity(DataCompat.toString(phoneNumber))
-                mViewModel.gainMessageCode(request)
+                CaptchaDialogHelper.showDialog(this@LoginActivity,
+                    object : CaptchaDialogHelper.OnDialogCallback {
+                        override fun onResult(entity: CaptchaCheckResultEntity?) {
+                            if (CaptchaCheckResultEntity.isSucceed(entity)) {
+                                val request = RequestMessageCodeEntity(
+                                    DataCompat.toString(phoneNumber),
+                                    entity?.ticket,
+                                    entity?.randstr
+                                )
+                                mViewModel.gainMessageCode(request)
+                            }
+                        }
+
+                    })
                 //   mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
             }
         })
@@ -139,9 +156,10 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
                 }
                 val request = RequestLoginEntity(
                     DataCompat.toString(phoneNumber),
-                    DataCompat.toString(messageCode)
+                    DataCompat.toString(messageCode),
                 )
                 mViewModel.login(request)
+
             }
 
         })

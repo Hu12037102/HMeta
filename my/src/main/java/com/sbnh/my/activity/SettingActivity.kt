@@ -49,7 +49,7 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
     }
 
     override fun initData() {
-        mViewModel.loadUserInfo()
+
     }
 
     override fun initEvent() {
@@ -84,6 +84,11 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
             }
 
         })
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        mViewModel.loadUserInfo()
     }
 
     override fun initObserve() {

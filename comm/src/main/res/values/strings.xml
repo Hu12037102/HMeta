@@ -118,4 +118,8 @@
     <string name="cancelled">已取消</string>
     <string name="on_the_march">进行中</string>
     <string name="all">全部</string>
+    <string name="long_click_save_picture">长按保持图片到图库</string>
+    <string name="save_image_succeed">保存图片成功</string>
+    <string name="save_image_fail">保存图片失败</string>
+    <string name="real_name_authentication_succeed">实名认证成功</string>
 </resources>

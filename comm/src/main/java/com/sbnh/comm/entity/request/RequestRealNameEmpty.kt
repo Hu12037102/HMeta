@@ -7,6 +7,6 @@ package com.sbnh.comm.entity.request
  * 描述:
  */
 data class RequestRealNameEmpty(
-    val name: String = "",val card: String = "",
-    val randstr: String = "", val ticket: String = ""
+    val name: String = "", val card: String = "",
+    val ticket: String ?= "", val randstr: String ?= ""
 )
