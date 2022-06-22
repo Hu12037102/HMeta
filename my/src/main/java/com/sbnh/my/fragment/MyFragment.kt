@@ -44,15 +44,15 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
 
 
     override fun initData() {
-        mViewModel.loadUserInfo()
+        //    mViewModel.loadUserInfo()
         iniTabAdapter()
+        initPager()
 
     }
 
-    private fun initPager(isLogin: Boolean) {
+    private fun initPager() {
         val fragment: MyCollectionFragment =
             ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION)
-                .withBoolean(ARouterConfig.Key.HAS_LOGIN, isLogin)
                 .navigation() as MyCollectionFragment
         mFragments.add(fragment)
         val pagerAdapter = object : FragmentStateAdapter(this) {
@@ -85,7 +85,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
         })
 
         mTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
-            override fun onClickItem(view: View, position: Int) {
+            override fun onClickItem(view: View?, position: Int) {
                 if (position == 0) {
                     ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_ORDER_LIST)
                 }
@@ -123,7 +123,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                 DataCompat.getResString(com.sbnh.comm.R.string.login_read_you_digital_collection)
             )
         }
-        initPager(isLogin)
+
     }
 
 }

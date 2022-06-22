@@ -73,7 +73,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun initEvent() {
         mTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
-            override fun onClickItem(view: View, position: Int) {
+            override fun onClickItem(view: View?, position: Int) {
                 mViewBinding.vpContent.setCurrentItem(position, false)
             }
 

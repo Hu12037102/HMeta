@@ -4,7 +4,6 @@ import android.app.Activity
 import androidx.collection.ArrayMap
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.other.arouter.ARouterConfig
-import com.sbnh.comm.other.arouter.ARouters
 
 /**
  * 作者: 胡庆岭
@@ -22,19 +21,30 @@ class ActivityCompatManger private constructor() {
 
     }
 
-    private val mArrayMap: ArrayMap<String, Activity> by lazy { ArrayMap() }
+    private val mList: ArrayList<Activity> by lazy { ArrayList() }
     fun add(activity: Activity) {
-        mArrayMap[activity.javaClass.simpleName] = activity
+        mList.add(activity)
     }
 
     private fun remove(name: String) {
-        val activity = mArrayMap[name]
-        if (DataCompat.notNull(activity)) {
-            if (activity?.isFinishing != true) {
-                activity?.finish()
+        val iterator = mList.iterator()
+        while (iterator.hasNext()) {
+            val activity = iterator.next()
+            if (activity.javaClass.simpleName.contains(
+                    name,
+                    true
+                ) || activity.javaClass.simpleName.equals(
+                    name,
+                    true
+                )
+            ) {
+                if (!activity.isFinishing || !activity.isDestroyed) {
+                    activity.finish()
+                }
+                iterator.remove()
             }
-            mArrayMap.remove(name)
         }
+
     }
 
     fun remove(activity: Activity) {
@@ -42,28 +52,19 @@ class ActivityCompatManger private constructor() {
     }
 
     fun clear() {
-        val iterator = mArrayMap.iterator()
+        val iterator = mList.iterator()
         while (iterator.hasNext()) {
-            val entity: MutableMap.MutableEntry<String, Activity> = iterator.next()
-            if (!entity.value.isFinishing) {
-                entity.value.finish()
+            val entity = iterator.next()
+            if (!entity.isFinishing || !entity.isDestroyed) {
+                entity.finish()
             }
             iterator.remove()
         }
     }
 
     fun removeLoginAndRegisterActivity() {
-        val iterator = mArrayMap.iterator()
-        while (iterator.hasNext()) {
-            val entity: MutableMap.MutableEntry<String, Activity> = iterator.next()
-            if (entity.key.contains("LoginActivity") || entity.key.contains("RegisterActivity")) {
-                if (!entity.value.isFinishing) {
-                    entity.value.finish()
-                }
-                iterator.remove()
-            }
-
-        }
+        remove(ARouterConfig.Value.LOGIN_ACTIVITY)
+        remove(ARouterConfig.Value.REGISTER_ACTIVITY)
     }
 
 }

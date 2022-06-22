@@ -1,6 +1,9 @@
 package com.sbnh.comm.base.activity
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.AnimRes
 import androidx.annotation.StringRes
 import com.google.permission.activity.PermissionActivity
@@ -14,6 +17,11 @@ import com.sbnh.comm.compat.ToastCompat
  */
 abstract class BaseActivity : PermissionActivity() {
     private var isFirstCreate = true
+    private val mActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            onActivityResultCallback(it)
+        }
+
     protected fun showToast(text: CharSequence) {
         ToastCompat.create().showToast(text)
     }
@@ -42,6 +50,11 @@ abstract class BaseActivity : PermissionActivity() {
 
     }
 
+    override fun onDestroy() {
+        mActivityResultLauncher.unregister()
+        super.onDestroy()
+    }
+
     @AnimRes
     protected open fun getInActivityAnimationRes(): Int = com.sbnh.comm.R.anim.anim_right_to_center
 
@@ -59,4 +72,13 @@ abstract class BaseActivity : PermissionActivity() {
     protected open fun onWindowFirstFocusChanged(hasFocus: Boolean) {
 
     }
+
+    protected fun startActivityForResult(intent: Intent) {
+        mActivityResultLauncher.launch(intent)
+    }
+
+    protected open fun onActivityResultCallback(result: ActivityResult) {
+
+    }
+
 }

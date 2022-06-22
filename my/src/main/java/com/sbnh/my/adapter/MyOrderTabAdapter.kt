@@ -82,8 +82,8 @@ class MyOrderTabAdapter(private val context: Context, private val data: List<Ord
         drawable.orientation = GradientDrawable.Orientation.LEFT_RIGHT
         drawable.cornerRadius = PhoneCompat.dp2px(context, Contract.DP.VALUE_50F).toFloat()
         drawable.colors = intArrayOf(
-            MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFB857D5),
-            MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFF4724BA)
+            MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFB450E2),
+            MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFF505DFF)
         )
         return drawable
     }

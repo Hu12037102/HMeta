@@ -1,5 +1,6 @@
 package com.sbnh.comm.other.arouter
 
+import android.app.Activity
 import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.Postcard
@@ -24,7 +25,16 @@ object ARouters {
     }
 
     @JvmStatic
-    fun build(path: String): Postcard{
+    fun startActivityForResult(path: String, activity: Activity, requestCode: Int) {
+        try {
+            ARouter.getInstance().build(path).navigation(activity, requestCode)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    @JvmStatic
+    fun build(path: String): Postcard {
         return ARouter.getInstance().build(path)
     }
 
@@ -32,8 +42,6 @@ object ARouters {
     fun getFragment(path: String): Any {
         return ARouter.getInstance().build(path).navigation()
     }
-
-
 
 
 }

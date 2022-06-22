@@ -25,6 +25,7 @@ class IApiService {
     object HttpCode {
         const val SUCCEED = HttpURLConnection.HTTP_OK
         const val CLIENT_ERROR = HttpURLConnection.HTTP_BAD_REQUEST
+        const val CLIENT_NOT_LOGIN = HttpURLConnection.HTTP_UNAUTHORIZED
         const val SERVICE_ERROR = HttpURLConnection.HTTP_INTERNAL_ERROR
     }
 

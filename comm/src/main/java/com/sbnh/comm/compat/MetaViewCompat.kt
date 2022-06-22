@@ -1,5 +1,7 @@
 package com.sbnh.comm.compat
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.view.View
@@ -8,6 +10,7 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -90,5 +93,22 @@ object MetaViewCompat {
         if (DataCompat.notNull(view)) {
             ViewCompat.getWindowInsetsController(view!!)?.hide(WindowInsetsCompat.Type.ime())
         }
+    }
+
+    @JvmStatic
+    fun finishActivity(activity: Activity?) {
+        if (activity == null) {
+            return
+        }
+        activity.finish()
+    }
+
+    @JvmStatic
+    fun finishActivitySetResult(activity: Activity?, intent: Intent? = null) {
+        if (activity == null) {
+            return
+        }
+        activity.setResult(Activity.RESULT_OK, intent)
+        finishActivity(activity)
     }
 }

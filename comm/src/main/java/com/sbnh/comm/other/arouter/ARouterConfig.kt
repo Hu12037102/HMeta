@@ -42,9 +42,8 @@ class ARouterConfig {
         }
 
         object Login {
-            const val ACTIVITY_LOGIN = "/login/activity/login"
-            const val ACTIVITY_REGISTER = "/login/activity/register"
-
+            const val ACTIVITY_LOGIN = "/login/activity/${Value.LOGIN_ACTIVITY}"
+            const val ACTIVITY_REGISTER = "/login/activity/${Value.REGISTER_ACTIVITY}"
         }
 
         object Pay {
@@ -59,5 +58,10 @@ class ARouterConfig {
         object Order {
             const val ACTIVITY_ORDER_DETAILS = "/order/activity/order/details"
         }
+    }
+
+    object Value {
+        const val LOGIN_ACTIVITY = "login"
+        const val REGISTER_ACTIVITY = "register"
     }
 }

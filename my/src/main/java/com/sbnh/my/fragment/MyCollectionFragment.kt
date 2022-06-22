@@ -5,6 +5,8 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.MetaViewCompat
+import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
@@ -28,21 +30,20 @@ class MyCollectionFragment :
         MyCollectionViewModel::class.java
 
     override fun initView() {
-        MetaViewCompat.setClickButton(mViewBinding.atvLogin,Contract.DP.VALUE_8F)
+        MetaViewCompat.setClickButton(mViewBinding.atvLogin, Contract.DP.VALUE_8F)
     }
 
     override fun initData() {
-        val isLogin: Boolean = arguments?.getBoolean(ARouterConfig.Key.HAS_LOGIN, false) ?: false
-        if (isLogin) {
-            mViewBinding.atvLogin.visibility = View.GONE
-        } else {
-            mViewBinding.atvLogin.visibility = View.VISIBLE
-        }
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        mViewModel.loadUserInfo()
+    }
+
     override fun initEvent() {
-        mViewBinding.atvLogin.setOnClickListener(object :DelayedClick(){
+        mViewBinding.atvLogin.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 ARoutersActivity.startLoginActivity()
             }
@@ -56,5 +57,13 @@ class MyCollectionFragment :
 
         })
     }
+
     override fun isLoadEmptyView(): Boolean = true
+    override fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
+        if (!UserInfoStore.isLogin(userInfoEntity)) {
+            mViewBinding.atvLogin.visibility = View.VISIBLE
+        } else {
+            mViewBinding.atvLogin.visibility = View.GONE
+        }
+    }
 }

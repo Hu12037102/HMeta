@@ -5,24 +5,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.entity.base.BaseEntity
-import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.UserInfoEntity
-import com.sbnh.comm.entity.request.RequestCreateOrderEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.BaseService
 import com.sbnh.comm.http.ErrorResponse
 import com.sbnh.comm.http.RetrofitManger
 import com.sbnh.comm.info.UserInfoStore
-import com.sbnh.comm.manger.ActivityCompatManger
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import java.io.File
-import java.io.FileOutputStream
 
 /**
  * 作者: 胡庆岭
@@ -33,6 +27,7 @@ import java.io.FileOutputStream
 open class BaseViewModel : ViewModel() {
     companion object {
         const val TAG = "BaseViewModel"
+        const val STATUS_LOGIN_OUT = 1
     }
 
     protected val mRetrofitManger: RetrofitManger by lazy { RetrofitManger.Instance }
@@ -40,7 +35,7 @@ open class BaseViewModel : ViewModel() {
     val mUserInfoLiveData: MutableLiveData<UserInfoEntity> by lazy { MutableLiveData<UserInfoEntity>() }
     val mGainMessageCodeLiveData: MutableLiveData<Unit> by lazy { MutableLiveData<Unit>() }
     val mLoadingLiveData: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
-
+    val mPublicLiveData: MutableLiveData<Int> by lazy { MutableLiveData() }
 
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
@@ -65,13 +60,12 @@ open class BaseViewModel : ViewModel() {
 
 
     fun exitLoginLocal() {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch {
             UserInfoStore.get().clear()
-            ActivityCompatManger.get().clear()
             ARoutersActivity.startLoginActivity()
+            mPublicLiveData.value = STATUS_LOGIN_OUT
         }
     }
-
 
 
     fun <T> disposeRetrofit(liveData: MutableLiveData<T>?, response: Response<T>?) {
@@ -91,6 +85,10 @@ open class BaseViewModel : ViewModel() {
                 when (response.code()) {
                     IApiService.HttpCode.CLIENT_ERROR -> {
                         LogUtils.w("disposeRetrofit--", "客户端异常")
+                    }
+                    IApiService.HttpCode.CLIENT_NOT_LOGIN -> {
+                        LogUtils.w("disposeRetrofit--", "用户未登录")
+                        exitLoginLocal()
                     }
                     IApiService.HttpCode.SERVICE_ERROR -> {
                         LogUtils.w("disposeRetrofit--", "服务器异常")
