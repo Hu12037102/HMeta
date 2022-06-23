@@ -4,23 +4,19 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
-import com.sbnh.comm.Contract
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
-import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import kotlinx.coroutines.launch
 
 abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseActivity() {
+    private var mRefreshLayout: RefreshLayout? = null
     protected val mViewBinding: VB by lazy {
         getViewBinding()
     }
@@ -72,6 +68,12 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
             }
 
         }
+        mViewModel.mPublicLiveData.observe(this) {
+            if (it == BaseViewModel.STATUE_REQUEST_END) {
+                mRefreshLayout?.finishRefresh()
+                mRefreshLayout?.finishLoadMore()
+            }
+        }
     }
 
     protected open fun isLoadEmptyView(): Boolean = false
@@ -85,7 +87,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
                 for (i in 0 until rootView.childCount) {
                     val childView = rootView.getChildAt(i)
                     if (childView is SmartRefreshLayout) {
-                        SmartRefreshLayoutCompat.initDefault(childView)
+                        initRefreshLayout(childView)
                         break
                     }
                 }
@@ -110,17 +112,20 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
     }
 
     private fun initRefreshLayout(refreshLayout: SmartRefreshLayout) {
+        this.mRefreshLayout = refreshLayout
         SmartRefreshLayoutCompat.initDefault(refreshLayout)
         refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onRefresh(refreshLayout: RefreshLayout) {
                 mViewModel.mPagerNum = 0
                 mViewModel.isRefresh = true
-                onLoadSmartData(refreshLayout,  mViewModel.isRefresh)
+                loadSmartData(refreshLayout, mViewModel.isRefresh)
+                //  refreshLayout.finishRefresh()
             }
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 mViewModel.isRefresh = false
-                onLoadSmartData(refreshLayout, mViewModel.isRefresh)
+                loadSmartData(refreshLayout, mViewModel.isRefresh)
+                // refreshLayout.finishLoadMore()
             }
 
         })

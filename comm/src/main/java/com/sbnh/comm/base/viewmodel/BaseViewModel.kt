@@ -6,13 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.huxiaobai.compress.CompressGlide
 import com.huxiaobai.compress.imp.OnCompressGlideImageCallback
 import com.sbnh.comm.Contract
+import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.entity.order.RefreshStatusEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.BaseService
@@ -41,7 +45,7 @@ open class BaseViewModel : ViewModel() {
     companion object {
         const val TAG = "BaseViewModel"
         const val STATUS_LOGIN_OUT = 1
-        const val STATUS_REFRESH_OK = 2
+        const val STATUE_REQUEST_END = 2
     }
 
     var mPagerNum = Contract.PAGE_NUM
@@ -54,6 +58,7 @@ open class BaseViewModel : ViewModel() {
     val mGainMessageCodeLiveData: MutableLiveData<Unit> by lazy { MutableLiveData<Unit>() }
     val mLoadingLiveData: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
     val mPublicLiveData: MutableLiveData<Int> by lazy { MutableLiveData() }
+    val mRefreshLiveData: MutableLiveData<RefreshStatusEntity> by lazy { MutableLiveData() }
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
             val result = UserInfoStore.get().getEntity()
@@ -86,6 +91,7 @@ open class BaseViewModel : ViewModel() {
 
 
     fun <T> disposeRetrofit(liveData: MutableLiveData<T>?, response: Response<T>?) {
+        mPublicLiveData.value = STATUE_REQUEST_END
         if (response == null) {
             mToastLiveData.value =
                 DataCompat.getResString(com.sbnh.comm.R.string.default_http_error)
@@ -103,10 +109,23 @@ open class BaseViewModel : ViewModel() {
                     body.lastTimestamp?.let {
                         mLastTimestamp = it
                     }
-                    mPublicLiveData.value = STATUS_REFRESH_OK
-                } else if (body is BasePagerEntity2<*>) {
-                    mPagerNum++
-                    mPublicLiveData.value = STATUS_REFRESH_OK
+                    if (body.data is List<*>) {
+                        mRefreshLiveData.value =
+                            RefreshStatusEntity(CollectionCompat.getListSize(body.data))
+                    }
+
+                } else if (body is BaseEntity<*>) {
+                    val data = body.data
+                    if (data is BasePagerEntity2<*>) {
+                        mPagerNum++
+                        val pagerList = data.list
+                        if (pagerList is List<*>) {
+                            mRefreshLiveData.value =
+                                RefreshStatusEntity(CollectionCompat.getListSize(pagerList))
+                        }
+                    }
+
+                    //    if (body.list)
                 }
                 LogUtils.w("disposeRetrofit--", "成功")
             } else {
@@ -211,4 +230,5 @@ open class BaseViewModel : ViewModel() {
         }
 
     }
+
 }

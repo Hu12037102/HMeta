@@ -6,6 +6,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
+import com.sbnh.comm.compat.ToastCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
@@ -25,7 +26,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
  */
 @Route(path = ARouterConfig.Path.Home.FRAGMENT_HOME)
 class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
-  //  private val mRequestCollectionEntity = RequestPagerListEntity()
+    //  private val mRequestCollectionEntity = RequestPagerListEntity()
     private val mCollectionData = ArrayList<CollectionEntity>()
     private var mCollectionAdapter: HomeCollectionListAdapter? = null
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
@@ -39,7 +40,7 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun initData() {
         mCollectionAdapter = HomeCollectionListAdapter(requireContext(), mCollectionData)
         mViewBinding.rvData.adapter = mCollectionAdapter
-       // mViewModel.loadCollectionList(mRequestCollectionEntity)
+        // mViewModel.loadCollectionList(mRequestCollectionEntity)
         onLoadSmartData()
     }
 
@@ -66,7 +67,12 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun onLoadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
-        mViewModel.loadCollectionList(RequestPagerListEntity(mViewModel.mPagerSize,mViewModel.mLastTimestamp))
+        mViewModel.loadCollectionList(
+            RequestPagerListEntity(
+                mViewModel.mPagerSize,
+                mViewModel.mLastTimestamp
+            )
+        )
     }
 
     override fun initObserve() {
@@ -78,6 +84,7 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
                 mCollectionAdapter?.notifyDataSetChanged()
             }
         }
+
     }
 
 

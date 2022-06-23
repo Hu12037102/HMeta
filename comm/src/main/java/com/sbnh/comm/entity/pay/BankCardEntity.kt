@@ -16,4 +16,5 @@ open class BankCardEntity {
     var idCard: String? = ""
     var logo: String? = ""
     var mobile: String? = ""
+    var backgroundColor: String? = ""
 }

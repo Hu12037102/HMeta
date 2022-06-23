@@ -40,6 +40,7 @@
     <color name="colorFF4C4C4C">#FF4C4C4C</color>
     <color name="colorFFB450E2">#FFB450E2</color>
     <color name="colorFF505DFF">#FF505DFF</color>
+    <color name="colorFFD4D4D4">#FFD4D4D4</color>
     <color name="colorWindowBackground">@color/colorFF191919</color>
     <color name="color_title_view_center_text_color">@color/white</color>
 

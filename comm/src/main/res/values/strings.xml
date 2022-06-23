@@ -125,4 +125,5 @@
     <string name="real_name_authentication_succeed">实名认证成功</string>
     <string name="buy_details">购买详情</string>
     <string name="set_payment_password_succeed">设置支付密码成功</string>
+    <string name="deposit_card">储蓄卡</string>
 </resources>

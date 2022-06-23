@@ -3,9 +3,14 @@ package com.sbnh.pay.activity
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
+import com.sbnh.comm.compat.CollectionCompat
+import com.sbnh.comm.entity.base.BaseEntity
+import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.pay.BankCardEntity
-import com.sbnh.comm.entity.request.RequestBasePagerEntity
+import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
@@ -15,6 +20,7 @@ import com.sbnh.pay.databinding.ActivityBankCardListBinding
 import com.sbnh.pay.databinding.ItemFootBankCardListViewBinding
 import com.sbnh.pay.databinding.ItemHeadBankCardListViewBinding
 import com.sbnh.pay.viewmodel.BankCardListViewModel
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 
 /**
  * 作者: 胡庆岭
@@ -57,10 +63,25 @@ class BankCardListActivity :
         mAdapter?.addHeadView(mHeadViewBinding.root)
         mAdapter?.addFootView(mFootViewBinding.root)
         mViewBinding.rvData.adapter = mAdapter
-        mViewModel.loadBankCardList(RequestBasePagerEntity())
+        loadSmartData()
+    }
+
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        mViewModel.loadBankCardList(RequestPagerListEntity())
     }
 
     override fun initEvent() {
+        mAdapter?.setOnRecyclerViewItemClickListener(object : OnRecyclerViewItemClickListener {
+            override fun clickEmptyView(view: View) {
+            }
+
+            override fun clickItem(view: View, position: Int) {
+            }
+
+            override fun longClickItem(view: View, position: Int) {
+            }
+
+        })
 
     }
 
@@ -83,5 +104,24 @@ class BankCardListActivity :
             }
 
         })
+    }
+
+    override fun initObserve() {
+        super.initObserve()
+        mViewModel.mBankListLiveData.observe(this) {
+            mViewBinding.refreshLayout.setEnableLoadMore(false)
+            val data = BaseEntity.getPagerData(it)
+
+            if (mViewModel.isRefresh) {
+                mData.clear()
+            }
+            if (CollectionCompat.notEmptyList(data)) {
+                mData.addAll(data!!)
+            }
+            if (CollectionCompat.notEmptyList(mData)) {
+                mAdapter?.removeHeadView()
+            }
+            mAdapter?.notifyDataSetChanged()
+        }
     }
 }

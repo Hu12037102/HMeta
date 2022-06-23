@@ -15,5 +15,8 @@ data class BaseEntity<T>(var data: T?) {
     companion object {
         @JvmStatic
         fun <T> getData(entity: BaseEntity<T>?) = entity?.data
+
+        @JvmStatic
+        fun <T> getPagerData(entity: BaseEntity<BasePagerEntity2<T>>?): T? = entity?.data?.list
     }
 }

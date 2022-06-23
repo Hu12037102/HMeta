@@ -39,7 +39,7 @@ import org.jetbrains.annotations.NotNull;
 public final class SpanTextHelper {
     private final SpannableStringBuilder mSpanBuilder;
     private CharSequence mAppendText;
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    public static final String LINE_SEPARATOR = System.getProperty("line.separator");
     private int mStartIndex;
     private int mEndIndex;
     private static final String IMAGE_TAG = "<image>";

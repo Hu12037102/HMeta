@@ -28,6 +28,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
     protected var mRootView: View? = null
     private var isFirstCreate = true
+    private var mRefreshLayout: RefreshLayout? = null
 
     companion object {
         const val TAG = LogUtils.TAG
@@ -79,6 +80,15 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         }
         mViewModel.mGainMessageCodeLiveData.observe(this) {
             resultGainMessageCode()
+        }
+        mViewModel.mRefreshLiveData.observe(this) {
+            mRefreshLayout?.setEnableLoadMore(it.dataSize > 0)
+        }
+        mViewModel.mPublicLiveData.observe(this) {
+            if (it == BaseViewModel.STATUE_REQUEST_END) {
+                mRefreshLayout?.finishRefresh()
+                mRefreshLayout?.finishLoadMore()
+            }
         }
     }
 
@@ -170,19 +180,20 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     protected open fun resultGainMessageCode() {}
 
     private fun initRefreshLayout(refreshLayout: SmartRefreshLayout) {
+        this.mRefreshLayout = refreshLayout
         SmartRefreshLayoutCompat.initDefault(refreshLayout)
         refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onRefresh(refreshLayout: RefreshLayout) {
                 mViewModel.mPagerNum = 0
                 mViewModel.isRefresh = true
                 onLoadSmartData(refreshLayout, mViewModel.isRefresh)
-                refreshLayout.finishRefresh()
+              //  refreshLayout.finishRefresh()
             }
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 mViewModel.isRefresh = false
                 onLoadSmartData(refreshLayout, mViewModel.isRefresh)
-                refreshLayout.finishLoadMore()
+               // refreshLayout.finishLoadMore()
             }
 
         })
