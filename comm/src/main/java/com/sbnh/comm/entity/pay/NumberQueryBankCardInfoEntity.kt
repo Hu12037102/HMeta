@@ -6,7 +6,7 @@ package com.sbnh.comm.entity.pay
  * 更新时间: 2022/6/22 20:16
  * 描述:
  */
-data class BankCardInfoEntity(
+data class NumberQueryBankCardInfoEntity(
     var id: String? = "", var background: String? = "",
     var logo: String? = "", var name: String? = "",
     var preCardNo: String? = "", var createTime: Long? = 0,

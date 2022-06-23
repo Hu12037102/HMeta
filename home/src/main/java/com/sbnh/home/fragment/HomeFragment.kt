@@ -15,6 +15,7 @@ import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.home.adapter.HomeCollectionListAdapter
 import com.sbnh.home.databinding.FragmentHomeBinding
 import com.sbnh.home.viewmodel.HomeViewModel
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 
 /**
  * 作者: 胡庆岭
@@ -24,7 +25,7 @@ import com.sbnh.home.viewmodel.HomeViewModel
  */
 @Route(path = ARouterConfig.Path.Home.FRAGMENT_HOME)
 class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
-    private val mRequestCollectionEntity = RequestPagerListEntity()
+  //  private val mRequestCollectionEntity = RequestPagerListEntity()
     private val mCollectionData = ArrayList<CollectionEntity>()
     private var mCollectionAdapter: HomeCollectionListAdapter? = null
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
@@ -38,7 +39,8 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
     override fun initData() {
         mCollectionAdapter = HomeCollectionListAdapter(requireContext(), mCollectionData)
         mViewBinding.rvData.adapter = mCollectionAdapter
-        mViewModel.loadCollectionList(mRequestCollectionEntity)
+       // mViewModel.loadCollectionList(mRequestCollectionEntity)
+        onLoadSmartData()
     }
 
     override fun isLoadEmptyView(): Boolean = true
@@ -61,6 +63,10 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
             }
 
         })
+    }
+
+    override fun onLoadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        mViewModel.loadCollectionList(RequestPagerListEntity(mViewModel.mPagerSize,mViewModel.mLastTimestamp))
     }
 
     override fun initObserve() {

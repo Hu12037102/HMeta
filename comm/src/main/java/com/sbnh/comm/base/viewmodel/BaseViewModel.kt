@@ -8,7 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.huxiaobai.compress.CompressGlide
 import com.huxiaobai.compress.imp.OnCompressGlideImageCallback
+import com.sbnh.comm.Contract
 import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.entity.base.BasePagerEntity
+import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.http.IApiService
@@ -38,15 +41,19 @@ open class BaseViewModel : ViewModel() {
     companion object {
         const val TAG = "BaseViewModel"
         const val STATUS_LOGIN_OUT = 1
+        const val STATUS_REFRESH_OK = 2
     }
 
+    var mPagerNum = Contract.PAGE_NUM
+    val mPagerSize = Contract.PAGE_SIZE
+    var isRefresh = true
+    var mLastTimestamp = System.currentTimeMillis()
     protected val mRetrofitManger: RetrofitManger by lazy { RetrofitManger.Instance }
     val mToastLiveData: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val mUserInfoLiveData: MutableLiveData<UserInfoEntity> by lazy { MutableLiveData<UserInfoEntity>() }
     val mGainMessageCodeLiveData: MutableLiveData<Unit> by lazy { MutableLiveData<Unit>() }
     val mLoadingLiveData: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
     val mPublicLiveData: MutableLiveData<Int> by lazy { MutableLiveData() }
-
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
             val result = UserInfoStore.get().getEntity()
@@ -89,7 +96,18 @@ open class BaseViewModel : ViewModel() {
                 mToastLiveData.value = message
             }
             if (response.isSuccessful) {
-                liveData?.value = response.body()
+                val body = response.body()
+                liveData?.value = body
+                if (body is BasePagerEntity<*>) {
+                    mPagerNum++
+                    body.lastTimestamp?.let {
+                        mLastTimestamp = it
+                    }
+                    mPublicLiveData.value = STATUS_REFRESH_OK
+                } else if (body is BasePagerEntity2<*>) {
+                    mPagerNum++
+                    mPublicLiveData.value = STATUS_REFRESH_OK
+                }
                 LogUtils.w("disposeRetrofit--", "成功")
             } else {
                 when (response.code()) {

@@ -2,14 +2,12 @@ package com.sbnh.pay.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.base.viewmodel.TimerViewModel
 import com.sbnh.comm.entity.base.BaseEntity
-import com.sbnh.comm.entity.pay.BankCardInfoEntity
+import com.sbnh.comm.entity.pay.NumberQueryBankCardInfoEntity
 import com.sbnh.comm.entity.request.RequestBankCardInfoEntity
 import com.sbnh.comm.entity.request.RequestBindingBankCardAfterEntity
 import com.sbnh.comm.entity.request.RequestBindingBankCardBeforeEntity
-import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.pay.PayService
 import kotlinx.coroutines.launch
 
@@ -20,7 +18,7 @@ import kotlinx.coroutines.launch
  * 描述:添加银行卡
  */
 class AddBankCardViewModel : TimerViewModel() {
-    val mQueryBankCardLiveData = MutableLiveData<BaseEntity<BankCardInfoEntity>>()
+    val mQueryBankCardLiveData = MutableLiveData<BaseEntity<NumberQueryBankCardInfoEntity>>()
     val mBindingBankCardBeforeLiveData = MutableLiveData<BaseEntity<String>>()
     val mBindingBankCardAfterLiveData = MutableLiveData<BaseEntity<Unit>>()
     fun queryBankCardInfo(
@@ -31,7 +29,7 @@ class AddBankCardViewModel : TimerViewModel() {
             try {
                 val result = mRetrofitManger.create(PayService::class.java)
                     .queryBankCardInfo(entity)
-                if (result.body() is BaseEntity<BankCardInfoEntity>) {
+                if (result.body() is BaseEntity<NumberQueryBankCardInfoEntity>) {
                     result.body()?.data?.isBindingBankCardBefore = isBindingBankCardBefore
                 }
                 disposeRetrofit(mQueryBankCardLiveData, result)

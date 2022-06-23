@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.entity.pay.BankCardEntity
+import com.sbnh.comm.entity.request.RequestBasePagerEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
@@ -56,6 +57,7 @@ class BankCardListActivity :
         mAdapter?.addHeadView(mHeadViewBinding.root)
         mAdapter?.addFootView(mFootViewBinding.root)
         mViewBinding.rvData.adapter = mAdapter
+        mViewModel.loadBankCardList(RequestBasePagerEntity())
     }
 
     override fun initEvent() {

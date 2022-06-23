@@ -13,12 +13,10 @@ import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.STATUS_RUNNING
 import com.sbnh.comm.entity.other.CaptchaCheckResultEntity
-import com.sbnh.comm.entity.pay.BankCardEntity
-import com.sbnh.comm.entity.pay.BankCardInfoEntity
+import com.sbnh.comm.entity.pay.NumberQueryBankCardInfoEntity
 import com.sbnh.comm.entity.request.RequestBankCardInfoEntity
 import com.sbnh.comm.entity.request.RequestBindingBankCardAfterEntity
 import com.sbnh.comm.entity.request.RequestBindingBankCardBeforeEntity
-import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.other.tencent.CaptchaDialogHelper
@@ -39,7 +37,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         const val QUERY_CARD_INFO_LENGTH = 6
     }
 
-    private var mBankEntity: BankCardInfoEntity? = null
+    private var mBankEntity: NumberQueryBankCardInfoEntity? = null
     private var isAgreeAgreement = false
     private var mBindingBankCardId: String? = ""
     override fun getViewBinding(): ActivityAddBankCardBinding =

@@ -7,7 +7,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.AnimRes
 import androidx.annotation.StringRes
 import com.google.permission.activity.PermissionActivity
+import com.sbnh.comm.Contract
 import com.sbnh.comm.compat.ToastCompat
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 
 /**
  * 作者: 胡庆岭
@@ -80,5 +83,13 @@ abstract class BaseActivity : PermissionActivity() {
     protected open fun onActivityResultCallback(result: ActivityResult) {
 
     }
+
+    protected open fun onLoadSmartData(
+        refreshLayout: RefreshLayout? = null,
+        isRefresh: Boolean = true
+    ) {
+
+    }
+
 
 }
