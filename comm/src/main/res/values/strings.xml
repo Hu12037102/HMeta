@@ -30,6 +30,7 @@
     <string name="please_input_sure_phone_number">请输入正确手机号码</string>
     <string name="please_input_message_code">请输入正确验证码</string>
     <string name="please_agree_user_agreement">请认真阅读并且同意《用户协议》和《隐私政策》</string>
+    <string name="please_agree_user_other_pay_agreement">请认真阅读并且同意《首易信支付用户协议》</string>
     <string name="input_invite_code">输入邀请码</string>
     <string name="bazaar_not_open">市场暂未放开</string>
     <string name="accounts_and_security">账号与安全</string>

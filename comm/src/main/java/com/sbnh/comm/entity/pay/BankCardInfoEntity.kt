@@ -9,5 +9,6 @@ package com.sbnh.comm.entity.pay
 data class BankCardInfoEntity(
     var id: String? = "", var background: String? = "",
     var logo: String? = "", var name: String? = "",
-    var preCardNo: String? = "", var createTime: Long? = 0
+    var preCardNo: String? = "", var createTime: Long? = 0,
+    var isBindingBankCardBefore: Boolean = false
 )

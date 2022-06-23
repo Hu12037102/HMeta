@@ -13,8 +13,12 @@ import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.STATUS_RUNNING
 import com.sbnh.comm.entity.other.CaptchaCheckResultEntity
+import com.sbnh.comm.entity.pay.BankCardEntity
+import com.sbnh.comm.entity.pay.BankCardInfoEntity
 import com.sbnh.comm.entity.request.RequestBankCardInfoEntity
+import com.sbnh.comm.entity.request.RequestBindingBankCardAfterEntity
 import com.sbnh.comm.entity.request.RequestBindingBankCardBeforeEntity
+import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.other.tencent.CaptchaDialogHelper
@@ -35,7 +39,9 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         const val QUERY_CARD_INFO_LENGTH = 6
     }
 
+    private var mBankEntity: BankCardInfoEntity? = null
     private var isAgreeAgreement = false
+    private var mBindingBankCardId: String? = ""
     override fun getViewBinding(): ActivityAddBankCardBinding =
         ActivityAddBankCardBinding.inflate(layoutInflater)
 
@@ -88,9 +94,33 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                     return
                 }
                 if (!isAgreeAgreement) {
-                    showToast(com.sbnh.comm.R.string.please_agree_user_agreement)
+                    showToast(com.sbnh.comm.R.string.please_agree_user_other_pay_agreement)
                     return
                 }
+                /*     if (mBankEntity == null) {
+                         mViewModel.queryBankCardInfo(
+                             RequestBankCardInfoEntity(
+                                 DataCompat.toString(
+                                     bankCardNumber
+                                 )
+                             ), true
+                         )
+                     } else {
+                         mViewModel.bindingBankCardBefore(
+                             RequestBindingBankCardBeforeEntity(
+                                 mBankEntity?.preCardNo,
+                                 DataCompat.toString(bankCardNumber),
+                                 DataCompat.toString(phoneNumber)
+                             )
+                         )
+                     }*/
+                mViewModel.bindingBankCardAfter(
+                    RequestBindingBankCardAfterEntity(
+                        DataCompat.toString(
+                            mBindingBankCardId
+                        ), DataCompat.toString(messageCode)
+                    )
+                )
 
             }
 
@@ -106,15 +136,26 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                     object : CaptchaDialogHelper.OnDialogCallback {
                         override fun onResult(entity: CaptchaCheckResultEntity?) {
                             if (CaptchaCheckResultEntity.isSucceed(entity)) {
-                              /*  mViewModel.gainMessageCode(
-                                    RequestMessageCodeEntity(
-                                        DataCompat.toString(
-                                            phoneNumber
-                                        ), entity?.randstr, entity?.ticket
+                                val bankCardNumber =
+                                    MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber)
+                                if (mBankEntity == null) {
+                                    mViewModel.queryBankCardInfo(
+                                        RequestBankCardInfoEntity(
+                                            DataCompat.toString(
+                                                bankCardNumber
+                                            )
+                                        ), true
                                     )
-                                )*/
-                                val bankCardNumber = DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber))
-                                mViewModel.bindingBankCardBefore(RequestBindingBankCardBeforeEntity(bankCardNumber))
+                                } else {
+                                    mViewModel.bindingBankCardBefore(
+                                        RequestBindingBankCardBeforeEntity(
+                                            mBankEntity?.preCardNo,
+                                            DataCompat.toString(bankCardNumber),
+                                            DataCompat.toString(phoneNumber)
+                                        )
+                                    )
+                                }
+
                             }
                         }
 
@@ -134,11 +175,14 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
             val length = MetaViewCompat.getTextViewLength(mViewBinding.aetBankCardNumber)
             val text =
                 DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber))
-            if (length == QUERY_CARD_INFO_LENGTH) {
-                mViewModel.queryBankCardInfo(RequestBankCardInfoEntity(text))
+            if (length >= QUERY_CARD_INFO_LENGTH) {
+                if (mBankEntity == null) {
+                    mViewModel.queryBankCardInfo(RequestBankCardInfoEntity(text))
+                }
             } else if (length < QUERY_CARD_INFO_LENGTH) {
                 UICompat.setImageDrawable(mViewBinding.civBankIcon, null)
                 UICompat.setText(mViewBinding.atvBankName, null)
+                mBankEntity = null
             }
         }
 
@@ -166,12 +210,38 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
             }
         }
         mViewModel.mQueryBankCardLiveData.observe(this) {
-            val entity = BaseEntity.getData(it)
-            GlideCompat.loadImage(entity?.logo, mViewBinding.civBankIcon)
-            UICompat.setText(mViewBinding.atvBankName, entity?.name)
+            this.mBankEntity = BaseEntity.getData(it)
+            GlideCompat.loadImage(mBankEntity?.logo, mViewBinding.civBankIcon)
+            UICompat.setText(mViewBinding.atvBankName, mBankEntity?.name)
+
+            if (mBankEntity?.isBindingBankCardBefore == true) {
+                mViewModel.bindingBankCardBefore(
+                    RequestBindingBankCardBeforeEntity(
+                        mBankEntity?.preCardNo,
+                        DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber)),
+                        DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetPhoneNumber))
+                    )
+                )
+            }
         }
-        mViewModel.mGainMessageCodeLiveData.observe(this){
+        mViewModel.mGainMessageCodeLiveData.observe(this) {
             mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
+        }
+        mViewModel.mBindingBankCardBeforeLiveData.observe(this) {
+            mBindingBankCardId = BaseEntity.getData(it)
+            mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
+            /*  val messageCode = MetaViewCompat.getTextViewText(mViewBinding.aetMessageCode)
+              mViewModel.bindingBankCardAfter(
+                  RequestBindingBankCardAfterEntity(
+                      DataCompat.toString(
+                          entity
+                      ), DataCompat.toString(messageCode)
+                  )
+              )*/
+        }
+        mViewModel.mBindingBankCardAfterLiveData.observe(this) {
+            MetaViewCompat.finishActivity(this)
+
         }
     }
 
