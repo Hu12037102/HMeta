@@ -13,6 +13,9 @@ import com.sbnh.comm.app.BaseApplication
  * 更新时间: 2022/6/10 12:05
  * 描述:
  */
+
+
+
 object DataCompat {
     @JvmStatic
     fun isEmpty(text: CharSequence?): Boolean {
@@ -43,7 +46,7 @@ object DataCompat {
 
     @JvmStatic
     fun getResString(@StringRes resString: Int, vararg formatArgs: Any): String {
-        return getContext().getString(resString,*formatArgs)
+        return getContext().getString(resString, *formatArgs)
     }
 
     @JvmStatic

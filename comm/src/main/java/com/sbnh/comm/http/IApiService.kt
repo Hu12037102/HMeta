@@ -26,6 +26,7 @@ class IApiService {
         const val BINDING_BANK_CARD_BEFORE = "/payment/thirdPayment/bindCard"
         const val BINDING_BANK_CARD_AFTER = "/payment/thirdPayment/bindCardConfirm"
         const val QUERY_BANK_CARD_LIST = "payment/thirdPayment/queryBankCardBindRec"
+        const val UNBIND_BANK_CARD = "/payment/thirdPayment/unBindCard"
     }
 
     object HttpCode {

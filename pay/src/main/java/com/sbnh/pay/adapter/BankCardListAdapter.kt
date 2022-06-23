@@ -2,7 +2,9 @@ package com.sbnh.pay.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huxiaobai.adapter.BaseRecyclerAdapter
@@ -12,6 +14,7 @@ import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.pay.BankCardEntity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.utils.LogUtils
+import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.pay.databinding.ItemBankCardListViewBinding
 
@@ -21,8 +24,12 @@ import com.sbnh.pay.databinding.ItemBankCardListViewBinding
  * 更新时间: 2022/6/17 10:42
  * 描述:
  */
-class BankCardListAdapter(context: Context, data: List<BankCardEntity>) :
+class BankCardListAdapter(context: Context, data: ArrayList<BankCardEntity>) :
     BaseRecyclerAdapter<BankCardEntity>(context, data) {
+    private var mOnClickMoreViewListener: OnClickMoreViewListener? = null
+    fun setOnClickMoreViewListener(onClickMoreViewListener: OnClickMoreViewListener?) {
+        this.mOnClickMoreViewListener = onClickMoreViewListener
+    }
 
     class ViewHolder(val binding: ItemBankCardListViewBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -62,7 +69,14 @@ class BankCardListAdapter(context: Context, data: List<BankCardEntity>) :
                     .setSize(16, true)
                     .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorWhite))
                     .crete(holder.binding.atvBankCardNumber)
+                holder.binding.aivMore.setOnClickListener(object : DelayedClick() {
+                    override fun onDelayedClick(v: View?) {
+                        mOnClickMoreViewListener?.clickMore(v, position)
+                    }
+
+                })
             }
+
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -81,4 +95,9 @@ class BankCardListAdapter(context: Context, data: List<BankCardEntity>) :
                 false
             )
         )
+
+
+    interface OnClickMoreViewListener {
+        fun clickMore(view: View?, position: Int)
+    }
 }

@@ -1,15 +1,25 @@
 package com.sbnh.pay.activity
 
+import android.app.Activity
+import android.content.Intent
+import android.text.TextUtils
 import android.view.View
+import androidx.activity.result.ActivityResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
+import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.compat.CollectionCompat
+import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.DialogCompat
+import com.sbnh.comm.dialog.BottomItemDialog
+import com.sbnh.comm.dialog.SetPaymentPasswordDialog
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.pay.BankCardEntity
+import com.sbnh.comm.entity.pay.RequestUnbindBankCardEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
@@ -82,7 +92,51 @@ class BankCardListActivity :
             }
 
         })
+        mAdapter?.setOnClickMoreViewListener(object : BankCardListAdapter.OnClickMoreViewListener {
+            override fun clickMore(view: View?, position: Int) {
+                showUnbindBankCardDialog(mData[position])
+            }
 
+        })
+
+    }
+
+    private fun showUnbindBankCardDialog(entity: BankCardEntity) {
+        val dialog =
+            BottomItemDialog(DataCompat.getResString(com.sbnh.comm.R.string.unbind))
+        DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
+        dialog.setOnDialogItemInfoClickListener(object : OnDialogItemInfoClickListener {
+            override fun onClickConfirm(view: View?) {
+                showPaymentPasswordDialog(entity)
+                dialog.dismiss()
+            }
+
+            override fun onClickCancel(view: View?) {
+                dialog.dismiss()
+            }
+
+        })
+    }
+
+    private fun showPaymentPasswordDialog(entity: BankCardEntity) {
+        val dialog = SetPaymentPasswordDialog(
+            DataCompat.getResString(com.sbnh.comm.R.string.untying_bank_card),
+            DataCompat.getResString(com.sbnh.comm.R.string.please_inout_payment_password_check_identity)
+        )
+        DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
+        dialog.setOnInputPasswordCallback(object :
+            SetPaymentPasswordDialog.OnInputPasswordCallback {
+            override fun onComplete(password: String) {
+                mViewModel.unbindBanCard(
+                    RequestUnbindBankCardEntity(
+                        DataCompat.toString(entity.id),
+                        password
+                    )
+                )
+                dialog.dismiss()
+            }
+
+        })
     }
 
     private fun initHeadView() {
@@ -100,7 +154,13 @@ class BankCardListActivity :
         )
         mFootViewBinding.aivFootContent.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_ADD_BANK_CARD)
+                startActivityForResult(
+                    Intent(
+                        this@BankCardListActivity,
+                        AddBankCardActivity::class.java
+                    )
+                )
+                //  ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_ADD_BANK_CARD)
             }
 
         })
@@ -122,6 +182,26 @@ class BankCardListActivity :
                 mAdapter?.removeHeadView()
             }
             mAdapter?.notifyDataSetChanged()
+        }
+        mViewModel.mUnbindBankCardLiveData.observe(this) {
+            val data = BaseEntity.getData(it)
+            val iterator = mData.iterator()
+            while (iterator.hasNext()) {
+                val entity = iterator.next()
+                if (TextUtils.equals(entity.id, data)) {
+                    iterator.remove()
+                }
+            }
+            if (CollectionCompat.isEmptyList(mData)) {
+                mAdapter?.addHeadView(mHeadViewBinding.root)
+            }
+            mAdapter?.notifyDataSetChanged()
+        }
+    }
+
+    override fun onActivityResultCallback(result: ActivityResult) {
+        if (result.resultCode == Activity.RESULT_OK) {
+            loadSmartData()
         }
     }
 }

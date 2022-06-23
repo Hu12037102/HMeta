@@ -131,7 +131,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
             mViewBinding.aivRealNameStatus.setOnClickListener(object : DelayedClick() {
                 override fun onDelayedClick(v: View?) {
                     if (userInfoEntity?.hasRealName == false) {
-                        DialogCompat.showFragmentDialog(RealNameDialog())
+                        DialogCompat.showFragmentDialog(RealNameDialog(), childFragmentManager)
                     }
 
                 }

@@ -238,7 +238,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
               )*/
         }
         mViewModel.mBindingBankCardAfterLiveData.observe(this) {
-            MetaViewCompat.finishActivity(this)
+            MetaViewCompat.finishActivitySetResult(this)
 
         }
     }

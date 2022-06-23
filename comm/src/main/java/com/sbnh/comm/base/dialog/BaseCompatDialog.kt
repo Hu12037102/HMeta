@@ -88,17 +88,17 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     private fun initDialogParams() {
 
 
-        val windowParams = mDialog?.window?.attributes
+       // val windowParams = mDialog?.window?.attributes
         mDialog?.window?.setLayout(
             PhoneCompat.screenWidth(requireContext()),
             PhoneCompat.screenHeight(requireContext())
         )
-        windowParams?.let {
+      /*  windowParams?.let {
             it.width = ViewGroup.LayoutParams.MATCH_PARENT
             it.height = ViewGroup.LayoutParams.MATCH_PARENT
             it.gravity = getGravity()
             mDialog?.window?.attributes = it
-        }
+        }*/
     }
 
     protected abstract fun getViewBinding(): VB
