@@ -129,4 +129,6 @@
     <string name="unbind">解除绑定</string>
     <string name="untying_bank_card">解绑银行卡</string>
     <string name="please_inout_payment_password_check_identity">请输入支付密码，以验证身份</string>
+    <string name="please_selector_bank_card">请选择银行卡</string>
+    <string name="add_bank_card_payment">添加银行卡支付</string>
 </resources>

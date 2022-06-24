@@ -106,12 +106,15 @@ open class BaseViewModel : ViewModel() {
                 liveData?.value = body
                 if (body is BasePagerEntity<*>) {
                     mPagerNum++
-                    body.lastTimestamp?.let {
-                        mLastTimestamp = it
-                    }
+                     body.lastTimestamp?.let {
+                         mLastTimestamp = it
+                     }
                     if (body.data is List<*>) {
                         mRefreshLiveData.value =
                             RefreshStatusEntity(CollectionCompat.getListSize(body.data))
+                        /*if (body.data.isNotEmpty()) {
+                            val any  = body.data.last()
+                        }*/
                     }
 
                 } else if (body is BaseEntity<*>) {

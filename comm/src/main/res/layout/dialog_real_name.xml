@@ -38,7 +38,7 @@
             app:layout_constraintBottom_toBottomOf="@id/atv_title"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/atv_title"
-            app:srcCompat="@mipmap/icon_real_name_close"
+            app:srcCompat="@mipmap/icon_comm_close"
 
             />
 

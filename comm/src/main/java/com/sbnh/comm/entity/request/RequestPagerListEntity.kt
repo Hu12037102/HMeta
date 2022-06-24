@@ -11,6 +11,6 @@ import com.sbnh.comm.Contract
 data class RequestPagerListEntity(
     var pagerSize: Int = Contract.PAGE_SIZE,
     var time: Long = System.currentTimeMillis(),
-    val page: Int = Contract.PAGE_NUM,
-    val size: Int = Contract.PAGE_SIZE
+    var page: Int = Contract.PAGE_NUM,
+    var size: Int = Contract.PAGE_SIZE
 )

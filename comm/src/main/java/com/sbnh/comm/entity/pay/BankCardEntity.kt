@@ -17,4 +17,5 @@ open class BankCardEntity {
     var logo: String? = ""
     var mobile: String? = ""
     var backgroundColor: String? = ""
+    var isCheck: Boolean = false
 }

@@ -24,7 +24,7 @@ object ARoutersActivity {
     }
 
     @JvmStatic
-    fun startWebContentActivity(url: String) {
+    fun startWebContentActivity(url: String?) {
         ARouters.build(ARouterConfig.Path.Comm.ACTIVITY_WEB_CONTENT)
             .withString(ARouterConfig.Key.WEB_URL, url).navigation()
     }

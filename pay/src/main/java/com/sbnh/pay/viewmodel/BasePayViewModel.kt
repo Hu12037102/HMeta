@@ -6,27 +6,24 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.pay.BankCardEntity
-import com.sbnh.comm.entity.pay.RequestUnbindBankCardEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.pay.PayService
 import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
- * 创建时间: 2022/6/17 9:51
- * 更新时间: 2022/6/17 9:51
+ * 创建时间: 2022/6/24 13:48
+ * 更新时间: 2022/6/24 13:48
  * 描述:
  */
-class BankCardListViewModel : BasePayViewModel() {
-
-    val mUnbindBankCardLiveData = MutableLiveData<BaseEntity<String>>()
-    fun unbindBanCard(entity: RequestUnbindBankCardEntity) {
+open class BasePayViewModel : BaseViewModel() {
+    val mBankListLiveData = MutableLiveData<BaseEntity<BasePagerEntity2<List<BankCardEntity>>>>()
+    fun loadBankCardList(entity: RequestPagerListEntity) {
         viewModelScope.launch {
             try {
                 val result = mRetrofitManger.create(PayService::class.java)
-                    .unbindBankCard(entity)
-                result.body()?.data = entity.id
-                disposeRetrofit(mUnbindBankCardLiveData, result)
+                    .queryBankCardList(entity)
+                disposeRetrofit(mBankListLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

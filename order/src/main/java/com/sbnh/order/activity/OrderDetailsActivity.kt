@@ -1,15 +1,19 @@
 package com.sbnh.order.activity
 
 import android.view.View
+import androidx.fragment.app.DialogFragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.STATUS_RUNNING
 import com.sbnh.comm.entity.order.*
+import com.sbnh.comm.entity.pay.BankCardEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.utils.LogUtils
+import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.order.databinding.ActivityOrderDetailsBinding
 import com.sbnh.order.viewmodel.OrderDetailsViewModel
 import kotlin.math.abs
@@ -24,6 +28,7 @@ import kotlin.math.abs
 class OrderDetailsActivity :
     BaseCompatActivity<ActivityOrderDetailsBinding, OrderDetailsViewModel>() {
     private var mOrderId: String = ""
+    private var mBankCardEntity: BankCardEntity? = null
     override fun getViewBinding(): ActivityOrderDetailsBinding =
         ActivityOrderDetailsBinding.inflate(layoutInflater)
 
@@ -84,6 +89,25 @@ class OrderDetailsActivity :
                         mViewBinding.atvContinueBuy.visibility = View.GONE
                         mViewBinding.atvBackCenter.visibility = View.GONE
                         mViewBinding.includedWaitPay.root.visibility = View.VISIBLE
+                        mViewBinding.includedWaitPay.atvSure.setOnClickListener(object :
+                            DelayedClick() {
+                            override fun onDelayedClick(v: View?) {
+
+                            }
+
+                        })
+                        mViewBinding.clWayWaitPay.setOnClickListener(object : DelayedClick() {
+                            override fun onDelayedClick(v: View?) {
+                                // if (m)
+                                val dialog =
+                                    ARouters.getFragment(ARouterConfig.Path.Pay.DIALOG_SELECTOR_BANK_CARD)
+                                if (dialog is DialogFragment) {
+                                    DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
+                                }
+
+                            }
+
+                        })
                     }
                     STATUS_COMPLETE -> {
                         mViewBinding.clContent.visibility = View.VISIBLE
@@ -97,7 +121,7 @@ class OrderDetailsActivity :
                             mViewBinding.atvStatusOtherTitle,
                             com.sbnh.comm.R.string.account_paid
                         )
-                        mViewBinding.atvStatusOtherDesc.visibility= View.VISIBLE
+                        mViewBinding.atvStatusOtherDesc.visibility = View.VISIBLE
                         UICompat.setText(
                             mViewBinding.atvStatusOtherDesc,
                             com.sbnh.comm.R.string.good_shave_been_released
@@ -130,7 +154,7 @@ class OrderDetailsActivity :
                             mViewBinding.atvStatusOtherTitle,
                             com.sbnh.comm.R.string.order_has_been_cancel
                         )
-                        mViewBinding.atvStatusOtherDesc.visibility= View.GONE
+                        mViewBinding.atvStatusOtherDesc.visibility = View.GONE
                         setPublicOrderInfo(entity)
                         mViewBinding.clWayWaitPay.visibility = View.GONE
                         mViewBinding.clWayOther.visibility = View.VISIBLE
@@ -159,7 +183,7 @@ class OrderDetailsActivity :
                             mViewBinding.atvStatusOtherTitle,
                             com.sbnh.comm.R.string.on_the_march
                         )
-                        mViewBinding.atvStatusOtherDesc.visibility= View.GONE
+                        mViewBinding.atvStatusOtherDesc.visibility = View.GONE
                         setPublicOrderInfo(entity)
                         mViewBinding.clWayWaitPay.visibility = View.GONE
                         mViewBinding.clWayOther.visibility = View.VISIBLE
