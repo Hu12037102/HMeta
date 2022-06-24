@@ -27,7 +27,9 @@ class IApiService {
         const val BINDING_BANK_CARD_AFTER = "/payment/thirdPayment/bindCardConfirm"
         const val QUERY_BANK_CARD_LIST = "payment/thirdPayment/queryBankCardBindRec"
         const val UNBIND_BANK_CARD = "/payment/thirdPayment/unBindCard"
-        const val HOME_BANNER="/healer_nft/notice"
+        const val HOME_BANNER = "/healer_nft/notice"
+        const val PAY_ORDER_BEFORE = "/payment/thirdPayment/pay"
+        const val PAY_COLLECTION_AFTER = "/payment/thirdPayment/payConfirm"
     }
 
     object HttpCode {

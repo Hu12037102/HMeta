@@ -1,11 +1,12 @@
 package com.sbnh.comm.http
 
-import com.google.gson.annotations.Until
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.ResultCommitOrderEntity
+import com.sbnh.comm.entity.pay.PayOrderBeforeResultEntity
 import com.sbnh.comm.entity.request.RequestCreateOrderEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
+import com.sbnh.comm.entity.request.RequestPayOrderBeforeEntity
 import com.sbnh.comm.entity.request.RequestRealNameEmpty
 import retrofit2.Response
 import retrofit2.http.Body
@@ -30,4 +31,6 @@ interface BaseService {
 
     @POST(IApiService.Path.QUERY_ORDER_DETAILS)
     suspend fun queryOrderDetails(@Path(IApiService.Key.ID) id: String): Response<BaseEntity<OrderEntity>>
+    @POST(IApiService.Path.PAY_ORDER_BEFORE)
+    suspend fun payOrderBefore(@Body entity:RequestPayOrderBeforeEntity):Response<BaseEntity<PayOrderBeforeResultEntity>>
 }

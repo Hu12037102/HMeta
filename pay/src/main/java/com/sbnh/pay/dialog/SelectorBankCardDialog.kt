@@ -74,15 +74,15 @@ class SelectorBankCardDialog :
             }
 
         })
-        mAdapter?.setOnRecyclerViewItemClickListener(object : OnRecyclerViewItemClickListener {
-            override fun clickEmptyView(view: View) {
-            }
-
-            override fun clickItem(view: View, position: Int) {
+        mAdapter?.setOnRecyclerItemClickListener(object :OnRecyclerItemClickListener{
+            override fun onClickItem(view: View?, position: Int) {
                 mOnCallbackValues?.onValue(mData[position])
             }
 
-            override fun longClickItem(view: View, position: Int) {
+        })
+        mViewBinding.aivClose.setOnClickListener(object :DelayedClick(){
+            override fun onDelayedClick(v: View?) {
+                dismiss()
             }
 
         })

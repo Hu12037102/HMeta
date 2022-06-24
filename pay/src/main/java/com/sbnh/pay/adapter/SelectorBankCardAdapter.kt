@@ -22,7 +22,10 @@ class SelectorBankCardAdapter(
     context: Context,
     data: List<BankCardEntity>
 ) : BaseRecyclerAdapter<BankCardEntity>(context, data) {
-
+    private var mOnRecyclerItemClickListener:OnRecyclerItemClickListener?=null
+    fun setOnRecyclerItemClickListener(onRecyclerItemClickListener:OnRecyclerItemClickListener?){
+        this.mOnRecyclerItemClickListener= onRecyclerItemClickListener
+    }
     class ViewHolder(val viewBinding: ItemSelectorBankCardViewBinding) :
         RecyclerView.ViewHolder(viewBinding.root)
 
@@ -35,11 +38,24 @@ class SelectorBankCardAdapter(
                 holder.viewBinding.aivCheck,
                 if (entity.isCheck) com.sbnh.comm.R.mipmap.icon_comm_check else com.sbnh.comm.R.mipmap.icon_comm_normal
             )
+            holder.itemView.setOnClickListener{
+                if (!entity.isCheck){
+                    selectorIndex(position)
+                    mOnRecyclerItemClickListener?.onClickItem(it,position)
+                }
+
+            }
 
         }
 
     }
-    private fun selectorIndex(){}
+
+   private fun selectorIndex(index: Int) {
+        for (entity in mData) {
+            entity.isCheck = mData.indexOf(entity) == index
+        }
+        notifyDataSetChanged()
+    }
 
 
     override fun onCreateChildViewHolder(
