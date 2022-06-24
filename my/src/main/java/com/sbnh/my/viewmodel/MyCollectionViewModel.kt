@@ -22,9 +22,93 @@ class MyCollectionViewModel : BaseViewModel() {
     fun loadCollectionList(requestPagerListEntity: RequestPagerListEntity) {
         viewModelScope.launch {
             try {
-                val result = mRetrofitManger.create(MyService::class.java)
-                    .loadMyCollectionList(requestPagerListEntity)
-                disposeRetrofit(mCollectionLiveData, result)
+//                val result = mRetrofitManger.create(MyService::class.java)
+//                    .loadMyCollectionList(requestPagerListEntity)
+//                disposeRetrofit(mCollectionLiveData, result)
+
+                mCollectionLiveData.value = BasePagerEntity(listOf(
+                    MyCollectionEntity(
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        2,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        "极光绿 银河白-黄金",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/GoldGreen.png"),
+                    MyCollectionEntity(
+                        "32538edd06874fda8024e2580355db2a",
+                        5,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "32538edd06874fda8024e2580355db2a",
+                        "星际黑-钻石",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/DiamondsBlack.png"),
+                    MyCollectionEntity(
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        2,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        "极光绿 银河白-黄金",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/GoldGreen.png"),
+                    MyCollectionEntity(
+                        "32538edd06874fda8024e2580355db2a",
+                        5,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "32538edd06874fda8024e2580355db2a",
+                        "星际黑-钻石",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/DiamondsBlack.png"),
+                    MyCollectionEntity(
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        2,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        "极光绿 银河白-黄金",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/GoldGreen.png"),
+                    MyCollectionEntity(
+                        "32538edd06874fda8024e2580355db2a",
+                        5,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "32538edd06874fda8024e2580355db2a",
+                        "星际黑-钻石",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/DiamondsBlack.png"),
+                    MyCollectionEntity(
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        2,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        "极光绿 银河白-黄金",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/GoldGreen.png"),
+                    MyCollectionEntity(
+                        "32538edd06874fda8024e2580355db2a",
+                        5,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "32538edd06874fda8024e2580355db2a",
+                        "星际黑-钻石",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/DiamondsBlack.png"),
+                    MyCollectionEntity(
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        2,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "974d234d70de40c9a1bac3c6824c4e73",
+                        "极光绿 银河白-黄金",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/GoldGreen.png"),
+                    MyCollectionEntity(
+                        "32538edd06874fda8024e2580355db2a",
+                        5,
+                        "https://prod.cdn.sbnh.cn/healer_nft_head_16533711673.jpg",
+                        "32538edd06874fda8024e2580355db2a",
+                        "星际黑-钻石",
+                        "收藏家k43bUU",
+                        "https://prod.cdn.sbnh.cn/DiamondsBlack.png"),
+                ))
+
             } catch (e: Exception) {
                 e.printStackTrace()
             }
