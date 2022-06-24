@@ -1,29 +1,27 @@
 package com.sbnh.my.fragment
 
+import android.graphics.drawable.GradientDrawable
 import android.view.View
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
-import com.sbnh.comm.compat.CollectionCompat
-import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.compat.MetaViewCompat
+import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.UserInfoEntity
-import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
-import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.adapter.MyCollectionListAdapter
 import com.sbnh.my.databinding.FragmentCollectionBinding
 import com.sbnh.my.viewmodel.MyCollectionViewModel
 import com.scwang.smart.refresh.layout.api.RefreshLayout
+
 
 /**
  * 作者: 胡庆岭
@@ -45,9 +43,16 @@ class MyCollectionFragment :
         MyCollectionViewModel::class.java
 
     override fun initView() {
-        context?.let {
+        context?.let { context ->
+            mViewBinding.rvData.addItemDecoration(
+                DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL).apply {
+                    setDrawable(GradientDrawable().apply {
+                        setSize(PhoneCompat.dp2px(context, 13f), 0)
+                    })
+                }
+            )
             mViewBinding.rvData.layoutManager =
-                GridLayoutManager(it, 2)
+                GridLayoutManager(context, 2)
         }
 
         MetaViewCompat.setClickButton(mViewBinding.atvLogin, Contract.DP.VALUE_8F)
