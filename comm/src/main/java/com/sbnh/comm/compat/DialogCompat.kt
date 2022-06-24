@@ -15,7 +15,11 @@ object DialogCompat {
     @JvmStatic
     fun showFragmentDialog(dialog: DialogFragment?, fragmentManager: FragmentManager?) {
         fragmentManager?.let {
-            dialog?.showNow(it, TAG)
+            try {
+                dialog?.showNow(it, TAG)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
 
 

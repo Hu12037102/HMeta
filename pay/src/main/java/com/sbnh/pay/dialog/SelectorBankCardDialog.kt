@@ -1,15 +1,20 @@
 package com.sbnh.pay.dialog
 
+import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.huxiaobai.adapter.BaseRecyclerAdapter
+import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.dialog.BaseCompatDialog
+import com.sbnh.comm.base.dialog.BaseDataDialog
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.pay.BankCardEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.pay.adapter.SelectorBankCardAdapter
 import com.sbnh.pay.databinding.DialogSelectorBankCardViewBinding
@@ -24,12 +29,8 @@ import com.sbnh.pay.viewmodel.SelectorBankCardViewModel
  */
 @Route(path = ARouterConfig.Path.Pay.DIALOG_SELECTOR_BANK_CARD)
 class SelectorBankCardDialog :
-    BaseCompatDialog<DialogSelectorBankCardViewBinding, SelectorBankCardViewModel>() {
-    private var mOnSelectorBankCardInfoCallback: OnSelectorBankCardInfoCallback? = null
-    fun setOnSelectorBankCardInfoCallback(onSelectorBankCardInfoCallback: OnSelectorBankCardInfoCallback?) {
-        this.mOnSelectorBankCardInfoCallback = onSelectorBankCardInfoCallback
-    }
-
+    BaseDataDialog<DialogSelectorBankCardViewBinding, SelectorBankCardViewModel>() {
+    private var mIntentEntity: BankCardEntity? = null
     private var mAdapter: SelectorBankCardAdapter? = null
     private val mFootViewBinding: ItemFootSelectorBankCardViewBinding by lazy {
         ItemFootSelectorBankCardViewBinding.inflate(
@@ -50,6 +51,10 @@ class SelectorBankCardDialog :
 
 
     override fun initData() {
+        mIntentEntity = arguments?.getParcelable<BankCardEntity>(ARouterConfig.Key.PARCELABLE)
+        LogUtils.w(
+            "SelectorBankCardDialog--", "$mIntentEntity"
+        )
         mAdapter = SelectorBankCardAdapter(requireContext(), mData)
         mAdapter?.addFootView(mFootViewBinding.root)
         mViewBinding.rvData.adapter = mAdapter
@@ -69,9 +74,15 @@ class SelectorBankCardDialog :
             }
 
         })
-        mAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
-            override fun onClickItem(view: View?, position: Int) {
-                mOnSelectorBankCardInfoCallback?.onResultBankCard(mData[position])
+        mAdapter?.setOnRecyclerViewItemClickListener(object : OnRecyclerViewItemClickListener {
+            override fun clickEmptyView(view: View) {
+            }
+
+            override fun clickItem(view: View, position: Int) {
+                mOnCallbackValues?.onValue(mData[position])
+            }
+
+            override fun longClickItem(view: View, position: Int) {
             }
 
         })
@@ -85,12 +96,15 @@ class SelectorBankCardDialog :
             if (entity != null) {
                 mData.addAll(entity)
             }
+            for (child in mData) {
+                if (TextUtils.equals(child.id, mIntentEntity?.id)) {
+                    child.isCheck = true
+                    break
+                }
+            }
             mAdapter?.notifyDataSetChanged()
         }
     }
 
-    interface OnSelectorBankCardInfoCallback {
-        fun onResultBankCard(entity: BankCardEntity)
-    }
 
 }

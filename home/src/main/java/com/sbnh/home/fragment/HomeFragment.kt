@@ -6,13 +6,13 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
-import com.sbnh.comm.compat.ToastCompat
+import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.WebViewCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.comm.entity.home.HomeBannerEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
-import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
 import com.sbnh.home.adapter.HomeBannerAdapter
@@ -32,8 +32,7 @@ import com.youth.banner.listener.OnBannerListener
 class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
     //  private val mRequestCollectionEntity = RequestPagerListEntity()
     private var mBannerAdapter: HomeBannerAdapter? = null
-    private val mBannerData =
-        arrayListOf(HomeBannerEntity("https://test.cdn.sbnh.cn/nft_page/banner/banner04.jpg"))
+    private val mBannerData = ArrayList<HomeBannerEntity>()
     private val mCollectionData = ArrayList<CollectionEntity>()
     private var mCollectionAdapter: HomeCollectionListAdapter? = null
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
@@ -59,7 +58,15 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
             .setAdapter(mBannerAdapter)
             .setOnBannerListener(object : OnBannerListener<HomeBannerEntity> {
                 override fun OnBannerClick(data: HomeBannerEntity?, position: Int) {
-                    ARoutersActivity.startWebContentActivity(data?.webUrl)
+                    data?.let {
+                        if (it.skipType == WebViewCompat.SKIP_TYPE_IN) {
+                            ARoutersActivity.startWebContentActivity(it.skipUrl)
+                        } else if (it.skipType == WebViewCompat.SKIP_TYPE_OUT) {
+                            ARoutersActivity.startBrowserActivity(context, it.skipUrl)
+                        }
+                    }
+
+
                 }
 
             })
@@ -88,6 +95,9 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
     }
 
     override fun onLoadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        if (isRefresh) {
+            mViewModel.loadBanner()
+        }
         mViewModel.loadCollectionList(
             RequestPagerListEntity(
                 mViewModel.mPagerSize,
@@ -109,6 +119,13 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
             mCollectionAdapter?.notifyDataSetChanged()
         }
 
+        mViewModel.mBannerLiveData.observe(this) {
+            mBannerData.clear()
+            if (CollectionCompat.notEmptyList(it)) {
+                mBannerData.addAll(it!!)
+            }
+            mBannerAdapter?.notifyDataSetChanged()
+        }
     }
 
 

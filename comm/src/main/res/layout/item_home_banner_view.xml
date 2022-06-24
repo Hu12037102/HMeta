@@ -6,6 +6,7 @@
     android:layout_marginEnd="@dimen/default_margin"
     app:cardElevation="@dimen/size_0dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/colorFF262626"
     app:cardCornerRadius="@dimen/size_18dp">
 
     <androidx.appcompat.widget.AppCompatImageView

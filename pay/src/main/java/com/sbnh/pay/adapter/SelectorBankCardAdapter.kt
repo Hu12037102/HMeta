@@ -9,6 +9,7 @@ import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.pay.BankCardEntity
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.pay.databinding.ItemSelectorBankCardViewBinding
 
 /**
@@ -21,13 +22,9 @@ class SelectorBankCardAdapter(
     context: Context,
     data: List<BankCardEntity>
 ) : BaseRecyclerAdapter<BankCardEntity>(context, data) {
-    private var mOnRecyclerViewItemClickListener: OnRecyclerItemClickListener? = null
-    fun setOnRecyclerItemClickListener(onRecyclerItemClickListener: OnRecyclerItemClickListener?) {
-        this.mOnRecyclerViewItemClickListener = onRecyclerItemClickListener
-    }
 
     class ViewHolder(val viewBinding: ItemSelectorBankCardViewBinding) :
-        RecyclerView.ViewHolder(viewBinding.root) {}
+        RecyclerView.ViewHolder(viewBinding.root)
 
     override fun onBindChildViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder) {
@@ -38,9 +35,12 @@ class SelectorBankCardAdapter(
                 holder.viewBinding.aivCheck,
                 if (entity.isCheck) com.sbnh.comm.R.mipmap.icon_comm_check else com.sbnh.comm.R.mipmap.icon_comm_normal
             )
+
         }
 
     }
+    private fun selectorIndex(){}
+
 
     override fun onCreateChildViewHolder(
         parent: ViewGroup,

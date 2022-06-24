@@ -1,5 +1,9 @@
 package com.sbnh.comm.other.arouter
 
+import android.app.Application
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import com.sbnh.comm.manger.ActivityCompatManger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -30,15 +34,30 @@ object ARoutersActivity {
     }
 
     @JvmStatic
-    fun startCollectionDetailsActivity(id:String?){
+    fun startCollectionDetailsActivity(id: String?) {
         ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
             .withString(ARouterConfig.Key.ID, id)
             .navigation()
     }
+
     @JvmStatic
-    fun startOrderDetailsActivity(id: String?){
+    fun startOrderDetailsActivity(id: String?) {
         ARouters.build(ARouterConfig.Path.Order.ACTIVITY_ORDER_DETAILS)
             .withString(ARouterConfig.Key.ID, id)
             .navigation()
+    }
+
+    @JvmStatic
+    fun startBrowserActivity(context: Context?, url: String?) {
+        try {
+            val uri = Uri.parse(url)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            if (context is Application) {
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            context?.startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }

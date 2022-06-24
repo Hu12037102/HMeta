@@ -13,6 +13,7 @@ class ARouterConfig {
         const val HAS_LOGIN = "has_login"
         const val WEB_URL = "web_url"
         const val ID = "id"
+        const val PARCELABLE="parcelable"
 
     }
 

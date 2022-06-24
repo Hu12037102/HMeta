@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
+import com.sbnh.comm.entity.home.HomeBannerEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.home.HomeService
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
  */
 class HomeViewModel : BaseViewModel() {
     val mCollectionLiveData = MutableLiveData<BasePagerEntity<List<CollectionEntity>>>()
+    val mBannerLiveData = MutableLiveData<List<HomeBannerEntity>>()
     fun loadCollectionList(requestPagerListEntity: RequestPagerListEntity) {
         viewModelScope.launch {
             try {
@@ -26,6 +28,19 @@ class HomeViewModel : BaseViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun loadBanner() {
+        viewModelScope.launch {
+            try {
+                val result = mRetrofitManger.create(HomeService::class.java)
+                    .loadHomeBanner()
+                disposeRetrofit(mBannerLiveData, result)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+
         }
     }
 }

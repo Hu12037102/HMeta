@@ -30,7 +30,7 @@ class HomeBannerAdapter(private val context: Context, data: List<HomeBannerEntit
         position: Int,
         size: Int
     ) {
-        GlideCompat.loadImage(data?.url, viewHolder?.viewBinding?.aivContent)
+        GlideCompat.loadImage(data?.resource, viewHolder?.viewBinding?.aivContent)
 
     }
 

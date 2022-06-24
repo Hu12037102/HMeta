@@ -1,9 +1,9 @@
 package com.sbnh.order.activity
 
 import android.view.View
-import androidx.fragment.app.DialogFragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.base.dialog.BaseDataDialog
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.STATUS_RUNNING
@@ -89,22 +89,49 @@ class OrderDetailsActivity :
                         mViewBinding.atvContinueBuy.visibility = View.GONE
                         mViewBinding.atvBackCenter.visibility = View.GONE
                         mViewBinding.includedWaitPay.root.visibility = View.VISIBLE
+                        UICompat.setImageRes(
+                            mViewBinding.aivWayWaitPayCheck,
+                            if (DataCompat.isNull(mBankCardEntity)) com.sbnh.comm.R.mipmap.icon_comm_normal
+                            else com.sbnh.comm.R.mipmap.icon_comm_check
+                        )
                         mViewBinding.includedWaitPay.atvSure.setOnClickListener(object :
                             DelayedClick() {
                             override fun onDelayedClick(v: View?) {
-
+                                if (DataCompat.isNull(mBankCardEntity)) {
+                                    showToast(com.sbnh.comm.R.string.please_selector_pay_way)
+                                    return
+                                }
                             }
 
                         })
                         mViewBinding.clWayWaitPay.setOnClickListener(object : DelayedClick() {
                             override fun onDelayedClick(v: View?) {
-                                // if (m)
-                                val dialog =
-                                    ARouters.getFragment(ARouterConfig.Path.Pay.DIALOG_SELECTOR_BANK_CARD)
-                                if (dialog is DialogFragment) {
-                                    DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
-                                }
+                                val selectorBankCardDialog =
+                                    ARouters.build(ARouterConfig.Path.Pay.DIALOG_SELECTOR_BANK_CARD)
+                                        .withParcelable(
+                                            ARouterConfig.Key.PARCELABLE,
+                                            mBankCardEntity
+                                        ).navigation() as BaseDataDialog<*, *>
+                                selectorBankCardDialog.setOnCallbackValues(object :
+                                    BaseDataDialog.OnCallbackValues {
+                                    override fun onValue(obj: Any) {
+                                        if (obj is BankCardEntity) {
+                                            mBankCardEntity = obj
+                                            UICompat.setImageRes(
+                                                mViewBinding.aivWayWaitPayCheck,
+                                                com.sbnh.comm.R.mipmap.icon_comm_check
+                                            )
+                                        } else {
+                                            mBankCardEntity = null
+                                        }
+                                        selectorBankCardDialog.dismiss()
+                                    }
 
+                                })
+                                DialogCompat.showFragmentDialog(
+                                    selectorBankCardDialog,
+                                    supportFragmentManager
+                                )
                             }
 
                         })

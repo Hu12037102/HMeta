@@ -6,7 +6,12 @@ package com.sbnh.comm.entity.home
  * 更新时间: 2022/6/24 10:24
  * 描述:
  */
+//1、内链
+//2、外链
+
 data class HomeBannerEntity(
-    var url: String,
-    var webUrl: String = "https://mp.weixin.qq.com/s/1wI_4g2kiL6-CzydCutncw"
+    var desc: String? = "",
+    var resource: String? = "",
+    var skipType: Int? = 0,
+    var skipUrl: String? = ""
 )
