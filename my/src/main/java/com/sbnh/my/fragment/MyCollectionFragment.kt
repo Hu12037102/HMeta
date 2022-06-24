@@ -102,11 +102,18 @@ class MyCollectionFragment :
             mViewBinding.atvLogin.visibility = View.VISIBLE
             mViewBinding.refreshLayout.setEnableRefresh(false)
             mEmptyLayout?.visibility = View.GONE
+            mCollectionData.clear()
+            mCollectionAdapter?.notifyDataSetChanged()
         } else {
             mViewBinding.atvLogin.visibility = View.GONE
             mViewBinding.refreshLayout.setEnableRefresh(true)
-            mEmptyLayout?.visibility = View.VISIBLE
-            onLoadSmartData()
+            if (CollectionCompat.notEmptyList(mCollectionData)) {
+                mEmptyLayout?.visibility = View.GONE
+                onLoadSmartData()
+            } else {
+                mEmptyLayout?.visibility = View.VISIBLE
+                mViewBinding.refreshLayout.autoRefresh()
+            }
         }
     }
 
