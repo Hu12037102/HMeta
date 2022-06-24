@@ -129,4 +129,6 @@ class MyCollectionFragment :
         }
     }
 
+    override fun isLoadLoadingView(): Boolean = false
+
 }
