@@ -1,9 +1,13 @@
 package com.sbnh.my
 
 import com.sbnh.comm.entity.base.BaseEntity
+import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
+import com.sbnh.comm.entity.home.CollectionEntity
+import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.RequestOrderListEntity
+import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.entity.request.RequestSetPaymentPasswordEntity
 import com.sbnh.comm.http.IApiService
 import retrofit2.Response
@@ -26,5 +30,8 @@ interface MyService {
 
     @POST(IApiService.Path.SET_PAYMENT_PASSWORD)
     suspend fun setPaymentPassword(@Body entity: RequestSetPaymentPasswordEntity): Response<Unit>
+
+    @POST(IApiService.Path.MY_COLLECTION_LIST)
+    suspend fun loadMyCollectionList(@Body requestPagerList: RequestPagerListEntity): Response<BasePagerEntity<List<MyCollectionEntity>>>
 
 }
