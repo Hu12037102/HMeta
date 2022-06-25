@@ -1,5 +1,6 @@
 package com.sbnh.comm.http
 
+import android.util.Log
 import com.sbnh.comm.compat.NetWorkCompat
 import com.sbnh.comm.config.AppConfig
 import com.sbnh.comm.digest.SHA1Compat
@@ -83,6 +84,7 @@ class RetrofitManger private constructor() {
 
     private fun initCacheInterceptor() {
         mCacheInterceptor = Interceptor { chain ->
+            LogUtils.w("initCacheInterceptor--","${NetWorkCompat.isNetComment()}")
             var request = chain.request()
             request = if (NetWorkCompat.isNetComment()) {
                 request.newBuilder().cacheControl(CacheControl.FORCE_NETWORK).build()

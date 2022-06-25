@@ -6,20 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
-import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import kotlinx.coroutines.launch
 
 abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment() {
     protected val mViewBinding: VB by lazy { getViewBinding() }
@@ -115,7 +112,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
                     "initEmptyLoadingView--",
                     "${isLoadEmptyView()}--${this.javaClass.simpleName}--${this.hashCode()}"
                 )
-                mEmptyLayout = EmptyLayout(context)
+                mEmptyLayout = EmptyLayout(context).apply { hide() }
                 rootView.addView(
                     mEmptyLayout, 0,
                     ViewGroup.LayoutParams(
@@ -186,13 +183,13 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
             override fun onRefresh(refreshLayout: RefreshLayout) {
                 mViewModel.mPagerNum = Contract.PAGE_NUM
                 mViewModel.isRefresh = true
-                onLoadSmartData(refreshLayout, mViewModel.isRefresh)
+                loadSmartData(refreshLayout, mViewModel.isRefresh)
                 //  refreshLayout.finishRefresh()
             }
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 mViewModel.isRefresh = false
-                onLoadSmartData(refreshLayout, mViewModel.isRefresh)
+                loadSmartData(refreshLayout, mViewModel.isRefresh)
                 // refreshLayout.finishLoadMore()
             }
 

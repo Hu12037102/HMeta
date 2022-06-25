@@ -2,10 +2,7 @@ package com.sbnh.my.viewmodel
 
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.entity.order.OrderTabEntity
-import com.sbnh.comm.entity.order.STATUS_CANCEL
-import com.sbnh.comm.entity.order.STATUS_COMPLETE
-import com.sbnh.comm.entity.order.STATUS_PAY_CALLBACK
+import com.sbnh.comm.entity.order.*
 
 /**
  * 作者: 胡庆岭
@@ -19,8 +16,8 @@ class MyOrderListViewModel : BaseViewModel() {
         list.add(OrderTabEntity(null, DataCompat.getResString(com.sbnh.comm.R.string.all), true))
         list.add(
             OrderTabEntity(
-                STATUS_PAY_CALLBACK,
-                DataCompat.getResString(com.sbnh.comm.R.string.on_the_march)
+                STATUS_WAIT_PAY,
+                DataCompat.getResString(com.sbnh.comm.R.string.wait_pays)
             )
         )
         list.add(

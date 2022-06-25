@@ -24,7 +24,7 @@ abstract class BaseFragment : PermissionFragment() {
         ToastCompat.create().showToast(stringRes)
     }
 
-    protected open fun onLoadSmartData(
+    protected open fun loadSmartData(
         refreshLayout: RefreshLayout? = null,
         isRefresh: Boolean = true) {
 

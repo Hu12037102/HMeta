@@ -87,22 +87,25 @@ class OrderDetailsActivity :
 
             it?.data?.let { result ->
                 val dialog =
-                    ARouters.getFragment(ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE) as InputMessageCodeDialog
-                DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
-                dialog.setOnCallbackValues(object : BaseDataDialog.OnCallbackValues {
-                    override fun onValue(obj: Any) {
-                        if (obj is CharSequence) {
-                            mViewModel.payOrderAfter(
-                                RequestPayOrderAfterEntity(
-                                    DataCompat.toString(obj),
-                                    DataCompat.toString(result.paymentOrderId),
-                                    DataCompat.toString(result.requestId)
+                    ARouters.getFragment(ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE)
+                if (dialog is InputMessageCodeDialog) {
+                    DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
+                    dialog.setOnCallbackValues(object : BaseDataDialog.OnCallbackValues {
+                        override fun onValue(obj: Any) {
+                            if (obj is CharSequence) {
+                                mViewModel.payOrderAfter(
+                                    RequestPayOrderAfterEntity(
+                                        DataCompat.toString(obj),
+                                        DataCompat.toString(result.paymentOrderId),
+                                        DataCompat.toString(result.requestId)
+                                    )
                                 )
-                            )
+                            }
+                            dialog.dismiss()
                         }
-                        dialog.dismiss()
-                    }
-                })
+                    })
+                }
+
             }
 
 

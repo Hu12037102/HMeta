@@ -62,7 +62,10 @@ class MyOrderListActivity : BaseCompatActivity<ActivityMyOrderListBinding, MyOrd
             entity.id?.let {
                 postcard.withInt(ARouterConfig.Key.ID, it)
             }
-            mFragments.add(postcard.navigation() as Fragment)
+            val any = postcard.navigation();
+            if (any is Fragment) {
+                mFragments.add(any)
+            }
         }
         val fragmentStatusAdapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = CollectionCompat.getListSize(mFragments)
@@ -75,7 +78,7 @@ class MyOrderListActivity : BaseCompatActivity<ActivityMyOrderListBinding, MyOrd
 
     override fun initEvent() {
         mViewBinding.vpContent.registerOnPageChangeCallback(mPagerCallback)
-        mTabAdapter?.setOnRecyclerItemClickListener(object :OnRecyclerItemClickListener{
+        mTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
             override fun onClickItem(view: View?, position: Int) {
                 mViewBinding.vpContent.currentItem = position
             }

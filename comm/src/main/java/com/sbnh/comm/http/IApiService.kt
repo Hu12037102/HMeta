@@ -1,5 +1,6 @@
 package com.sbnh.comm.http
 
+import com.sbnh.comm.BuildConfig
 import java.net.HttpURLConnection
 import java.util.*
 
@@ -30,7 +31,7 @@ class IApiService {
         const val HOME_BANNER = "/healer_nft/notice"
         const val PAY_ORDER_BEFORE = "/payment/thirdPayment/pay"
         const val PAY_COLLECTION_AFTER = "/payment/thirdPayment/payConfirm"
-        const val CANCEL_ORDER="/payment/thirdPayment/cancelOrder"
+        const val CANCEL_ORDER = "/payment/thirdPayment/cancelOrder"
     }
 
     object HttpCode {
@@ -48,5 +49,15 @@ class IApiService {
         const val UUID = "uuid";
         const val SID = "sid";
         const val ID = "id"
+    }
+
+    object H5 {
+        //邀请好友
+        const val INVITE_FRIEND =
+            "${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_page/#/sub/invite_page"
+
+
+
+
     }
 }

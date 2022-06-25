@@ -6,7 +6,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
-import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.WebViewCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
@@ -20,7 +19,6 @@ import com.sbnh.home.adapter.HomeCollectionListAdapter
 import com.sbnh.home.databinding.FragmentHomeBinding
 import com.sbnh.home.viewmodel.HomeViewModel
 import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.youth.banner.listener.OnBannerListener
 
 /**
  * 作者: 胡庆岭
@@ -48,7 +46,7 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
         initBanner()
         mCollectionAdapter = HomeCollectionListAdapter(requireContext(), mCollectionData)
         mViewBinding.rvData.adapter = mCollectionAdapter
-        onLoadSmartData()
+        loadSmartData()
     }
 
     private fun initBanner() {
@@ -88,7 +86,7 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
         })
     }
 
-    override fun onLoadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
         if (isRefresh) {
             mViewModel.loadBanner()
         }

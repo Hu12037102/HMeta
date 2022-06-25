@@ -16,6 +16,7 @@ import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.my.adapter.MyOrderAdapter
 import com.sbnh.my.databinding.FragmentMyOrderContentBinding
 import com.sbnh.my.viewmodel.MyOrderContentViewModel
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 
 /**
  * 作者: 胡庆岭
@@ -26,7 +27,8 @@ import com.sbnh.my.viewmodel.MyOrderContentViewModel
 @Route(path = ARouterConfig.Path.My.FRAGMENT_MY_ORDER_CONTENT)
 class MyOrderContentFragment :
     BaseCompatFragment<FragmentMyOrderContentBinding, MyOrderContentViewModel>() {
-    private val requestEntity = RequestOrderListEntity()
+    // private val requestEntity = RequestOrderListEntity(mViewModel.mPagerNum,mViewModel.mPagerSize)
+    private var mOrderStatus: Int? = null
     private val mData = ArrayList<OrderEntity>()
     private var mAdapter: MyOrderAdapter? = null
     override fun getViewBinding(): FragmentMyOrderContentBinding =
@@ -42,11 +44,22 @@ class MyOrderContentFragment :
     override fun initData() {
         val state = arguments?.getInt(ARouterConfig.Key.ID, Contract.UNKNOWN_INT_VALUE)
         if (state != Contract.UNKNOWN_INT_VALUE) {
-            requestEntity.status = state
+            mOrderStatus = state
         }
         mAdapter = MyOrderAdapter(requireContext(), mData)
         mViewBinding.rvData.adapter = mAdapter
-        mViewModel.loadMyOrderList(requestEntity)
+        // mViewModel.loadMyOrderList(requestEntity)
+        loadSmartData()
+    }
+
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        mViewModel.loadMyOrderList(
+            RequestOrderListEntity(
+                mViewModel.mPagerNum,
+                mViewModel.mPagerSize,
+                mOrderStatus
+            )
+        )
     }
 
     override fun initEvent() {
@@ -65,6 +78,8 @@ class MyOrderContentFragment :
         })
     }
 
+    override fun isLoadEmptyView(): Boolean = true
+
     override fun initObserve() {
         super.initObserve()
         mViewModel.mOrderListLiveData.observe(this) {
@@ -74,6 +89,7 @@ class MyOrderContentFragment :
                 mData.addAll(data!!)
                 mAdapter?.notifyDataSetChanged()
             }
+            if (CollectionCompat.isEmptyList(mData)) mEmptyLayout?.show() else mEmptyLayout?.hide()
         }
     }
 }

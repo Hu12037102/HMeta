@@ -24,6 +24,7 @@ import com.sbnh.comm.databinding.BaseParentEmptyViewBinding
  */
 class EmptyLayout : ConstraintLayout {
     private var mViewBinding: BaseParentEmptyViewBinding? = null
+
     @Px
     private var mTextSize: Int = DataCompat.dimen2Int(context, R.dimen.default_text_size)
 
@@ -54,8 +55,8 @@ class EmptyLayout : ConstraintLayout {
 
     init {
 
-        mViewBinding = BaseParentEmptyViewBinding.inflate(LayoutInflater.from(context),this,true)
-       // addView(mViewBinding?.root)
+        mViewBinding = BaseParentEmptyViewBinding.inflate(LayoutInflater.from(context), this, true)
+        // addView(mViewBinding?.root)
         UICompat.setImageRes(mViewBinding?.aivEmptyContent, mResSrc)
         mViewBinding?.atvEmptyContent?.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize.toFloat())
         UICompat.setTextColor(mViewBinding?.atvEmptyContent, mTextColor)
@@ -68,5 +69,13 @@ class EmptyLayout : ConstraintLayout {
 
     fun setTextColor(@ColorInt colorInt: Int) {
         UICompat.setTextColor(mViewBinding?.atvEmptyContent, colorInt)
+    }
+
+     fun show() {
+        visibility = VISIBLE
+    }
+
+    fun hide() {
+        visibility = GONE
     }
 }
