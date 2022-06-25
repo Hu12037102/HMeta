@@ -123,6 +123,8 @@ class MyCollectionFragment :
 
     override fun initObserve() {
         super.initObserve()
+        // 本页面不需要加载更多
+        mViewModel.mRefreshLiveData.removeObservers(this)
         mViewModel.mCollectionLiveData.observe(this) {
             val data = BasePagerEntity.getData(it)
             mCollectionData.clear()
