@@ -18,6 +18,7 @@ import com.sbnh.comm.entity.base.SelectorTabEntity
 import com.sbnh.comm.entity.base.VersionEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.receiver.DownloadReceiver
 import com.sbnh.healermeta.adapter.MainTabAdapter
 import com.sbnh.healermeta.databinding.ActivityMainBinding
 import com.sbnh.healermeta.viewmodel.MainViewModel
@@ -26,6 +27,7 @@ import com.sbnh.my.fragment.MyFragment
 
 @Route(path = ARouterConfig.Path.Main.ACTIVITY_MAIN)
 class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
+    private val mReceiver = DownloadReceiver()
     private val mTabData: ArrayList<SelectorTabEntity> = ArrayList()
     private val mFragments: ArrayList<Fragment> = ArrayList()
     private var mTabAdapter: MainTabAdapter? = null
@@ -110,6 +112,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
             if (versionUpdateDialog is VersionUpdateDialog) {
                 DialogCompat.showFragmentDialog(versionUpdateDialog, supportFragmentManager)
             }
+
         }
     }
 

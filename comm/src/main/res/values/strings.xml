@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">healer_meta</string>
     <string name="this_is_null">这里空空如也~</string>
     <string name="home">首页</string>
     <string name="bazaar">市场</string>
@@ -138,4 +139,6 @@
     <string name="message_code_send_phone_number">短信验证码已发送至</string>
     <string name="cancel_order_succeed">取消订单成功</string>
     <string name="update_now">立即更新</string>
+    <string name="download_ing">下载中....</string>
+    <string name="download_ing_notify_read">下载中,通知栏查看详情</string>
 </resources>

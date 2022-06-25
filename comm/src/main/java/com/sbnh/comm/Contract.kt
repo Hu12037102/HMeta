@@ -19,6 +19,7 @@ object Contract {
     const val PAGE_NUM = 1
     const val DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm"
     const val UNKNOWN_INT_VALUE = -1
+    const val UNKNOWN_LONG_VALUE = -1L
 
     object DP {
         const val VALUE_8F = 8f

@@ -3,6 +3,7 @@ package com.sbnh.comm.compat
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.IntentFilter
 
 /**
  * 作者: 胡庆岭
@@ -36,5 +37,10 @@ object PhoneCompat {
         if (service is ClipboardManager){
             service.setPrimaryClip(ClipData.newPlainText(null,text))
         }
+    }
+    @JvmStatic
+    fun registerReceiver(context: Context,intentFilter: IntentFilter){
+
+
     }
 }

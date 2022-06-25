@@ -18,13 +18,30 @@ import java.io.File
 annotation class DirType {}
 object FileFactory {
     const val TYPE_GLIDE = "glide"
+    const val TYPE_APPLICATION = "app"
+
     @JvmStatic
-    fun createCacheDir(@DirType type: String, ): File? {
+    fun createCacheDir(@DirType type: String): File? {
         return when (type) {
             TYPE_GLIDE -> {
-                FileCompat.createDir(FileCompat.getCacheDir(),TYPE_GLIDE)
+                FileCompat.createDir(FileCompat.getCacheDir(), TYPE_GLIDE)
             }
             else -> null
+        }
+    }
+
+    @JvmStatic
+    fun createRootDir(@DirType type: String): File? {
+        return when (type) {
+            TYPE_GLIDE -> {
+                FileCompat.createDir(FileCompat.getRootDir(), TYPE_GLIDE)
+            }
+            TYPE_APPLICATION -> {
+                FileCompat.createDir(FileCompat.getRootDir(), TYPE_APPLICATION)
+            }
+            else -> {
+                null
+            }
         }
     }
 

@@ -121,7 +121,7 @@ class RetrofitManger private constructor() {
             .readTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)
             .addInterceptor(mHeadInterceptor)
             .addInterceptor(mLoggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
-            .addInterceptor(mCacheInterceptor)
+           // .addInterceptor(mCacheInterceptor)
             .build()
 
     }
