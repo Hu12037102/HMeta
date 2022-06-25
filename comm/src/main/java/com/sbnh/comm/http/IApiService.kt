@@ -2,7 +2,6 @@ package com.sbnh.comm.http
 
 import com.sbnh.comm.BuildConfig
 import java.net.HttpURLConnection
-import java.util.*
 
 /**
  * 作者: 胡庆岭
@@ -34,6 +33,8 @@ class IApiService {
         const val CANCEL_ORDER = "/payment/thirdPayment/cancelOrder"
         const val MY_COLLECTION_LIST = "/healer_nft/user/myCollectionNew"
         const val COLLECTION_NUM_DETAILS = "/healer_nft/user/collectionNum"
+        const val GIVE_COLLECTION = "/healer_nft/Presented/presentedMerchandise"
+        const val GIVE_COLLECTION_LIST = "/healer_nft/Presented/presentedRecord"
     }
 
     object HttpCode {
