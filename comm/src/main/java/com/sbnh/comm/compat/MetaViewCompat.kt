@@ -80,18 +80,25 @@ object MetaViewCompat {
         return DataCompat.checkNotNull(textView?.text)
     }
 
+    @JvmStatic
+    fun getTextViewText(textView: TextView?, isTrim: Boolean): CharSequence {
+        val text: CharSequence? = if (isTrim) textView?.text?.trim() else textView?.text
+        return DataCompat.checkNotNull(text)
+    }
+
 
     @JvmStatic
     fun showSoftKeyBoard(view: View?) {
-        if (DataCompat.notNull(view)) {
-            ViewCompat.getWindowInsetsController(view!!)?.show(WindowInsetsCompat.Type.ime())
+        view?.let {
+            ViewCompat.getWindowInsetsController(it)?.show(WindowInsetsCompat.Type.ime())
         }
+
     }
 
     @JvmStatic
     fun hideSoftKeyBoard(view: View?) {
-        if (DataCompat.notNull(view)) {
-            ViewCompat.getWindowInsetsController(view!!)?.hide(WindowInsetsCompat.Type.ime())
+        view?.let {
+            ViewCompat.getWindowInsetsController(it)?.hide(WindowInsetsCompat.Type.ime())
         }
     }
 

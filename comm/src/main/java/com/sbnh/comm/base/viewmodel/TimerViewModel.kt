@@ -56,6 +56,9 @@ open class TimerViewModel : BaseViewModel() {
 
     override fun onCleared() {
         super.onCleared()
+        disposedTimer()
+    }
+    fun disposedTimer(){
         mDisposable?.let {
             if (!it.isDisposed) {
                 it.dispose()

@@ -4,11 +4,16 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.dialog.BaseDataDialog
+import com.sbnh.comm.base.dialog.InputMessageCodeDialog
+import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.compat.*
+import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.STATUS_RUNNING
 import com.sbnh.comm.entity.order.*
 import com.sbnh.comm.entity.pay.BankCardEntity
+import com.sbnh.comm.entity.request.RequestCancelOrderEntity
+import com.sbnh.comm.entity.request.RequestPayOrderAfterEntity
 import com.sbnh.comm.entity.request.RequestPayOrderBeforeEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
@@ -17,6 +22,7 @@ import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.order.databinding.ActivityOrderDetailsBinding
 import com.sbnh.order.viewmodel.OrderDetailsViewModel
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 import kotlin.math.abs
 
 /**
@@ -42,10 +48,16 @@ class OrderDetailsActivity :
     }
 
     override fun initData() {
-        mViewModel.queryOrderDetails(mOrderId)
+        loadSmartData()
     }
 
     override fun initEvent() {
+
+    }
+
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        mViewModel.disposedTimer()
+        mViewModel.queryOrderDetails(mOrderId)
     }
 
     override fun initObserve() {
@@ -71,9 +83,38 @@ class OrderDetailsActivity :
                 mViewModel.queryOrderDetails(mOrderId)
             }
         }
-        mViewModel.mBeforePayLiveData.observe(this){
+        mViewModel.mBeforePayLiveData.observe(this) {
+
+            it?.data?.let { result ->
+                val dialog =
+                    ARouters.getFragment(ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE) as InputMessageCodeDialog
+                DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
+                dialog.setOnCallbackValues(object : BaseDataDialog.OnCallbackValues {
+                    override fun onValue(obj: Any) {
+                        if (obj is CharSequence) {
+                            mViewModel.payOrderAfter(
+                                RequestPayOrderAfterEntity(
+                                    DataCompat.toString(obj),
+                                    DataCompat.toString(result.paymentOrderId),
+                                    DataCompat.toString(result.requestId)
+                                )
+                            )
+                        }
+                        dialog.dismiss()
+                    }
+                })
+            }
+
 
         }
+        mViewModel.mCancelOrderLiveData.observe(this) {
+            MetaViewCompat.finishActivity(this)
+            showToast(com.sbnh.comm.R.string.cancel_order_succeed)
+        }
+        mViewModel.mAfterPayLiveData.observe(this) {
+
+        }
+
     }
 
     private fun setPublicOrderInfo(entity: OrderEntity) {
@@ -192,6 +233,26 @@ class OrderDetailsActivity :
                             selectorBankCardDialog,
                             supportFragmentManager
                         )
+                    }
+
+                })
+                mViewBinding.atvCancelOrder.setOnClickListener(object : DelayedClick() {
+                    override fun onDelayedClick(v: View?) {
+                        val titleDialog =
+                            TitleDialog(DataCompat.getResString(com.sbnh.comm.R.string.are_you_sure_cancel_order))
+                        DialogCompat.showFragmentDialog(titleDialog, supportFragmentManager)
+                        titleDialog.setOnDialogItemInfoClickListener(object :
+                            OnDialogItemInfoClickListener {
+                            override fun onClickConfirm(view: View?) {
+                                mViewModel.cancelOrder(RequestCancelOrderEntity(entity.id))
+                                titleDialog.dismiss()
+                            }
+
+                            override fun onClickCancel(view: View?) {
+                                titleDialog.dismiss()
+                            }
+
+                        })
                     }
 
                 })

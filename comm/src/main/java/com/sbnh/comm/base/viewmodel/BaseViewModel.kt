@@ -47,7 +47,6 @@ open class BaseViewModel : ViewModel() {
         const val STATUS_LOGIN_OUT = 1
         const val STATUE_REQUEST_END = 2
     }
-
     var mPagerNum = Contract.PAGE_NUM
     val mPagerSize = Contract.PAGE_SIZE
     var isRefresh = true

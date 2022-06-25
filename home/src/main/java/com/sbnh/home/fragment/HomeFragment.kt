@@ -56,20 +56,14 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
         mViewBinding.banner
             .addBannerLifecycleObserver(this)
             .setAdapter(mBannerAdapter)
-            .setOnBannerListener(object : OnBannerListener<HomeBannerEntity> {
-                override fun OnBannerClick(data: HomeBannerEntity?, position: Int) {
-                    data?.let {
-                        if (it.skipType == WebViewCompat.SKIP_TYPE_IN) {
-                            ARoutersActivity.startWebContentActivity(it.skipUrl)
-                        } else if (it.skipType == WebViewCompat.SKIP_TYPE_OUT) {
-                            ARoutersActivity.startBrowserActivity(context, it.skipUrl)
-                        }
-                    }
-
-
+            .setOnBannerListener { _, position ->
+                val entity = mBannerData[position]
+                if (entity.skipType == WebViewCompat.SKIP_TYPE_IN) {
+                    ARoutersActivity.startWebContentActivity(entity.skipUrl)
+                } else if (entity.skipType == WebViewCompat.SKIP_TYPE_OUT) {
+                    ARoutersActivity.startBrowserActivity(context, entity.skipUrl)
                 }
-
-            })
+            }
     }
 
     override fun isLoadEmptyView(): Boolean = false
@@ -100,6 +94,9 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
         }
         mViewModel.loadCollectionList(
             RequestPagerListEntity(
+                mViewModel.mPagerNum,
+                mViewModel.mPagerSize,
+                mViewModel.mPagerNum,
                 mViewModel.mPagerSize,
                 mViewModel.mLastTimestamp
             )

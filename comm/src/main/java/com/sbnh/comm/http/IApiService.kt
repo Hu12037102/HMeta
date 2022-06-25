@@ -30,6 +30,7 @@ class IApiService {
         const val HOME_BANNER = "/healer_nft/notice"
         const val PAY_ORDER_BEFORE = "/payment/thirdPayment/pay"
         const val PAY_COLLECTION_AFTER = "/payment/thirdPayment/payConfirm"
+        const val CANCEL_ORDER="/payment/thirdPayment/cancelOrder"
     }
 
     object HttpCode {

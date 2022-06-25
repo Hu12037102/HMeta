@@ -8,6 +8,6 @@ package com.sbnh.comm.entity.request
  */
 data class RequestPayOrderBeforeEntity(
     val bindCardId: String?,
-    val merchandiseId: String,
-    val orderId: String
+    val merchandiseId: String?,
+    val orderId: String?
 )

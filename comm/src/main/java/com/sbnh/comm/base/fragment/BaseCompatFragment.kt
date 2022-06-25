@@ -184,16 +184,16 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         SmartRefreshLayoutCompat.initDefault(refreshLayout)
         refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onRefresh(refreshLayout: RefreshLayout) {
-                mViewModel.mPagerNum = 0
+                mViewModel.mPagerNum = Contract.PAGE_NUM
                 mViewModel.isRefresh = true
                 onLoadSmartData(refreshLayout, mViewModel.isRefresh)
-              //  refreshLayout.finishRefresh()
+                //  refreshLayout.finishRefresh()
             }
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 mViewModel.isRefresh = false
                 onLoadSmartData(refreshLayout, mViewModel.isRefresh)
-               // refreshLayout.finishLoadMore()
+                // refreshLayout.finishLoadMore()
             }
 
         })
