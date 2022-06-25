@@ -46,14 +46,14 @@ object ARoutersActivity {
     }
 
     @JvmStatic
-    fun startCollectionNumDetailsActivity(entity: MyCollectionEntity){
+    fun startCollectionNumDetailsActivity(entity: MyCollectionEntity) {
         ARouters.build(ARouterConfig.Path.My.ACTIVITY_COLLECTION_NUM_DETAILS)
             .withParcelable(ARouterConfig.Key.MY_COLLECTION, entity)
             .navigation()
     }
 
     @JvmStatic
-    fun startGiveCollectionActivity(id: String?){
+    fun startGiveCollectionActivity(id: String?) {
         ARouters.build(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
             .withString(ARouterConfig.Key.ID, id)
             .navigation()
@@ -68,6 +68,20 @@ object ARoutersActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             }
             context?.startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    @JvmStatic
+    fun installPackage(context: Context, uri: Uri) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            intent.setDataAndType(uri, "application/vnd.android.package-archive")
+            context.startActivity(intent)
         } catch (e: Exception) {
             e.printStackTrace()
         }

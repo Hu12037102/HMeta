@@ -2,6 +2,7 @@ package com.sbnh.comm.dialog
 
 import android.app.DownloadManager
 import android.content.IntentFilter
+import android.net.Uri
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.dialog.BaseCompatDialog
@@ -26,6 +27,11 @@ class VersionUpdateDialog :
     BaseCompatDialog<DialogVersionUpdateViewBinding, BaseDialogViewModel>() {
     private val mReceiver = DownloadReceiver()
     private var mVersionEntity: VersionEntity? = null
+    private var mOnDownloadCallback: OnDownloadCallback? = null
+    fun setOnDownloadCallback(onDownloadCallback: OnDownloadCallback?) {
+        this.mOnDownloadCallback = onDownloadCallback
+    }
+
     override fun getViewBinding(): DialogVersionUpdateViewBinding =
         DialogVersionUpdateViewBinding.inflate(layoutInflater)
 
@@ -36,7 +42,11 @@ class VersionUpdateDialog :
     }
 
     override fun initData() {
-        BaseReceiver.registerReceiver(context,mReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+        BaseReceiver.registerReceiver(
+            context,
+            mReceiver,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
         mVersionEntity = arguments?.getParcelable(ARouterConfig.Key.PARCELABLE)
         UICompat.setText(mViewBinding.atvContent, DataCompat.toString(mVersionEntity?.changes))
     }
@@ -56,12 +66,25 @@ class VersionUpdateDialog :
             }
 
         })
+        mReceiver.setOnDownloadCallback(object : DownloadReceiver.OnDownloadCallback {
+            override fun onDownloadComplete(uri: Uri) {
+                mOnDownloadCallback?.onCompete(uri)
+            }
+
+            override fun onDownloadError() {
+
+            }
+        })
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        BaseReceiver.unRegisterReceiver(context,mReceiver)
+        BaseReceiver.unRegisterReceiver(context, mReceiver)
 
 
+    }
+
+    interface OnDownloadCallback {
+        fun onCompete(uri: Uri)
     }
 }

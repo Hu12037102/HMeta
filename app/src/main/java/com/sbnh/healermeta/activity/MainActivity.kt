@@ -1,5 +1,7 @@
 package com.sbnh.healermeta.activity
 
+import android.Manifest
+import android.net.Uri
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -8,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.permission.OnPermissionResult
 import com.sbnh.bazaar.fragment.BazaarFragment
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
@@ -18,7 +21,9 @@ import com.sbnh.comm.entity.base.SelectorTabEntity
 import com.sbnh.comm.entity.base.VersionEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.receiver.DownloadReceiver
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.healermeta.adapter.MainTabAdapter
 import com.sbnh.healermeta.databinding.ActivityMainBinding
 import com.sbnh.healermeta.viewmodel.MainViewModel
@@ -111,7 +116,24 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
                     .navigation()
             if (versionUpdateDialog is VersionUpdateDialog) {
                 DialogCompat.showFragmentDialog(versionUpdateDialog, supportFragmentManager)
+                versionUpdateDialog.setOnDownloadCallback(object :
+                    VersionUpdateDialog.OnDownloadCallback {
+                    override fun onCompete(uri: Uri) {
+                        LogUtils.w("versionUpdateDialog-", "我回调成功")
+                      /*  requestPermissionX(Manifest.permission.INSTALL_PACKAGES,
+                            object : OnPermissionResult {
+                                override fun onBackResult(
+                                    status: Int,
+                                    resultPermissions: List<String>
+                                ) {
+
+                                }
+                            })*/
+                        ARoutersActivity.installPackage(this@MainActivity, uri)
+                    }
+                })
             }
+
 
         }
     }
