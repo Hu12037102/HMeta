@@ -8,7 +8,10 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
-import com.sbnh.comm.compat.*
+import com.sbnh.comm.compat.CollectionCompat
+import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.MetaViewCompat
+import com.sbnh.comm.compat.PhoneCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.entity.my.MyCollectionEntity
@@ -82,7 +85,7 @@ class MyCollectionFragment :
             }
 
             override fun clickItem(view: View, position: Int) {
-                ARoutersActivity.startCollectionDetailsActivity(mCollectionData[position].id)
+                ARoutersActivity.startCollectionNumDetailsActivity(mCollectionData[position])
             }
 
             override fun longClickItem(view: View, position: Int) {
@@ -90,14 +93,6 @@ class MyCollectionFragment :
             }
 
         })
-
-//        mEmptyLayout?.setOnClickListener(object : DelayedClick() {
-//            override fun onDelayedClick(v: View?) {
-//                ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
-//
-//            }
-//
-//        })
     }
 
     override fun isLoadEmptyView(): Boolean = true

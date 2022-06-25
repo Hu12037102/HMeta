@@ -34,5 +34,12 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Hide.StatusBar"/>
+
+        <activity
+            android:name=".activity.CollectionNumDetailsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Hide.StatusBar"/>
+
     </application>
 </manifest>
