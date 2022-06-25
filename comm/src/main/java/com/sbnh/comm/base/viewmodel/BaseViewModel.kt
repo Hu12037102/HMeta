@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.huxiaobai.compress.CompressGlide
 import com.huxiaobai.compress.imp.OnCompressGlideImageCallback
 import com.sbnh.comm.Contract
@@ -106,6 +105,9 @@ open class BaseViewModel : ViewModel() {
                     mPagerNum++
                     body.lastTimestamp?.let {
                         mLastTimestamp = it
+                    }
+                    body.lastTime?.let {
+                        mLastTime = it
                     }
 
                     if (body.data is List<*>) {
