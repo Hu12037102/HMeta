@@ -57,19 +57,17 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
         savedInstanceState: Bundle?
     ): View? {
         LogUtils.w(TAG, "onCreateView:${this.javaClass.simpleName}")
-        this.mRootView = mViewBinding.root
-        // initEmptyLoadingView(context, mRootView)
-        //init()
+         this.mRootView = mViewBinding.root
         return mRootView
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         mDialog = super.onCreateDialog(savedInstanceState)
-      /*  mDialog = if (dialog is BottomSheetDialog) {
-            dialog
-        } else {
-            BottomSheetDialog(requireContext())
-        }*/
+        /*  mDialog = if (dialog is BottomSheetDialog) {
+              dialog
+          } else {
+              BottomSheetDialog(requireContext())
+          }*/
         return mDialog!!
     }
 
@@ -88,17 +86,17 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
     private fun initDialogParams() {
 
 
-        val windowParams = mDialog?.window?.attributes
+        // val windowParams = mDialog?.window?.attributes
         mDialog?.window?.setLayout(
             PhoneCompat.screenWidth(requireContext()),
             PhoneCompat.screenHeight(requireContext())
         )
-        windowParams?.let {
-            it.width = ViewGroup.LayoutParams.MATCH_PARENT
-            it.height = ViewGroup.LayoutParams.MATCH_PARENT
-            it.gravity = getGravity()
-            mDialog?.window?.attributes = it
-        }
+        /*  windowParams?.let {
+              it.width = ViewGroup.LayoutParams.MATCH_PARENT
+              it.height = ViewGroup.LayoutParams.MATCH_PARENT
+              it.gravity = getGravity()
+              mDialog?.window?.attributes = it
+          }*/
     }
 
     protected abstract fun getViewBinding(): VB
@@ -115,7 +113,7 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
             LogUtils.w(TAG, "我收到数据回调:${this.javaClass.simpleName}----$it")
             resultUserInfo(it)
         }
-        mViewModel.mGainMessageCodeLiveData.observe(this){
+        mViewModel.mGainMessageCodeLiveData.observe(this) {
             resultGainMessageCode()
         }
     }
@@ -195,12 +193,14 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
         super.onDetach()
         LogUtils.w(TAG, "onDetach:${this.javaClass.simpleName}")
     }
+
     @GravityInt
     protected open fun getGravity(): Int = Gravity.BOTTOM
     protected open fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
 
     }
-    protected open fun resultGainMessageCode(){}
+
+    protected open fun resultGainMessageCode() {}
 
 
 }

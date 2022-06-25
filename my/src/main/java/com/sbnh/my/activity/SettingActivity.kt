@@ -119,7 +119,7 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
         mViewBinding.pvRealName.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 if (!isRealName) {
-                    DialogCompat.showFragmentDialog(RealNameDialog())
+                    DialogCompat.showFragmentDialog(RealNameDialog(),supportFragmentManager)
                 }
 
             }

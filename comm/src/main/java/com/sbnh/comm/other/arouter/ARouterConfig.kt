@@ -12,6 +12,7 @@ class ARouterConfig {
         const val WEB_URL = "web_url"
         const val ID = "id"
         const val MY_COLLECTION = "my_collection"
+        const val PARCELABLE="parcelable"
 
     }
 
@@ -52,10 +53,12 @@ class ARouterConfig {
         object Pay {
             const val ACTIVITY_BANK_CARD_LIST = "/pay/activity/bank/card/list"
             const val ACTIVITY_ADD_BANK_CARD = "/pay/activity/add/bank/card"
+            const val DIALOG_SELECTOR_BANK_CARD="/pay/dialog/selector/bank/card"
         }
 
         object Comm {
             const val ACTIVITY_WEB_CONTENT = "/comm/activity/web/content"
+            const val DIALOG_INPUT_MESSAGE_CODE="/comm/dialog/input/message/code"
         }
 
         object Order {

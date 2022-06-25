@@ -9,6 +9,9 @@ import com.sbnh.comm.Contract
  * 描述:
  */
 data class RequestPagerListEntity(
+    var pagerNum: Int = Contract.PAGE_NUM,
     var pagerSize: Int = Contract.PAGE_SIZE,
+    var page: Int = Contract.PAGE_NUM,
+    var size: Int = Contract.PAGE_SIZE,
     var time: Long = System.currentTimeMillis()
 )

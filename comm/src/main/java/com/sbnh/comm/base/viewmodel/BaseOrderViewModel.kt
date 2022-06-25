@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.ResultCommitOrderEntity
+import com.sbnh.comm.entity.request.RequestCancelOrderEntity
 import com.sbnh.comm.entity.request.RequestCreateOrderEntity
 import com.sbnh.comm.http.BaseService
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ import kotlinx.coroutines.launch
 open class BaseOrderViewModel : TimerViewModel() {
     val mCommitOrderLiveData: MutableLiveData<BaseEntity<ResultCommitOrderEntity>> by lazy { MutableLiveData() }
     val mOrderDetailsLiveData: MutableLiveData<BaseEntity<OrderEntity>> by lazy { MutableLiveData() }
+    val mCancelOrderLiveData: MutableLiveData<BaseEntity<Unit>> by lazy { MutableLiveData() }
     fun commitOrder(entity: RequestCreateOrderEntity) {
         viewModelScope.launch {
             try {
@@ -37,6 +39,18 @@ open class BaseOrderViewModel : TimerViewModel() {
                     .queryOrderDetails(id)
                 disposeRetrofit(mOrderDetailsLiveData, result)
 
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun cancelOrder(entity: RequestCancelOrderEntity) {
+        viewModelScope.launch {
+            try {
+                val result = mRetrofitManger.create(BaseService::class.java)
+                    .cancelOrder(entity)
+                disposeRetrofit(mCancelOrderLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

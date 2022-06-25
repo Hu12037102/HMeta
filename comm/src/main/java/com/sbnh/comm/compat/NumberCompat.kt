@@ -32,4 +32,20 @@ object NumberCompat {
         DataCompat.getTextLength(idCard) >= Contract.ID_CARD_NUMBER_MIN
                 &&
                 DataCompat.getTextLength(idCard) <= Contract.ID_CARD_NUMBER_MAX
+
+    @JvmStatic
+    fun encryptPhoneNumber(phoneNumber: String?): String {
+        var result = ""
+        phoneNumber?.let {
+            for (i in phoneNumber.indices) {
+                val char = phoneNumber[i]
+                result += if (i in 3..6) {
+                    "*"
+                } else {
+                    char
+                }
+            }
+        }
+        return result
+    }
 }

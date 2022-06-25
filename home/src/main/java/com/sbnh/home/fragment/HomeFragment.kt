@@ -6,12 +6,15 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
+import com.sbnh.comm.compat.WebViewCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
+import com.sbnh.comm.entity.home.HomeBannerEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
-import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
+import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
+import com.sbnh.home.adapter.HomeBannerAdapter
 import com.sbnh.home.adapter.HomeCollectionListAdapter
 import com.sbnh.home.databinding.FragmentHomeBinding
 import com.sbnh.home.viewmodel.HomeViewModel
@@ -25,7 +28,9 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
  */
 @Route(path = ARouterConfig.Path.Home.FRAGMENT_HOME)
 class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
-  //  private val mRequestCollectionEntity = RequestPagerListEntity()
+    //  private val mRequestCollectionEntity = RequestPagerListEntity()
+    private var mBannerAdapter: HomeBannerAdapter? = null
+    private val mBannerData = ArrayList<HomeBannerEntity>()
     private val mCollectionData = ArrayList<CollectionEntity>()
     private var mCollectionAdapter: HomeCollectionListAdapter? = null
     override fun getViewBinding(): FragmentHomeBinding = FragmentHomeBinding.inflate(layoutInflater)
@@ -34,16 +39,32 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
 
     override fun initView() {
         mViewBinding.rvData.layoutManager = LinearLayoutManager(context)
+        SmartRefreshLayoutCompat.wipeDamp(mViewBinding.refreshLayout)
     }
 
     override fun initData() {
+        initBanner()
         mCollectionAdapter = HomeCollectionListAdapter(requireContext(), mCollectionData)
         mViewBinding.rvData.adapter = mCollectionAdapter
-       // mViewModel.loadCollectionList(mRequestCollectionEntity)
-        onLoadSmartData()
+        loadSmartData()
     }
 
-    override fun isLoadEmptyView(): Boolean = true
+    private fun initBanner() {
+        mBannerAdapter = HomeBannerAdapter(requireContext(), mBannerData)
+        mViewBinding.banner
+            .addBannerLifecycleObserver(this)
+            .setAdapter(mBannerAdapter)
+            .setOnBannerListener { _, position ->
+                val entity = mBannerData[position]
+                if (entity.skipType == WebViewCompat.SKIP_TYPE_IN) {
+                    ARoutersActivity.startWebContentActivity(entity.skipUrl)
+                } else if (entity.skipType == WebViewCompat.SKIP_TYPE_OUT) {
+                    ARoutersActivity.startBrowserActivity(context, entity.skipUrl)
+                }
+            }
+    }
+
+    override fun isLoadEmptyView(): Boolean = false
     override fun initEvent() {
         mEmptyLayout?.setOnClickListener {
 
@@ -65,18 +86,40 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
         })
     }
 
-    override fun onLoadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
-        mViewModel.loadCollectionList(RequestPagerListEntity(mViewModel.mPagerSize,mViewModel.mLastTimestamp))
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        if (isRefresh) {
+            mViewModel.loadBanner()
+        }
+        mViewModel.loadCollectionList(
+            RequestPagerListEntity(
+                mViewModel.mPagerNum,
+                mViewModel.mPagerSize,
+                mViewModel.mPagerNum,
+                mViewModel.mPagerSize,
+                mViewModel.mLastTimestamp
+            )
+        )
     }
 
     override fun initObserve() {
         super.initObserve()
         mViewModel.mCollectionLiveData.observe(this) {
             val data = BasePagerEntity.getData(it)
+            if (mViewModel.isRefresh) {
+                mCollectionData.clear()
+            }
             if (CollectionCompat.notEmptyList(data)) {
                 mCollectionData.addAll(data!!)
-                mCollectionAdapter?.notifyDataSetChanged()
             }
+            mCollectionAdapter?.notifyDataSetChanged()
+        }
+
+        mViewModel.mBannerLiveData.observe(this) {
+            mBannerData.clear()
+            if (CollectionCompat.notEmptyList(it)) {
+                mBannerData.addAll(it!!)
+            }
+            mBannerAdapter?.notifyDataSetChanged()
         }
     }
 

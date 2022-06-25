@@ -2,28 +2,32 @@ package com.sbnh.my.fragment
 
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
+import com.sbnh.comm.base.dialog.InputMessageCodeDialog
 import com.sbnh.comm.base.fragment.BaseCompatFragment
-import com.sbnh.comm.compat.CollectionCompat
-import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.compat.DialogCompat
-import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.RealNameDialog
+import com.sbnh.comm.entity.base.TAB_INVITE_FRIEND
 import com.sbnh.comm.entity.base.TAB_OFFICIAL_ACCOUNTS
 import com.sbnh.comm.entity.base.TAB_ORDER
 import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.adapter.MyTabAdapter
 import com.sbnh.my.databinding.FragmentMyBinding
 import com.sbnh.my.viewmodel.MyViewModel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 /**
  * 作者: 胡庆岭
@@ -98,6 +102,17 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                     TAB_OFFICIAL_ACCOUNTS -> {
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_OFFICIAL_ACCOUNTS)
                     }
+                    TAB_INVITE_FRIEND -> {
+                        lifecycleScope.launch {
+                            ARoutersActivity.startWebContentActivity(
+                                WebViewCompat.appendUrl(
+                                    IApiService.H5.INVITE_FRIEND, IApiService.Key.SID,
+                                    UserInfoStore.get().getSid()
+                                )
+                            )
+                        }
+
+                    }
                     else -> {
 
                     }
@@ -131,7 +146,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
             mViewBinding.aivRealNameStatus.setOnClickListener(object : DelayedClick() {
                 override fun onDelayedClick(v: View?) {
                     if (userInfoEntity?.hasRealName == false) {
-                        DialogCompat.showFragmentDialog(RealNameDialog())
+                        DialogCompat.showFragmentDialog(RealNameDialog(), childFragmentManager)
                     }
 
                 }

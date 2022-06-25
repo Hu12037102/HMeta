@@ -6,20 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
-import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener
-import kotlinx.coroutines.launch
 
 abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFragment() {
     protected val mViewBinding: VB by lazy { getViewBinding() }
@@ -28,6 +25,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     protected var mLoadingViewBinding: BaseParentLoadingViewBinding? = null
     protected var mRootView: View? = null
     private var isFirstCreate = true
+    private var mRefreshLayout: RefreshLayout? = null
 
     companion object {
         const val TAG = LogUtils.TAG
@@ -80,6 +78,15 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         mViewModel.mGainMessageCodeLiveData.observe(this) {
             resultGainMessageCode()
         }
+        mViewModel.mRefreshLiveData.observe(this) {
+            mRefreshLayout?.setEnableLoadMore(it.dataSize > 0)
+        }
+        mViewModel.mPublicLiveData.observe(this) {
+            if (it == BaseViewModel.STATUE_REQUEST_END) {
+                mRefreshLayout?.finishRefresh()
+                mRefreshLayout?.finishLoadMore()
+            }
+        }
     }
 
     protected open fun isLoadEmptyView(): Boolean = false
@@ -105,7 +112,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
                     "initEmptyLoadingView--",
                     "${isLoadEmptyView()}--${this.javaClass.simpleName}--${this.hashCode()}"
                 )
-                mEmptyLayout = EmptyLayout(context)
+                mEmptyLayout = EmptyLayout(context).apply { hide() }
                 rootView.addView(
                     mEmptyLayout, 0,
                     ViewGroup.LayoutParams(
@@ -172,19 +179,20 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     protected open fun resultGainMessageCode() {}
 
     private fun initRefreshLayout(refreshLayout: SmartRefreshLayout) {
+        this.mRefreshLayout = refreshLayout
         SmartRefreshLayoutCompat.initDefault(refreshLayout)
         refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onRefresh(refreshLayout: RefreshLayout) {
-                mViewModel.mPagerNum = 0
+                mViewModel.mPagerNum = Contract.PAGE_NUM
                 mViewModel.isRefresh = true
-                onLoadSmartData(refreshLayout, mViewModel.isRefresh)
-                refreshLayout.finishRefresh()
+                loadSmartData(refreshLayout, mViewModel.isRefresh)
+                //  refreshLayout.finishRefresh()
             }
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 mViewModel.isRefresh = false
-                onLoadSmartData(refreshLayout, mViewModel.isRefresh)
-                refreshLayout.finishLoadMore()
+                loadSmartData(refreshLayout, mViewModel.isRefresh)
+                // refreshLayout.finishLoadMore()
             }
 
         })

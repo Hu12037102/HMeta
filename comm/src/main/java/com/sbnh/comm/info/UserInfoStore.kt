@@ -137,7 +137,7 @@ class UserInfoStore private constructor() {
         mDataStoreManger.putObject(KEY_SID, sid ?: "")
     }
 
-    private suspend fun getSid() = mDataStoreManger.getString(KEY_SID)
+     suspend fun getSid() = mDataStoreManger.getString(KEY_SID)
     suspend fun isLogin() = DataCompat.notEmpty(getSid())
 
     suspend fun clear() {

@@ -84,7 +84,7 @@ abstract class BaseActivity : PermissionActivity() {
 
     }
 
-    protected open fun onLoadSmartData(
+    protected open fun loadSmartData(
         refreshLayout: RefreshLayout? = null,
         isRefresh: Boolean = true
     ) {

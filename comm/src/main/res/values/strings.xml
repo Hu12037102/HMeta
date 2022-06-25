@@ -97,6 +97,7 @@
     <string name="buy">购买</string>
     <string name="sold_out">已售罄</string>
     <string name="wait_pay">等待支付</string>
+    <string name="wait_pays">待支付</string>
     <string name="shop_details">商品详情</string>
     <string name="deal_with_money">应付金额</string>
     <string name="bank_card_payment">银行卡支付</string>
@@ -125,6 +126,17 @@
     <string name="real_name_authentication_succeed">实名认证成功</string>
     <string name="buy_details">购买详情</string>
     <string name="set_payment_password_succeed">设置支付密码成功</string>
+    <string name="deposit_card">储蓄卡</string>
+    <string name="unbind">解除绑定</string>
+    <string name="untying_bank_card">解绑银行卡</string>
+    <string name="please_inout_payment_password_check_identity">请输入支付密码，以验证身份</string>
+    <string name="please_selector_bank_card">请选择银行卡</string>
+    <string name="add_bank_card_payment">添加银行卡支付</string>
+    <string name="please_selector_pay_way">请选择支付方式</string>
+    <string name="are_you_sure_cancel_order">确定取消订单</string>
+    <string name="please_inout_message_code">请输入验证码</string>
+    <string name="message_code_send_phone_number">短信验证码已发送至</string>
+    <string name="cancel_order_succeed">取消订单成功</string>
     <string name="no_collection">暂无藏品</string>
     <string name="give">转赠</string>
 </resources>

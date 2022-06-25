@@ -49,16 +49,22 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
 
     private fun initPagerAdapter() {
         val homeFragment =
-            ARouters.getFragment(ARouterConfig.Path.Home.FRAGMENT_HOME) as HomeFragment
+            ARouters.getFragment(ARouterConfig.Path.Home.FRAGMENT_HOME)
+
         Log.w("initPagerAdapter--", "$homeFragment")
         val bazaarFragment =
-            ARouters.getFragment(ARouterConfig.Path.Bazaar.FRAGMENT_BAZAAR) as BazaarFragment
+            ARouters.getFragment(ARouterConfig.Path.Bazaar.FRAGMENT_BAZAAR)
         val myFragment =
-            ARouters.getFragment(ARouterConfig.Path.My.FRAGMENT_MY) as MyFragment
-        mFragments.add(homeFragment)
-        mFragments.add(bazaarFragment)
-        mFragments.add(myFragment)
-
+            ARouters.getFragment(ARouterConfig.Path.My.FRAGMENT_MY)
+        if (homeFragment is Fragment) {
+            mFragments.add(homeFragment)
+        }
+        if (bazaarFragment is Fragment) {
+            mFragments.add(bazaarFragment)
+        }
+        if (myFragment is Fragment) {
+            mFragments.add(myFragment)
+        }
         val pagerAdapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = CollectionCompat.getListSize(mFragments)
 

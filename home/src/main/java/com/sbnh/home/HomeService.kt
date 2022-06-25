@@ -2,6 +2,7 @@ package com.sbnh.home
 
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
+import com.sbnh.comm.entity.home.HomeBannerEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.http.IApiService
 import retrofit2.Response
@@ -22,4 +23,6 @@ interface HomeService {
 
     @GET(IApiService.Path.COLLECTION_DETAILS)
     suspend fun loadCollectionDetails(@Path(IApiService.Key.ID) path: String)  : Response<CollectionEntity>
+    @GET(IApiService.Path.HOME_BANNER)
+    suspend fun loadHomeBanner():Response<List<HomeBannerEntity>>
 }
