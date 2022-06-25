@@ -64,7 +64,7 @@ class CollectionNumDetailsFragment :
             }
 
             override fun clickItem(view: View, position: Int) {
-                ARoutersActivity.startGiveCollectionActivity(mCollectionNumDetailsListData[position].id)
+                ARoutersActivity.startCollectionDetailsActivity(mCollectionNumDetailsListData[position].merchandiseId)
                 activity?.finish()
             }
 

@@ -19,7 +19,7 @@
         />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/aiv_give"
+        android:id="@+id/atv_give"
         android:layout_width="45dp"
         android:layout_height="21dp"
         android:layout_marginEnd="@dimen/size_12dp"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/aiv_give"
+        app:layout_constraintRight_toLeftOf="@+id/atv_give"
         app:layout_constraintLeft_toLeftOf="parent"
         android:paddingEnd="@dimen/size_18dp"
         android:paddingBottom="@dimen/size_14dp"

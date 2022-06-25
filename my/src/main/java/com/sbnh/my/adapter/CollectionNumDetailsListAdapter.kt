@@ -1,5 +1,6 @@
 package com.sbnh.my.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.sbnh.comm.compat.TimeCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.my.CollectionNumDetailsEntity
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.my.databinding.ItemCollectionNumDetailsListViewBinding
 
 class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNumDetailsEntity>) :
@@ -20,6 +22,12 @@ class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNum
             val entity = mData[position]
             UICompat.setText(holder.viewBinding.atvTokenId, "#${entity.tokenId} ")
             UICompat.setText(holder.viewBinding.atvTime, TimeCompat.getTimeFormat(entity.createTime))
+            holder.viewBinding.atvGive.setOnClickListener {
+                ARoutersActivity.startGiveCollectionActivity(entity.id)
+                if (mContext is Activity) {
+                    (mContext as Activity).finish()
+                }
+            }
         }
     }
 
