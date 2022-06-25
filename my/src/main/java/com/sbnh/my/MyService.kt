@@ -4,7 +4,7 @@ import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.my.CollectionNumDetailsEntity
-import com.sbnh.comm.entity.my.GiveCollection
+import com.sbnh.comm.entity.my.GiveCollectionEntity
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.RequestOrderListEntity
@@ -41,6 +41,6 @@ interface MyService {
     suspend fun giveCollection(@Body entity: RequestGiveCollectionEntity): Response<Unit>
 
     @POST(IApiService.Path.GIVE_COLLECTION_LIST)
-    suspend fun loadGiveCollectionList(@Body entity: RequestGiveCollectionListEntity): Response<BasePagerEntity<List<GiveCollection>>>
+    suspend fun loadGiveCollectionList(@Body entity: RequestGiveCollectionListEntity): Response<BasePagerEntity<List<GiveCollectionEntity>>>
 
 }

@@ -43,6 +43,8 @@ class ARouterConfig {
             const val ACTIVITY_OFFICIAL_ACCOUNTS="/my/activity/official/account"
             const val ACTIVITY_COLLECTION_NUM_DETAILS = "/my/activity/collection/num/details"
             const val FRAGMENT_COLLECTION_NUM_DETAILS = "/my/fragment/collection/num/details"
+            const val ACTIVITY_GIVE_COLLECTION_LIST = "/my/activity/give/collection/list"
+            const val FRAGMENT_GIVE_COLLECTION_CONTENT = "/my/activity/give/collection/content"
         }
 
         object Login {

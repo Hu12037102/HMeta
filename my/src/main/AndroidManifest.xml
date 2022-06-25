@@ -41,5 +41,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Hide.StatusBar"/>
 
+        <activity
+            android:name=".activity.GiveCollectionListActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
     </application>
 </manifest>
