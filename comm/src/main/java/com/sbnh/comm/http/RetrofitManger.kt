@@ -1,6 +1,7 @@
 package com.sbnh.comm.http
 
 import android.util.Log
+import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.NetWorkCompat
 import com.sbnh.comm.config.AppConfig
 import com.sbnh.comm.digest.SHA1Compat
@@ -74,6 +75,8 @@ class RetrofitManger private constructor() {
                 .addHeader(IApiService.Key.TS, "$timestamp")
                 .addHeader(IApiService.Key.UUID, uuid)
                 .addHeader(IApiService.Key.SID, sid ?: "")
+                .addHeader(IApiService.Key.VERSION, "${DataCompat.getVersionCode()}")
+                .addHeader(IApiService.Key.OS, IApiService.Value.ANDROID)
                 .build()
             return@Interceptor chain.proceed(request)
 
@@ -84,7 +87,7 @@ class RetrofitManger private constructor() {
 
     private fun initCacheInterceptor() {
         mCacheInterceptor = Interceptor { chain ->
-            LogUtils.w("initCacheInterceptor--","${NetWorkCompat.isNetComment()}")
+            LogUtils.w("initCacheInterceptor--", "${NetWorkCompat.isNetComment()}")
             var request = chain.request()
             request = if (NetWorkCompat.isNetComment()) {
                 request.newBuilder().cacheControl(CacheControl.FORCE_NETWORK).build()

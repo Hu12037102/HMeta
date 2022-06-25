@@ -1,10 +1,12 @@
 package com.sbnh.comm.compat
 
 import android.content.Context
+import android.os.Build
 import android.text.TextUtils
 import androidx.annotation.DimenRes
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
+import androidx.core.content.pm.PackageInfoCompat
 import com.sbnh.comm.app.BaseApplication
 
 /**
@@ -13,7 +15,6 @@ import com.sbnh.comm.app.BaseApplication
  * 更新时间: 2022/6/10 12:05
  * 描述:
  */
-
 
 
 object DataCompat {
@@ -71,4 +72,19 @@ object DataCompat {
 
     @JvmStatic
     fun toString(any: Any?): String = any?.toString() ?: ""
+
+    @JvmStatic
+    fun getVersionCode(): Long {
+        val packInfo = getPackInfo()
+        return PackageInfoCompat.getLongVersionCode(packInfo)
+    }
+
+    @JvmStatic
+    fun getVersionName(): String {
+        return getPackInfo().versionName
+    }
+
+    @JvmStatic
+    private fun getPackInfo() =
+        getContext().packageManager.getPackageInfo(getContext().packageName, 0)
 }

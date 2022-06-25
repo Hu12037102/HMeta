@@ -32,6 +32,7 @@ class IApiService {
         const val PAY_ORDER_BEFORE = "/payment/thirdPayment/pay"
         const val PAY_COLLECTION_AFTER = "/payment/thirdPayment/payConfirm"
         const val CANCEL_ORDER = "/payment/thirdPayment/cancelOrder"
+        const val LOAD_APP_VERSION = "/healer_nft/Version/getVersion/{code}"
     }
 
     object HttpCode {
@@ -49,14 +50,18 @@ class IApiService {
         const val UUID = "uuid";
         const val SID = "sid";
         const val ID = "id"
+        const val VERSION = "version"
+        const val CODE = "code"
+        const val OS = "os"
+    }
+    object Value{
+        const val ANDROID="Android"
     }
 
     object H5 {
         //邀请好友
         const val INVITE_FRIEND =
             "${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_page/#/sub/invite_page"
-
-
 
 
     }

@@ -3,6 +3,7 @@ package com.sbnh.healermeta.activity
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -11,7 +12,10 @@ import com.sbnh.bazaar.fragment.BazaarFragment
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.CollectionCompat
+import com.sbnh.comm.compat.DialogCompat
+import com.sbnh.comm.dialog.VersionUpdateDialog
 import com.sbnh.comm.entity.base.SelectorTabEntity
+import com.sbnh.comm.entity.base.VersionEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.healermeta.adapter.MainTabAdapter
@@ -35,7 +39,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
     }
 
     override fun initData() {
-
+        mViewModel.loadAppVersion()
         initBottomView()
         initPagerAdapter()
 
@@ -98,7 +102,15 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
 
     override fun initObserve() {
         super.initObserve()
-
+        mViewModel.mVersionLiveData.observe(this) {
+            val versionUpdateDialog =
+                ARouters.build(ARouterConfig.Path.Comm.DIALOG_VERSION_UPDATE)
+                    .withParcelable(ARouterConfig.Key.PARCELABLE, it)
+                    .navigation()
+            if (versionUpdateDialog is VersionUpdateDialog) {
+                DialogCompat.showFragmentDialog(versionUpdateDialog, supportFragmentManager)
+            }
+        }
     }
 
     override fun onDestroy() {

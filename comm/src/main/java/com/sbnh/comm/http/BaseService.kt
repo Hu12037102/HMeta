@@ -1,12 +1,14 @@
 package com.sbnh.comm.http
 
 import com.sbnh.comm.entity.base.BaseEntity
+import com.sbnh.comm.entity.base.VersionEntity
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.ResultCommitOrderEntity
 import com.sbnh.comm.entity.pay.PayOrderBeforeResultEntity
 import com.sbnh.comm.entity.request.*
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -37,4 +39,6 @@ interface BaseService {
 
     @POST(IApiService.Path.CANCEL_ORDER)
     suspend fun cancelOrder(@Body entity: RequestCancelOrderEntity): Response<BaseEntity<Unit>>
+    @GET(IApiService.Path.LOAD_APP_VERSION)
+    suspend fun loadAppVersion(@Path(IApiService.Key.CODE) version:Long):Response<VersionEntity>
 }

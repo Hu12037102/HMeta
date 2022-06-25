@@ -89,7 +89,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         }
     }
 
-    protected open fun isLoadEmptyView(): Boolean = false
+    protected open fun isLoadEmptyView(): Boolean = true
     private fun initParentView(context: Context?, rootView: View?) {
         if (context == null || rootView == null) {
             return

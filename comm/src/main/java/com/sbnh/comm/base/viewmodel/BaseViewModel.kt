@@ -12,10 +12,7 @@ import com.huxiaobai.compress.imp.OnCompressGlideImageCallback
 import com.sbnh.comm.Contract
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.entity.base.BaseEntity
-import com.sbnh.comm.entity.base.BasePagerEntity
-import com.sbnh.comm.entity.base.BasePagerEntity2
-import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.entity.base.*
 import com.sbnh.comm.entity.order.RefreshStatusEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.http.IApiService
@@ -47,6 +44,7 @@ open class BaseViewModel : ViewModel() {
         const val STATUS_LOGIN_OUT = 1
         const val STATUE_REQUEST_END = 2
     }
+
     var mPagerNum = Contract.PAGE_NUM
     val mPagerSize = Contract.PAGE_SIZE
     var isRefresh = true
@@ -58,6 +56,7 @@ open class BaseViewModel : ViewModel() {
     val mLoadingLiveData: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
     val mPublicLiveData: MutableLiveData<Int> by lazy { MutableLiveData() }
     val mRefreshLiveData: MutableLiveData<RefreshStatusEntity> by lazy { MutableLiveData() }
+    val mVersionLiveData: MutableLiveData<VersionEntity> by lazy { MutableLiveData() }
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
             val result = UserInfoStore.get().getEntity()
@@ -105,9 +104,9 @@ open class BaseViewModel : ViewModel() {
                 liveData?.value = body
                 if (body is BasePagerEntity<*>) {
                     mPagerNum++
-                     body.lastTimestamp?.let {
-                         mLastTimestamp = it
-                     }
+                    body.lastTimestamp?.let {
+                        mLastTimestamp = it
+                    }
                     if (body.data is List<*>) {
                         mRefreshLiveData.value =
                             RefreshStatusEntity(CollectionCompat.getListSize(body.data))
@@ -231,6 +230,18 @@ open class BaseViewModel : ViewModel() {
 
         }
 
+    }
+
+    fun loadAppVersion() {
+        viewModelScope.launch {
+            try {
+                val result = mRetrofitManger.create(BaseService::class.java)
+                    .loadAppVersion(DataCompat.getVersionCode())
+                disposeRetrofit(mVersionLiveData, result)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
 }

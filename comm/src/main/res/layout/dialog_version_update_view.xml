@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_30dp"
+        android:layout_marginEnd="@dimen/size_30dp"
+        app:cardBackgroundColor="@color/colorFF2E2E2E"
+        app:cardCornerRadius="@dimen/size_12dp"
+        app:cardElevation="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/size_20dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aiv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@mipmap/icon_comm_update_version" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/size_10dp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/aiv_content" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_upload"
+                style="@style/SureClickButton"
+                android:layout_width="@dimen/size_174dp"
+                android:layout_height="@dimen/size_44dp"
+                android:layout_marginTop="@dimen/size_20dp"
+                android:background="@drawable/shape_click_view"
+                android:text="@string/update_now"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/atv_content" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

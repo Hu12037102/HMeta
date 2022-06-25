@@ -58,6 +58,7 @@ class ARouterConfig {
         object Comm {
             const val ACTIVITY_WEB_CONTENT = "/comm/activity/web/content"
             const val DIALOG_INPUT_MESSAGE_CODE="/comm/dialog/input/message/code"
+            const val DIALOG_VERSION_UPDATE="/comm/dialog/version/update"
         }
 
         object Order {

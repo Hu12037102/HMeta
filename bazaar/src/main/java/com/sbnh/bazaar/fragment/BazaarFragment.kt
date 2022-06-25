@@ -22,6 +22,7 @@ class BazaarFragment : BaseCompatFragment<FragmentBazaarBinding, BazaarViewModel
 
     override fun initView() {
         mEmptyLayout?.setText(DataCompat.getResString(com.sbnh.comm.R.string.bazaar_not_open))
+        mEmptyLayout?.show()
     }
 
     override fun initData() {

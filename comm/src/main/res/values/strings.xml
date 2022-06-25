@@ -137,4 +137,5 @@
     <string name="please_inout_message_code">请输入验证码</string>
     <string name="message_code_send_phone_number">短信验证码已发送至</string>
     <string name="cancel_order_succeed">取消订单成功</string>
+    <string name="update_now">立即更新</string>
 </resources>
