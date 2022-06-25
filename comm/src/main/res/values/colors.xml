@@ -45,6 +45,5 @@
     <color name="colorFF232323">#FF232323</color>
     <color name="colorWindowBackground">@color/colorFF191919</color>
     <color name="color_title_view_center_text_color">@color/white</color>
-    <color name="color99000000">#99000000</color>
 
 </resources>

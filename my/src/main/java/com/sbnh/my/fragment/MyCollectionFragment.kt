@@ -109,7 +109,7 @@ class MyCollectionFragment :
             mViewBinding.refreshLayout.setEnableRefresh(true)
             if (CollectionCompat.notEmptyList(mCollectionData)) {
                 mEmptyLayout?.visibility = View.GONE
-                onLoadSmartData()
+                loadSmartData()
             } else {
                 mEmptyLayout?.visibility = View.VISIBLE
                 mViewBinding.refreshLayout.autoRefresh()
@@ -117,8 +117,8 @@ class MyCollectionFragment :
         }
     }
 
-    override fun onLoadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
-        mViewModel.loadCollectionList(RequestPagerListEntity(100, mViewModel.mLastTimestamp))
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        mViewModel.loadCollectionList(RequestPagerListEntity(100))
     }
 
     override fun initObserve() {
