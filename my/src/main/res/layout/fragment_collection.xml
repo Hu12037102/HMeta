@@ -20,12 +20,22 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_data"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/atv_title" />
+        app:layout_constraintTop_toBottomOf="@id/atv_title">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/size_14dp"
+            android:paddingStart="@dimen/size_15dp"
+            />
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/atv_login"

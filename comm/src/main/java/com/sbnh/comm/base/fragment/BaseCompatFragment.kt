@@ -121,13 +121,15 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
                     )
                 )
             }
-            mLoadingViewBinding =
-                BaseParentLoadingViewBinding.inflate(layoutInflater, rootView, false)
-            /*val loadingParentView =
+            if (isLoadLoadingView()) {
+                mLoadingViewBinding =
+                    BaseParentLoadingViewBinding.inflate(layoutInflater, rootView, false)
+                /*val loadingParentView =
                 LayoutInflater.from(context)
                     .inflate(R.layout.base_parent_loading_view, rootView, false)*/
-            mLoadingViewBinding?.cpbLoading?.hide()
-            rootView.addView(mLoadingViewBinding?.root)
+                mLoadingViewBinding?.cpbLoading?.hide()
+                rootView.addView(mLoadingViewBinding?.root)
+            }
         }
     }
 
@@ -182,6 +184,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onRefresh(refreshLayout: RefreshLayout) {
                 mViewModel.mPagerNum = Contract.PAGE_NUM
+                mViewModel.mLastTime = System.currentTimeMillis()
                 mViewModel.isRefresh = true
                 loadSmartData(refreshLayout, mViewModel.isRefresh)
                 //  refreshLayout.finishRefresh()
@@ -195,4 +198,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
 
         })
     }
+
+    protected open fun isLoadLoadingView(): Boolean = true
+
 }

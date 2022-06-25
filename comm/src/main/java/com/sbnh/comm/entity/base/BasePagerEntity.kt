@@ -12,6 +12,7 @@ data class BasePagerEntity<T>(val data: T?) {
     var pages: Int? = 0
     var total: Int? = 0
     var lastTimestamp: Long? = System.currentTimeMillis()
+    var lastTime: Long? = System.currentTimeMillis()
 
     companion object {
         @JvmStatic

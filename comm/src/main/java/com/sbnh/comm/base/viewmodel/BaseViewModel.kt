@@ -15,9 +15,9 @@ import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.base.*
 import com.sbnh.comm.entity.order.RefreshStatusEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
-import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.BaseService
 import com.sbnh.comm.http.ErrorResponse
+import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.RetrofitManger
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARoutersActivity
@@ -25,7 +25,6 @@ import com.sbnh.comm.other.glide.HealerMetaGlide
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.io.File
@@ -49,6 +48,7 @@ open class BaseViewModel : ViewModel() {
     val mPagerSize = Contract.PAGE_SIZE
     var isRefresh = true
     var mLastTimestamp = System.currentTimeMillis()
+    var mLastTime = System.currentTimeMillis()
     protected val mRetrofitManger: RetrofitManger by lazy { RetrofitManger.Instance }
     val mToastLiveData: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val mUserInfoLiveData: MutableLiveData<UserInfoEntity> by lazy { MutableLiveData<UserInfoEntity>() }
@@ -107,6 +107,7 @@ open class BaseViewModel : ViewModel() {
                     body.lastTimestamp?.let {
                         mLastTimestamp = it
                     }
+
                     if (body.data is List<*>) {
                         mRefreshLiveData.value =
                             RefreshStatusEntity(CollectionCompat.getListSize(body.data))

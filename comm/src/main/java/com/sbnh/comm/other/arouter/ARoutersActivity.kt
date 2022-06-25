@@ -4,10 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.manger.ActivityCompatManger
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -43,6 +41,20 @@ object ARoutersActivity {
     @JvmStatic
     fun startOrderDetailsActivity(id: String?) {
         ARouters.build(ARouterConfig.Path.Order.ACTIVITY_ORDER_DETAILS)
+            .withString(ARouterConfig.Key.ID, id)
+            .navigation()
+    }
+
+    @JvmStatic
+    fun startCollectionNumDetailsActivity(entity: MyCollectionEntity){
+        ARouters.build(ARouterConfig.Path.My.ACTIVITY_COLLECTION_NUM_DETAILS)
+            .withParcelable(ARouterConfig.Key.MY_COLLECTION, entity)
+            .navigation()
+    }
+
+    @JvmStatic
+    fun startGiveCollectionActivity(id: String?){
+        ARouters.build(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
             .withString(ARouterConfig.Key.ID, id)
             .navigation()
     }

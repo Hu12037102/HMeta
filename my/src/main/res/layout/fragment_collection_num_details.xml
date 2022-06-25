@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorFF101010"
+    android:paddingTop="@dimen/size_18dp">
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_6dp"
+        android:layout_marginTop="@dimen/size_18dp"
+        android:background="@color/colorFF191919"
+        app:layout_constraintTop_toBottomOf="@+id/aiv_content" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aiv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/size_18dp"
+        android:paddingBottom="@dimen/size_18dp"
+        android:src="@mipmap/icon_comm_close"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorFF262626" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aiv_content"
+        android:layout_width="@dimen/size_79dp"
+        android:layout_height="@dimen/size_79dp"
+        android:layout_marginStart="@dimen/size_18dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/colorFF262626" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_nickname"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_6dp"
+        android:singleLine="true"
+        android:textColor="@color/colorFF9A9A9C"
+        android:textSize="@dimen/size_12sp"
+        app:layout_constraintBottom_toBottomOf="@id/civ_header"
+        app:layout_constraintLeft_toRightOf="@id/civ_header"
+        app:layout_constraintRight_toRightOf="@id/atv_collection_name"
+        app:layout_constraintTop_toTopOf="@id/civ_header"
+        tools:text="泡泡玛特" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_count"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_14sp"
+        app:layout_constraintLeft_toLeftOf="@id/atv_collection_name"
+        app:layout_constraintRight_toRightOf="@id/atv_collection_name"
+        app:layout_constraintTop_toBottomOf="@id/civ_header"
+        tools:text="拥有数：2321" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_collection_name"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/size_14dp"
+        android:layout_marginTop="@dimen/size_5dp"
+        android:layout_marginEnd="@dimen/size_14dp"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_16sp"
+        app:layout_constraintLeft_toRightOf="@id/aiv_content"
+        app:layout_constraintRight_toLeftOf="@id/aiv_close"
+        app:layout_constraintTop_toTopOf="@id/aiv_content"
+        tools:text="SSR限定身份卡" />
+
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_header"
+        android:layout_width="@dimen/size_18dp"
+        android:layout_height="@dimen/size_18dp"
+        android:layout_marginTop="@dimen/size_5dp"
+        app:layout_constraintLeft_toLeftOf="@id/atv_collection_name"
+        app:layout_constraintTop_toBottomOf="@id/atv_collection_name"
+        tools:src="@mipmap/icon_real_name" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

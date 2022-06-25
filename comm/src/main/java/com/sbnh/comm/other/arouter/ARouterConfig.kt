@@ -1,7 +1,5 @@
 package com.sbnh.comm.other.arouter
 
-import androidx.fragment.app.Fragment
-
 /**
  * 作者: 胡庆岭
  * 创建时间: 2022/6/13 14:39
@@ -13,6 +11,7 @@ class ARouterConfig {
         const val HAS_LOGIN = "has_login"
         const val WEB_URL = "web_url"
         const val ID = "id"
+        const val MY_COLLECTION = "my_collection"
         const val PARCELABLE="parcelable"
 
     }
@@ -42,6 +41,10 @@ class ARouterConfig {
             const val ACTIVITY_MY_ORDER_LIST = "/my/activity/my/order/list"
             const val FRAGMENT_MY_ORDER_CONTENT="/my/fragment/my/order/content"
             const val ACTIVITY_OFFICIAL_ACCOUNTS="/my/activity/official/account"
+            const val ACTIVITY_COLLECTION_NUM_DETAILS = "/my/activity/collection/num/details"
+            const val FRAGMENT_COLLECTION_NUM_DETAILS = "/my/fragment/collection/num/details"
+            const val ACTIVITY_GIVE_COLLECTION_LIST = "/my/activity/give/collection/list"
+            const val FRAGMENT_GIVE_COLLECTION_CONTENT = "/my/activity/give/collection/content"
         }
 
         object Login {
