@@ -118,7 +118,7 @@ class MyCollectionFragment :
     }
 
     override fun onLoadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
-        mViewModel.loadCollectionList(RequestPagerListEntity(mViewModel.mPagerSize,mViewModel.mLastTimestamp))
+        mViewModel.loadCollectionList(RequestPagerListEntity(100, mViewModel.mLastTimestamp))
     }
 
     override fun initObserve() {
