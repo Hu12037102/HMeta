@@ -139,4 +139,5 @@
     <string name="cancel_order_succeed">取消订单成功</string>
     <string name="no_collection">暂无藏品</string>
     <string name="give">转赠</string>
+    <string name="give_collection_succeed">转赠成功</string>
 </resources>

@@ -52,6 +52,12 @@ object ARoutersActivity {
             .navigation()
     }
 
+    @JvmStatic
+    fun startGiveCollectionActivity(id: String?){
+        ARouters.build(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
+            .withString(ARouterConfig.Key.ID, id)
+            .navigation()
+    }
 
     @JvmStatic
     fun startBrowserActivity(context: Context?, url: String?) {

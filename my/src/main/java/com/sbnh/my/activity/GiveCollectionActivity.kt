@@ -6,6 +6,7 @@ import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.compat.NumberCompat
 import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.entity.request.RequestGiveCollectionEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivityGiveCollectionBinding
@@ -20,6 +21,9 @@ import com.sbnh.my.viewmodel.GiveCollectionViewModel
 @Route(path = ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
 class GiveCollectionActivity :
     BaseCompatActivity<ActivityGiveCollectionBinding, GiveCollectionViewModel>() {
+
+    private var mCollectionNumDetailsId: String? = null
+
     private var isAgreeAgreement = false
     override fun getViewBinding(): ActivityGiveCollectionBinding =
         ActivityGiveCollectionBinding.inflate(layoutInflater)
@@ -28,8 +32,7 @@ class GiveCollectionActivity :
         GiveCollectionViewModel::class.java
 
     override fun initView() {
-
-
+        mCollectionNumDetailsId = intent.getStringExtra(ARouterConfig.Key.ID)
     }
 
     override fun onWindowFirstFocusChanged(hasFocus: Boolean) {
@@ -66,6 +69,7 @@ class GiveCollectionActivity :
                     return
                 }
 
+                mViewModel.giveCollection(RequestGiveCollectionEntity(phoneNumber.toString(), mCollectionNumDetailsId?: "", password.toString()))
             }
 
         })
@@ -77,4 +81,13 @@ class GiveCollectionActivity :
         })
 
     }
+
+    override fun initObserve() {
+        super.initObserve()
+        mViewModel.mGiveCollectionLiveData.observe(this) {
+            showToast(com.sbnh.comm.R.string.give_collection_succeed)
+            finish()
+        }
+    }
+
 }

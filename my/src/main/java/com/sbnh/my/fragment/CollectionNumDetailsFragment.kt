@@ -11,7 +11,7 @@ import com.sbnh.comm.entity.my.CollectionNumDetailsEntity
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.entity.request.RequestCollectionNumDetailsEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
-import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.my.adapter.CollectionNumDetailsListAdapter
 import com.sbnh.my.databinding.FragmentCollectionNumDetailsBinding
@@ -64,8 +64,8 @@ class CollectionNumDetailsFragment :
             }
 
             override fun clickItem(view: View, position: Int) {
-//                ARoutersActivity.startCollectionNumDetailsActivity(mCollectionData[position])
-                ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
+                ARoutersActivity.startGiveCollectionActivity(mCollectionNumDetailsListData[position].id)
+                activity?.finish()
             }
 
             override fun longClickItem(view: View, position: Int) {
