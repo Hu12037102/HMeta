@@ -9,6 +9,7 @@ import com.sbnh.comm.compat.*
 import com.sbnh.comm.databinding.DialogVersionUpdateViewBinding
 import com.sbnh.comm.entity.base.VersionEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.receiver.BaseReceiver
 import com.sbnh.comm.receiver.DownloadReceiver
 import com.sbnh.comm.tool.DownloadFileTool
 import com.sbnh.comm.viewmodel.BaseDialogViewModel
@@ -35,7 +36,7 @@ class VersionUpdateDialog :
     }
 
     override fun initData() {
-
+        BaseReceiver.registerReceiver(context,mReceiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
         mVersionEntity = arguments?.getParcelable(ARouterConfig.Key.PARCELABLE)
         UICompat.setText(mViewBinding.atvContent, DataCompat.toString(mVersionEntity?.changes))
     }
@@ -43,10 +44,7 @@ class VersionUpdateDialog :
     override fun initEvent() {
         mViewBinding.atvUpload.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                context?.registerReceiver(
-                    mReceiver,
-                    IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
-                )
+
                 val isSucceed = DownloadFileTool.get()
                     .downloadFile(DataCompat.toString(mVersionEntity?.downUrls))
                 if (isSucceed) {
@@ -62,6 +60,8 @@ class VersionUpdateDialog :
 
     override fun onDestroy() {
         super.onDestroy()
-        context?.unregisterReceiver(mReceiver)
+        BaseReceiver.unRegisterReceiver(context,mReceiver)
+
+
     }
 }
