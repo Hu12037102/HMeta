@@ -85,9 +85,11 @@ class CollectionNumDetailsFragment :
     override fun initObserve() {
         super.initObserve()
         mViewModel.mCollectionNumDetailsLiveData.observe(this) {
+            if (mViewModel.isRefresh) {
+                mCollectionNumDetailsListData.clear()
+            }
             val data = BasePagerEntity.getData(it)
             if (CollectionCompat.notEmptyList(data)) {
-                mCollectionNumDetailsListData.clear()
                 mCollectionNumDetailsListData.addAll(data!!)
             }
             mCollectionNumDetailsListAdapter?.notifyDataSetChanged()

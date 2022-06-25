@@ -184,6 +184,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onRefresh(refreshLayout: RefreshLayout) {
                 mViewModel.mPagerNum = Contract.PAGE_NUM
+                mViewModel.mLastTime = System.currentTimeMillis()
                 mViewModel.isRefresh = true
                 loadSmartData(refreshLayout, mViewModel.isRefresh)
                 //  refreshLayout.finishRefresh()
