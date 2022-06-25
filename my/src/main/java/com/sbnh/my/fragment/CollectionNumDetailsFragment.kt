@@ -78,7 +78,7 @@ class CollectionNumDetailsFragment :
 
     override fun onLoadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
         mMyCollection?.run {
-            mViewModel.loadCollectionNumDetailsList(RequestCollectionNumDetailsEntity(id?: "", merchandiseId?: "", time = mViewModel.mLastTimestamp))
+            mViewModel.loadCollectionNumDetailsList(RequestCollectionNumDetailsEntity(id?: "", merchandiseId?: "", time = mViewModel.mLastTime))
         }
     }
 
