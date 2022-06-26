@@ -1,9 +1,13 @@
 package com.sbnh.healermeta.activity
 
 import android.Manifest
+import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResult
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +20,7 @@ import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DialogCompat
+import com.sbnh.comm.compat.FileCompat
 import com.sbnh.comm.dialog.VersionUpdateDialog
 import com.sbnh.comm.entity.base.SelectorTabEntity
 import com.sbnh.comm.entity.base.VersionEntity
@@ -106,7 +111,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
 
 
     }
-
+private var  mUri:Uri?=null
     override fun initObserve() {
         super.initObserve()
         mViewModel.mVersionLiveData.observe(this) {
@@ -119,23 +124,46 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
                 versionUpdateDialog.setOnDownloadCallback(object :
                     VersionUpdateDialog.OnDownloadCallback {
                     override fun onCompete(uri: Uri) {
-                        LogUtils.w("versionUpdateDialog-", "我回调成功")
-                      /*  requestPermissionX(Manifest.permission.INSTALL_PACKAGES,
-                            object : OnPermissionResult {
-                                override fun onBackResult(
-                                    status: Int,
-                                    resultPermissions: List<String>
-                                ) {
 
-                                }
-                            })*/
-                        ARoutersActivity.installPackage(this@MainActivity, uri)
+                        /*  requestPermissionX(Manifest.permission.INSTALL_PACKAGES,
+                              object : OnPermissionResult {
+                                  override fun onBackResult(
+                                      status: Int,
+                                      resultPermissions: List<String>
+                                  ) {
+
+                                  }
+                              })*/
+                        mUri=uri
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            val canInstall = packageManager.canRequestPackageInstalls()
+                            if (!canInstall) {
+                                val installIntent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                               startActivityForResult(installIntent)
+                            }else{
+                                val path = FileCompat.findPathByUri(this@MainActivity, uri)
+                                LogUtils.w("versionUpdateDialog-", "我回调成功--$uri---$path")
+                                ARoutersActivity.installPackage(this@MainActivity, path)
+                            }
+                        }else{
+                            val path = FileCompat.findPathByUri(this@MainActivity, uri)
+                            LogUtils.w("versionUpdateDialog-", "我回调成功--$uri---$path")
+                            ARoutersActivity.installPackage(this@MainActivity, path)
+                        }
+
                     }
                 })
             }
 
 
         }
+    }
+
+    override fun onActivityResultCallback(result: ActivityResult) {
+        val path = FileCompat.findPathByUri(this@MainActivity, mUri!!)
+        LogUtils.w("versionUpdateDialog-", "我回调成功--$mUri---$path")
+        ARoutersActivity.installPackage(this@MainActivity, path)
     }
 
     override fun onDestroy() {

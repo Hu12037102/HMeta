@@ -38,9 +38,5 @@ object PhoneCompat {
             service.setPrimaryClip(ClipData.newPlainText(null,text))
         }
     }
-    @JvmStatic
-    fun registerReceiver(context: Context,intentFilter: IntentFilter){
 
-
-    }
 }

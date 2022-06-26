@@ -19,13 +19,11 @@ import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.other.tencent.CaptchaDialogHelper
-import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 
 import com.sbnh.login.databinding.ActivityLoginBinding
 import com.sbnh.login.viewmodel.LoginViewModel
-import com.tencent.captchasdk.TCaptchaDialog
 import kotlinx.coroutines.launch
 
 /**

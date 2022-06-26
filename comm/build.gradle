@@ -57,7 +57,7 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation "androidx.core:core-ktx:$versions.coreVersion"
     implementation "androidx.appcompat:appcompat:$versions.appcompatVersion"
     implementation "com.google.android.material:material:$versions.materialVersion"
@@ -99,4 +99,5 @@ dependencies {
     api 'com.tencent.vasdolly:helper:3.0.4'
     api 'com.github.Hu12037102:MediaXCompress:1.2.0'
     api 'com.github.Hu12037102:InputEditText:1.1.0'
+    api project(path: ':lib')
 }

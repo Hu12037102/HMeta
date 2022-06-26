@@ -68,6 +68,7 @@ class VersionUpdateDialog :
         })
         mReceiver.setOnDownloadCallback(object : DownloadReceiver.OnDownloadCallback {
             override fun onDownloadComplete(uri: Uri) {
+                BaseReceiver.unRegisterReceiver(context,mReceiver)
                 mOnDownloadCallback?.onCompete(uri)
             }
 
