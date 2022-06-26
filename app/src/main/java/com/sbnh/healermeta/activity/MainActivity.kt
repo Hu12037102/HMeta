@@ -8,6 +8,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import androidx.activity.result.ActivityResult
+import androidx.core.content.PackageManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -111,7 +112,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
 
 
     }
-private var  mUri:Uri?=null
+    private var mUri: Uri? = null
     override fun initObserve() {
         super.initObserve()
         mViewModel.mVersionLiveData.observe(this) {
@@ -124,34 +125,17 @@ private var  mUri:Uri?=null
                 versionUpdateDialog.setOnDownloadCallback(object :
                     VersionUpdateDialog.OnDownloadCallback {
                     override fun onCompete(uri: Uri) {
-
-                        /*  requestPermissionX(Manifest.permission.INSTALL_PACKAGES,
-                              object : OnPermissionResult {
-                                  override fun onBackResult(
-                                      status: Int,
-                                      resultPermissions: List<String>
-                                  ) {
-
-                                  }
-                              })*/
-                        mUri=uri
+                        mUri = uri
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             val canInstall = packageManager.canRequestPackageInstalls()
                             if (!canInstall) {
-                                val installIntent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                               startActivityForResult(installIntent)
+                                ARoutersActivity.installPackage(this@MainActivity, uri)
                             }else{
-                                val path = FileCompat.findPathByUri(this@MainActivity, uri)
-                                LogUtils.w("versionUpdateDialog-", "我回调成功--$uri---$path")
-                                ARoutersActivity.installPackage(this@MainActivity, path)
+                                ARoutersActivity.installPackage(this@MainActivity, uri)
                             }
-                        }else{
-                            val path = FileCompat.findPathByUri(this@MainActivity, uri)
-                            LogUtils.w("versionUpdateDialog-", "我回调成功--$uri---$path")
-                            ARoutersActivity.installPackage(this@MainActivity, path)
+                        } else {
+                            ARoutersActivity.installPackage(this@MainActivity, uri)
                         }
-
                     }
                 })
             }
@@ -162,8 +146,8 @@ private var  mUri:Uri?=null
 
     override fun onActivityResultCallback(result: ActivityResult) {
         val path = FileCompat.findPathByUri(this@MainActivity, mUri!!)
-        LogUtils.w("versionUpdateDialog-", "我回调成功--$mUri---$path")
-        ARoutersActivity.installPackage(this@MainActivity, path)
+        LogUtils.w("versionUpdateDialog-", "我回调成功--$mUri---$path---$result")
+        ARoutersActivity.installPackage(this@MainActivity, mUri!!)
     }
 
     override fun onDestroy() {
