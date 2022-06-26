@@ -60,8 +60,9 @@ class IApiService {
         const val CID = "cid"
         const val MERCHANDISE_ID = "merchandiseId"
     }
-    object Value{
-        const val ANDROID="Android"
+
+    object Value {
+        const val ANDROID = "Android"
     }
 
     object H5 {
@@ -69,6 +70,16 @@ class IApiService {
         const val INVITE_FRIEND =
             "${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_page/#/sub/invite_page"
 
+        //隐私政策
+        const val PRIVACY_POLICY =
+            "${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_privacy/index.html"
 
+        //用户协议
+        const val USER_AGREEMENT =
+            "${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_user_agreement/index.html"
+
+        //首易信知乎协议
+        const val SHOU_YI_XIN_PAY_AGREEMENT =
+            "https://www.payeasenet.com/2.0/agreement/privacyPolicy?cashier=0dced4296927406dbaa99fbf38ba500c"
     }
 }

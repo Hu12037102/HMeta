@@ -1,11 +1,9 @@
 package com.sbnh.comm.other.arouter
 
 import android.app.Activity
-import androidx.annotation.Nullable
-import androidx.fragment.app.Fragment
+import android.content.Intent
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.launcher.ARouter
-import com.sbnh.comm.compat.DataCompat
 
 /**
  * 作者: 胡庆岭
@@ -14,10 +12,11 @@ import com.sbnh.comm.compat.DataCompat
  * 描述:
  */
 object ARouters {
+
     @JvmStatic
     fun startActivity(path: String) {
         try {
-            ARouter.getInstance().build(path).navigation()
+            build(path).navigation()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -27,7 +26,7 @@ object ARouters {
     @JvmStatic
     fun startActivityForResult(path: String, activity: Activity, requestCode: Int) {
         try {
-            ARouter.getInstance().build(path).navigation(activity, requestCode)
+            build(path).navigation(activity, requestCode)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -35,12 +34,14 @@ object ARouters {
 
     @JvmStatic
     fun build(path: String): Postcard {
+        val flag = Intent.FLAG_ACTIVITY_SINGLE_TOP; Intent.FLAG_ACTIVITY_CLEAR_TOP
         return ARouter.getInstance().build(path)
+            .withFlags(flag)
     }
 
     @JvmStatic
     fun getFragment(path: String): Any {
-        return ARouter.getInstance().build(path).navigation()
+        return  build(path).navigation()
     }
 
 

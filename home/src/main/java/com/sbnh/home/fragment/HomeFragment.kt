@@ -1,9 +1,11 @@
 package com.sbnh.home.fragment
 
 import android.view.View
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.WebViewCompat
@@ -11,6 +13,7 @@ import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.comm.entity.home.HomeBannerEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
@@ -19,6 +22,7 @@ import com.sbnh.home.adapter.HomeCollectionListAdapter
 import com.sbnh.home.databinding.FragmentHomeBinding
 import com.sbnh.home.viewmodel.HomeViewModel
 import com.scwang.smart.refresh.layout.api.RefreshLayout
+import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -69,18 +73,10 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
         mEmptyLayout?.setOnClickListener {
 
         }
-        mCollectionAdapter?.setOnRecyclerViewItemClickListener(object :
-            OnRecyclerViewItemClickListener {
-            override fun clickEmptyView(view: View) {
-                TODO("Not yet implemented")
-            }
 
-            override fun clickItem(view: View, position: Int) {
+        mCollectionAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
+            override fun onClickItem(view: View?, position: Int) {
                 ARoutersActivity.startCollectionDetailsActivity(mCollectionData[position].id)
-            }
-
-            override fun longClickItem(view: View, position: Int) {
-                TODO("Not yet implemented")
             }
 
         })

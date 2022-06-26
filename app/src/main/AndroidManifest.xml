@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sbnh.healermeta">
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name="com.sbnh.comm.app.BaseApplication"
@@ -15,6 +17,7 @@
         android:roundIcon="@mipmap/icon_app_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.Healer_meta"
+        android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
         tools:targetApi="31">
         <meta-data
