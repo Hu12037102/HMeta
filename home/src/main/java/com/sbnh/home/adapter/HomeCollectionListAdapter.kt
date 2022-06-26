@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huxiaobai.adapter.BaseRecyclerAdapter
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.TimeCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.weight.click.CheckLoginClick
 import com.sbnh.home.databinding.ItemHomeCollectionListViewBinding
 
 /**
@@ -21,6 +23,11 @@ import com.sbnh.home.databinding.ItemHomeCollectionListViewBinding
  */
 class HomeCollectionListAdapter(context: Context, data: List<CollectionEntity>) :
     BaseRecyclerAdapter<CollectionEntity>(context, data) {
+    private var mOnRecyclerItemClickListener: OnRecyclerItemClickListener? = null
+    fun setOnRecyclerItemClickListener(onRecyclerItemClickListener: OnRecyclerItemClickListener?) {
+        this.mOnRecyclerItemClickListener = onRecyclerItemClickListener
+    }
+
     class ViewHolder(val viewBinding: ItemHomeCollectionListViewBinding) :
         RecyclerView.ViewHolder(viewBinding.root)
 
@@ -49,6 +56,12 @@ class HomeCollectionListAdapter(context: Context, data: List<CollectionEntity>) 
                 holder.viewBinding.includedLimit.atvLimitCount,
                 "${entity.remainQuantity}/${entity.totalQuantity}"
             )
+            holder.itemView.setOnClickListener(object : CheckLoginClick() {
+                override fun onCheckLoginClick(v: View?) {
+                    mOnRecyclerItemClickListener?.onClickItem(v, position)
+                }
+
+            })
         }
 
     }

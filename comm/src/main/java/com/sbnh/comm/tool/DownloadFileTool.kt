@@ -38,13 +38,6 @@ class DownloadFileTool private constructor() {
         }
     }
 
-    init {
-        initRequest()
-    }
-
-    private fun initRequest() {
-
-    }
 
     fun downloadFile(
         path: String,
@@ -65,8 +58,14 @@ class DownloadFileTool private constructor() {
             )
             .setAllowedOverRoaming(true)
         val id = downloadManger?.enqueue(request)
-        return (id ?: Contract.UNKNOWN_LONG_VALUE) > 0L
+        isDownloading = (id ?: Contract.UNKNOWN_LONG_VALUE) > 0L
+        return isDownloading
 
+    }
+
+    private var isDownloading = false
+     fun setDownload(isDownloading: Boolean) {
+        this.isDownloading = isDownloading
     }
 
 }

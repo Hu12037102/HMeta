@@ -65,7 +65,9 @@ class IApiService {
         //邀请好友
         const val INVITE_FRIEND =
             "${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_page/#/sub/invite_page"
-
-
+        //隐私政策
+        const val  PRIVACY_POLICY ="${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_privacy/index.html"
+        //用户协议
+        const val USER_AGREEMENT="${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_user_agreement/index.html"
     }
 }
