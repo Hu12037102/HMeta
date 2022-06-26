@@ -30,6 +30,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/give"
         android:gravity="center"
+        android:background="@drawable/shape_bg_button_stroke_white"
         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
