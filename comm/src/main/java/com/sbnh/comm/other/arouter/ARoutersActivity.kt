@@ -46,6 +46,14 @@ object ARoutersActivity {
     }
 
     @JvmStatic
+    fun startCollectionDetailsActivity(id: String?, cid: String?) {
+        ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
+            .withString(ARouterConfig.Key.ID, id)
+            .withString(ARouterConfig.Key.CID, cid)
+            .navigation()
+    }
+
+    @JvmStatic
     fun startOrderDetailsActivity(id: String?) {
         ARouters.build(ARouterConfig.Path.Order.ACTIVITY_ORDER_DETAILS)
             .withString(ARouterConfig.Key.ID, id)

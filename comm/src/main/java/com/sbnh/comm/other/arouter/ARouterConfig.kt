@@ -14,6 +14,11 @@ class ARouterConfig {
         const val MY_COLLECTION = "my_collection"
         const val PARCELABLE="parcelable"
 
+        /**
+         * 收藏id
+         */
+        const val CID = "cid"
+
     }
 
     class Path {

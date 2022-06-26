@@ -154,4 +154,6 @@
     <string name="format_give_user">赠送用户：%1$s</string>
     <string name="format_get_user">领取用户：%1$s</string>
     <string name="format_give_time">转赠时间：%1$s</string>
+    <string name="serial_number">编号</string>
+    <string name="format_collection_total">共%1$s个藏品</string>
 </resources>

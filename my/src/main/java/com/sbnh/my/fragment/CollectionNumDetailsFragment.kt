@@ -64,7 +64,8 @@ class CollectionNumDetailsFragment :
             }
 
             override fun clickItem(view: View, position: Int) {
-                ARoutersActivity.startCollectionDetailsActivity(mCollectionNumDetailsListData[position].merchandiseId)
+                val entity = mCollectionNumDetailsListData[position]
+                ARoutersActivity.startCollectionDetailsActivity(entity.merchandiseId, entity.id)
                 activity?.finish()
             }
 

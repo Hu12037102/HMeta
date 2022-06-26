@@ -14,7 +14,6 @@ import com.sbnh.comm.entity.home.STATUS_OUT
 import com.sbnh.comm.entity.request.RequestCreateOrderEntity
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
-import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.utils.LogUtils
@@ -34,6 +33,13 @@ import kotlinx.coroutines.launch
 class CollectionDetailsActivity :
     BaseCompatActivity<ActivityCollectionDetailsBinding, CollectionDetailsViewModel>() {
     private var mId: String = ""
+    private var mCid: String = ""
+
+    /**
+     * 是否展示收藏详情，默认false，展示商品详情
+     */
+    private var isShowCollectionDetails = false
+
     override fun getViewBinding(): ActivityCollectionDetailsBinding =
         ActivityCollectionDetailsBinding.inflate(layoutInflater)
 
@@ -49,7 +55,13 @@ class CollectionDetailsActivity :
 
     override fun initData() {
         mId = intent.getStringExtra(ARouterConfig.Key.ID) ?: ""
-        mViewModel.loadCollectionDetails(mId)
+        mCid = intent.getStringExtra(ARouterConfig.Key.CID) ?: ""
+        isShowCollectionDetails = DataCompat.notEmpty(mCid)
+        if (isShowCollectionDetails) {
+            mViewModel.loadKnapsackCollectionDetails(mId, mCid)
+        } else {
+            mViewModel.loadCollectionDetails(mId)
+        }
     }
 
     override fun initEvent() {
@@ -73,71 +85,106 @@ class CollectionDetailsActivity :
         super.initObserve()
         mViewModel.mCollectionDetailsLiveData.observe(this) {
             GlideCompat.loadWarpImage(it.dynamicGraph, mViewBinding.aivContent)
-            UICompat.setText(mViewBinding.atvCollectionName, it.collectibleNickname)
-            UICompat.setText(
-                mViewBinding.atvCollectionNumber,
-                if (DataCompat.isNull(it.tokenId)) "" else "#${it.tokenId} "
-            )
             GlideCompat.loadImage(it.header, mViewBinding.civUserHead)
             UICompat.setText(mViewBinding.atvUserName, it.nickname)
-            UICompat.setText(
-                mViewBinding.includedLimit.atvLimitCount,
-                "${it.remainQuantity}/${it.totalQuantity}"
-            )
-            UICompat.setText(mViewBinding.atvOwnerName, it.nickname)
             UICompat.setText(mViewBinding.atvContractAddress, it.contractAddress)
             UICompat.setText(mViewBinding.atvChainLogo, it.transactionHash)
             UICompat.setText(mViewBinding.atvWork, it.particulars)
             UICompat.setText(mViewBinding.includedBottomContent.atvPrice, "￥${it.price}")
-            when (it.saleStatus) {
-                STATUS_ADVANCING -> {
-                    UICompat.setText(
-                        mViewBinding.includedBottomContent.atvSure,
-                        DataCompat.getResString(com.sbnh.comm.R.string.buy)
-                    )
-                    MetaViewCompat.setClickViewEnable(
-                        mViewBinding.includedBottomContent.atvSure,
-                        true
-                    )
+
+            if (isShowCollectionDetails) {
+                UICompat.setText(mViewBinding.atvCollectionName, "${it.merchandiseName} #${it.tokenId?:""}")
+                GlideCompat.loadImage(it.collectibleHeader, mViewBinding.civOwnerUserHead)
+                UICompat.setText(mViewBinding.atvOwnerName, it.collectibleNickname)
+                UICompat.setText(
+                    mViewBinding.includedBottomContent.atvSure,
+                    DataCompat.getResString(com.sbnh.comm.R.string.give)
+                )
+                MetaViewCompat.setClickViewEnable(
+                    mViewBinding.includedBottomContent.atvSure,
+                    true
+                )
+                mViewBinding.includedBottomContent.atvSure.setOnClickListener(object : DelayedClick() {
+                    override fun onDelayedClick(v: View?) {
+                        ARoutersActivity.startGiveCollectionActivity(mCid)
+                    }
+                })
+                UICompat.setText(
+                    mViewBinding.includedLimit.atvLimitTitle,
+                    com.sbnh.comm.R.string.serial_number
+                )
+                UICompat.setText(
+                    mViewBinding.includedLimit.atvLimitCount,
+                    "#${it.tokenId?:""}"
+                )
+            } else {
+                UICompat.setText(mViewBinding.atvCollectionName, it.merchandiseName)
+                GlideCompat.loadImage(it.header, mViewBinding.civOwnerUserHead)
+                UICompat.setText(mViewBinding.atvOwnerName, it.nickname)
+                when (it.saleStatus) {
+                    STATUS_ADVANCING -> {
+                        UICompat.setText(
+                            mViewBinding.includedBottomContent.atvSure,
+                            DataCompat.getResString(com.sbnh.comm.R.string.buy)
+                        )
+                        MetaViewCompat.setClickViewEnable(
+                            mViewBinding.includedBottomContent.atvSure,
+                            true
+                        )
+                    }
+                    STATUS_OUT -> {
+                        UICompat.setText(
+                            mViewBinding.includedBottomContent.atvSure,
+                            DataCompat.getResString(com.sbnh.comm.R.string.sold_out)
+                        )
+                        MetaViewCompat.setClickViewEnable(
+                            mViewBinding.includedBottomContent.atvSure,
+                            false
+                        )
+                    }
+                    else -> {
+                        UICompat.setText(
+                            mViewBinding.includedBottomContent.atvSure,
+                            DataCompat.getResString(com.sbnh.comm.R.string.sale)
+                        )
+                        MetaViewCompat.setClickViewEnable(
+                            mViewBinding.includedBottomContent.atvSure,
+                            true
+                        )
+                    }
                 }
-                STATUS_OUT -> {
-                    UICompat.setText(
-                        mViewBinding.includedBottomContent.atvSure,
-                        DataCompat.getResString(com.sbnh.comm.R.string.sold_out)
-                    )
-                    MetaViewCompat.setClickViewEnable(
-                        mViewBinding.includedBottomContent.atvSure,
-                        false
-                    )
-                }
-                else -> {
-                    UICompat.setText(
-                        mViewBinding.includedBottomContent.atvSure,
-                        DataCompat.getResString(com.sbnh.comm.R.string.sale)
-                    )
-                    MetaViewCompat.setClickViewEnable(
-                        mViewBinding.includedBottomContent.atvSure,
-                        true
-                    )
-                }
-            }
-            mViewBinding.includedBottomContent.atvSure.setOnClickListener(object :
-                CheckLoginClick() {
-                override fun onCheckLoginClick(v: View?) {
-                    lifecycleScope.launch {
-                        val userId = UserInfoStore.get().getId()
-                        val entity = RequestCreateOrderEntity(it.id, userId)
-                        mViewModel.commitOrder(entity)
+                mViewBinding.includedBottomContent.atvSure.setOnClickListener(object :
+                    CheckLoginClick() {
+                    override fun onCheckLoginClick(v: View?) {
+                        lifecycleScope.launch {
+                            val userId = UserInfoStore.get().getId()
+                            val entity = RequestCreateOrderEntity(it.id, userId)
+                            mViewModel.commitOrder(entity)
+                        }
+
                     }
 
-                }
+                })
 
-            })
+                UICompat.setText(
+                    mViewBinding.includedLimit.atvLimitTitle,
+                    com.sbnh.comm.R.string.limit_number
+                )
+                UICompat.setText(
+                    mViewBinding.includedLimit.atvLimitCount,
+                    "${it.remainQuantity}/${it.totalQuantity}"
+                )
+
+            }
+
         }
-        mViewModel.mCommitOrderLiveData.observe(this) {
-            val body = BaseEntity.getData(it)
-            LogUtils.w("observe--", body?.id + "---")
-            ARoutersActivity.startOrderDetailsActivity(body?.id)
+
+        if (!isShowCollectionDetails) {
+            mViewModel.mCommitOrderLiveData.observe(this) {
+                val body = BaseEntity.getData(it)
+                LogUtils.w("observe--", body?.id + "---")
+                ARoutersActivity.startOrderDetailsActivity(body?.id)
+            }
         }
     }
 }
