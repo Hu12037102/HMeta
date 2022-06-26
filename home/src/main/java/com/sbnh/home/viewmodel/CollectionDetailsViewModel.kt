@@ -1,17 +1,11 @@
 package com.sbnh.home.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sbnh.comm.base.viewmodel.BaseOrderViewModel
-import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.home.HomeService
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.nio.charset.Charset
 
 /**
  * 作者: 胡庆岭
@@ -21,11 +15,27 @@ import java.nio.charset.Charset
  */
 class CollectionDetailsViewModel : BaseOrderViewModel() {
     val mCollectionDetailsLiveData = MutableLiveData<CollectionEntity>()
+
     fun loadCollectionDetails(id: String) {
         viewModelScope.launch {
             try {
                 val result = mRetrofitManger.create(HomeService::class.java)
                     .loadCollectionDetails(id)
+                disposeRetrofit(mCollectionDetailsLiveData, result)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    /**
+     * 加载已收藏商品详情
+     */
+    fun loadKnapsackCollectionDetails(id: String, cid: String) {
+        viewModelScope.launch {
+            try {
+                val result = mRetrofitManger.create(HomeService::class.java)
+                    .loadKnapsackCollectionDetails(cid, id)
                 disposeRetrofit(mCollectionDetailsLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()

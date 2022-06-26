@@ -25,4 +25,7 @@ interface HomeService {
     suspend fun loadCollectionDetails(@Path(IApiService.Key.ID) path: String)  : Response<CollectionEntity>
     @GET(IApiService.Path.HOME_BANNER)
     suspend fun loadHomeBanner():Response<List<HomeBannerEntity>>
+
+    @GET(IApiService.Path.KNAPSACK_COLLECTION_DETAILS)
+    suspend fun loadKnapsackCollectionDetails(@Path(IApiService.Key.CID) cid: String, @Path(IApiService.Key.MERCHANDISE_ID) merchandiseId: String)  : Response<CollectionEntity>
 }

@@ -114,21 +114,19 @@
                     app:layout_constraintBottom_toTopOf="@id/civ_user_head"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/atv_collection_number"
-
                     tools:text="身份限定卡" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/atv_collection_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/size_20dp"
-                    android:textColor="@color/colorFF9A9A9C"
-                    android:textSize="@dimen/size_12sp"
-                    app:layout_constraintBottom_toBottomOf="@id/atv_collection_name"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/atv_collection_name"
-                    tools:text="#2000/200" />
+<!--                <androidx.appcompat.widget.AppCompatTextView-->
+<!--                    android:id="@+id/atv_collection_number"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginEnd="@dimen/size_20dp"-->
+<!--                    android:textColor="@color/colorFF9A9A9C"-->
+<!--                    android:textSize="@dimen/size_12sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/atv_collection_name"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/atv_collection_name"-->
+<!--                    tools:text="#2000/200" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -216,6 +214,16 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="@id/atv_owner_title"
                         tools:text="hi感觉凯撒hi" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_owner_user_head"
+                        android:layout_width="@dimen/size_16dp"
+                        android:layout_height="@dimen/size_16dp"
+                        app:layout_constraintBottom_toBottomOf="@id/atv_owner_title"
+                        app:layout_constraintTop_toTopOf="@id/atv_owner_title"
+                        app:layout_constraintRight_toLeftOf="@+id/atv_owner_name"
+                        android:layout_marginRight="@dimen/size_4dp"
+                        />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/aiv_contract_address_copy"

@@ -36,6 +36,7 @@ class IApiService {
         const val GIVE_COLLECTION = "/healer_nft/Presented/presentedMerchandise"
         const val GIVE_COLLECTION_LIST = "/healer_nft/Presented/presentedRecord"
         const val LOAD_APP_VERSION = "/healer_nft/Version/getVersion/{code}"
+        const val KNAPSACK_COLLECTION_DETAILS = "/healer_nft/Merchandise/knapsack_details/{cid}/{merchandiseId}"
     }
 
     object HttpCode {
@@ -56,6 +57,8 @@ class IApiService {
         const val VERSION = "version"
         const val CODE = "code"
         const val OS = "os"
+        const val CID = "cid"
+        const val MERCHANDISE_ID = "merchandiseId"
     }
     object Value{
         const val ANDROID="Android"
