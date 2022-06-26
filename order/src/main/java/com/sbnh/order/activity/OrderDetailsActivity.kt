@@ -9,6 +9,7 @@ import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.BaseEntity
+import com.sbnh.comm.entity.base.STATUS_FINISH
 import com.sbnh.comm.entity.base.STATUS_RUNNING
 import com.sbnh.comm.entity.order.*
 import com.sbnh.comm.entity.pay.BankCardEntity
@@ -79,7 +80,7 @@ class OrderDetailsActivity :
                     )
                 )
 
-            } else {
+            } else if (it.status == STATUS_FINISH){
                 mViewModel.queryOrderDetails(mOrderId)
             }
         }
