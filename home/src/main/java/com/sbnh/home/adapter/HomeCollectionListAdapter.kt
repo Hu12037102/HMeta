@@ -11,6 +11,7 @@ import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.TimeCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.home.CollectionEntity
+import com.sbnh.comm.entity.home.STATUS_OUT
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.CheckLoginClick
 import com.sbnh.home.databinding.ItemHomeCollectionListViewBinding
@@ -62,6 +63,8 @@ class HomeCollectionListAdapter(context: Context, data: List<CollectionEntity>) 
                 }
 
             })
+            holder.viewBinding.aivOrderStatus.visibility =
+                if (entity.saleStatus == STATUS_OUT) View.VISIBLE else View.GONE
         }
 
     }
