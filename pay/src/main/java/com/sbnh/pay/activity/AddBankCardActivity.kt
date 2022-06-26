@@ -17,7 +17,9 @@ import com.sbnh.comm.entity.pay.NumberQueryBankCardInfoEntity
 import com.sbnh.comm.entity.request.RequestBankCardInfoEntity
 import com.sbnh.comm.entity.request.RequestBindingBankCardAfterEntity
 import com.sbnh.comm.entity.request.RequestBindingBankCardBeforeEntity
+import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.other.tencent.CaptchaDialogHelper
 import com.sbnh.comm.weight.click.DelayedClick
@@ -50,7 +52,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
             .append(DataCompat.getResString(com.sbnh.comm.R.string.agree))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.shou_xin_pay_user_agreement))
             .setClick(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFA56CFF)) {
-
+                ARoutersActivity.startWebContentActivity(IApiService.H5.SHOU_YI_XIN_PAY_AGREEMENT)
             }.crete(mViewBinding.atvAgreement)
 
     }

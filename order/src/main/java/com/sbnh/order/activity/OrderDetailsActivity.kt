@@ -115,7 +115,7 @@ class OrderDetailsActivity :
             showToast(com.sbnh.comm.R.string.cancel_order_succeed)
         }
         mViewModel.mAfterPayLiveData.observe(this) {
-
+            loadSmartData()
         }
 
     }
@@ -264,6 +264,8 @@ class OrderDetailsActivity :
                 mViewBinding.clContent.visibility = View.VISIBLE
                 mViewBinding.clWayOther.visibility = View.VISIBLE
                 mViewBinding.clWayWaitPay.visibility = View.GONE
+                mViewBinding.clStatusWaitPay.visibility = View.GONE
+                mViewBinding.clStatusOther.visibility = View.VISIBLE
                 GlideCompat.loadWarpImage(
                     com.sbnh.comm.R.mipmap.icon_order_status_complete_pay,
                     mViewBinding.aivStatusOtherContent
@@ -292,11 +294,15 @@ class OrderDetailsActivity :
                     mViewBinding.atvWayTitle,
                     DataCompat.getResString(com.sbnh.comm.R.string.buy_details)
                 )
+                clickContinueBuy(entity)
+
             }
             STATUS_CANCEL -> {
                 mViewBinding.clContent.visibility = View.VISIBLE
                 mViewBinding.clWayOther.visibility = View.VISIBLE
                 mViewBinding.clWayWaitPay.visibility = View.GONE
+                mViewBinding.clStatusWaitPay.visibility = View.GONE
+                mViewBinding.clStatusOther.visibility = View.VISIBLE
                 GlideCompat.loadWarpImage(
                     com.sbnh.comm.R.mipmap.icon_order_status_cancel_pay,
                     mViewBinding.aivStatusOtherContent
@@ -321,11 +327,14 @@ class OrderDetailsActivity :
                     mViewBinding.atvWayTitle,
                     DataCompat.getResString(com.sbnh.comm.R.string.buy_details)
                 )
+                clickContinueBuy(entity)
             }
             STATUS_PAY_CALLBACK -> {
                 mViewBinding.clContent.visibility = View.VISIBLE
                 mViewBinding.clWayOther.visibility = View.VISIBLE
                 mViewBinding.clWayWaitPay.visibility = View.GONE
+                mViewBinding.clStatusWaitPay.visibility = View.GONE
+                mViewBinding.clStatusOther.visibility = View.VISIBLE
                 GlideCompat.loadWarpImage(
                     com.sbnh.comm.R.mipmap.icon_order_status_proceed,
                     mViewBinding.aivStatusOtherContent
@@ -350,10 +359,21 @@ class OrderDetailsActivity :
                     mViewBinding.atvWayTitle,
                     DataCompat.getResString(com.sbnh.comm.R.string.buy_details)
                 )
+                clickContinueBuy(entity)
             }
             else -> {
                 mViewBinding.clContent.visibility = View.GONE
             }
         }
+    }
+
+    private fun clickContinueBuy(entity: OrderEntity) {
+        mViewBinding.atvContinueBuy.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
+                    .withString(ARouterConfig.Key.ID, entity.businessId).navigation()
+            }
+
+        })
     }
 }

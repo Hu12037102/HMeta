@@ -9,7 +9,7 @@ import com.sbnh.comm.Contract
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.PhoneCompat
 import com.sbnh.comm.compat.UICompat
-import com.sbnh.comm.entity.order.OrderEntity
+import com.sbnh.comm.entity.order.*
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.my.databinding.ItemMyOrderViewBinding
 
@@ -48,6 +48,22 @@ class MyOrderAdapter(private val context: Context, private val data: List<OrderE
                 com.sbnh.comm.R.string.pay_money,
                 "${entity.coin}"
             )
+            when(entity.status){
+                STATUS_WAIT_PAY->{
+                    UICompat.setText(holder.viewBinding.atvStatus,com.sbnh.comm.R.string.wait_pays)
+
+                }
+                STATUS_COMPLETE->{
+                    UICompat.setText(holder.viewBinding.atvStatus,com.sbnh.comm.R.string.account_paid)
+
+                }
+                STATUS_CANCEL->{
+                    UICompat.setText(holder.viewBinding.atvStatus,com.sbnh.comm.R.string.cancelled)
+                }
+                STATUS_PAY_CALLBACK->{
+                    UICompat.setText(holder.viewBinding.atvStatus,com.sbnh.comm.R.string.on_the_march)
+                }
+            }
 
         }
 

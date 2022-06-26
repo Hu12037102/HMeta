@@ -4,8 +4,15 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.provider.Settings
+import androidx.core.content.ContextCompat.startActivity
+import androidx.core.content.FileProvider
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.manger.ActivityCompatManger
+import com.sbnh.comm.utils.LogUtils
+import java.io.File
+
 
 /**
  * 作者: 胡庆岭
@@ -73,13 +80,51 @@ object ARoutersActivity {
         }
     }
 
+   /* @JvmStatic
+    fun installPackage(context: Context, apkPath: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            val file = File(apkPath)
+            //  var uri: Uri? = null
+            val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                LogUtils.w("installPackage--", context.packageName)
+                FileProvider.getUriForFile(context, "com.sbnh.healermeta" + ".provider", file)
+
+            } else {
+                Uri.fromFile(file)
+            }
+
+
+            intent.setDataAndType(uri, "application/vnd.android.package-archive")
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }*/
+
     @JvmStatic
     fun installPackage(context: Context, uri: Uri) {
         try {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+         /*   val file = File(apkPath)
+            val uri: Uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+                LogUtils.w("installPackage--", context.packageName)
+                FileProvider.getUriForFile(context, "com.sbnh.healermeta" + ".provider", file)
+
+            } else {
+                Uri.fromFile(file)
+            }*/
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            }
+
             intent.setDataAndType(uri, "application/vnd.android.package-archive")
             context.startActivity(intent)
         } catch (e: Exception) {

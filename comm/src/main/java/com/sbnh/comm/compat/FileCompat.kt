@@ -1,5 +1,8 @@
 package com.sbnh.comm.compat
 
+import android.content.Context
+import android.net.Uri
+import android.provider.MediaStore
 import androidx.core.content.ContextCompat
 import java.io.File
 import java.util.*
@@ -67,4 +70,23 @@ object FileCompat {
         return name
     }
 
+    @JvmStatic
+    fun findPathByUri(context: Context, uri: Uri): String {
+        var path = ""
+        return try {
+            val resolver = context.contentResolver
+            val cursor =
+                resolver.query(uri, arrayOf(MediaStore.MediaColumns.DATA), null, null, null)
+            if (cursor != null && cursor.count > 0) {
+                cursor.moveToFirst()
+                path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
+                cursor.close()
+            }
+            path
+        } catch (e: Exception) {
+            e.printStackTrace()
+            path
+        }
+
+    }
 }
