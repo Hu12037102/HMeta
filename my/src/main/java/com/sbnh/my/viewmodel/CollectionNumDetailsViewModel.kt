@@ -27,15 +27,15 @@ class CollectionNumDetailsViewModel(private val mMyCollectionRepo: MyCollectionR
         }
     }
 
-    fun cacheCollectionNumDetailsPagerEntity(data: BasePagerEntity<List<CollectionNumDetailsEntity>>?) {
+    fun cacheCollectionNumDetailsPagerEntity(id: String, data: BasePagerEntity<List<CollectionNumDetailsEntity>>?) {
         viewModelScope.launch {
-            mMyCollectionRepo.cacheCollectionNumDetailsPagerEntity(data)
+            mMyCollectionRepo.cacheCollectionNumDetailsPagerEntity(id, data)
         }
     }
 
-    fun loadCachedCollectionNumDetailsPagerEntity() {
+    fun loadCachedCollectionNumDetailsPagerEntity(id: String) {
         viewModelScope.launch {
-            mCachedCollectionNumDetailsLiveData.value = mMyCollectionRepo.loadCachedCollectionNumDetailsPagerEntity()
+            mCachedCollectionNumDetailsLiveData.value = mMyCollectionRepo.loadCachedCollectionNumDetailsPagerEntity(id)
         }
     }
 

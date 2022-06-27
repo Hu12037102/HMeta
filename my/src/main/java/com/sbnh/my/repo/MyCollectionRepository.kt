@@ -35,18 +35,18 @@ class MyCollectionRepository {
         return result
     }
 
-    suspend fun cacheCollectionNumDetailsPagerEntity(data: BasePagerEntity<List<CollectionNumDetailsEntity>>?) {
+    suspend fun cacheCollectionNumDetailsPagerEntity(id: String, data: BasePagerEntity<List<CollectionNumDetailsEntity>>?) {
         withContext(Dispatchers.IO) {
             val cache = data?.let {
                 Gson().toJson(it)
             }
-            DataStoreManger.get().putObject("${KEY_CACHE_COLLECTION_NUM_DETAILS_LIST}_${UserInfoStore.get().getId()}", cache?: "")
+            DataStoreManger.get().putObject("${KEY_CACHE_COLLECTION_NUM_DETAILS_LIST}_${id}_${UserInfoStore.get().getId()}", cache?: "")
         }
     }
 
-    suspend fun loadCachedCollectionNumDetailsPagerEntity(): BasePagerEntity<List<CollectionNumDetailsEntity>>? {
+    suspend fun loadCachedCollectionNumDetailsPagerEntity(id: String): BasePagerEntity<List<CollectionNumDetailsEntity>>? {
         val result: BasePagerEntity<List<CollectionNumDetailsEntity>>? = withContext(Dispatchers.IO) {
-            DataStoreManger.get().getString("${KEY_CACHE_COLLECTION_NUM_DETAILS_LIST}_${UserInfoStore.get().getId()}").let {
+            DataStoreManger.get().getString("${KEY_CACHE_COLLECTION_NUM_DETAILS_LIST}_${id}_${UserInfoStore.get().getId()}").let {
                 Gson().fromJson(it, object : TypeToken<BasePagerEntity<List<CollectionNumDetailsEntity>>>() {}.type)
             }
         }
