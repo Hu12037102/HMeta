@@ -28,13 +28,7 @@
             android:value="812"/>
         <activity
             android:name="com.sbnh.healermeta.activity.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
 
     </application>
 

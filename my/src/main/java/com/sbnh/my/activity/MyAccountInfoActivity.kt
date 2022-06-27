@@ -68,12 +68,10 @@ class MyAccountInfoActivity :
         })
     }
 
-    override fun initObserve() {
-        super.initObserve()
-        mViewModel.mPublicLiveData.observe(this) {
-            if (it == BaseViewModel.STATUS_LOGIN_OUT) {
-                MetaViewCompat.finishActivitySetResult(this)
-            }
+    override fun resultPublicData(it: Int) {
+        super.resultPublicData(it)
+        if (it == BaseViewModel.STATUS_LOGIN_OUT) {
+            MetaViewCompat.finishActivitySetResult(this)
         }
     }
 

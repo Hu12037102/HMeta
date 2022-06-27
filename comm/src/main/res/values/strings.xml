@@ -140,7 +140,7 @@
     <string name="cancel_order_succeed">取消订单成功</string>
     <string name="update_now">立即更新</string>
     <string name="download_ing">下载中....</string>
-    <string name="download_ing_notify_read">下载中,通知栏查看详情</string>
+    <string name="download_ing_notify_read">下载中,通知栏查看进度</string>
     <string name="no_collection">暂无藏品</string>
     <string name="give">转赠</string>
     <string name="give_collection_succeed">转赠成功</string>
@@ -156,4 +156,8 @@
     <string name="format_give_time">转赠时间：%1$s</string>
     <string name="serial_number">编号</string>
     <string name="format_collection_total">共%1$s个藏品</string>
+    <string name="results_of_frequent_cancellations">频繁取消订单将限制购买（每日上限5次）</string>
+    <string name="find_new_version">发现新版本</string>
+    <string name="update_content">更新内容：</string>
+    <string name="installation_location_applications_require_permissions">安装应用需要打开未知来源权限，是否开启</string>
 </resources>

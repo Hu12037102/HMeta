@@ -38,6 +38,7 @@ class DownloadReceiver : BaseReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
 
         if (TextUtils.equals(intent?.action, DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+            DownloadFileTool.get().setDownload(false)
             val downloadId =
                 intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, Contract.UNKNOWN_LONG_VALUE)
             if (downloadId == null || downloadId == Contract.UNKNOWN_LONG_VALUE) {

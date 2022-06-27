@@ -77,7 +77,12 @@ abstract class BaseActivity : PermissionActivity() {
     }
 
     protected fun startActivityForResult(intent: Intent) {
-        mActivityResultLauncher.launch(intent)
+        try {
+            mActivityResultLauncher.launch(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     protected open fun onActivityResultCallback(result: ActivityResult) {

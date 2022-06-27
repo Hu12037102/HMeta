@@ -44,28 +44,35 @@ class DownloadFileTool private constructor() {
         dir: String = "apk",
         fileName: String = "${FileCompat.createFileOnlyName()}.apk"
     ): Boolean {
-        val downloadManger =
-            getDownloadManger()
-        val request = DownloadManager.Request(Uri.parse(path))
-            .setAllowedOverMetered(true)
-            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-            .setTitle(DataCompat.getResString(com.sbnh.comm.R.string.app_name))
-            .setDescription(DataCompat.getResString(com.sbnh.comm.R.string.download_ing))
-            .setDestinationInExternalFilesDir(
-                DataCompat.getContext(),
-                dir,
-                fileName
-            )
-            .setAllowedOverRoaming(true)
-        val id = downloadManger?.enqueue(request)
-        isDownloading = (id ?: Contract.UNKNOWN_LONG_VALUE) > 0L
+        try {
+            val downloadManger =
+                getDownloadManger()
+            val request = DownloadManager.Request(Uri.parse(path))
+                .setAllowedOverMetered(true)
+                .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                .setTitle(DataCompat.getResString(com.sbnh.comm.R.string.app_name))
+                .setDescription(DataCompat.getResString(com.sbnh.comm.R.string.download_ing))
+                .setDestinationInExternalFilesDir(
+                    DataCompat.getContext(),
+                    dir,
+                    fileName
+                )
+                .setAllowedOverRoaming(true)
+            val id = downloadManger?.enqueue(request)
+            isDownloading = (id ?: Contract.UNKNOWN_LONG_VALUE) > 0L
+        } catch (e: Exception) {
+            e.printStackTrace()
+            isDownloading = false
+        }
+
         return isDownloading
 
     }
 
     private var isDownloading = false
-     fun setDownload(isDownloading: Boolean) {
+    fun setDownload(isDownloading: Boolean) {
         this.isDownloading = isDownloading
     }
 
+    fun isDownload()= isDownloading
 }

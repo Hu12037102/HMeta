@@ -2,6 +2,7 @@ package com.sbnh.comm.base.viewmodel
 
 import android.content.ContentValues
 import android.provider.MediaStore
+import androidx.annotation.IntDef
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,6 +10,9 @@ import com.google.gson.Gson
 import com.huxiaobai.compress.CompressGlide
 import com.huxiaobai.compress.imp.OnCompressGlideImageCallback
 import com.sbnh.comm.Contract
+import com.sbnh.comm.base.viewmodel.BaseViewModel.Companion.STATUE_HTTP_ERROR
+import com.sbnh.comm.base.viewmodel.BaseViewModel.Companion.STATUE_REQUEST_END
+import com.sbnh.comm.base.viewmodel.BaseViewModel.Companion.STATUS_LOGIN_OUT
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.base.*
@@ -37,10 +41,18 @@ import java.io.OutputStream
  * 描述:
  */
 open class BaseViewModel : ViewModel() {
+
     companion object {
         const val TAG = "BaseViewModel"
         const val STATUS_LOGIN_OUT = 1
         const val STATUE_REQUEST_END = 2
+        const val STATUE_HTTP_ERROR = 3
+    }
+
+    @IntDef(STATUS_LOGIN_OUT, STATUE_REQUEST_END, STATUE_HTTP_ERROR)
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class ViewModelStatus {
+
     }
 
     var mPagerNum = Contract.PAGE_NUM
@@ -133,6 +145,7 @@ open class BaseViewModel : ViewModel() {
                 }
                 LogUtils.w("disposeRetrofit--", "成功")
             } else {
+                mPublicLiveData.value = STATUE_HTTP_ERROR
                 when (response.code()) {
                     IApiService.HttpCode.CLIENT_ERROR -> {
                         LogUtils.w("disposeRetrofit--", "客户端异常")
