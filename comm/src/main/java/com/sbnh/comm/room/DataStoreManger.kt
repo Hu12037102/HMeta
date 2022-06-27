@@ -9,6 +9,7 @@ import com.google.gson.reflect.TypeToken
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
 import kotlinx.coroutines.flow.first
+import java.lang.reflect.Type
 
 /**
  * 作者: 胡庆岭
@@ -114,6 +115,23 @@ class DataStoreManger private constructor() {
             val preferences = stringPreferencesKey(key)
             val json = DataCompat.getContext().dataStore.data.first()[preferences] ?: ""
             val type = object : TypeToken<ArrayList<T>>() {}.type
+            val gson = Gson()
+            val data = gson.fromJson<List<T>>(json, type)
+            if (CollectionCompat.notEmptyList(data)) {
+                list.addAll(data)
+            }
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return list
+    }
+
+    suspend fun <T> getArrayList(key: String, type: Type): List<T> {
+        val list = ArrayList<T>()
+        try {
+            val preferences = stringPreferencesKey(key)
+            val json = DataCompat.getContext().dataStore.data.first()[preferences] ?: ""
             val gson = Gson()
             val data = gson.fromJson<List<T>>(json, type)
             if (CollectionCompat.notEmptyList(data)) {

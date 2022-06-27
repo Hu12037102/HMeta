@@ -107,13 +107,7 @@ class MyCollectionFragment :
         } else {
             mViewBinding.atvLogin.visibility = View.GONE
             mViewBinding.refreshLayout.setEnableRefresh(true)
-            if (CollectionCompat.notEmptyList(mCollectionData)) {
-                mEmptyLayout?.visibility = View.GONE
-                loadSmartData()
-            } else {
-                mEmptyLayout?.visibility = View.VISIBLE
-                mViewBinding.refreshLayout.autoRefresh()
-            }
+            mViewModel.loadCachedCollectionList()
         }
     }
 
@@ -127,6 +121,8 @@ class MyCollectionFragment :
         mViewModel.mRefreshLiveData.removeObservers(this)
         mViewModel.mCollectionLiveData.observe(this) {
             val data = BasePagerEntity.getData(it)
+            // 缓存
+            mViewModel.cacheCollectionList(data)
             mCollectionData.clear()
             if (CollectionCompat.notEmptyList(data)) {
                 mCollectionData.addAll(data!!)
@@ -135,6 +131,19 @@ class MyCollectionFragment :
                 mEmptyLayout?.visibility = View.VISIBLE
             }
             mCollectionAdapter?.notifyDataSetChanged()
+        }
+
+        mViewModel.mCachedCollectionLiveData.observe(this) {
+            val data = BasePagerEntity.getData(it)
+            mCollectionData.clear()
+            if (CollectionCompat.notEmptyList(data)) {
+                mCollectionData.addAll(data!!)
+                mCollectionAdapter?.notifyDataSetChanged()
+                mEmptyLayout?.visibility = View.GONE
+            } else {
+                mViewBinding.refreshLayout.autoRefresh()
+                mEmptyLayout?.visibility = View.VISIBLE
+            }
         }
     }
 

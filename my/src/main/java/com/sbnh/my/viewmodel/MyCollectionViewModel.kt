@@ -7,6 +7,7 @@ import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.my.MyService
+import com.sbnh.my.repo.MyCollectionRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -15,9 +16,10 @@ import kotlinx.coroutines.launch
  * 更新时间: 2022/6/14 16:58
  * 描述:我的藏品ViewModel
  */
-class MyCollectionViewModel : BaseViewModel() {
+class MyCollectionViewModel(private val mMyCollectionRepo: MyCollectionRepository = MyCollectionRepository()) : BaseViewModel() {
 
     val mCollectionLiveData = MutableLiveData<BasePagerEntity<List<MyCollectionEntity>>>()
+    val mCachedCollectionLiveData = MutableLiveData<BasePagerEntity<List<MyCollectionEntity>>>()
 
     fun loadCollectionList(requestPagerListEntity: RequestPagerListEntity) {
         viewModelScope.launch {
@@ -28,6 +30,18 @@ class MyCollectionViewModel : BaseViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun cacheCollectionList(list: List<MyCollectionEntity>?) {
+        viewModelScope.launch {
+            mMyCollectionRepo.cacheMyCollectionList(list)
+        }
+    }
+
+    fun loadCachedCollectionList() {
+        viewModelScope.launch {
+            mCachedCollectionLiveData.value = BasePagerEntity(mMyCollectionRepo.loadCachedMyCollectionList())
         }
     }
 
