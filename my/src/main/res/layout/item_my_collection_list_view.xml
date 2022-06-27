@@ -79,10 +79,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:paddingLeft="@dimen/size_8dp"
-            android:paddingRight="@dimen/size_8dp"
+            android:paddingLeft="@dimen/size_3dp"
+            android:paddingRight="@dimen/size_3dp"
             android:ems="5"
-            tools:text="共2个，上架3个" />
+            tools:text="共2个藏品" />
 
         <View
             android:layout_width="0dp"
