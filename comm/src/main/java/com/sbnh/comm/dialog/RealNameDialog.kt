@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import com.sbnh.comm.base.dialog.BaseCompatDialog
+import com.sbnh.comm.base.dialog.BaseDataDialog
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.databinding.DialogRealNameBinding
 import com.sbnh.comm.dialog.viewmodel.RealNameDialogViewModel
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
  * 更新时间: 2022/6/17 17:55
  * 描述:
  */
-class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, RealNameDialogViewModel>() {
+class RealNameDialog : BaseDataDialog<DialogRealNameBinding, RealNameDialogViewModel>() {
     override fun getViewBinding(): DialogRealNameBinding =
         DialogRealNameBinding.inflate(
             layoutInflater
@@ -85,8 +86,7 @@ class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, RealNameDialogVie
             lifecycleScope.launch {
                 UserInfoStore.get().putRealName(true)
                 showToast(com.sbnh.comm.R.string.real_name_authentication_succeed)
-                dismiss()
-
+                mOnDialogItemInfoClickListener?.onClickConfirm(mViewBinding.atvCommit)
             }
         }
     }
@@ -98,4 +98,5 @@ class RealNameDialog : BaseCompatDialog<DialogRealNameBinding, RealNameDialogVie
         drawable.cornerRadius = PhoneCompat.dp2px(DataCompat.getContext(), 14f).toFloat()
         return drawable
     }
+
 }

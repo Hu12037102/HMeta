@@ -28,6 +28,9 @@ class SplashActivity : BaseCompatActivity<ActivitySpashBinding, SplashViewModel>
 
     override fun getViewModelClass(): Class<SplashViewModel> = SplashViewModel::class.java
 
+    override fun getInActivityAnimationRes(): Int =com.sbnh.comm.R.anim.anim_small_to_large
+
+    override fun getOutActivityAnimationRes(): Int =com.sbnh.comm.R.anim.anim_large_to_small
     override fun initView() {
 
     }

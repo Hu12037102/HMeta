@@ -3,11 +3,9 @@ package com.sbnh.home.activity
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
-import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.compat.MetaViewCompat
-import com.sbnh.comm.compat.PhoneCompat
-import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.home.STATUS_ADVANCING
 import com.sbnh.comm.entity.home.STATUS_OUT
@@ -19,6 +17,7 @@ import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.CheckLoginClick
 import com.sbnh.comm.weight.click.DelayedClick
+import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.home.databinding.ActivityCollectionDetailsBinding
 import com.sbnh.home.viewmodel.CollectionDetailsViewModel
 import kotlinx.coroutines.launch
@@ -93,7 +92,10 @@ class CollectionDetailsActivity :
             UICompat.setText(mViewBinding.includedBottomContent.atvPrice, "￥${it.price}")
 
             if (isShowCollectionDetails) {
-                UICompat.setText(mViewBinding.atvCollectionName, "${it.merchandiseName} #${it.tokenId?:""}")
+                UICompat.setText(
+                    mViewBinding.atvCollectionName,
+                    "${it.merchandiseName} #${it.tokenId ?: ""}"
+                )
                 GlideCompat.loadImage(it.collectibleHeader, mViewBinding.civOwnerUserHead)
                 UICompat.setText(mViewBinding.atvOwnerName, it.collectibleNickname)
                 UICompat.setText(
@@ -104,7 +106,8 @@ class CollectionDetailsActivity :
                     mViewBinding.includedBottomContent.atvSure,
                     true
                 )
-                mViewBinding.includedBottomContent.atvSure.setOnClickListener(object : DelayedClick() {
+                mViewBinding.includedBottomContent.atvSure.setOnClickListener(object :
+                    DelayedClick() {
                     override fun onDelayedClick(v: View?) {
                         ARoutersActivity.startGiveCollectionActivity(mCid)
                     }
@@ -115,7 +118,7 @@ class CollectionDetailsActivity :
                 )
                 UICompat.setText(
                     mViewBinding.includedLimit.atvLimitCount,
-                    "#${it.tokenId?:""}"
+                    "#${it.tokenId ?: ""}"
                 )
             } else {
                 UICompat.setText(mViewBinding.atvCollectionName, it.merchandiseName)
@@ -143,13 +146,23 @@ class CollectionDetailsActivity :
                         )
                     }
                     else -> {
-                        UICompat.setText(
+                        /*UICompat.setText(
                             mViewBinding.includedBottomContent.atvSure,
                             DataCompat.getResString(com.sbnh.comm.R.string.sale)
-                        )
+                        )*/
+                        SpanTextHelper.with()
+                            .append(DataCompat.getResString(com.sbnh.comm.R.string.sale))
+                            .appendLine()
+                            .append(TimeCompat.getTimeFormat(it.saleTime, "MM.dd HH:mm"))
+                            .setSize(12, true)
+                            .crete(mViewBinding.includedBottomContent.atvSure)
                         MetaViewCompat.setClickViewEnable(
                             mViewBinding.includedBottomContent.atvSure,
-                            true
+                            false
+                        )
+                        MetaViewCompat.setClickButton(
+                            mViewBinding.includedBottomContent.atvSure,
+                            Contract.DP.VALUE_8F
                         )
                     }
                 }

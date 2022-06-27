@@ -9,6 +9,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.RealNameDialog
 import com.sbnh.comm.entity.base.UserInfoEntity
@@ -49,7 +50,7 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
     }
 
     override fun initData() {
-
+        mViewModel.loadUserInfo()
     }
 
     override fun initEvent() {
@@ -80,14 +81,6 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        mViewModel.loadUserInfo()
-    }
-
-    override fun initObserve() {
-        super.initObserve()
-    }
 
     override fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
         val textView = mViewBinding.pvRealName.getRightView()
@@ -119,7 +112,15 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
         mViewBinding.pvRealName.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 if (!isRealName) {
-                    DialogCompat.showFragmentDialog(RealNameDialog(),supportFragmentManager)
+                    val dialog = RealNameDialog()
+                    DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
+                    dialog.setOnDialogItemInfoClickListener(object : OnDialogItemInfoClickListener {
+                        override fun onClickConfirm(view: View?) {
+                            mViewModel.loadUserInfo()
+                            dialog.dismiss()
+                        }
+
+                    })
                 }
 
             }

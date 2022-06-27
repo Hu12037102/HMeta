@@ -10,5 +10,5 @@ import android.view.View
  */
 interface OnDialogItemInfoClickListener {
     fun onClickConfirm(view: View?)
-    fun onClickCancel(view: View?)
+    fun onClickCancel(view: View?){}
 }

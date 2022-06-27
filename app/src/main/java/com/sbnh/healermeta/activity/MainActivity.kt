@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResult
 import androidx.core.content.PackageManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -28,6 +29,7 @@ import com.sbnh.comm.dialog.VersionUpdateDialog
 import com.sbnh.comm.entity.base.SelectorTabEntity
 import com.sbnh.comm.entity.base.VERSION_MUST_UPDATE
 import com.sbnh.comm.entity.base.VersionEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
@@ -40,6 +42,7 @@ import com.sbnh.healermeta.databinding.ActivityMainBinding
 import com.sbnh.healermeta.viewmodel.MainViewModel
 import com.sbnh.home.fragment.HomeFragment
 import com.sbnh.my.fragment.MyFragment
+import kotlinx.coroutines.launch
 
 @Route(path = ARouterConfig.Path.Main.ACTIVITY_MAIN)
 class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
@@ -62,7 +65,20 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
         mViewModel.loadAppVersion()
         initBottomView()
         initPagerAdapter()
+        initTest()
+    }
 
+    private fun initTest() {
+        lifecycleScope.launch {
+            var i = 0
+            LogUtils.w("initTest--", "1")
+            UserInfoStore.get().getMobile()
+            LogUtils.w("initTest--", "2")
+            UserInfoStore.get().getEntity()
+            i++
+            LogUtils.w("initTest--", "3--$i")
+        }
+        LogUtils.w("initTest--", "4")
     }
 
     private fun initBottomView() {

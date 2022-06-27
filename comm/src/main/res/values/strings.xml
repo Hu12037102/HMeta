@@ -3,7 +3,7 @@
     <string name="app_name">healer_meta</string>
     <string name="this_is_null">这里空空如也~</string>
     <string name="home">首页</string>
-    <string name="bazaar">市场</string>
+    <string name="bazaar">寄售</string>
     <string name="my">我的</string>
     <string name="not_login">未登录</string>
     <string name="login_read_you_digital_collection">登录后可查看你的数字藏品</string>
@@ -160,4 +160,5 @@
     <string name="find_new_version">发现新版本</string>
     <string name="update_content">更新内容：</string>
     <string name="installation_location_applications_require_permissions">安装应用需要打开未知来源权限，是否开启</string>
+    <string name="the_function_is_not_available">功能正在开发，暂未开放~</string>
 </resources>

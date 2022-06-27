@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
+import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.RealNameDialog
 import com.sbnh.comm.entity.base.*
@@ -110,8 +111,9 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                     TAB_COMPOUND -> {
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION_LIST)
                     }
-                    else -> {
 
+                    else -> {
+                        showToast(com.sbnh.comm.R.string.the_function_is_not_available)
                     }
                 }
             }
@@ -143,7 +145,16 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
             mViewBinding.aivRealNameStatus.setOnClickListener(object : DelayedClick() {
                 override fun onDelayedClick(v: View?) {
                     if (userInfoEntity?.hasRealName == false) {
-                        DialogCompat.showFragmentDialog(RealNameDialog(), childFragmentManager)
+                        val dialog = RealNameDialog()
+                        DialogCompat.showFragmentDialog(dialog, childFragmentManager)
+                        dialog.setOnDialogItemInfoClickListener(object :
+                            OnDialogItemInfoClickListener {
+                            override fun onClickConfirm(view: View?) {
+                                mViewModel.loadUserInfo()
+                                dialog.dismiss()
+                            }
+
+                        })
                     }
 
                 }
