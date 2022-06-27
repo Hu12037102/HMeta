@@ -25,6 +25,7 @@ open class TimerViewModel : BaseViewModel() {
     private var mDisposable: Disposable? = null
     val mTimerLiveData: MutableLiveData<ResultDownTimeEntity> by lazy { MutableLiveData<ResultDownTimeEntity>() }
     fun downTimer(timeLength: Long) {
+        disposedTimer()
         Observable.interval(0, 1, TimeUnit.SECONDS)
             .subscribeOn(Schedulers.io())
             .take(timeLength)

@@ -70,7 +70,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/aiv_order_status"
-            app:srcCompat="@mipmap/icon_home_sold_out"
             app:layout_constraintTop_toTopOf="@id/aiv_content"
             app:layout_constraintLeft_toLeftOf="@id/aiv_content"
             />

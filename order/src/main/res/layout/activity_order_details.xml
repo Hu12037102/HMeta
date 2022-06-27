@@ -15,8 +15,13 @@
         app:pv_left_custom_click_enable="true"
         app:pv_left_start_src="@mipmap/icon_comm_back_white" />
 
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+    <!--<com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintBottom_toTopOf="@id/included_wait_pay"
+        app:layout_constraintTop_toBottomOf="@id/pv_title">-->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         app:layout_constraintBottom_toTopOf="@id/included_wait_pay"
@@ -25,7 +30,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_status_parent"
@@ -290,18 +295,17 @@
                 android:id="@+id/mcv_way"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/default_margin"
                 android:layout_marginTop="@dimen/size_14dp"
+                android:layout_marginEnd="@dimen/default_margin"
                 app:cardBackgroundColor="@color/colorFF2E2E2E"
                 app:cardCornerRadius="@dimen/size_12dp"
                 app:cardElevation="@dimen/size_0dp"
-                app:layout_constraintTop_toBottomOf="@id/mcv_pay_money"
-                android:layout_marginStart="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/default_margin">
+                app:layout_constraintTop_toBottomOf="@id/mcv_pay_money">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
+                    android:layout_height="match_parent">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/atv_way_title"
@@ -319,45 +323,45 @@
                         android:id="@+id/view_way_line"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/size_0.5dp"
-                        android:layout_marginTop="@dimen/size_8dp"
-                        android:background="@color/colorFF4C4C4C"
                         android:layout_marginStart="@dimen/default_margin"
+                        android:layout_marginTop="@dimen/size_8dp"
                         android:layout_marginEnd="@dimen/default_margin"
+                        android:background="@color/colorFF4C4C4C"
                         app:layout_constraintTop_toBottomOf="@id/atv_way_title" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_way_wait_pay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"
-                        app:layout_constraintTop_toBottomOf="@id/view_way_line"
                         android:paddingTop="@dimen/default_margin"
                         android:paddingBottom="@dimen/default_margin"
+                        android:visibility="visible"
+                        app:layout_constraintTop_toBottomOf="@id/view_way_line"
                         tools:visibility="visible">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/default_margin"
                             android:drawablePadding="@dimen/size_8dp"
                             android:gravity="center_vertical"
                             android:text="@string/bank_card_payment"
                             android:textColor="@color/white"
                             app:drawableStartCompat="@mipmap/icon_pay_union_pay"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_marginStart="@dimen/default_margin"/>
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <androidx.appcompat.widget.AppCompatImageView
                             android:id="@+id/aiv_way_wait_pay_check"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/size_10dp"
+                            android:padding="@dimen/size_6dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@mipmap/icon_comm_normal"
-                            android:layout_marginEnd="@dimen/size_10dp"
-                            android:padding="@dimen/size_6dp"/>
+                            app:srcCompat="@mipmap/icon_comm_normal" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -456,7 +460,8 @@
                 app:layout_constraintTop_toBottomOf="@id/atv_continue_buy" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </androidx.core.widget.NestedScrollView>
+    <!--</com.scwang.smart.refresh.layout.SmartRefreshLayout>-->
 
     <include
         android:id="@+id/included_wait_pay"

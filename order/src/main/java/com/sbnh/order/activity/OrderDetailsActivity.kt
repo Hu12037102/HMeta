@@ -37,8 +37,12 @@ class OrderDetailsActivity :
     BaseCompatActivity<ActivityOrderDetailsBinding, OrderDetailsViewModel>() {
     private var mOrderId: String = ""
     private var mBankCardEntity: BankCardEntity? = null
+
+    // private var isReloadWaitPayCount = true
+    private var mDetailsEntity: OrderEntity? = null
     override fun getViewBinding(): ActivityOrderDetailsBinding =
         ActivityOrderDetailsBinding.inflate(layoutInflater)
+
 
     override fun getViewModelClass(): Class<OrderDetailsViewModel> =
         OrderDetailsViewModel::class.java
@@ -57,7 +61,6 @@ class OrderDetailsActivity :
     }
 
     override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
-        mViewModel.disposedTimer()
         mViewModel.queryOrderDetails(mOrderId)
     }
 
@@ -80,8 +83,13 @@ class OrderDetailsActivity :
                     )
                 )
 
-            } else if (it.status == STATUS_FINISH){
-                mViewModel.queryOrderDetails(mOrderId)
+            } else if (it.status == STATUS_FINISH) {
+                //      mViewModel.queryOrderDetails(mOrderId)
+                mDetailsEntity?.let { order ->
+                    order.status = STATUS_CANCEL
+                    loadDetails(order)
+                }
+
             }
         }
         mViewModel.mBeforePayLiveData.observe(this) {
@@ -151,19 +159,29 @@ class OrderDetailsActivity :
     }
 
     private fun loadDetails(entity: OrderEntity) {
+        this.mDetailsEntity = entity
         when (entity.status) {
             STATUS_WAIT_PAY -> {
                 mViewBinding.clContent.visibility = View.VISIBLE
                 mViewBinding.clStatusWaitPay.visibility = View.VISIBLE
                 mViewBinding.clStatusOther.visibility = View.GONE
                 val outTime = entity.orderTimeOut ?: 0
-                val lastSeconds =
-                    abs(outTime - System.currentTimeMillis()) / 1000
-                LogUtils.w(
-                    "lastSeconds--",
-                    "${lastSeconds}---${abs(((entity.orderTimeOut ?: (0 - System.currentTimeMillis()))))}"
-                )
-                mViewModel.downTimer(lastSeconds)
+                if (outTime > System.currentTimeMillis()) {
+                    val lastSeconds = (outTime - System.currentTimeMillis()) / 1000
+                    mViewModel.downTimer(lastSeconds)
+                    LogUtils.w(
+                        "lastSeconds--",
+                        "${lastSeconds}---${abs(((entity.orderTimeOut ?: (0 - System.currentTimeMillis()))))}"
+                    )
+                } else {
+                    UICompat.setText(
+                        mViewBinding.atvStatusWaitPayDesc,
+                        DataCompat.getResString(
+                            com.sbnh.comm.R.string.order_commit_timer_down,
+                            "0", "0"
+                        )
+                    )
+                }
                 setPublicOrderInfo(entity)
                 UICompat.setText(
                     mViewBinding.atvWayTitle,
