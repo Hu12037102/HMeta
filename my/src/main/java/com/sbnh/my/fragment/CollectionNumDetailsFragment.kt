@@ -47,7 +47,7 @@ class CollectionNumDetailsFragment :
 
     override fun initData() {
         context?.let { mViewBinding.rvData.adapter = CollectionNumDetailsListAdapter(it, mCollectionNumDetailsListData).also { adapter -> mCollectionNumDetailsListAdapter = adapter } }
-        mViewBinding.refreshLayout.autoRefresh()
+        mViewModel.loadCachedCollectionNumDetailsPagerEntity()
     }
 
     override fun initEvent() {
@@ -88,12 +88,29 @@ class CollectionNumDetailsFragment :
         mViewModel.mCollectionNumDetailsLiveData.observe(this) {
             if (mViewModel.isRefresh) {
                 mCollectionNumDetailsListData.clear()
+                // 缓存
+                mViewModel.cacheCollectionNumDetailsPagerEntity(it)
             }
             val data = BasePagerEntity.getData(it)
             if (CollectionCompat.notEmptyList(data)) {
                 mCollectionNumDetailsListData.addAll(data!!)
             }
             mCollectionNumDetailsListAdapter?.notifyDataSetChanged()
+        }
+
+        mViewModel.mCachedCollectionNumDetailsLiveData.observe(this) {
+            mCollectionNumDetailsListData.clear()
+            val data = BasePagerEntity.getData(it)
+            if (CollectionCompat.notEmptyList(data)) {
+                mCollectionNumDetailsListData.addAll(data!!)
+                mCollectionNumDetailsListAdapter?.notifyDataSetChanged()
+                it?.lastTime?.let { lastTime ->
+                    mViewModel.mLastTime = lastTime
+                }
+                mViewBinding.refreshLayout.setEnableLoadMore(true)
+            } else {
+                loadSmartData()
+            }
         }
     }
 
