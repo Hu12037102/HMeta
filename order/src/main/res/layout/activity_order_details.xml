@@ -423,11 +423,11 @@
                 android:id="@+id/atv_cancel_order"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/size_10dp"
-                android:padding="@dimen/size_10dp"
+                android:layout_marginTop="@dimen/size_20dp"
                 android:text="@string/cancel_order"
                 android:textColor="@color/colorFF9A9A9C"
-                android:textSize="@dimen/default_text_size"
+                android:textSize="@dimen/size_14sp"
+                android:gravity="center_horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mcv_way" />
@@ -446,7 +446,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mcv_way" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+          <!--  <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/atv_back_center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -457,7 +457,8 @@
                 android:textSize="@dimen/default_text_size"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/atv_continue_buy" />
+                app:layout_constraintTop_toBottomOf="@id/atv_continue_buy"
+                android:visibility="gone"/>-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
@@ -468,7 +469,7 @@
         layout="@layout/include_wait_pay_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_92dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

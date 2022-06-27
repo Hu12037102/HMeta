@@ -25,11 +25,13 @@ open class TimerViewModel : BaseViewModel() {
     private var mDisposable: Disposable? = null
     val mTimerLiveData: MutableLiveData<ResultDownTimeEntity> by lazy { MutableLiveData<ResultDownTimeEntity>() }
     fun downTimer(timeLength: Long) {
+
         disposedTimer()
-        Observable.interval(0, 1, TimeUnit.SECONDS)
-            .subscribeOn(Schedulers.io())
+        Observable.interval(1, 1, TimeUnit.SECONDS,Schedulers.io())
             .take(timeLength)
             .map { timeLength - it }
+      /*  Observable.intervalRange(0, timeLength, 0, 1, TimeUnit.SECONDS, Schedulers.io())
+            .map { timeLength - it }*/
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<Long> {
                 override fun onSubscribe(d: Disposable) {
@@ -59,7 +61,8 @@ open class TimerViewModel : BaseViewModel() {
         super.onCleared()
         disposedTimer()
     }
-    fun disposedTimer(){
+
+    fun disposedTimer() {
         mDisposable?.let {
             if (!it.isDisposed) {
                 it.dispose()

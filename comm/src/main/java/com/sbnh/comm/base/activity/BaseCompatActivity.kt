@@ -69,10 +69,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
 
         }
         mViewModel.mPublicLiveData.observe(this) {
-            if (it == BaseViewModel.STATUE_REQUEST_END) {
-                mRefreshLayout?.finishRefresh()
-                mRefreshLayout?.finishLoadMore()
-            }
+            resultPublicData(it)
         }
     }
 
@@ -138,4 +135,10 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
     protected open fun resultGainMessageCode() {}
 
 
+    protected open fun resultPublicData(@BaseViewModel.ViewModelStatus it: Int) {
+        if (it == BaseViewModel.STATUE_REQUEST_END) {
+            mRefreshLayout?.finishRefresh()
+            mRefreshLayout?.finishLoadMore()
+        }
+    }
 }

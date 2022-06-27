@@ -74,4 +74,5 @@ class DownloadFileTool private constructor() {
         this.isDownloading = isDownloading
     }
 
+    fun isDownload()= isDownloading
 }

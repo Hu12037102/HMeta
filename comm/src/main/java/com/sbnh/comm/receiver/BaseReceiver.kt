@@ -2,6 +2,7 @@ package com.sbnh.comm.receiver
 
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.content.IntentFilter
 
 /**
@@ -15,19 +16,17 @@ abstract class BaseReceiver : BroadcastReceiver() {
         @JvmStatic
         fun registerReceiver(
             context: Context?,
-            receiver: BroadcastReceiver,
+            receiver: BroadcastReceiver?,
             intentFilter: IntentFilter
-        ) {
-            try {
-                context?.registerReceiver(receiver, intentFilter)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
+        ): Intent? = try {
+            context?.registerReceiver(receiver, intentFilter)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
 
         @JvmStatic
-        fun unRegisterReceiver(context: Context?, receiver: BroadcastReceiver) {
+        fun unRegisterReceiver(context: Context?, receiver: BroadcastReceiver?) {
             try {
                 context?.unregisterReceiver(receiver)
             } catch (e: Exception) {

@@ -22,6 +22,10 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="Theme.Hide.Splash" parent="Theme.Hide.StatusBar">
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+    </style>
+
     <style name="SureClickButton" parent="Widget.AppCompat.TextView">
         <item name="android:layout_marginStart">@dimen/default_margin</item>
         <item name="android:layout_marginEnd">@dimen/default_margin</item>
@@ -59,6 +63,7 @@
         <item name="android:windowEnterAnimation">@anim/anim_bottom_to_center</item>
         <item name="android:windowExitAnimation">@anim/anim_center_to_bottom</item>
     </style>
+
     <style name="CollectionDetailsLine">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/size_1dp</item>

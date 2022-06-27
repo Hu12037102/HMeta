@@ -82,10 +82,8 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
             mRefreshLayout?.setEnableLoadMore(it.dataSize > 0)
         }
         mViewModel.mPublicLiveData.observe(this) {
-            if (it == BaseViewModel.STATUE_REQUEST_END) {
-                mRefreshLayout?.finishRefresh()
-                mRefreshLayout?.finishLoadMore()
-            }
+            resultPublicData(it)
+
         }
     }
 
@@ -200,5 +198,10 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
     }
 
     protected open fun isLoadLoadingView(): Boolean = true
-
+    protected open fun resultPublicData(@BaseViewModel.ViewModelStatus it: Int) {
+        if (it == BaseViewModel.STATUE_REQUEST_END) {
+            mRefreshLayout?.finishRefresh()
+            mRefreshLayout?.finishLoadMore()
+        }
+    }
 }

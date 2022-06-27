@@ -1,7 +1,9 @@
 package com.sbnh.healermeta.activity
 
 import android.Manifest
+import android.app.DownloadManager
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
@@ -19,16 +21,19 @@ import com.google.permission.OnPermissionResult
 import com.sbnh.bazaar.fragment.BazaarFragment
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
-import com.sbnh.comm.compat.CollectionCompat
-import com.sbnh.comm.compat.DialogCompat
-import com.sbnh.comm.compat.FileCompat
+import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
+import com.sbnh.comm.compat.*
+import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.dialog.VersionUpdateDialog
 import com.sbnh.comm.entity.base.SelectorTabEntity
+import com.sbnh.comm.entity.base.VERSION_MUST_UPDATE
 import com.sbnh.comm.entity.base.VersionEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
+import com.sbnh.comm.receiver.BaseReceiver
 import com.sbnh.comm.receiver.DownloadReceiver
+import com.sbnh.comm.tool.DownloadFileTool
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.healermeta.adapter.MainTabAdapter
 import com.sbnh.healermeta.databinding.ActivityMainBinding
@@ -38,10 +43,12 @@ import com.sbnh.my.fragment.MyFragment
 
 @Route(path = ARouterConfig.Path.Main.ACTIVITY_MAIN)
 class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
-    private val mReceiver = DownloadReceiver()
+    private val mReceiver: DownloadReceiver by lazy { DownloadReceiver() }
+    private var mDownloadReceiverIntent: Intent? = null
     private val mTabData: ArrayList<SelectorTabEntity> = ArrayList()
     private val mFragments: ArrayList<Fragment> = ArrayList()
     private var mTabAdapter: MainTabAdapter? = null
+    private var mUri: Uri? = null
     override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
     override fun getViewModelClass(): Class<MainViewModel> = MainViewModel::class.java
     override fun initView() {
@@ -112,47 +119,105 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
 
 
     }
-    private var mUri: Uri? = null
+
     override fun initObserve() {
         super.initObserve()
         mViewModel.mVersionLiveData.observe(this) {
-            val versionUpdateDialog =
-                ARouters.build(ARouterConfig.Path.Comm.DIALOG_VERSION_UPDATE)
-                    .withParcelable(ARouterConfig.Key.PARCELABLE, it)
-                    .navigation()
-            if (versionUpdateDialog is VersionUpdateDialog) {
-                DialogCompat.showFragmentDialog(versionUpdateDialog, supportFragmentManager)
-                versionUpdateDialog.setOnDownloadCallback(object :
-                    VersionUpdateDialog.OnDownloadCallback {
-                    override fun onCompete(uri: Uri) {
-                        mUri = uri
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                            val canInstall = packageManager.canRequestPackageInstalls()
-                            if (!canInstall) {
-                                ARoutersActivity.installPackage(this@MainActivity, uri)
-                            }else{
-                                ARoutersActivity.installPackage(this@MainActivity, uri)
-                            }
-                        } else {
-                            ARoutersActivity.installPackage(this@MainActivity, uri)
-                        }
-                    }
-                })
-            }
-
-
+            showUpdateVersionDialog(it)
         }
     }
 
+    private fun showUpdateVersionDialog(versionEntity: VersionEntity) {
+        if (!DownloadFileTool.get().isDownload()) {
+            val versionUpdateDialog =
+                ARouters.build(ARouterConfig.Path.Comm.DIALOG_VERSION_UPDATE)
+                    .withParcelable(ARouterConfig.Key.PARCELABLE, versionEntity)
+                    .navigation()
+            if (versionUpdateDialog is VersionUpdateDialog) {
+                DialogCompat.showFragmentDialog(versionUpdateDialog, supportFragmentManager)
+                versionUpdateDialog.setOnDialogItemInfoClickListener(object :
+                    OnDialogItemInfoClickListener {
+                    override fun onClickConfirm(view: View?) {
+                        if (versionEntity.status != VERSION_MUST_UPDATE) {
+                            versionUpdateDialog.dismiss()
+                        }
+                        registerDownloadReceiver()
+
+                    }
+
+                    override fun onClickCancel(view: View?) {
+                        versionUpdateDialog.dismiss()
+                    }
+
+                })
+            }
+        }
+    }
+
+    private fun registerDownloadReceiver() {
+        mDownloadReceiverIntent = BaseReceiver.registerReceiver(
+            this@MainActivity,
+            mReceiver,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+        mReceiver.setOnDownloadCallback(object : DownloadReceiver.OnDownloadCallback {
+            override fun onDownloadComplete(uri: Uri) {
+                this@MainActivity.mUri = uri
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    val canInstall = PermissionCompat.hasCanRequestPackageInstalls()
+                    if (!canInstall) {
+                        showUnknownInstallDialog()
+                    } else {
+                        ARoutersActivity.installPackage(this@MainActivity, uri)
+                    }
+                } else {
+                    ARoutersActivity.installPackage(this@MainActivity, uri)
+                }
+            }
+
+            override fun onDownloadError() {
+            }
+
+        })
+    }
+
+    private fun showUnknownInstallDialog() {
+        val titleDialog =
+            TitleDialog(DataCompat.getResString(com.sbnh.comm.R.string.installation_location_applications_require_permissions))
+        DialogCompat.showFragmentDialog(titleDialog, supportFragmentManager)
+        titleDialog.setOnDialogItemInfoClickListener(object : OnDialogItemInfoClickListener {
+            override fun onClickConfirm(view: View?) {
+                val intent = IntentCompat.unknownApplicationInstallIntent()
+                startActivityForResult(intent)
+                titleDialog.dismiss()
+            }
+
+            override fun onClickCancel(view: View?) {
+                titleDialog.dismiss()
+            }
+
+        })
+    }
+
     override fun onActivityResultCallback(result: ActivityResult) {
-        val path = FileCompat.findPathByUri(this@MainActivity, mUri!!)
-        LogUtils.w("versionUpdateDialog-", "我回调成功--$mUri---$path---$result")
-        ARoutersActivity.installPackage(this@MainActivity, mUri!!)
+        LogUtils.w(
+            "versionUpdateDialog-",
+            "我回调成功--$mUri-----$result--${PermissionCompat.hasCanRequestPackageInstalls()}"
+        )
+        mUri?.let {
+            if (PermissionCompat.hasCanRequestPackageInstalls())
+                ARoutersActivity.installPackage(this@MainActivity, it)
+        }
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
         mViewBinding.vpContent.unregisterOnPageChangeCallback(mPagerCallback)
+        if (mDownloadReceiverIntent != null) {
+            BaseReceiver.unRegisterReceiver(this@MainActivity, mReceiver)
+        }
+
     }
 
 

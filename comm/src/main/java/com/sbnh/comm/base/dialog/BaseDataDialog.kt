@@ -1,6 +1,7 @@
 package com.sbnh.comm.base.dialog
 
 import androidx.viewbinding.ViewBinding
+import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 
 /**
@@ -18,5 +19,10 @@ abstract class BaseDataDialog<VB : ViewBinding, VM : BaseViewModel> :
 
     interface OnCallbackValues {
         fun onValue(obj: Any)
+    }
+
+    protected var mOnDialogItemInfoClickListener: OnDialogItemInfoClickListener? = null
+    fun setOnDialogItemInfoClickListener(onDialogItemInfoClickListener: OnDialogItemInfoClickListener?) {
+        this.mOnDialogItemInfoClickListener = onDialogItemInfoClickListener
     }
 }

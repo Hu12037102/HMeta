@@ -29,6 +29,7 @@ class ARouterConfig {
         object Home {
             const val FRAGMENT_HOME = "/home/fragment/home"
             const val ACTIVITY_COLLECTION_DETAILS = "/home/activity/collection/details"
+            const val ACTIVITY_SPLASH = "/home/activity/splash"
 
         }
 

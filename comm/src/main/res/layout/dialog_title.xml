@@ -30,6 +30,7 @@
                 android:paddingTop="@dimen/size_46dp"
                 android:paddingEnd="@dimen/default_margin"
                 android:paddingBottom="@dimen/size_36dp"
+                android:lineSpacingExtra="@dimen/size_2dp"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size_15sp"
                 app:layout_constraintTop_toTopOf="parent"

@@ -85,10 +85,13 @@ class MyOrderContentFragment :
         mViewModel.mOrderListLiveData.observe(this) {
             val baseEntity = BaseEntity.getData(it)
             val data = BasePagerEntity2.getData(baseEntity)
+            if (mViewModel.isRefresh) {
+                mData.clear()
+            }
             if (CollectionCompat.notEmptyList(data)) {
                 mData.addAll(data!!)
-                mAdapter?.notifyDataSetChanged()
             }
+            mAdapter?.notifyDataSetChanged()
             if (CollectionCompat.isEmptyList(mData)) mEmptyLayout?.show() else mEmptyLayout?.hide()
         }
     }

@@ -20,7 +20,7 @@ annotation class VersionStatus
 
 @Parcelize
 data class VersionEntity(
-    val changes: List<String>?,
+    val changes: List<String>,
     val code: Int?,
     val date: String?,
     val downUrls: String?,

@@ -1,11 +1,14 @@
 package com.sbnh.order.activity
 
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.dialog.BaseDataDialog
 import com.sbnh.comm.base.dialog.InputMessageCodeDialog
 import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
+import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.BaseEntity
@@ -21,9 +24,12 @@ import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
+import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.order.databinding.ActivityOrderDetailsBinding
 import com.sbnh.order.viewmodel.OrderDetailsViewModel
 import com.scwang.smart.refresh.layout.api.RefreshLayout
+import kotlinx.coroutines.delay
+import java.util.*
 import kotlin.math.abs
 
 /**
@@ -37,12 +43,12 @@ class OrderDetailsActivity :
     BaseCompatActivity<ActivityOrderDetailsBinding, OrderDetailsViewModel>() {
     private var mOrderId: String = ""
     private var mBankCardEntity: BankCardEntity? = null
-
-    // private var isReloadWaitPayCount = true
+    private var isReloadWaitPayCount = true
     private var mDetailsEntity: OrderEntity? = null
     override fun getViewBinding(): ActivityOrderDetailsBinding =
         ActivityOrderDetailsBinding.inflate(layoutInflater)
 
+    private val mHandler by lazy { Handler(Looper.getMainLooper()) }
 
     override fun getViewModelClass(): Class<OrderDetailsViewModel> =
         OrderDetailsViewModel::class.java
@@ -59,6 +65,8 @@ class OrderDetailsActivity :
     override fun initEvent() {
 
     }
+
+    private var mRunnable = Runnable { loadSmartData() }
 
     override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
         mViewModel.queryOrderDetails(mOrderId)
@@ -84,11 +92,15 @@ class OrderDetailsActivity :
                 )
 
             } else if (it.status == STATUS_FINISH) {
-                //      mViewModel.queryOrderDetails(mOrderId)
-                mDetailsEntity?.let { order ->
-                    order.status = STATUS_CANCEL
-                    loadDetails(order)
+                if (isReloadWaitPayCount) {
+                    mHandler.postDelayed(mRunnable, 1500)
+                    isReloadWaitPayCount = false
                 }
+
+                /*  mDetailsEntity?.let { order ->
+                      order.status = STATUS_CANCEL
+                      loadDetails(order)
+                  }*/
 
             }
         }
@@ -171,8 +183,19 @@ class OrderDetailsActivity :
                     mViewModel.downTimer(lastSeconds)
                     LogUtils.w(
                         "lastSeconds--",
-                        "${lastSeconds}---${abs(((entity.orderTimeOut ?: (0 - System.currentTimeMillis()))))}"
+                        "${
+                            TimeCompat.getTimeFormat(
+                                outTime,
+                                "yyyy-MM-dd HH:mm:ss"
+                            )
+                        }--${
+                            TimeCompat.getTimeFormat(
+                                System.currentTimeMillis(),
+                                "yyyy-MM-dd HH:mm:ss"
+                            )
+                        }"
                     )
+                    mViewBinding.atvCancelOrder.visibility = View.VISIBLE
                 } else {
                     UICompat.setText(
                         mViewBinding.atvStatusWaitPayDesc,
@@ -181,6 +204,7 @@ class OrderDetailsActivity :
                             "0", "0"
                         )
                     )
+                    mViewBinding.atvCancelOrder.visibility = View.GONE
                 }
                 setPublicOrderInfo(entity)
                 UICompat.setText(
@@ -189,7 +213,13 @@ class OrderDetailsActivity :
                 )
                 mViewBinding.clWayWaitPay.visibility = View.VISIBLE
                 mViewBinding.clWayOther.visibility = View.GONE
-                mViewBinding.atvCancelOrder.visibility = View.VISIBLE
+
+                SpanTextHelper.with()
+                    .append(DataCompat.getResString(com.sbnh.comm.R.string.cancel_order))
+                    .appendLine()
+                    .append(DataCompat.getResString(com.sbnh.comm.R.string.results_of_frequent_cancellations))
+                    .setSize(12, true)
+                    .crete(mViewBinding.atvCancelOrder)
                 UICompat.setText(
                     mViewBinding.includedWaitPay.atvPrice, com.sbnh.comm.R.string.pay_money,
                     "${entity.coin}"
@@ -203,7 +233,6 @@ class OrderDetailsActivity :
                     com.sbnh.comm.R.string.pay_now
                 )
                 mViewBinding.atvContinueBuy.visibility = View.GONE
-                mViewBinding.atvBackCenter.visibility = View.GONE
                 mViewBinding.includedWaitPay.root.visibility = View.VISIBLE
                 UICompat.setImageRes(
                     mViewBinding.aivWayWaitPayCheck,
@@ -307,7 +336,6 @@ class OrderDetailsActivity :
                 )
                 mViewBinding.atvCancelOrder.visibility = View.GONE
                 mViewBinding.atvContinueBuy.visibility = View.VISIBLE
-                mViewBinding.atvBackCenter.visibility = View.VISIBLE
                 mViewBinding.includedWaitPay.root.visibility = View.GONE
                 UICompat.setText(
                     mViewBinding.atvWayTitle,
@@ -340,7 +368,6 @@ class OrderDetailsActivity :
                 )
                 mViewBinding.atvCancelOrder.visibility = View.GONE
                 mViewBinding.atvContinueBuy.visibility = View.VISIBLE
-                mViewBinding.atvBackCenter.visibility = View.VISIBLE
                 mViewBinding.includedWaitPay.root.visibility = View.GONE
                 UICompat.setText(
                     mViewBinding.atvWayTitle,
@@ -372,7 +399,6 @@ class OrderDetailsActivity :
                 )
                 mViewBinding.atvCancelOrder.visibility = View.GONE
                 mViewBinding.atvContinueBuy.visibility = View.VISIBLE
-                mViewBinding.atvBackCenter.visibility = View.VISIBLE
                 mViewBinding.includedWaitPay.root.visibility = View.GONE
                 UICompat.setText(
                     mViewBinding.atvWayTitle,
@@ -386,6 +412,11 @@ class OrderDetailsActivity :
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler.removeCallbacks(mRunnable)
+    }
+
     private fun clickContinueBuy(entity: OrderEntity) {
         mViewBinding.atvContinueBuy.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
@@ -394,5 +425,12 @@ class OrderDetailsActivity :
             }
 
         })
+    }
+
+    override fun resultPublicData(it: Int) {
+        super.resultPublicData(it)
+        if (it == BaseViewModel.STATUE_HTTP_ERROR) {
+            mEmptyView?.show()
+        }
     }
 }

@@ -51,7 +51,6 @@ class MyOrderAdapter(private val context: Context, private val data: List<OrderE
             when(entity.status){
                 STATUS_WAIT_PAY->{
                     UICompat.setText(holder.viewBinding.atvStatus,com.sbnh.comm.R.string.wait_pays)
-
                 }
                 STATUS_COMPLETE->{
                     UICompat.setText(holder.viewBinding.atvStatus,com.sbnh.comm.R.string.account_paid)

@@ -1,4 +1,5 @@
 package com.sbnh.comm.compat
+
 import android.widget.Toast
 import androidx.annotation.StringRes
 import com.sbnh.comm.app.BaseApplication
@@ -23,21 +24,31 @@ class ToastCompat private constructor() {
         }
     }
 
-    fun showToast(text:CharSequence){
-        if (mToast==null){
-            mToast = Toast.makeText(DataCompat.getContext(),text,Toast.LENGTH_LONG)
-        }else{
-            mToast?.setText(text)
+    fun showToast(text: CharSequence) {
+        try {
+            if (mToast == null) {
+                mToast = Toast.makeText(DataCompat.getContext(), text, Toast.LENGTH_SHORT)
+            } else {
+                mToast?.setText(text)
+            }
+            mToast?.show()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        mToast?.show()
     }
-    fun showToast(@StringRes resText: Int){
-        if (mToast==null){
-            mToast = Toast.makeText(DataCompat.getContext(),resText,Toast.LENGTH_LONG)
-        }else{
-            mToast?.setText(resText)
+
+    fun showToast(@StringRes resText: Int) {
+        try {
+            if (mToast == null) {
+                mToast = Toast.makeText(DataCompat.getContext(), resText, Toast.LENGTH_SHORT)
+            } else {
+                mToast?.setText(resText)
+            }
+            mToast?.show()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-        mToast?.show()
+
     }
 
 }
