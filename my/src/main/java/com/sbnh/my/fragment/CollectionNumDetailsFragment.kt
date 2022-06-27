@@ -47,7 +47,9 @@ class CollectionNumDetailsFragment :
 
     override fun initData() {
         context?.let { mViewBinding.rvData.adapter = CollectionNumDetailsListAdapter(it, mCollectionNumDetailsListData).also { adapter -> mCollectionNumDetailsListAdapter = adapter } }
-        mViewModel.loadCachedCollectionNumDetailsPagerEntity()
+        mMyCollection?.run {
+            mViewModel.loadCachedCollectionNumDetailsPagerEntity(merchandiseId?: "")
+        }
     }
 
     override fun initEvent() {
@@ -89,7 +91,7 @@ class CollectionNumDetailsFragment :
             if (mViewModel.isRefresh) {
                 mCollectionNumDetailsListData.clear()
                 // 缓存
-                mViewModel.cacheCollectionNumDetailsPagerEntity(it)
+                mViewModel.cacheCollectionNumDetailsPagerEntity(mMyCollection?.merchandiseId?: "", it)
             }
             val data = BasePagerEntity.getData(it)
             if (CollectionCompat.notEmptyList(data)) {

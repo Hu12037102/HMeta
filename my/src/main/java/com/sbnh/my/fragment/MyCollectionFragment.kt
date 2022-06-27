@@ -141,7 +141,7 @@ class MyCollectionFragment :
                 mCollectionAdapter?.notifyDataSetChanged()
                 mEmptyLayout?.visibility = View.GONE
             } else {
-                mViewBinding.refreshLayout.autoRefresh()
+                loadSmartData()
                 mEmptyLayout?.visibility = View.VISIBLE
             }
         }

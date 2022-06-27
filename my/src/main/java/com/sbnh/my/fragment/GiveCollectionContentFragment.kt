@@ -2,10 +2,10 @@ package com.sbnh.my.fragment
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
+import com.sbnh.comm.entity.my.ALL
 import com.sbnh.comm.entity.my.GiveCollectionEntity
 import com.sbnh.comm.entity.request.RequestGiveCollectionListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
@@ -18,7 +18,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 class GiveCollectionContentFragment :
     BaseCompatFragment<FragmentMyOrderContentBinding, GiveCollectionContentViewModel>() {
     // private val requestEntity = RequestOrderListEntity(mViewModel.mPagerNum,mViewModel.mPagerSize)
-    private var mGiveType: Int? = 0
+    private var mGiveType: Int = ALL
     private val mData = ArrayList<GiveCollectionEntity>()
     private var mAdapter: GiveCollectionListAdapter? = null
     override fun getViewBinding(): FragmentMyOrderContentBinding =
@@ -32,14 +32,10 @@ class GiveCollectionContentFragment :
     }
 
     override fun initData() {
-        val state = arguments?.getInt(ARouterConfig.Key.ID, Contract.UNKNOWN_INT_VALUE)
-        if (state != Contract.UNKNOWN_INT_VALUE) {
-            mGiveType = state
-        }
+        mGiveType = arguments?.getInt(ARouterConfig.Key.ID, ALL)?: ALL
         mAdapter = GiveCollectionListAdapter(requireContext(), mData)
         mViewBinding.rvData.adapter = mAdapter
-        // mViewModel.loadMyOrderList(requestEntity)
-        loadSmartData()
+        mViewModel.loadCachedGiveCollectionPagerEntity(mGiveType)
     }
 
     override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
@@ -62,12 +58,27 @@ class GiveCollectionContentFragment :
         mViewModel.mGiveCollectionListLiveData.observe(this) {
             if (mViewModel.isRefresh) {
                 mData.clear()
+                // 缓存
+                mViewModel.cacheGiveCollectionPagerEntity(mGiveType, it)
             }
             val data = BasePagerEntity.getData(it)
             if (CollectionCompat.notEmptyList(data)) {
                 mData.addAll(data!!)
             }
             mAdapter?.notifyDataSetChanged()
+        }
+
+        mViewModel.mCachedGiveCollectionListLiveData.observe(this) {
+            mData.clear()
+            val data = BasePagerEntity.getData(it)
+            if (CollectionCompat.notEmptyList(data)) {
+                mData.addAll(data!!)
+                mAdapter?.notifyDataSetChanged()
+                mViewModel.mPagerNum++
+                mViewBinding.refreshLayout.setEnableLoadMore(true)
+            } else {
+                loadSmartData()
+            }
         }
     }
 }
