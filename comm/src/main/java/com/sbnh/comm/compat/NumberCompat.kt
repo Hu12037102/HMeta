@@ -26,15 +26,15 @@ object NumberCompat {
 
     @JvmStatic
     fun isBankCardNumber(number: CharSequence?) =
-        DataCompat.getTextLength(number) >= Contract.BANK_CARD_NUMBER_MIN
+        DataCompat.getTextLength(number,true) >= Contract.BANK_CARD_NUMBER_MIN
                 &&
-                DataCompat.getTextLength(number) <= Contract.BANK_CARD_NUMBER_MAX
+                DataCompat.getTextLength(number,true) <= Contract.BANK_CARD_NUMBER_MAX
 
     @JvmStatic
     fun isIdCard(idCard: CharSequence?) =
-        DataCompat.getTextLength(idCard) >= Contract.ID_CARD_NUMBER_MIN
+        DataCompat.getTextLength(idCard,true) >= Contract.ID_CARD_NUMBER_MIN
                 &&
-                DataCompat.getTextLength(idCard) <= Contract.ID_CARD_NUMBER_MAX
+                DataCompat.getTextLength(idCard,true) <= Contract.ID_CARD_NUMBER_MAX
 
     @JvmStatic
     fun encryptPhoneNumber(phoneNumber: String?): String {

@@ -123,11 +123,14 @@ object MetaViewCompat {
     }
 
     @JvmStatic
-    fun getTextViewLength(textView: TextView?): Int {
+    fun getTextViewLength(textView: TextView?): Int = getTextViewLength(textView, false)
+
+    @JvmStatic
+    fun getTextViewLength(textView: TextView?, isTrim: Boolean): Int {
         return if (textView == null) {
             0
         } else {
-            DataCompat.getTextLength(getTextViewText(textView))
+            DataCompat.getTextLength(getTextViewText(textView), isTrim)
         }
     }
 

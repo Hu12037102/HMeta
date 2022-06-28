@@ -78,17 +78,17 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         })
         mViewBinding.atvBinding.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                val bankCardNumber = MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber)
+                val bankCardNumber = MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber,true)
                 if (!NumberCompat.isBankCardNumber(bankCardNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_succeed_bank_number)
                     return
                 }
-                val phoneNumber = MetaViewCompat.getTextViewText(mViewBinding.aetPhoneNumber)
+                val phoneNumber = MetaViewCompat.getTextViewText(mViewBinding.aetPhoneNumber,true)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
-                val messageCode = MetaViewCompat.getTextViewText(mViewBinding.aetMessageCode)
+                val messageCode = MetaViewCompat.getTextViewText(mViewBinding.aetMessageCode,true)
                 if (!NumberCompat.isMessageCode(messageCode)) {
                     showToast(com.sbnh.comm.R.string.please_input_message_code)
                     return
@@ -97,23 +97,6 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                     showToast(com.sbnh.comm.R.string.please_agree_user_other_pay_agreement)
                     return
                 }
-                /*     if (mBankEntity == null) {
-                         mViewModel.queryBankCardInfo(
-                             RequestBankCardInfoEntity(
-                                 DataCompat.toString(
-                                     bankCardNumber
-                                 )
-                             ), true
-                         )
-                     } else {
-                         mViewModel.bindingBankCardBefore(
-                             RequestBindingBankCardBeforeEntity(
-                                 mBankEntity?.preCardNo,
-                                 DataCompat.toString(bankCardNumber),
-                                 DataCompat.toString(phoneNumber)
-                             )
-                         )
-                     }*/
                 mViewModel.bindingBankCardAfter(
                     RequestBindingBankCardAfterEntity(
                         DataCompat.toString(
@@ -127,7 +110,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         })
         mViewBinding.atvGainMessageCode.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                val phoneNumber = MetaViewCompat.getTextViewText(mViewBinding.aetPhoneNumber)
+                val phoneNumber = MetaViewCompat.getTextViewText(mViewBinding.aetPhoneNumber,true)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
@@ -137,7 +120,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                         override fun onResult(entity: CaptchaCheckResultEntity?) {
                             if (CaptchaCheckResultEntity.isSucceed(entity)) {
                                 val bankCardNumber =
-                                    MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber)
+                                    MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber,true)
                                 if (mBankEntity == null) {
                                     mViewModel.queryBankCardInfo(
                                         RequestBankCardInfoEntity(
@@ -165,6 +148,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
 
         })
         mViewBinding.aetBankCardNumber.addTextChangedListener(mAetBankCardNumberTextWatcher)
+        mViewBinding.aetPhoneNumber.addTextChangedListener(mPhoneNumberWatcher)
     }
 
     private val mAetBankCardNumberTextWatcher = object : TextWatcher {
@@ -172,9 +156,10 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            val length = MetaViewCompat.getTextViewLength(mViewBinding.aetBankCardNumber)
+            UICompat.setBankCardNumberEditText(mViewBinding.aetBankCardNumber)
+            val length = MetaViewCompat.getTextViewLength(mViewBinding.aetBankCardNumber,true)
             val text =
-                DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber))
+                DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber),true)
             if (length >= QUERY_CARD_INFO_LENGTH) {
                 if (mBankEntity == null) {
                     mViewModel.queryBankCardInfo(RequestBankCardInfoEntity(text))
@@ -184,6 +169,19 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                 UICompat.setText(mViewBinding.atvBankName, null)
                 mBankEntity = null
             }
+
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
+    }
+    private val mPhoneNumberWatcher = object :TextWatcher{
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            UICompat.setPhoneEditText(mViewBinding.aetPhoneNumber)
         }
 
         override fun afterTextChanged(s: Editable?) {
@@ -218,8 +216,8 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
                 mViewModel.bindingBankCardBefore(
                     RequestBindingBankCardBeforeEntity(
                         mBankEntity?.preCardNo,
-                        DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber)),
-                        DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetPhoneNumber))
+                        DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber,true)),
+                        DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetPhoneNumber,true))
                     )
                 )
             }
@@ -248,5 +246,6 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
     override fun onDestroy() {
         super.onDestroy()
         mViewBinding.aetBankCardNumber.removeTextChangedListener(mAetBankCardNumberTextWatcher)
+        mViewBinding.aetPhoneNumber.removeTextChangedListener(mPhoneNumberWatcher)
     }
 }
