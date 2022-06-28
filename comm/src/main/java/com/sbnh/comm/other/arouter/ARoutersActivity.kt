@@ -6,13 +6,8 @@ import android.content.Intent
 import android.graphics.Picture
 import android.net.Uri
 import android.os.Build
-import android.provider.Settings
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.FileProvider
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.manger.ActivityCompatManger
-import com.sbnh.comm.utils.LogUtils
-import java.io.File
 
 
 /**
@@ -69,9 +64,10 @@ object ARoutersActivity {
     }
 
     @JvmStatic
-    fun startGiveCollectionActivity(id: String?) {
+    fun startGiveCollectionActivity(cid: String?, merchandiseId: String?) {
         ARouters.build(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
-            .withString(ARouterConfig.Key.ID, id)
+            .withString(ARouterConfig.Key.CID, cid)
+            .withString(ARouterConfig.Key.ID, merchandiseId)
             .navigation()
     }
 

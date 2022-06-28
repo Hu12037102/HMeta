@@ -23,6 +23,7 @@ class GiveCollectionActivity :
     BaseCompatActivity<ActivityGiveCollectionBinding, GiveCollectionViewModel>() {
 
     private var mCollectionNumDetailsId: String? = null
+    private var mMerchandiseId: String? = null
 
     private var isAgreeAgreement = false
     override fun getViewBinding(): ActivityGiveCollectionBinding =
@@ -32,7 +33,8 @@ class GiveCollectionActivity :
         GiveCollectionViewModel::class.java
 
     override fun initView() {
-        mCollectionNumDetailsId = intent.getStringExtra(ARouterConfig.Key.ID)
+        mMerchandiseId = intent.getStringExtra(ARouterConfig.Key.ID)
+        mCollectionNumDetailsId = intent.getStringExtra(ARouterConfig.Key.CID)
     }
 
     override fun onWindowFirstFocusChanged(hasFocus: Boolean) {
@@ -86,6 +88,10 @@ class GiveCollectionActivity :
         super.initObserve()
         mViewModel.mGiveCollectionLiveData.observe(this) {
             showToast(com.sbnh.comm.R.string.give_collection_succeed)
+            mViewModel.unionUpdateCachedMyCollection(mCollectionNumDetailsId?: "", mMerchandiseId?: "")
+        }
+
+        mViewModel.mUnionUpdatedLiveData.observe(this) {
             finish()
         }
     }

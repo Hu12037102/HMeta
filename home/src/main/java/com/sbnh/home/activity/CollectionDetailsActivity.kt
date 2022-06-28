@@ -110,7 +110,7 @@ class CollectionDetailsActivity :
                 mViewBinding.includedBottomContent.atvSure.setOnClickListener(object :
                     DelayedClick() {
                     override fun onDelayedClick(v: View?) {
-                        ARoutersActivity.startGiveCollectionActivity(mCid)
+                        ARoutersActivity.startGiveCollectionActivity(mCid, mId)
                     }
                 })
                 UICompat.setText(

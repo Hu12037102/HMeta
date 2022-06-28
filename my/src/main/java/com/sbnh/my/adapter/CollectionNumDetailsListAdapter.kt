@@ -23,7 +23,7 @@ class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNum
             UICompat.setText(holder.viewBinding.atvTokenId, "#${entity.tokenId} ")
             UICompat.setText(holder.viewBinding.atvTime, TimeCompat.getTimeFormat(entity.createTime))
             holder.viewBinding.atvGive.setOnClickListener {
-                ARoutersActivity.startGiveCollectionActivity(entity.id)
+                ARoutersActivity.startGiveCollectionActivity(entity.id, entity.merchandiseId)
                 if (mContext is Activity) {
                     (mContext as Activity).finish()
                 }
