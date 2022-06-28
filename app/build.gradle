@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     // id 'kotlin-parcelize'
     id 'kotlin-kapt'
-   // id 'walle'
+    // id 'walle'
     id 'com.tencent.vasdolly'
 }
 apply from: "$rootDir/config.gradle"
@@ -26,6 +26,11 @@ android {
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
             }
+        }
+        ndk {
+            // 设置支持的SO库架构
+            //  abiFilters  'arm64-v8a' //'armeabi' , 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+            abiFilters 'armeabi-v7a' //'arm64-v8a' 'armeabi' , 'x86', , 'x86_64', 'arm64-v8a'
         }
     }
     signingConfigs {
@@ -94,12 +99,12 @@ android {
 
 //VasDolly插件配置
 //gradle channelDebug/channelRelease 编译生成apk后，再根据生成的Apk生成渠道包
-channel{
+channel {
     channelFile = file("channel")
     //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
-    outputDir = new File(project.buildDir,"channels")
+    outputDir = new File(project.buildDir, "channels")
     //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}-${buildTime}
-    apkNameFormat ='${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
+    apkNameFormat = '${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}'
     //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
     fastMode = false
     //buildTime的时间格式，默认格式：yyyyMMdd-HHmmss

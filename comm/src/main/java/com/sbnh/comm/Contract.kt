@@ -20,6 +20,8 @@ object Contract {
     const val DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm"
     const val UNKNOWN_INT_VALUE = -1
     const val UNKNOWN_LONG_VALUE = -1L
+    const val DEBUG="debug"
+    const val RELEASE="release"
 
     object DP {
         const val VALUE_8F = 8f
@@ -27,7 +29,7 @@ object Contract {
         const val COLLECTION_IMAGE_SMALL_SIZE = 86
     }
 
-    object Judge {
-
+    object Id{
+        const val BUGLY_APP_ID="2f9ae5bbf2"
     }
 }

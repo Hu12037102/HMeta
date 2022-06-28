@@ -6,14 +6,15 @@ import android.content.Context
 import android.os.Bundle
 import androidx.multidex.MultiDex
 import com.alibaba.android.arouter.launcher.ARouter
+import com.sbnh.comm.BuildConfig
+import com.sbnh.comm.Contract
 import com.sbnh.comm.config.AppConfig
 import com.sbnh.comm.manger.ActivityCompatManger
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
-import com.scwang.smart.refresh.layout.api.RefreshHeader
-import com.scwang.smart.refresh.layout.api.RefreshLayout
-import com.scwang.smart.refresh.layout.listener.DefaultRefreshHeaderCreator
+import com.tencent.bugly.crashreport.CrashReport
+import com.tencent.bugly.crashreport.CrashReport.UserStrategy
 import kotlin.properties.Delegates
 
 /**
@@ -80,7 +81,7 @@ class BaseApplication : Application() {
     private fun init() {
         mContext = this
         initARouter()
-
+        initBugly()
     }
 
     private fun initARouter() {
@@ -89,6 +90,12 @@ class BaseApplication : Application() {
             ARouter.openDebug()
         }
         ARouter.init(this)
+    }
+
+    private fun initBugly() {
+        val strategy = UserStrategy(this)
+        strategy.appChannel = if (AppConfig.isDebug()) Contract.DEBUG else Contract.RELEASE
+        CrashReport.initCrashReport(this, Contract.Id.BUGLY_APP_ID, false, strategy)
     }
 
     override fun attachBaseContext(base: Context?) {
