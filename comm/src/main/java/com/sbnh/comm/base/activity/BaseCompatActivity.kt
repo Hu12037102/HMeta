@@ -132,7 +132,9 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
 
     }
 
-    protected open fun resultGainMessageCode() {}
+    protected open fun resultGainMessageCode() {
+        showToast(com.sbnh.comm.R.string.gain_message_code_succeed)
+    }
 
 
     protected open fun resultPublicData(@BaseViewModel.ViewModelStatus it: Int) {

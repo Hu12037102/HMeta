@@ -212,6 +212,7 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
     }
 
     override fun resultGainMessageCode() {
+        super.resultGainMessageCode()
         mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
     }
 

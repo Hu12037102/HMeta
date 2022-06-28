@@ -200,7 +200,9 @@ abstract class BaseCompatDialog<VB : ViewBinding, VM : BaseViewModel> : BaseDial
 
     }
 
-    protected open fun resultGainMessageCode() {}
+    protected open fun resultGainMessageCode() {
+        showToast(R.string.gain_message_code_succeed)
+    }
 
 
 }

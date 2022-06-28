@@ -174,7 +174,9 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
 
     }
 
-    protected open fun resultGainMessageCode() {}
+    protected open fun resultGainMessageCode() {
+        showToast(com.sbnh.comm.R.string.gain_message_code_succeed)
+    }
 
     private fun initRefreshLayout(refreshLayout: SmartRefreshLayout) {
         this.mRefreshLayout = refreshLayout

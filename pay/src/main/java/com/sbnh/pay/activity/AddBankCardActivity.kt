@@ -228,6 +228,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         mViewModel.mBindingBankCardBeforeLiveData.observe(this) {
             mBindingBankCardId = BaseEntity.getData(it)
             mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
+            showToast(com.sbnh.comm.R.string.gain_message_code_succeed)
             /*  val messageCode = MetaViewCompat.getTextViewText(mViewBinding.aetMessageCode)
               mViewModel.bindingBankCardAfter(
                   RequestBindingBankCardAfterEntity(

@@ -132,12 +132,15 @@ class SetPaymentPasswordActivity :
                 )
             }
         }
-        mViewModel.mGainMessageCodeLiveData.observe(this) {
-            mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
-        }
+
         mViewModel.mPaymentPasswordLiveData.observe(this) {
             showToast(com.sbnh.comm.R.string.set_payment_password_succeed)
             MetaViewCompat.finishActivity(this)
         }
+    }
+
+    override fun resultGainMessageCode() {
+        super.resultGainMessageCode()
+        mViewModel.downTimer(Contract.MESSAGE_CODE_DOWN_TIME_LENGTH)
     }
 }
