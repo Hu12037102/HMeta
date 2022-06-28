@@ -2,6 +2,7 @@ package com.sbnh.comm.compat
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.os.Build
 
 /**
  * 作者: 胡庆岭
@@ -17,9 +18,6 @@ object NetWorkCompat {
     }
 
     @JvmStatic
-     fun isNetComment(): Boolean {
-        return getNetWorkManger().isDefaultNetworkActive
-
-    }
+    fun isNetComment(): Boolean = getNetWorkManger().activeNetworkInfo?.isConnected ?: false
 
 }

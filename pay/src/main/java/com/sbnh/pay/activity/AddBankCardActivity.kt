@@ -156,7 +156,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            UICompat.setBankCardNumberEditText(mViewBinding.aetBankCardNumber)
+           // UICompat.setBankCardNumberEditText(mViewBinding.aetBankCardNumber)
             val length = MetaViewCompat.getTextViewLength(mViewBinding.aetBankCardNumber,true)
             val text =
                 DataCompat.toString(MetaViewCompat.getTextViewText(mViewBinding.aetBankCardNumber),true)

@@ -33,7 +33,7 @@ class EmptyLayout : ConstraintLayout {
 
     @ColorInt
     private var mTextColor: Int = ContextCompat.getColor(context, R.color.colorFF9A9A9C)
-    private var mText: String? = ""
+    private var mText: String? = DataCompat.getResString(R.string.this_is_null)
 
     constructor (
         context: Context
@@ -71,7 +71,7 @@ class EmptyLayout : ConstraintLayout {
         UICompat.setTextColor(mViewBinding?.atvEmptyContent, colorInt)
     }
 
-     fun show() {
+    fun show() {
         visibility = VISIBLE
     }
 

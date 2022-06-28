@@ -10,6 +10,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import com.sbnh.comm.utils.LogUtils
 
 /**
  * 作者: 胡庆岭
@@ -82,7 +83,7 @@ object UICompat {
         val textLength = MetaViewCompat.getTextViewLength(editText)
         if (textLength > 0) {
             val sb = StringBuilder()
-            val text = MetaViewCompat.getTextViewText(editText)
+            val text = MetaViewCompat.getTextViewText(editText,true)
             sb.append(text)
             if ((textLength % 5 == 0) && !TextUtils.equals(
                     text[textLength - 1].toString(),
@@ -96,3 +97,5 @@ object UICompat {
         }
     }
 }
+
+

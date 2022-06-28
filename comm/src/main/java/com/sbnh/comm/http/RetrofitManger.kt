@@ -1,14 +1,16 @@
 package com.sbnh.comm.http
 
-import android.util.Log
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.NetWorkCompat
 import com.sbnh.comm.config.AppConfig
 import com.sbnh.comm.digest.SHA1Compat
+import com.sbnh.comm.factory.FileFactory
+import com.sbnh.comm.factory.FileFactory.TYPE_HTTP
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
+import okhttp3.internal.cache.CacheInterceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -33,6 +35,7 @@ class RetrofitManger private constructor() {
     companion object {
         val Instance: RetrofitManger by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { RetrofitManger() }
         private const val DEFAULT_TIME_OUT_MILLISECONDS = 15 * 1000L
+        private const val CACHE_MEX_LENGTH = 200 * 1024 * 1024L
     }
 
     init {
@@ -97,8 +100,7 @@ class RetrofitManger private constructor() {
             var response = chain.proceed(request)
             response = if (NetWorkCompat.isNetComment()) {
                 response.newBuilder().removeHeader("Pragma")
-                    .header("Cache-Control", "public,max-age=" + 60 * 60)
-                    .build()
+                    .header("Cache-Control", "public,max-age=" + 60 * 60).build();
             } else {
                 response.newBuilder().removeHeader("Pragma")
                     .header(
@@ -106,14 +108,14 @@ class RetrofitManger private constructor() {
                         "public,only-if-cached,max-stale=" + 7 * 24 * 60 * 60
                     ).build()
             }
-
             response
         }
     }
 
     private fun initOKHttp() {
-        mOkHttpClient = OkHttpClient()
-            .newBuilder()
+        val cacheDir = FileFactory.createCacheDir(TYPE_HTTP)
+        mOkHttpClient = OkHttpClient.Builder()
+           .cache(if (cacheDir == null) null else Cache(cacheDir, CACHE_MEX_LENGTH))
             .retryOnConnectionFailure(true)
             .callTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)
             .writeTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)
@@ -121,7 +123,7 @@ class RetrofitManger private constructor() {
             .readTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)
             .addInterceptor(mHeadInterceptor)
             .addInterceptor(mLoggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
-           // .addInterceptor(mCacheInterceptor)
+            .addInterceptor(mCacheInterceptor)
             .build()
 
     }

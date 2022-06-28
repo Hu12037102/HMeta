@@ -33,7 +33,7 @@
     <string name="please_agree_user_agreement">请认真阅读并且同意《用户协议》和《隐私政策》</string>
     <string name="please_agree_user_other_pay_agreement">请认真阅读并且同意《首易信支付用户协议》</string>
     <string name="input_invite_code">输入邀请码</string>
-    <string name="bazaar_not_open">市场暂未放开</string>
+    <string name="bazaar_not_open">寄售暂未放开</string>
     <string name="accounts_and_security">账号与安全</string>
     <string name="contact_the_customer_service">联系客服</string>
     <string name="real_name_authentication">实名认证</string>

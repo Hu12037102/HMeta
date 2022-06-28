@@ -195,7 +195,7 @@ class OrderDetailsActivity :
                             )
                         }"
                     )
-                    mViewBinding.atvCancelOrder.visibility = View.VISIBLE
+                    mViewBinding.clCancelOrder.visibility = View.VISIBLE
                 } else {
                     UICompat.setText(
                         mViewBinding.atvStatusWaitPayDesc,
@@ -204,7 +204,7 @@ class OrderDetailsActivity :
                             "0", "0"
                         )
                     )
-                    mViewBinding.atvCancelOrder.visibility = View.GONE
+                    mViewBinding.clCancelOrder.visibility = View.GONE
                 }
                 setPublicOrderInfo(entity)
                 UICompat.setText(
@@ -214,12 +214,6 @@ class OrderDetailsActivity :
                 mViewBinding.clWayWaitPay.visibility = View.VISIBLE
                 mViewBinding.clWayOther.visibility = View.GONE
 
-                SpanTextHelper.with()
-                    .append(DataCompat.getResString(com.sbnh.comm.R.string.cancel_order))
-                    .appendLine()
-                    .append(DataCompat.getResString(com.sbnh.comm.R.string.results_of_frequent_cancellations))
-                    .setSize(12, true)
-                    .crete(mViewBinding.atvCancelOrder)
                 UICompat.setText(
                     mViewBinding.includedWaitPay.atvPrice, com.sbnh.comm.R.string.pay_money,
                     "${entity.coin}"
@@ -334,7 +328,7 @@ class OrderDetailsActivity :
                     mViewBinding.atvBuyModelContent,
                     com.sbnh.comm.R.string.bank_card_payment
                 )
-                mViewBinding.atvCancelOrder.visibility = View.GONE
+                mViewBinding.clCancelOrder.visibility = View.GONE
                 mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                 mViewBinding.includedWaitPay.root.visibility = View.GONE
                 UICompat.setText(
@@ -366,7 +360,7 @@ class OrderDetailsActivity :
                     mViewBinding.atvBuyModelContent,
                     com.sbnh.comm.R.string.cancelled
                 )
-                mViewBinding.atvCancelOrder.visibility = View.GONE
+                mViewBinding.clCancelOrder.visibility = View.GONE
                 mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                 mViewBinding.includedWaitPay.root.visibility = View.GONE
                 UICompat.setText(
@@ -397,7 +391,7 @@ class OrderDetailsActivity :
                     mViewBinding.atvBuyModelContent,
                     com.sbnh.comm.R.string.on_the_march
                 )
-                mViewBinding.atvCancelOrder.visibility = View.GONE
+                mViewBinding.clCancelOrder.visibility = View.GONE
                 mViewBinding.atvContinueBuy.visibility = View.VISIBLE
                 mViewBinding.includedWaitPay.root.visibility = View.GONE
                 UICompat.setText(

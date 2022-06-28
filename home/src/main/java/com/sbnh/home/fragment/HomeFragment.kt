@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
+import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.WebViewCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
@@ -68,7 +69,6 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
             }
     }
 
-    override fun isLoadEmptyView(): Boolean = false
     override fun initEvent() {
         mEmptyLayout?.setOnClickListener {
 
@@ -118,6 +118,11 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
             mBannerAdapter?.notifyDataSetChanged()
         }
     }
-
+    override fun resultPublicData(it: Int) {
+        super.resultPublicData(it)
+        if (it== BaseViewModel.STATUE_HTTP_ERROR){
+            mEmptyLayout?.show()
+        }
+    }
 
 }
