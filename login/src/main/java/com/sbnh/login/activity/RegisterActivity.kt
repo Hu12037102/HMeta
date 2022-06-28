@@ -162,9 +162,9 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
             }
 
         })
-        mViewBinding.root.setOnClickListener(object : DelayedClick() {
+        mViewBinding.clContent.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                MetaViewCompat.hideSoftKeyBoard(mViewBinding.root)
+                MetaViewCompat.hideSoftKeyBoard(mViewBinding.clContent)
             }
 
         })

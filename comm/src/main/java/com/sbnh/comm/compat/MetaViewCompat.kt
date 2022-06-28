@@ -93,6 +93,13 @@ object MetaViewCompat {
     @JvmStatic
     fun showSoftKeyBoard(view: View?) {
         view?.let {
+            if ( it is EditText){
+                it.requestFocus()
+               // it.isFocusableInTouchMode= true
+               // it.isFocusable = true
+            }
+
+
             ViewCompat.getWindowInsetsController(it)?.show(WindowInsetsCompat.Type.ime())
         }
 

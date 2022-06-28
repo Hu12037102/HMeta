@@ -22,6 +22,7 @@ import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.other.tencent.CaptchaDialogHelper
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 
@@ -164,9 +165,10 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             }
 
         })
-        mViewBinding.root.setOnClickListener(object : DelayedClick() {
+        mViewBinding.clContent.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                MetaViewCompat.hideSoftKeyBoard(mViewBinding.root)
+                LogUtils.w("onDelayedClick--","点击了我呀！！！！")
+                MetaViewCompat.hideSoftKeyBoard(mViewBinding.clContent)
             }
 
         })
