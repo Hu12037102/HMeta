@@ -18,6 +18,7 @@ import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.CheckLoginClick
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
+import com.sbnh.home.R
 import com.sbnh.home.databinding.ActivityCollectionDetailsBinding
 import com.sbnh.home.viewmodel.CollectionDetailsViewModel
 import kotlinx.coroutines.launch
@@ -153,6 +154,7 @@ class CollectionDetailsActivity :
                         SpanTextHelper.with()
                             .append(DataCompat.getResString(com.sbnh.comm.R.string.sale))
                             .appendLine()
+                            .appendDrawable(com.sbnh.comm.R.mipmap.icon_home_sale_time)
                             .append(TimeCompat.getTimeFormat(it.saleTime, "MM.dd HH:mm"))
                             .setSize(12, true)
                             .crete(mViewBinding.includedBottomContent.atvSure)

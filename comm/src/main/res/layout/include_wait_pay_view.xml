@@ -28,6 +28,7 @@
         android:layout_height="@dimen/size_44dp"
         android:layout_marginEnd="@dimen/size_20dp"
         android:background="@drawable/share_normal_view"
+        android:lineSpacingExtra="@dimen/size_0.5dp"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/size_16sp"
