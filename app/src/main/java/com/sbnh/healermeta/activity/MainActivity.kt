@@ -139,7 +139,10 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
     override fun initObserve() {
         super.initObserve()
         mViewModel.mVersionLiveData.observe(this) {
-            showUpdateVersionDialog(it)
+            if(VersionEntity.isUpdateVersion(it)){
+                showUpdateVersionDialog(it)
+            }
+
         }
     }
 

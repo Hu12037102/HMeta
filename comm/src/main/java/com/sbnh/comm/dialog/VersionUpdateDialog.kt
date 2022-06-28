@@ -47,22 +47,28 @@ class VersionUpdateDialog :
         mVersionEntity = arguments?.getParcelable(ARouterConfig.Key.PARCELABLE)
         ViewCompat.setBackground(mViewBinding.atvVersionName, createVersionNameDrawable())
         mVersionEntity?.let {
-            UICompat.setText(mViewBinding.atvVersionName, it.version)
-            for (text in it.changes) {
-                var lineText = ""
-                lineText += text
-                if (it.changes.lastIndexOf(text) != it.changes.size - 1) {
-                    lineText += "\n"
+            try {
+                UICompat.setText(mViewBinding.atvVersionName, it.version)
+                for (text in it.changes) {
+                    var lineText = ""
+                    lineText += text
+                    if (it.changes.lastIndexOf(text) != it.changes.size - 1) {
+                        lineText += "\n"
+                    }
+                    val textContentViewBinding =
+                        ItemVersionUpdateTextContentViewBinding.inflate(
+                            layoutInflater,
+                            mViewBinding.llContent,
+                            true
+                        )
+                    UICompat.setText(textContentViewBinding.atvContent, lineText)
                 }
-                val textContentViewBinding =
-                    ItemVersionUpdateTextContentViewBinding.inflate(
-                        layoutInflater,
-                        mViewBinding.llContent,
-                        true
-                    )
-                UICompat.setText(textContentViewBinding.atvContent, lineText)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
+
         }
+        isCancelable = !VersionEntity.isMustUpdateVersion(mVersionEntity)
 
 
     }
@@ -90,7 +96,9 @@ class VersionUpdateDialog :
 
         })
         mViewBinding.root.setOnClickListener {
-            dismiss()
+            if (!VersionEntity.isMustUpdateVersion(mVersionEntity)) {
+                dismiss()
+            }
         }
     }
 

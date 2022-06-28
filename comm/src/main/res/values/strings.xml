@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">healer_meta</string>
+    <string name="app_name">Healer Meta</string>
     <string name="this_is_null">这里空空如也~</string>
     <string name="home">首页</string>
     <string name="bazaar">寄售</string>

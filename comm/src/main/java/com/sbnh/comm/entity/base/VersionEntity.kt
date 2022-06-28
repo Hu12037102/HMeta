@@ -2,6 +2,7 @@ package com.sbnh.comm.entity.base
 
 import android.os.Parcelable
 import androidx.annotation.IntDef
+import com.sbnh.comm.compat.DataCompat
 import kotlinx.parcelize.Parcelize
 
 /**
@@ -27,4 +28,15 @@ data class VersionEntity(
     @VersionStatus
     val status: Int?,//0不用更新，1强更，2选择性更新
     val version: String?
-) : Parcelable
+) : Parcelable {
+
+
+    companion object {
+        @JvmStatic
+        fun isUpdateVersion(entity: VersionEntity?) =
+            DataCompat.getVersionCode() < (entity?.code ?: 0)
+
+        @JvmStatic
+        fun isMustUpdateVersion(entity: VersionEntity?) = entity?.status == VERSION_MUST_UPDATE
+    }
+}
