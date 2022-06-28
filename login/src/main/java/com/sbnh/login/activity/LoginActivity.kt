@@ -105,8 +105,8 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
                             if (CaptchaCheckResultEntity.isSucceed(entity)) {
                                 val request = RequestMessageCodeEntity(
                                     DataCompat.toString(phoneNumber, true),
-                                    entity?.ticket,
-                                    entity?.randstr
+                                    entity?.randstr,
+                                    entity?.ticket
                                 )
                                 mViewModel.gainMessageCode(request)
                             }
