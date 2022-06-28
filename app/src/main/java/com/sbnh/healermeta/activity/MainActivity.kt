@@ -28,6 +28,7 @@ import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.dialog.VersionUpdateDialog
 import com.sbnh.comm.entity.base.SelectorTabEntity
 import com.sbnh.comm.entity.base.VERSION_MUST_UPDATE
+import com.sbnh.comm.entity.base.VERSION_NOT_UPDATE
 import com.sbnh.comm.entity.base.VersionEntity
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
@@ -139,7 +140,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
     override fun initObserve() {
         super.initObserve()
         mViewModel.mVersionLiveData.observe(this) {
-            if(VersionEntity.isUpdateVersion(it)){
+            if (it.status != VERSION_NOT_UPDATE){
                 showUpdateVersionDialog(it)
             }
 

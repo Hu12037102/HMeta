@@ -32,9 +32,9 @@ data class VersionEntity(
 
 
     companion object {
-        @JvmStatic
+      /*  @JvmStatic
         fun isUpdateVersion(entity: VersionEntity?) =
-            DataCompat.getVersionCode() < (entity?.code ?: 0)
+            DataCompat.getVersionCode() < (entity?.code ?: 0)*/
 
         @JvmStatic
         fun isMustUpdateVersion(entity: VersionEntity?) = entity?.status == VERSION_MUST_UPDATE
