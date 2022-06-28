@@ -60,6 +60,8 @@ class IApiService {
         const val OS = "os"
         const val CID = "cid"
         const val MERCHANDISE_ID = "merchandiseId"
+        const val NONCE = "nonce"
+        const val SIGNATURE = "signature"
     }
 
     object Value {

@@ -1,21 +1,26 @@
 package com.sbnh.comm.http
 
+import com.google.gson.Gson
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.NetWorkCompat
 import com.sbnh.comm.config.AppConfig
+import com.sbnh.comm.digest.MD5Compat
+import com.sbnh.comm.digest.RSACompat
 import com.sbnh.comm.digest.SHA1Compat
+import com.sbnh.comm.entity.request.RequestEncryptEntity
 import com.sbnh.comm.factory.FileFactory
 import com.sbnh.comm.factory.FileFactory.TYPE_HTTP
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
-import okhttp3.internal.cache.CacheInterceptor
 import okhttp3.logging.HttpLoggingInterceptor
+import okio.Buffer
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -59,28 +64,50 @@ class RetrofitManger private constructor() {
 
     private fun initHeadInterceptor() {
         mHeadInterceptor = Interceptor { chain ->
-            val uuid = UUID.randomUUID().toString()
-            val timestamp = System.currentTimeMillis()
-            val appId = AppConfig.getHealerMetaAppId()
-            val appKey = AppConfig.getHealerMetaAppKey()
-            val all = "$appId$appKey$timestamp$uuid"
-            //    val encryptText = SHA1Compat.encryptText("$appId$appKey$timestamp$uuid")
-            val encryptText = SHA1Compat.hamcsha1(
-                all.toByteArray(Charset.defaultCharset()),
-                appKey.toByteArray(Charset.defaultCharset())
-            )
-            val sid = runBlocking { UserInfoStore.get().getEntity()?.sid }
-            val request: Request = chain.request()
-                .newBuilder()
-                .addHeader(IApiService.Key.CONTENT_TYPE, "application/json")
-                .addHeader(IApiService.Key.CHARSET, Charsets.UTF_8.name())
-                .addHeader(IApiService.Key.ACCESS_TOKEN, encryptText)
-                .addHeader(IApiService.Key.TS, "$timestamp")
-                .addHeader(IApiService.Key.UUID, uuid)
-                .addHeader(IApiService.Key.SID, sid ?: "")
-                .addHeader(IApiService.Key.VERSION, "${DataCompat.getVersionCode()}")
-                .addHeader(IApiService.Key.OS, IApiService.Value.ANDROID)
-                .build()
+            var request: Request = chain.request()
+            try {
+                var signature = ""
+                var nonce = ""
+                val requestBody = request.body
+                val privateKey = runBlocking { UserInfoStore.get().getPrivateKey() }
+                if (requestBody != null && DataCompat.notEmpty(privateKey)) {
+                    val entity = RequestEncryptEntity()
+                    val gson = Gson()
+                    val json = gson.toJson(entity)
+                    nonce = RSACompat.encryptPrivateKey(privateKey, json)
+                    val buffer = Buffer()
+                    requestBody.writeTo(buffer)
+                    signature = buffer.readString(StandardCharsets.UTF_8)
+                    signature = "${signature}_${entity.uuid}"
+                    signature = MD5Compat.stringToString(signature)
+                    signature = RSACompat.encryptPrivateKey(privateKey, signature)
+                }
+
+                val uuid = UUID.randomUUID().toString()
+                val timestamp = System.currentTimeMillis()
+                val appId = AppConfig.getHealerMetaAppId()
+                val appKey = AppConfig.getHealerMetaAppKey()
+                val all = "$appId$appKey$timestamp$uuid"
+                val encryptText = SHA1Compat.hamcsha1(
+                    all.toByteArray(Charset.defaultCharset()),
+                    appKey.toByteArray(Charset.defaultCharset())
+                )
+                val sid = runBlocking { UserInfoStore.get().getEntity()?.sid }
+                request = request.newBuilder()
+                    .addHeader(IApiService.Key.CONTENT_TYPE, "application/json")
+                    .addHeader(IApiService.Key.CHARSET, Charsets.UTF_8.name())
+                    .addHeader(IApiService.Key.ACCESS_TOKEN, encryptText)
+                    .addHeader(IApiService.Key.TS, "$timestamp")
+                    .addHeader(IApiService.Key.UUID, uuid)
+                    .addHeader(IApiService.Key.SID, sid ?: "")
+                    .addHeader(IApiService.Key.VERSION, "${DataCompat.getVersionCode()}")
+                    .addHeader(IApiService.Key.OS, IApiService.Value.ANDROID)
+                    .addHeader(IApiService.Key.NONCE, nonce)
+                    .addHeader(IApiService.Key.SIGNATURE, signature)
+                    .build()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
             return@Interceptor chain.proceed(request)
 
         }
@@ -115,7 +142,7 @@ class RetrofitManger private constructor() {
     private fun initOKHttp() {
         val cacheDir = FileFactory.createCacheDir(TYPE_HTTP)
         mOkHttpClient = OkHttpClient.Builder()
-           .cache(if (cacheDir == null) null else Cache(cacheDir, CACHE_MEX_LENGTH))
+            .cache(if (cacheDir == null) null else Cache(cacheDir, CACHE_MEX_LENGTH))
             .retryOnConnectionFailure(true)
             .callTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)
             .writeTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)

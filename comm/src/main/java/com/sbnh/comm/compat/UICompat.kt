@@ -80,21 +80,39 @@ object UICompat {
 
     @JvmStatic
     fun setBankCardNumberEditText(editText: EditText?) {
-        val textLength = MetaViewCompat.getTextViewLength(editText)
+        /*  val textLength = MetaViewCompat.getTextViewLength(editText)
+          if (textLength > 0) {
+              val sb = StringBuilder()
+              val text = MetaViewCompat.getTextViewText(editText,true)
+              sb.append(text)
+              if ((textLength % 5 == 0) && !TextUtils.equals(
+                      text[textLength - 1].toString(),
+                      " "
+                  )
+              ) {
+                  sb.insert(textLength - 1, " ")
+                  setText(editText, sb)
+                  MetaViewCompat.selectorEditTextEnd(editText)
+              }
+          }*/
+        val textLength = MetaViewCompat.getTextViewLength(editText, true)
         if (textLength > 0) {
+            val text = MetaViewCompat.getTextViewText(editText)
             val sb = StringBuilder()
-            val text = MetaViewCompat.getTextViewText(editText,true)
-            sb.append(text)
-            if ((textLength % 5 == 0) && !TextUtils.equals(
-                    text[textLength - 1].toString(),
-                    " "
-                )
-            ) {
-                sb.insert(textLength - 1, " ")
+            for (childText in text) {
+                sb.append(childText)
+                val index = text.indexOf(childText)
+                if (index % 5 == 0) {
+                    sb.append(" ")
+                }
+            }
+            if (!TextUtils.equals(sb,text)){
                 setText(editText, sb)
                 MetaViewCompat.selectorEditTextEnd(editText)
             }
+
         }
+
     }
 }
 

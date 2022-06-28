@@ -54,21 +54,7 @@ object FileCompat {
     }
 
     @JvmStatic
-    fun createFileOnlyName(): String {
-        var name = ""
-        var uuid = DataCompat.toString(UUID.randomUUID().toString())
-        uuid = uuid.replace("-", "")
-        if (uuid.length > 8) {
-            uuid = uuid.substring(uuid.length - 8)
-        }
-        name += uuid
-        var timestamp = "${System.currentTimeMillis()}"
-        if (timestamp.length > 8) {
-            timestamp = timestamp.substring(timestamp.length - 8)
-        }
-        name += timestamp
-        return name
-    }
+    fun createFileOnlyName(): String = DataCompat.getOnlyId()
 
     @JvmStatic
     fun findPathByUri(context: Context, uri: Uri): String {

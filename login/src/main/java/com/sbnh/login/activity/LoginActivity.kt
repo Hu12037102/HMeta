@@ -23,7 +23,6 @@ import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.other.tencent.CaptchaDialogHelper
 import com.sbnh.comm.weight.click.DelayedClick
-import com.sbnh.comm.weight.text.PhoneNumberWatcher
 import com.sbnh.comm.weight.text.SpanTextHelper
 
 import com.sbnh.login.databinding.ActivityLoginBinding

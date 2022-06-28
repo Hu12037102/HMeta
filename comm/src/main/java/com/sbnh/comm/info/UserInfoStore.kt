@@ -132,7 +132,7 @@ class UserInfoStore private constructor() {
         mDataStoreManger.putObject(KEY_PRIVATE_KEY, privateKey ?: "")
     }
 
-    private suspend fun getPrivateKey() = mDataStoreManger.getString(KEY_PRIVATE_KEY)
+     suspend fun getPrivateKey() = mDataStoreManger.getString(KEY_PRIVATE_KEY)
     private suspend fun putSid(sid: String?) {
         mDataStoreManger.putObject(KEY_SID, sid ?: "")
     }

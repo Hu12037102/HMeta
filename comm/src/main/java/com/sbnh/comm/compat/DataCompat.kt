@@ -1,13 +1,13 @@
 package com.sbnh.comm.compat
 
 import android.content.Context
-import android.os.Build
 import android.text.TextUtils
 import androidx.annotation.DimenRes
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
 import androidx.core.content.pm.PackageInfoCompat
 import com.sbnh.comm.app.BaseApplication
+import java.util.*
 
 /**
  * 作者: 胡庆岭
@@ -71,10 +71,10 @@ object DataCompat {
     }
 
     @JvmStatic
-    fun getTextLength(text: CharSequence?, isTrim: Boolean): Int = toString(text,isTrim).length
+    fun getTextLength(text: CharSequence?, isTrim: Boolean): Int = toString(text, isTrim).length
 
     @JvmStatic
-    fun toString(any: Any?): String = toString(any,false)
+    fun toString(any: Any?): String = toString(any, false)
 
     @JvmStatic
     fun toString(any: Any?, isTrim: Boolean): String =
@@ -94,4 +94,22 @@ object DataCompat {
     @JvmStatic
     private fun getPackInfo() =
         getContext().packageManager.getPackageInfo(getContext().packageName, 0)
+
+    @JvmStatic
+    fun getOnlyId(): String {
+        var id = ""
+        var uuid = toString(UUID.randomUUID().toString())
+        uuid = uuid.replace("-", "")
+        if (uuid.length > 8) {
+            uuid = uuid.substring(uuid.length - 8)
+        }
+        id += uuid
+        var timestamp = "${System.currentTimeMillis()}"
+        if (timestamp.length > 8) {
+            timestamp = timestamp.substring(timestamp.length - 8)
+        }
+        id += timestamp
+        id += (Math.random() * 10000).toInt()
+        return id
+    }
 }
