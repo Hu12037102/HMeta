@@ -39,7 +39,7 @@
                 android:gravity="center_vertical"
                 android:hint="@string/input_phone_number"
                 android:inputType="number"
-                android:maxLength="11"
+                android:maxLength="13"
                 android:paddingStart="@dimen/size_20dp"
                 android:paddingEnd="@dimen/size_20dp"
                 android:singleLine="true"

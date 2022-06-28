@@ -96,7 +96,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_ORDER_LIST)
                     }
                     TAB_OFFICIAL_ACCOUNTS -> {
-                        ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_OFFICIAL_ACCOUNTS)
+                        ARoutersActivity.startPictureSaveActivity(IApiService.H5.OFFICIAL_ACCOUNTS)
                     }
                     TAB_INVITE_FRIEND -> {
                         lifecycleScope.launch {

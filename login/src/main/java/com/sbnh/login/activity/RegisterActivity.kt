@@ -1,5 +1,7 @@
 package com.sbnh.login.activity
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
@@ -8,6 +10,7 @@ import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.STATUS_RUNNING
+import com.sbnh.comm.entity.other.CaptchaCheckResultEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.entity.request.RequestRegisterEntity
 import com.sbnh.comm.info.UserInfoStore
@@ -15,10 +18,13 @@ import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.other.tencent.CaptchaDialogHelper
 import com.sbnh.comm.weight.click.DelayedClick
+import com.sbnh.comm.weight.text.PhoneNumberWatcher
 import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.login.databinding.ActivityRegisterBinding
 import com.sbnh.login.viewmodel.RegisterViewModel
+import com.tencent.captchasdk.TCaptchaDialog
 import kotlinx.coroutines.launch
 
 /**
@@ -78,15 +84,31 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
     }
 
     override fun initEvent() {
+        mViewBinding.aetPhone.addTextChangedListener(mPhoneNumberTextWatcher)
         mViewBinding.atvGainCode.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 val phoneNumber =
-                    com.sbnh.comm.compat.MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
+                    MetaViewCompat.getTextViewText(mViewBinding.aetPhone, true)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
                 }
-                mViewModel.gainMessageCode(RequestMessageCodeEntity(DataCompat.toString(phoneNumber)))
+                CaptchaDialogHelper.showDialog(this@RegisterActivity,
+                    object : CaptchaDialogHelper.OnDialogCallback {
+                        override fun onResult(entity: CaptchaCheckResultEntity?) {
+                            mViewModel.gainMessageCode(
+                                RequestMessageCodeEntity(
+                                    DataCompat.toString(
+                                        phoneNumber
+                                    ),
+                                    DataCompat.toString(entity?.randstr),
+                                    DataCompat.toString(entity?.ticket)
+                                )
+                            )
+                        }
+
+                    })
+                //   mViewModel.gainMessageCode(RequestMessageCodeEntity(DataCompat.toString(phoneNumber)))
 
             }
         })
@@ -114,7 +136,7 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
             override fun onDelayedClick(v: View?) {
 
                 val phoneNumber =
-                    com.sbnh.comm.compat.MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
+                  MetaViewCompat.getTextViewText(mViewBinding.aetPhone,true)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
@@ -146,6 +168,20 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
             }
 
         })
+
+    }
+
+    private val mPhoneNumberTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            UICompat.setPhoneEditText(mViewBinding.aetPhone)
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
     }
 
     override fun initObserve() {
@@ -182,5 +218,10 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
     override fun onWindowFirstFocusChanged(hasFocus: Boolean) {
         super.onWindowFirstFocusChanged(hasFocus)
         MetaViewCompat.showSoftKeyBoard(mViewBinding.aetPhone)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mViewBinding.aetPhone.removeTextChangedListener(mPhoneNumberTextWatcher)
     }
 }

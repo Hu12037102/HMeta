@@ -13,6 +13,7 @@ class ARouterConfig {
         const val ID = "id"
         const val MY_COLLECTION = "my_collection"
         const val PARCELABLE="parcelable"
+        const val PICTURE_PATH="picturePath"
 
         /**
          * 收藏id
@@ -46,7 +47,7 @@ class ARouterConfig {
             const val ACTIVITY_GIVE_COLLECTION = "/my/activity/give/collection"
             const val ACTIVITY_MY_ORDER_LIST = "/my/activity/my/order/list"
             const val FRAGMENT_MY_ORDER_CONTENT="/my/fragment/my/order/content"
-            const val ACTIVITY_OFFICIAL_ACCOUNTS="/my/activity/official/account"
+            const val ACTIVITY_PICTURE_SAVE="/my/activity/picture/save"
             const val ACTIVITY_COLLECTION_NUM_DETAILS = "/my/activity/collection/num/details"
             const val FRAGMENT_COLLECTION_NUM_DETAILS = "/my/fragment/collection/num/details"
             const val ACTIVITY_GIVE_COLLECTION_LIST = "/my/activity/give/collection/list"

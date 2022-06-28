@@ -36,7 +36,8 @@ class IApiService {
         const val GIVE_COLLECTION = "/healer_nft/Presented/presentedMerchandise"
         const val GIVE_COLLECTION_LIST = "/healer_nft/Presented/presentedRecord"
         const val LOAD_APP_VERSION = "/healer_nft/Version/getVersion/{code}"
-        const val KNAPSACK_COLLECTION_DETAILS = "/healer_nft/Merchandise/knapsack_details/{cid}/{merchandiseId}"
+        const val KNAPSACK_COLLECTION_DETAILS =
+            "/healer_nft/Merchandise/knapsack_details/{cid}/{merchandiseId}"
     }
 
     object HttpCode {
@@ -81,5 +82,11 @@ class IApiService {
         //首易信知乎协议
         const val SHOU_YI_XIN_PAY_AGREEMENT =
             "https://www.payeasenet.com/2.0/agreement/privacyPolicy?cashier=0dced4296927406dbaa99fbf38ba500c"
+
+        //公众号
+        const val OFFICIAL_ACCOUNTS = "${BuildConfig.QINIU_CDN}/nft_page/main/code.png"
+
+        //联系客服
+        const val CONTACT_US = "${BuildConfig.QINIU_CDN}/nft_page/setting/qrcode.png"
     }
 }

@@ -1,6 +1,7 @@
 package com.sbnh.comm.compat
 
 import com.sbnh.comm.Contract
+import com.sbnh.comm.utils.LogUtils
 
 /**
  * 作者: 胡庆岭
@@ -10,8 +11,10 @@ import com.sbnh.comm.Contract
  */
 object NumberCompat {
     @JvmStatic
-    fun isPhoneNumber(phone: CharSequence?) =
-        DataCompat.getTextLength(phone) == Contract.PHONE_NUMBER_LENGTH
+    fun isPhoneNumber(phone: CharSequence?): Boolean {
+        return DataCompat.getTextLength(phone, true) == Contract.PHONE_NUMBER_LENGTH
+    }
+
 
     @JvmStatic
     fun isPayPassword(password: CharSequence?) =

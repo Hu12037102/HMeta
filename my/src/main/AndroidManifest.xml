@@ -29,7 +29,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.OfficialAccountsActivity"
+            android:name=".activity.PictureSaveActivity"
             android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

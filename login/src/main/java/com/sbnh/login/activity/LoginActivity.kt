@@ -1,5 +1,7 @@
 package com.sbnh.login.activity
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
@@ -21,6 +23,7 @@ import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.other.tencent.CaptchaDialogHelper
 import com.sbnh.comm.weight.click.DelayedClick
+import com.sbnh.comm.weight.text.PhoneNumberWatcher
 import com.sbnh.comm.weight.text.SpanTextHelper
 
 import com.sbnh.login.databinding.ActivityLoginBinding
@@ -101,7 +104,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
                         override fun onResult(entity: CaptchaCheckResultEntity?) {
                             if (CaptchaCheckResultEntity.isSucceed(entity)) {
                                 val request = RequestMessageCodeEntity(
-                                    DataCompat.toString(phoneNumber),
+                                    DataCompat.toString(phoneNumber, true),
                                     entity?.ticket,
                                     entity?.randstr
                                 )
@@ -137,7 +140,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             override fun onDelayedClick(v: View?) {
 
                 val phoneNumber =
-                    MetaViewCompat.getTextViewText(mViewBinding.aetPhone)
+                    MetaViewCompat.getTextViewText(mViewBinding.aetPhone,true)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
@@ -168,6 +171,20 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             }
 
         })
+        mViewBinding.aetPhone.addTextChangedListener(mPhoneNumberTextWatcher)
+    }
+
+    private val mPhoneNumberTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            UICompat.setPhoneEditText(mViewBinding.aetPhone)
+        }
+
+        override fun afterTextChanged(s: Editable?) {
+        }
+
     }
 
     override fun initObserve() {
@@ -208,5 +225,9 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         MetaViewCompat.showSoftKeyBoard(mViewBinding.aetPhone)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mViewBinding.aetPhone.removeTextChangedListener(mPhoneNumberTextWatcher)
+    }
 
 }

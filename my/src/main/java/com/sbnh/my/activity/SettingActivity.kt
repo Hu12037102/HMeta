@@ -13,10 +13,12 @@ import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.RealNameDialog
 import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.manger.ActivityCompatManger
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivitySettingBinding
 import com.sbnh.my.viewmodel.SettingViewModel
@@ -56,11 +58,6 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
     override fun initEvent() {
         mViewBinding.pvAccount.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                /* ARouters.startActivityForResult(
-                     ARouterConfig.Path.My.ACTIVITY_MY_ACCOUNT_INFO,
-                     this@SettingActivity,
-                     REQUEST_CODE_ACCOUNT_INFO
-                 )*/
                 val intent = Intent(this@SettingActivity, MyAccountInfoActivity::class.java)
                 startActivityForResult(intent)
             }
@@ -75,6 +72,12 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
         mViewBinding.pvBankCard.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_BANK_CARD_LIST)
+            }
+
+        })
+        mViewBinding.pvService.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                ARoutersActivity.startPictureSaveActivity(IApiService.H5.CONTACT_US)
             }
 
         })

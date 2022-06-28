@@ -67,11 +67,18 @@ object DataCompat {
 
     @JvmStatic
     fun getTextLength(text: CharSequence?): Int {
-        return text?.length ?: 0
+        return getTextLength(text, false)
     }
 
     @JvmStatic
-    fun toString(any: Any?): String = any?.toString() ?: ""
+    fun getTextLength(text: CharSequence?, isTrim: Boolean): Int = toString(text,isTrim).length
+
+    @JvmStatic
+    fun toString(any: Any?): String = toString(any,false)
+
+    @JvmStatic
+    fun toString(any: Any?, isTrim: Boolean): String =
+        if (isTrim) any?.toString()?.trim()?.replace(" ", "") ?: "" else any?.toString() ?: ""
 
     @JvmStatic
     fun getVersionCode(): Long {

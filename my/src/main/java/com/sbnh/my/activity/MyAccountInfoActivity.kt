@@ -8,10 +8,7 @@ import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.base.viewmodel.BaseViewModel
-import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.compat.DialogCompat
-import com.sbnh.comm.compat.MetaViewCompat
-import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
@@ -83,7 +80,7 @@ class MyAccountInfoActivity :
                 com.sbnh.comm.R.mipmap.icon_my_not_login
             )
             UICompat.setText(mViewBinding.pvNickname.getRightView(), it.nickName)
-            UICompat.setText(mViewBinding.pvPhone.getRightView(), it.mobile)
+            UICompat.setText(mViewBinding.pvPhone.getRightView(),NumberCompat.encryptPhoneNumber( it.mobile))
         }
     }
 }

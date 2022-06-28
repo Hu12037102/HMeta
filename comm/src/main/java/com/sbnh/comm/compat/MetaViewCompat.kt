@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.text.Selection.setSelection
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -82,7 +84,8 @@ object MetaViewCompat {
 
     @JvmStatic
     fun getTextViewText(textView: TextView?, isTrim: Boolean): CharSequence {
-        val text: CharSequence? = if (isTrim) textView?.text?.trim() else textView?.text
+        val text: CharSequence? =
+            if (isTrim) textView?.text?.trim()?.toString()?.replace(" ", "") else textView?.text
         return DataCompat.checkNotNull(text)
     }
 
@@ -125,6 +128,13 @@ object MetaViewCompat {
             0
         } else {
             DataCompat.getTextLength(getTextViewText(textView))
+        }
+    }
+
+    @JvmStatic
+    fun selectorEditTextEnd(textView: EditText?) {
+        textView?.apply {
+            setSelection(getTextViewLength(textView))
         }
     }
 }

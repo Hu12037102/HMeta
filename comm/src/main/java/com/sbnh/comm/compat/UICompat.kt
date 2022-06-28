@@ -1,7 +1,9 @@
 package com.sbnh.comm.compat
 
 import android.graphics.drawable.Drawable
+import android.text.TextUtils
 import android.util.TypedValue
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorInt
@@ -54,5 +56,24 @@ object UICompat {
     @JvmStatic
     fun setTextColorRes(textView: TextView?, @ColorRes textColor: Int) {
         textView?.setTextColor(MetaViewCompat.getColor(textColor))
+    }
+
+    @JvmStatic
+    fun setPhoneEditText(editText: EditText?) {
+        val textLength = MetaViewCompat.getTextViewLength(editText)
+        if (textLength > 0) {
+            val sb = StringBuilder()
+            val text = MetaViewCompat.getTextViewText(editText)
+            sb.append(text)
+            if ((textLength == 4 || textLength == 9) && !TextUtils.equals(
+                    text[textLength - 1].toString(),
+                    " "
+                )
+            ) {
+                sb.insert(textLength - 1, " ")
+                setText(editText, sb)
+                MetaViewCompat.selectorEditTextEnd(editText)
+            }
+        }
     }
 }

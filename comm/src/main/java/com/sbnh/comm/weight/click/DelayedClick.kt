@@ -15,7 +15,7 @@ abstract class DelayedClick : View.OnClickListener {
     private var mTimeLength = 1000
     private var mLastTimeMills = 0L
 
-    constructor() {}
+    constructor()
     constructor(timeLength: Int) {
         this.mTimeLength = timeLength
     }
@@ -28,9 +28,8 @@ abstract class DelayedClick : View.OnClickListener {
                 "onClick--",
                 "我被点击$mLastTimeMills-----$newTimeMillis---${(newTimeMillis - mTimeLength)}"
             )
-            mLastTimeMills = newTimeMillis
-
         }
+        mLastTimeMills = newTimeMillis
 
     }
 
