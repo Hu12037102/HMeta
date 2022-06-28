@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.entity.request.RequestGiveCollectionEntity
 import com.sbnh.my.MyService
+import com.sbnh.my.repo.MyCollectionRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -13,9 +14,10 @@ import kotlinx.coroutines.launch
  * 更新时间: 2022/6/17 15:31
  * 描述:赠送藏品契约
  */
-class GiveCollectionViewModel :BaseViewModel(){
+class GiveCollectionViewModel(private val mMyCollectionRepo: MyCollectionRepository = MyCollectionRepository()) :BaseViewModel(){
 
     val mGiveCollectionLiveData: MutableLiveData<Unit> = MutableLiveData()
+    val mUnionUpdatedLiveData: MutableLiveData<Unit> = MutableLiveData()
 
     fun giveCollection(entity: RequestGiveCollectionEntity) {
         viewModelScope.launch {
@@ -26,6 +28,13 @@ class GiveCollectionViewModel :BaseViewModel(){
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun unionUpdateCachedMyCollection(collectionNumDetailsId: String, merchandiseId: String) {
+        viewModelScope.launch {
+            mMyCollectionRepo.unionUpdateCachedMyCollection(collectionNumDetailsId, merchandiseId)
+            mUnionUpdatedLiveData.value = Unit
         }
     }
 

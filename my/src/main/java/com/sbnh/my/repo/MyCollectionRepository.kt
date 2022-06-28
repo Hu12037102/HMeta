@@ -2,6 +2,7 @@ package com.sbnh.my.repo
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.my.CollectionNumDetailsEntity
 import com.sbnh.comm.entity.my.GiveCollectionEntity
@@ -69,6 +70,42 @@ class MyCollectionRepository {
             }
         }
         return result
+    }
+
+    /**
+     * 联动更新已缓存的我的收藏列表
+     */
+    suspend fun unionUpdateCachedMyCollection(collectionNumDetailsId: String, merchandiseId: String) {
+        withContext(Dispatchers.IO) {
+            val collectionNumDetailsPagerEntity = loadCachedCollectionNumDetailsPagerEntity(merchandiseId)
+            collectionNumDetailsPagerEntity?.let {
+                var cndList = BasePagerEntity.getData(it)
+                if (CollectionCompat.notEmptyList(cndList)) {
+                    // 删除这个收藏数量明细项
+                    cndList = cndList!!.filterNot { cnd ->
+                        cnd.id == collectionNumDetailsId
+                    }
+                    cacheCollectionNumDetailsPagerEntity(merchandiseId, it.copy(cndList))
+
+                    // 更新我的收藏列表中对应项的数量
+                    var myCollectionList: List<MyCollectionEntity> = loadCachedMyCollectionList()
+                    if (CollectionCompat.notEmptyList(myCollectionList)) {
+                        myCollectionList.map { myCollection ->
+                            if (myCollection.merchandiseId == merchandiseId) {
+                                myCollection.count = myCollection.count?.let { count ->
+                                    count - 1
+                                }?: 0
+                            }
+                        }
+                        // 删除数量为0的项
+                        myCollectionList = myCollectionList.filterNot { mc ->
+                            mc.count == 0
+                        }
+                        cacheMyCollectionList(myCollectionList)
+                    }
+                }
+            }
+        }
     }
 
 }
