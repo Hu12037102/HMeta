@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWindowBackground">
+    android:background="@color/colorWindowBackground"
+   >
 
 
     <androidx.core.widget.NestedScrollView
@@ -17,7 +18,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/size_20dp">
+            android:paddingBottom="@dimen/size_20dp"
+            android:id="@+id/cl_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_title_content"
@@ -421,6 +423,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_92dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
         tools:visibility="visible" />
 
     <io.google.projectview.weight.ProjectView

@@ -9,6 +9,7 @@ import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.CollectionCompat
+import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.compat.WebViewCompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
@@ -101,13 +102,21 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
         super.initObserve()
         mViewModel.mCollectionLiveData.observe(this) {
             val data = BasePagerEntity.getData(it)
-            if (mViewModel.isRefresh) {
-                mCollectionData.clear()
-            }
-            if (CollectionCompat.notEmptyList(data)) {
-                mCollectionData.addAll(data!!)
-            }
-            mCollectionAdapter?.notifyDataSetChanged()
+            /* if (mViewModel.isRefresh) {
+                 mCollectionData.clear()
+             }
+             if (CollectionCompat.notEmptyList(data)) {
+                 mCollectionData.addAll(data!!)
+             }
+
+             mCollectionAdapter?.notifyDataSetChanged()*/
+            UICompat.notifyAdapterDateChanged(
+                mEmptyLayout,
+                mCollectionAdapter,
+                mViewModel.isRefresh,
+                mCollectionData,
+                data
+            )
         }
 
         mViewModel.mBannerLiveData.observe(this) {
@@ -118,9 +127,10 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
             mBannerAdapter?.notifyDataSetChanged()
         }
     }
+
     override fun resultPublicData(it: Int) {
         super.resultPublicData(it)
-        if (it== BaseViewModel.STATUE_HTTP_ERROR){
+        if (it == BaseViewModel.STATUE_HTTP_ERROR) {
             mEmptyLayout?.show()
         }
     }

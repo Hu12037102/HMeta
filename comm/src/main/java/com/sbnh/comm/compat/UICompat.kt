@@ -3,6 +3,7 @@ package com.sbnh.comm.compat
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.TypedValue
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,7 +11,9 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.recyclerview.widget.RecyclerView
 import com.sbnh.comm.utils.LogUtils
+import com.sbnh.comm.weight.view.EmptyLayout
 
 /**
  * 作者: 胡庆岭
@@ -106,13 +109,43 @@ object UICompat {
                     sb.append(" ")
                 }
             }
-            if (!TextUtils.equals(sb,text)){
+            if (!TextUtils.equals(sb, text)) {
                 setText(editText, sb)
                 MetaViewCompat.selectorEditTextEnd(editText)
             }
 
         }
 
+    }
+
+    @JvmStatic
+    fun notifyDataEmptyView(emptyView: EmptyLayout?, data: List<*>?) {
+        if (emptyView == null || data == null) {
+            return
+        }
+        if (CollectionCompat.isEmptyList(data)) {
+            emptyView.show()
+        } else {
+            emptyView.hide()
+        }
+    }
+
+    @JvmStatic
+    fun <T> notifyAdapterDateChanged(
+        emptyView: EmptyLayout?,
+        adapter: RecyclerView.Adapter<*>?,
+        isRefresh: Boolean,
+        parentData: ArrayList<T>,
+        addData: List<T>?
+    ) {
+        if (isRefresh) {
+            parentData.clear()
+        }
+        if (CollectionCompat.notEmptyList(addData)) {
+            parentData.addAll(addData!!)
+        }
+        adapter?.notifyDataSetChanged()
+        notifyDataEmptyView(emptyView,parentData)
     }
 }
 

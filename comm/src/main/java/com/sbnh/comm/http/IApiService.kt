@@ -45,6 +45,7 @@ class IApiService {
         const val CLIENT_ERROR = HttpURLConnection.HTTP_BAD_REQUEST
         const val CLIENT_NOT_LOGIN = HttpURLConnection.HTTP_UNAUTHORIZED
         const val SERVICE_ERROR = HttpURLConnection.HTTP_INTERNAL_ERROR
+        const val NET_OFF_LINE=HttpURLConnection.HTTP_GATEWAY_TIMEOUT
     }
 
     object Key {

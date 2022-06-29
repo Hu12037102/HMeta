@@ -162,4 +162,5 @@
     <string name="installation_location_applications_require_permissions">安装应用需要打开未知来源权限，是否开启</string>
     <string name="the_function_is_not_available">功能正在开发，暂未开放~</string>
     <string name="gain_message_code_succeed">获取验证码成功</string>
+    <string name="your_net_wait_off_line">你的网络好像不在线哦~</string>
 </resources>

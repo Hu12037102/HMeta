@@ -42,5 +42,10 @@ ext.versions = [
         refresh_footer_classics  : "2.0.5",
         refresh_header_material  : "2.0.5",
         banner                   : "2.2.2",
-        ProjectViewX             : "1.0.6"
+        ProjectViewX             : "1.0.6",
+        lifecycle_runtime        : "2.3.1",
+        vasdolly_helper          : "3.0.4",
+        media_compress           : "1.2.0",
+        input_edittext           : "1.1.0",
+        crashreport           : "4.0.4",
 ]

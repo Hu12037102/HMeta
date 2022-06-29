@@ -201,9 +201,22 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
 
     protected open fun isLoadLoadingView(): Boolean = true
     protected open fun resultPublicData(@BaseViewModel.ViewModelStatus it: Int) {
-        if (it == BaseViewModel.STATUE_REQUEST_END) {
-            mRefreshLayout?.finishRefresh()
-            mRefreshLayout?.finishLoadMore()
+        when (it) {
+            BaseViewModel.STATUE_REQUEST_END -> {
+                mRefreshLayout?.finishRefresh()
+                mRefreshLayout?.finishLoadMore()
+            }
+            BaseViewModel.STATUS_SHOW_EMPTY_VIEW -> {
+                mEmptyLayout?.show()
+
+            }
+            BaseViewModel.STATUS_HIND_EMPTY_VIEW -> {
+                mEmptyLayout?.hide()
+            }
+            else -> {
+
+            }
         }
+
     }
 }

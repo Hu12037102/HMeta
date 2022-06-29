@@ -7,6 +7,8 @@ import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
+import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.order.OrderEntity
@@ -58,7 +60,7 @@ class MyOrderContentFragment :
                 mViewModel.mPagerNum,
                 mViewModel.mPagerSize,
                 mOrderStatus
-            )
+            ),true
         )
     }
 
@@ -85,14 +87,21 @@ class MyOrderContentFragment :
         mViewModel.mOrderListLiveData.observe(this) {
             val baseEntity = BaseEntity.getData(it)
             val data = BasePagerEntity2.getData(baseEntity)
-            if (mViewModel.isRefresh) {
-                mData.clear()
-            }
-            if (CollectionCompat.notEmptyList(data)) {
-                mData.addAll(data!!)
-            }
-            mAdapter?.notifyDataSetChanged()
-            if (CollectionCompat.isEmptyList(mData)) mEmptyLayout?.show() else mEmptyLayout?.hide()
+            /*  if (mViewModel.isRefresh) {
+                  mData.clear()
+              }
+              if (CollectionCompat.notEmptyList(data)) {
+                  mData.addAll(data!!)
+              }
+              mAdapter?.notifyDataSetChanged()
+              if (CollectionCompat.isEmptyList(mData)) mEmptyLayout?.show() else mEmptyLayout?.hide()*/
+            UICompat.notifyAdapterDateChanged(
+                mEmptyLayout,
+                mAdapter,
+                mViewModel.isRefresh,
+                mData,
+                data
+            )
         }
     }
 }

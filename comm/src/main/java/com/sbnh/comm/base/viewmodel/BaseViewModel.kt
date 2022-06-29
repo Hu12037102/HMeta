@@ -10,9 +10,6 @@ import com.google.gson.Gson
 import com.huxiaobai.compress.CompressGlide
 import com.huxiaobai.compress.imp.OnCompressGlideImageCallback
 import com.sbnh.comm.Contract
-import com.sbnh.comm.base.viewmodel.BaseViewModel.Companion.STATUE_HTTP_ERROR
-import com.sbnh.comm.base.viewmodel.BaseViewModel.Companion.STATUE_REQUEST_END
-import com.sbnh.comm.base.viewmodel.BaseViewModel.Companion.STATUS_LOGIN_OUT
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.base.*
@@ -47,13 +44,19 @@ open class BaseViewModel : ViewModel() {
         const val STATUS_LOGIN_OUT = 1
         const val STATUE_REQUEST_END = 2
         const val STATUE_HTTP_ERROR = 3
+        const val STATUS_SHOW_EMPTY_VIEW = 4
+        const val STATUS_HIND_EMPTY_VIEW = 5
     }
 
-    @IntDef(STATUS_LOGIN_OUT, STATUE_REQUEST_END, STATUE_HTTP_ERROR)
+    @IntDef(
+        STATUS_LOGIN_OUT,
+        STATUE_REQUEST_END,
+        STATUE_HTTP_ERROR,
+        STATUS_SHOW_EMPTY_VIEW,
+        STATUS_HIND_EMPTY_VIEW
+    )
     @Retention(AnnotationRetention.SOURCE)
-    annotation class ViewModelStatus {
-
-    }
+    annotation class ViewModelStatus
 
     var mPagerNum = Contract.PAGE_NUM
     val mPagerSize = Contract.PAGE_SIZE
@@ -99,18 +102,27 @@ open class BaseViewModel : ViewModel() {
     }
 
 
-    fun <T> disposeRetrofit(liveData: MutableLiveData<T>?, response: Response<T>?) {
+    fun <T> disposeRetrofit(
+        liveData: MutableLiveData<T>?,
+        response: Response<T>?,
+        isLoadEmptyView: Boolean = false
+    ) {
         mPublicLiveData.value = STATUE_REQUEST_END
         if (response == null) {
             mToastLiveData.value =
                 DataCompat.getResString(com.sbnh.comm.R.string.default_http_error)
         } else {
-            val message = response.message()
-            LogUtils.w("disposeRetrofit", "$response---$message---")
-            if (!DataCompat.isEmpty(response.message())) {
-                mToastLiveData.value = message
-            }
+
+
             if (response.isSuccessful) {
+                val message = response.message()
+                LogUtils.w("disposeRetrofit", "$response---$message---")
+                if (!DataCompat.isEmpty(message)) {
+                    mToastLiveData.value = message
+                }
+                if (isLoadEmptyView) {
+                    mPublicLiveData.value = STATUS_HIND_EMPTY_VIEW
+                }
                 val body = response.body()
                 liveData?.value = body
                 if (body is BasePagerEntity<*>) {
@@ -146,6 +158,9 @@ open class BaseViewModel : ViewModel() {
                 LogUtils.w("disposeRetrofit--", "成功")
             } else {
                 mPublicLiveData.value = STATUE_HTTP_ERROR
+                if (isLoadEmptyView) {
+                    mPublicLiveData.value = STATUS_SHOW_EMPTY_VIEW
+                }
                 when (response.code()) {
                     IApiService.HttpCode.CLIENT_ERROR -> {
                         LogUtils.w("disposeRetrofit--", "客户端异常")
@@ -164,10 +179,19 @@ open class BaseViewModel : ViewModel() {
                 try {
                     val errorBody = response.errorBody()
                     if (errorBody != null) {
+                        val errorMessage: String?
                         val errorJson = errorBody.string()
-                        val gson = Gson()
-                        val errorEntity = gson.fromJson(errorJson, ErrorResponse::class.java)
-                        mToastLiveData.value = errorEntity?.message
+                        errorMessage = if (DataCompat.notEmpty(errorJson)) {
+                            val gson = Gson()
+                            val errorEntity = gson.fromJson(errorJson, ErrorResponse::class.java)
+                            errorEntity?.message
+                        } else if (response.code() == IApiService.HttpCode.NET_OFF_LINE) {
+                            DataCompat.getResString(com.sbnh.comm.R.string.your_net_wait_off_line)
+                        } else {
+                            response.message()
+                        }
+                      //  LogUtils.w("errorJson--","$errorJson-----$errorMessage---${DataCompat.notEmpty(errorJson)}----${response.code()}")
+                        mToastLiveData.value = errorMessage
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()

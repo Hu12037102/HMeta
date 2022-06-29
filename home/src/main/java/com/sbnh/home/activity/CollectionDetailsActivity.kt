@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.home.STATUS_ADVANCING
@@ -51,6 +52,7 @@ class CollectionDetailsActivity :
             com.sbnh.comm.R.mipmap.icon_comm_collection_details_background,
             mViewBinding.aivContentBackground
         )
+        mViewBinding.clContent.visibility = View.GONE
     }
 
     override fun initData() {
@@ -81,16 +83,28 @@ class CollectionDetailsActivity :
 
     }
 
+    private fun setPrice(price: Double?) {
+        if ((price ?: -1.0) < 0) {
+            mViewBinding.includedBottomContent.atvPrice.visibility = View.GONE
+        } else {
+            mViewBinding.includedBottomContent.atvPrice.visibility = View.VISIBLE
+            UICompat.setText(mViewBinding.includedBottomContent.atvPrice, "￥${price}")
+        }
+    }
+
     override fun initObserve() {
         super.initObserve()
         mViewModel.mCollectionDetailsLiveData.observe(this) {
+            mViewBinding.clContent.visibility = View.VISIBLE
+            mViewBinding.includedBottomContent.root.visibility = View.VISIBLE
+            mEmptyView?.hide()
             GlideCompat.loadWarpImage(it.dynamicGraph, mViewBinding.aivContent)
             GlideCompat.loadImage(it.header, mViewBinding.civUserHead)
             UICompat.setText(mViewBinding.atvUserName, it.nickname)
             UICompat.setText(mViewBinding.atvContractAddress, it.contractAddress)
             UICompat.setText(mViewBinding.atvChainLogo, it.transactionHash)
             UICompat.setText(mViewBinding.atvWork, it.particulars)
-            UICompat.setText(mViewBinding.includedBottomContent.atvPrice, "￥${it.price}")
+            setPrice(it.price)
 
             if (isShowCollectionDetails) {
                 UICompat.setText(
@@ -121,6 +135,7 @@ class CollectionDetailsActivity :
                     mViewBinding.includedLimit.atvLimitCount,
                     "#${it.tokenId ?: ""}"
                 )
+
             } else {
                 UICompat.setText(mViewBinding.atvCollectionName, it.merchandiseName)
                 GlideCompat.loadImage(it.header, mViewBinding.civOwnerUserHead)
@@ -200,6 +215,13 @@ class CollectionDetailsActivity :
                 LogUtils.w("observe--", body?.id + "---")
                 ARoutersActivity.startOrderDetailsActivity(body?.id)
             }
+        }
+    }
+
+    override fun resultPublicData(it: Int) {
+        super.resultPublicData(it)
+        if (it== BaseViewModel.STATUE_HTTP_ERROR){
+            mEmptyView?.show()
         }
     }
 }

@@ -73,7 +73,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
         }
     }
 
-    protected open fun isLoadEmptyView(): Boolean = false
+    protected open fun isLoadEmptyView(): Boolean = true
 
     private fun initParentView(rootView: View?) {
         if (rootView is ViewGroup) {
@@ -91,7 +91,7 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
             }
 
             if (isLoadEmptyView()) {
-                mEmptyView = EmptyLayout(this)
+                mEmptyView = EmptyLayout(this).apply { hide() }
                 rootView.addView(
                     mEmptyView,
                     0,

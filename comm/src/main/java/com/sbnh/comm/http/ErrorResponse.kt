@@ -6,4 +6,4 @@ package com.sbnh.comm.http
  * 更新时间: 2022/6/18 16:08
  * 描述:
  */
-data class ErrorResponse(val error: String?, val message: String?)
+data class ErrorResponse(val error: String?, var message: String?)
