@@ -24,7 +24,7 @@ class HomeViewModel : BaseViewModel() {
             try {
                 val result = mRetrofitManger.create(HomeService::class.java)
                     .loadCollectionList(requestPagerListEntity)
-                disposeRetrofit(mCollectionLiveData, result)
+                disposeRetrofit(mCollectionLiveData, result,true)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

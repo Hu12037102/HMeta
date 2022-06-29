@@ -425,10 +425,4 @@ class OrderDetailsActivity :
         })
     }
 
-    override fun resultPublicData(it: Int) {
-        super.resultPublicData(it)
-        if (it == BaseViewModel.STATUE_HTTP_ERROR) {
-            mEmptyView?.show()
-        }
-    }
 }

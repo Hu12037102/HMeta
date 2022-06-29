@@ -37,7 +37,7 @@ open class BaseOrderViewModel : TimerViewModel() {
             try {
                 val result = mRetrofitManger.create(BaseService::class.java)
                     .queryOrderDetails(id)
-                disposeRetrofit(mOrderDetailsLiveData, result)
+                disposeRetrofit(mOrderDetailsLiveData, result,true)
 
             } catch (e: Exception) {
                 e.printStackTrace()
