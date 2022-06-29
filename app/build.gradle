@@ -9,7 +9,7 @@ plugins {
 apply from: "$rootDir/config.gradle"
 android {
     compileSdk versions.compileSdk
-
+    buildToolsVersion versions.toolsVersion
     defaultConfig {
         resConfigs "zh-rCN"
         //  applicationId "com.sbnh.healer_meta"
@@ -59,7 +59,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources false
-            zipAlignEnabled false
+            zipAlignEnabled true
             pseudoLocalesEnabled false
         }
         debug {
@@ -67,7 +67,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             shrinkResources false
-            zipAlignEnabled false
+            zipAlignEnabled true
             pseudoLocalesEnabled false
         }
     }
@@ -85,7 +85,7 @@ android {
     viewBinding {
         enabled = true
     }
-    buildToolsVersion '32.0.0'
+
 
 }
 /*walle {
