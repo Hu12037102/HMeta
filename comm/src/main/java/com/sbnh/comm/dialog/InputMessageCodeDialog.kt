@@ -1,7 +1,8 @@
-package com.sbnh.comm.base.dialog
+package com.sbnh.comm.dialog
 
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.inputedit.weight.InputEditTextView
+import com.sbnh.comm.base.dialog.BaseDataDialog
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.databinding.DialogInputMessageCodeViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
@@ -17,7 +18,7 @@ import com.sbnh.comm.weight.text.SpanTextHelper
  * 描述:
  */
 @Route(path = ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE)
-class InputMessageCodeDialog :
+class InputMessageCodeDialog() :
     BaseDataDialog<DialogInputMessageCodeViewBinding, BaseDialogViewModel>() {
     override fun getViewBinding(): DialogInputMessageCodeViewBinding =
         DialogInputMessageCodeViewBinding.inflate(layoutInflater)
@@ -28,7 +29,12 @@ class InputMessageCodeDialog :
     }
 
     override fun initData() {
-        mViewModel.loadUserInfo()
+        val phone = arguments?.getString(ARouterConfig.Key.CONTENT)
+        SpanTextHelper.with()
+            .append(DataCompat.getResString(com.sbnh.comm.R.string.message_code_send_phone_number))
+            .append(NumberCompat.encryptPhoneNumber(phone))
+            .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFF4CD9A))
+            .crete(mViewBinding.atvContent)
     }
 
     override fun initEvent() {
@@ -45,15 +51,7 @@ class InputMessageCodeDialog :
     }
 
 
-    override fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
-        if (UserInfoStore.isLogin(userInfoEntity)) {
-            SpanTextHelper.with()
-                .append(DataCompat.getResString(com.sbnh.comm.R.string.message_code_send_phone_number))
-                .append(NumberCompat.encryptPhoneNumber(userInfoEntity?.mobile))
-                .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFF4CD9A))
-                .crete(mViewBinding.atvContent)
-        }
-    }
+
 
 
 }

@@ -6,10 +6,10 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.dialog.BaseDataDialog
-import com.sbnh.comm.base.dialog.InputMessageCodeDialog
 import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.*
+import com.sbnh.comm.dialog.InputMessageCodeDialog
 import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.STATUS_FINISH
@@ -108,7 +108,11 @@ class OrderDetailsActivity :
 
             it?.data?.let { result ->
                 val dialog =
-                    ARouters.getFragment(ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE)
+                    ARouters.build(ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE).withString(
+                        ARouterConfig.Key.CONTENT,
+                        DataCompat.toString(mBankCardEntity?.mobile)
+                    ).navigation()
+               // ARouters.getFragment(ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE)
                 if (dialog is InputMessageCodeDialog) {
                     DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
                     dialog.setOnCallbackValues(object : BaseDataDialog.OnCallbackValues {

@@ -6,6 +6,7 @@ import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.WebViewCompat
+import com.sbnh.comm.utils.LogUtils
 
 /**
  * 作者: 胡庆岭
@@ -26,6 +27,7 @@ abstract class BaseWebActivity<VB : ViewBinding, VM : BaseViewModel> :
             return
         }
         WebViewCompat.init(mWebView)
+        LogUtils.w("loadUrl--",url)
         mWebView.loadUrl(url)
     }
 

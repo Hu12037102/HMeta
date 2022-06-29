@@ -13,6 +13,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.viewmodel.WebContentViewModel
 import com.sbnh.comm.databinding.ActivityWebContentBinding
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.utils.LogUtils
 
 /**
  * 作者: 胡庆岭
@@ -65,6 +66,7 @@ class WebContentActivity : BaseWebActivity<ActivityWebContentBinding, WebContent
                 request?.url?.let {
                     try {
                         if (it.scheme?.startsWith("Http", true) == true) {
+                            LogUtils.w("loadUrl--", "${it}--")
                             loadUrl(it.toString())
                         } else {
                             startActivity(Intent(Intent.ACTION_VIEW, it))

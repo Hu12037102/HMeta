@@ -29,11 +29,11 @@ object WebViewCompat {
         webSetting.setSupportZoom(false)
         webSetting.builtInZoomControls = true
         webSetting.displayZoomControls = true
-       /* webSetting.cacheMode = if (NetWorkCompat.isNetComment()) {
-            WebSettings.LOAD_NO_CACHE
-        } else {
-            WebSettings.LOAD_CACHE_ELSE_NETWORK
-        }*/
+        /* webSetting.cacheMode = if (NetWorkCompat.isNetComment()) {
+             WebSettings.LOAD_NO_CACHE
+         } else {
+             WebSettings.LOAD_CACHE_ELSE_NETWORK
+         }*/
         webSetting.allowFileAccess = true
         webSetting.loadsImagesAutomatically = true
         webSetting.defaultTextEncodingName = Charsets.UTF_8.name()
@@ -46,8 +46,11 @@ object WebViewCompat {
     }
 
     @JvmStatic
-    fun appendUrl(url: String, key: String, value: String): String {
-        val result = "$url?$key=$value"
+    fun appendUrl(url: String, key: String? = "", value: String? = ""): String {
+        var result = url
+        if (DataCompat.notEmpty(key) && DataCompat.notEmpty(value)) {
+            result = "$url?$key=$value"
+        }
         LogUtils.w("appendUrl--", result)
         return result
     }

@@ -8,12 +8,12 @@ package com.sbnh.comm.other.arouter
  */
 class ARouterConfig {
     object Key {
-        const val HAS_LOGIN = "has_login"
         const val WEB_URL = "web_url"
         const val ID = "id"
         const val MY_COLLECTION = "my_collection"
         const val PARCELABLE="parcelable"
         const val PICTURE_PATH="picturePath"
+        const val CONTENT="content"
 
         /**
          * 收藏id
