@@ -38,19 +38,19 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             /***************************************测试环境*************************************************/
-           /*  buildConfigField("String", "BASE_URL", '"https://test.todoapp.cn/"')//测试环境
+             buildConfigField("String", "BASE_URL", '"https://test.todoapp.cn/"')//测试环境
              buildConfigField("String", "HEALER_META_APP_ID", '"b08eeb94a7ac45e8ae311b9e2cd01ad8"')
              buildConfigField("String", "HEALER_META_APP_KEY", '"e565f1b71c134c8cb256d4bfde713cab"')
              buildConfigField("String", "TENCENT_CAPTCHA_APP_ID", '"2053608214"')
              buildConfigField("String", "BASE_WEB_URL", '"https://test.todoapp.cn/"')
-             buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')*/
+             buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
             /***************************************预发布*************************************************/
-            buildConfigField("String", "BASE_URL", '"https://www.todoapp.cn/"') //预发布
+           /* buildConfigField("String", "BASE_URL", '"https://www.todoapp.cn/"') //预发布
             buildConfigField("String", "HEALER_META_APP_ID", '"b08eeb94a7ac45e8ae311b9e2cd01ad8"')
             buildConfigField("String", "HEALER_META_APP_KEY", '"e565f1b71c134c8cb256d4bfde713cab"')
             buildConfigField("String", "TENCENT_CAPTCHA_APP_ID", '"2053608214"')
             buildConfigField("String", "BASE_WEB_URL", '"https://www.healerapp.cn/"')
-            buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
+            buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')*/
             /***************************************正式环境*************************************************/
            /* buildConfigField("String", "BASE_URL", '"https://www.healerapp.cn"')//正式环境
             buildConfigField("String", "HEALER_META_APP_ID", '"b08eeb94a7ac45e8ae311b9e2cd01ad8"')
