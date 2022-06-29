@@ -21,7 +21,7 @@ class CollectionDetailsViewModel : BaseOrderViewModel() {
             try {
                 val result = mRetrofitManger.create(HomeService::class.java)
                     .loadCollectionDetails(id)
-                disposeRetrofit(mCollectionDetailsLiveData, result)
+                disposeRetrofit(mCollectionDetailsLiveData, result,true)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -36,7 +36,7 @@ class CollectionDetailsViewModel : BaseOrderViewModel() {
             try {
                 val result = mRetrofitManger.create(HomeService::class.java)
                     .loadKnapsackCollectionDetails(cid, id)
-                disposeRetrofit(mCollectionDetailsLiveData, result)
+                disposeRetrofit(mCollectionDetailsLiveData, result,true)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

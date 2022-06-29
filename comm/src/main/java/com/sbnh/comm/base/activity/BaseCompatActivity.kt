@@ -138,9 +138,21 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
 
 
     protected open fun resultPublicData(@BaseViewModel.ViewModelStatus it: Int) {
-        if (it == BaseViewModel.STATUE_REQUEST_END) {
-            mRefreshLayout?.finishRefresh()
-            mRefreshLayout?.finishLoadMore()
+        when (it) {
+            BaseViewModel.STATUE_REQUEST_END -> {
+                mRefreshLayout?.finishRefresh()
+                mRefreshLayout?.finishLoadMore()
+            }
+            BaseViewModel.STATUS_SHOW_EMPTY_VIEW -> {
+                mEmptyView?.show()
+
+            }
+            BaseViewModel.STATUS_HIND_EMPTY_VIEW -> {
+                mEmptyView?.hide()
+            }
+            else -> {
+
+            }
         }
     }
 }
