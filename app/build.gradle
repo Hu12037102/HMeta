@@ -50,7 +50,7 @@ android {
             storePassword 'healermeta666888'
             keyPassword 'healermeta666888'
             enableV1Signing true
-            enableV2Signing false
+            enableV2Signing true
         }
     }
 
@@ -65,9 +65,9 @@ android {
         }
         debug {
             signingConfig signingConfigs.release
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            shrinkResources true
+            shrinkResources false
             zipAlignEnabled true
             pseudoLocalesEnabled false
         }
