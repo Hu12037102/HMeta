@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.os.Bundle
 import androidx.multidex.MultiDex
+import androidx.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sbnh.comm.BuildConfig
 import com.sbnh.comm.Contract
@@ -23,7 +24,7 @@ import kotlin.properties.Delegates
  * 更新时间: 2022/6/10 13:53
  * 描述:
  */
-class BaseApplication : Application() {
+class BaseApplication : MultiDexApplication() {
     companion object {
         private var mContext: Context by Delegates.notNull()
 
@@ -101,7 +102,7 @@ class BaseApplication : Application() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-        MultiDex.install(this)
+      //  MultiDex.install(this)
     }
 
     override fun onLowMemory() {

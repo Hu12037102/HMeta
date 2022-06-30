@@ -11,6 +11,7 @@ android {
     compileSdk versions.compileSdk
     buildToolsVersion versions.toolsVersion
     defaultConfig {
+        multiDexEnabled true
         resConfigs "zh-rCN"
         //  applicationId "com.sbnh.healer_meta"
         // applicationId "com.sbnh.healermeta"
@@ -64,9 +65,9 @@ android {
         }
         debug {
             signingConfig signingConfigs.release
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            shrinkResources false
+            shrinkResources true
             zipAlignEnabled true
             pseudoLocalesEnabled false
         }
