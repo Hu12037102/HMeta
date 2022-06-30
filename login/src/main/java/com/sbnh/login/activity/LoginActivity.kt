@@ -3,11 +3,9 @@ package com.sbnh.login.activity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.sbnh.comm.BuildConfig
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
@@ -25,10 +23,10 @@ import com.sbnh.comm.other.tencent.CaptchaDialogHelper
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
-
 import com.sbnh.login.databinding.ActivityLoginBinding
 import com.sbnh.login.viewmodel.LoginViewModel
 import kotlinx.coroutines.launch
+
 
 /**
  * 作者: 胡庆岭
@@ -180,7 +178,35 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            UICompat.setPhoneEditText(mViewBinding.aetPhone)
+            UICompat.setPhoneEditText(mViewBinding.aetPhone,s,start, before)
+          /*  if (s == null || s.isEmpty()) return
+            val sb = StringBuilder()
+            for (i in s.indices) {
+                if (i != 3 && i != 8 && s[i] == ' ') {
+                    continue
+                } else {
+                    sb.append(s[i])
+                    if ((sb.length == 4 || sb.length == 9) && sb[sb.length - 1] != ' ') {
+                        sb.insert(sb.length - 1, ' ')
+                    }
+                }
+            }
+            if (sb.toString() != s.toString()) {
+                var index = start + 1
+                if (sb[start] == ' ') {
+                    if (before == 0) {
+                        index++
+                    } else {
+                        index--
+                    }
+                } else {
+                    if (before == 1) {
+                        index--
+                    }
+                }
+                mViewBinding.aetPhone.setText(sb.toString())
+                mViewBinding.aetPhone.setSelection(index)
+            }*/
         }
 
         override fun afterTextChanged(s: Editable?) {

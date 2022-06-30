@@ -82,39 +82,79 @@ object UICompat {
     }
 
     @JvmStatic
-    fun setBankCardNumberEditText(editText: EditText?) {
-        /*  val textLength = MetaViewCompat.getTextViewLength(editText)
-          if (textLength > 0) {
-              val sb = StringBuilder()
-              val text = MetaViewCompat.getTextViewText(editText,true)
-              sb.append(text)
-              if ((textLength % 5 == 0) && !TextUtils.equals(
-                      text[textLength - 1].toString(),
-                      " "
-                  )
-              ) {
-                  sb.insert(textLength - 1, " ")
-                  setText(editText, sb)
-                  MetaViewCompat.selectorEditTextEnd(editText)
-              }
-          }*/
-        val textLength = MetaViewCompat.getTextViewLength(editText, true)
-        if (textLength > 0) {
-            val text = MetaViewCompat.getTextViewText(editText)
-            val sb = StringBuilder()
-            for (childText in text) {
-                sb.append(childText)
-                val index = text.indexOf(childText)
-                if (index % 5 == 0) {
-                    sb.append(" ")
+    fun setPhoneEditText(
+        editText: EditText,
+        text: CharSequence?,
+        start: Int,
+        before: Int
+    ) {
+        if (text == null || text.isEmpty()) return
+        val sb = StringBuilder()
+        for (i in text.indices) {
+            if (i != 3 && i != 8 && text[i] == ' ') {
+                continue
+            } else {
+                sb.append(text[i])
+                if ((sb.length == 4 || sb.length == 9) && sb[sb.length - 1] != ' ') {
+                    sb.insert(sb.length - 1, ' ')
                 }
             }
-            if (!TextUtils.equals(sb, text)) {
-                setText(editText, sb)
-                MetaViewCompat.selectorEditTextEnd(editText)
-            }
-
         }
+        if (sb.toString() != text.toString()) {
+            var index = start + 1
+            if (sb[start] == ' ') {
+                if (before == 0) {
+                    index++
+                } else {
+                    index--
+                }
+            } else {
+                if (before == 1) {
+                    index--
+                }
+            }
+            setText(editText, sb.toString())
+            editText.setSelection(index)
+        }
+
+    }
+
+    @JvmStatic
+    fun setBankCardNumberEditText(
+        editText: EditText,
+        text: CharSequence?,
+        start: Int,
+        before: Int
+    ) {
+        if (text == null || text.isEmpty()) return
+        val sb = StringBuilder()
+        for (i in text.indices) {
+            if (i != 4 && i != 9 && i != 14 && i != 19 && text[i] == ' ') {
+                continue
+            } else {
+                sb.append(text[i])
+                if ((sb.length == 5 || sb.length == 10 || sb.length == 15 || sb.length == 20) && sb[sb.length - 1] != ' ') {
+                    sb.insert(sb.length - 1, ' ')
+                }
+            }
+        }
+        if (sb.toString() != text.toString()) {
+            var index = start + 1
+            if (sb[start] == ' ') {
+                if (before == 0) {
+                    index++
+                } else {
+                    index--
+                }
+            } else {
+                if (before == 1) {
+                    index--
+                }
+            }
+            setText(editText, sb.toString())
+            editText.setSelection(index)
+        }
+
 
     }
 
@@ -145,7 +185,7 @@ object UICompat {
             parentData.addAll(addData!!)
         }
         adapter?.notifyDataSetChanged()
-        notifyDataEmptyView(emptyView,parentData)
+        notifyDataEmptyView(emptyView, parentData)
     }
 }
 

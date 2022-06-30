@@ -176,7 +176,7 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            UICompat.setPhoneEditText(mViewBinding.aetPhone)
+            UICompat.setPhoneEditText(mViewBinding.aetPhone,s,start, before)
         }
 
         override fun afterTextChanged(s: Editable?) {
