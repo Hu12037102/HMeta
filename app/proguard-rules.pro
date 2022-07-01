@@ -105,6 +105,15 @@
     public <init>(android.content.Context, android.util.AttributeSet);
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
+# 保留我们自定义控件（继承自ConstraintLayout）不被混淆
+-keep public class * extends androidx.constraintlayout.widget.ConstraintLayout{
+    *** get*();
+    void set*(***);
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
 -keepclasseswithmembers class * {
     public <init>(android.content.Context, android.util.AttributeSet);
     public <init>(android.content.Context, android.util.AttributeSet, int);
@@ -134,6 +143,7 @@
 -keepclassmembers class * {
     void *(**On*Event);
     void *(**On*Listener);
+    void *(**On*Click);
 }
 
 # 避免layout中onclick方法（android:onclick="onClick"）混淆
