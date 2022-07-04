@@ -25,6 +25,9 @@ class ToastCompat private constructor() {
     }
 
     fun showToast(text: CharSequence) {
+        if (DataCompat.isEmpty(text)) {
+            return
+        }
         try {
             if (mToast == null) {
                 mToast = Toast.makeText(DataCompat.getContext(), text, Toast.LENGTH_SHORT)

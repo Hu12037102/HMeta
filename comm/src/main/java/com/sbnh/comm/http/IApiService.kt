@@ -45,7 +45,7 @@ class IApiService {
         const val CLIENT_ERROR = HttpURLConnection.HTTP_BAD_REQUEST
         const val CLIENT_NOT_LOGIN = HttpURLConnection.HTTP_UNAUTHORIZED
         const val SERVICE_ERROR = HttpURLConnection.HTTP_INTERNAL_ERROR
-        const val NET_OFF_LINE=HttpURLConnection.HTTP_GATEWAY_TIMEOUT
+        const val NET_OFF_LINE = HttpURLConnection.HTTP_GATEWAY_TIMEOUT
     }
 
     object Key {
@@ -91,5 +91,9 @@ class IApiService {
 
         //联系客服
         const val CONTACT_US = "${BuildConfig.QINIU_CDN}/nft_page/setting/qrcode.png"
+
+        //抽奖
+        const val LOTTERY =
+            "${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_page/#/sub/lottery_page"
     }
 }

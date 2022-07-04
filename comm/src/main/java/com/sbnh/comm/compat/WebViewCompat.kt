@@ -34,6 +34,7 @@ object WebViewCompat {
          } else {
              WebSettings.LOAD_CACHE_ELSE_NETWORK
          }*/
+        webSetting.cacheMode = WebSettings.LOAD_NO_CACHE
         webSetting.allowFileAccess = true
         webSetting.loadsImagesAutomatically = true
         webSetting.defaultTextEncodingName = Charsets.UTF_8.name()
