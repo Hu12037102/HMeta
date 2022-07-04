@@ -170,5 +170,7 @@
     <string name="billing_details">账单明细</string>
     <string name="please_click_back_exit_app">再按一次返回键，退出APP</string>
     <string name="cash_withdrawal_amount">提现金额</string>
-
+    <string name="rmb_symbol">￥</string>
+    <string name="please_input_int">请输入正数</string>
+    <string name="balance">余额</string>
 </resources>
