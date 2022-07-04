@@ -11,6 +11,7 @@ android {
     compileSdk versions.compileSdk
     buildToolsVersion versions.toolsVersion
     defaultConfig {
+        multiDexEnabled true
         resConfigs "zh-rCN"
         //  applicationId "com.sbnh.healer_meta"
         // applicationId "com.sbnh.healermeta"
@@ -49,24 +50,24 @@ android {
             storePassword 'healermeta666888'
             keyPassword 'healermeta666888'
             enableV1Signing true
-            enableV2Signing false
+            enableV2Signing true
         }
     }
 
     buildTypes {
         release {
             signingConfig signingConfigs.release
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            shrinkResources false
+            shrinkResources true
             zipAlignEnabled true
             pseudoLocalesEnabled false
         }
         debug {
             signingConfig signingConfigs.release
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            shrinkResources false
+            shrinkResources true
             zipAlignEnabled true
             pseudoLocalesEnabled false
         }

@@ -20,43 +20,84 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
-#---------这里提供一份这个lib中最好不要混淆的地方，前边的配置都差不多，主要是第三方包以及其他不需要混淆的代码----
-#---------------------------------基本指令以及一些固定不混淆的代码--开始--------------------------------
-
-#<基本指令>
+#1.基本指令区
+# 代码混淆压缩比，在0~7之间，默认为5，一般不做修改
 -optimizationpasses 5
-# -dontskipnonpubliclibraryclassmembers
--optimizations !code/simplification/cast,!field/*,!class/merging/*
--keepattributes *Annotation*,InnerClasses
--keepattributes Signature
--keepattributes SourceFile,LineNumberTable
-#忽略警告
--ignorewarnings
-#记录生成的日志数据,gradle build时在本项目根目录输出apk 包内所有 class 的内部结构
-# -dump class_files.txt
-#未混淆的类和成员
--printseeds seeds.txt
-#列出从 apk 中删除的代码
--printusage unused.txt
-#混淆前后的映射
--printmapping mapping.txt
-#</基本指令>
 
-#<基础>
+# 混合时不使用大小写混合，混合后的类名为小写
+-dontusemixedcaseclassnames
+
+# 指定不去忽略非公共库的类
+#-dontskipnonpubliclibraryclasses
+
+# 指定不去忽略非公共库的类成员
+#-dontskipnonpubliclibraryclassmembers
+
+# 不进行优化，建议使用此选项，
+-dontoptimize
+
+# 不做预校验，preverify是proguard的四个步骤之一，Android不需要preverify 能够加快混淆速度。
+ #-dontpreverify
+
+# 使我们的项目混淆后产生映射文件包含有类名->混淆后类名的映射关系
+-verbose
+
+# 使用printmapping指定映射文件的名称
+-printmapping proguardMapping.txt
+
+# 屏蔽警告
+-ignorewarnings
+
+# 指定混淆是采用的算法，后面的参数是一个过滤器这个过滤器是谷歌推荐的算法，一般不做更改
+-optimizations !code/simplification/cast,!field/*,!class/merging/*
+
+# 保留Annotation不混淆
+-keepattributes *Annotation*
+
+# 避免混淆泛型
+-keepattributes Signature
+
+# 抛出异常时保留代码行号
+-keepattributes SourceFile,LineNumberTable
+
+#2
+#2.默认保留区
+# 保留我们使用的四大组件，自定义的Application等等这些类不被混淆
+# 因为这些子类都有可能被外部调用
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
-# -keep public class * extends android.support.multidex.MultiDexApplication
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
-# -keep public class com.android.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.ILicensingService
+-keep public class com.google.vending.licensing.ILicensingService
+# 保留support下的所有类及其内部类
 -keep class android.support.** {*;}
-#</基础>
+# 保留继承的
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.support.v7.**
+-keep public class * extends android.support.annotation.**
 
-#<view相关>
+# 保留本地native方法不被混淆
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+# 保留在Activity中的方法参数是view的方法，这样一来我们在layout中写的onClick就不会被影响
+-keepclassmembers class * extends android.app.Activity{
+    public void *(android.view.View);
+}
+
+# 保留枚举类不被混淆
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# 保留我们自定义控件（继承自View）不被混淆
 -keep public class * extends android.view.View{
     *** get*();
     void set*(***);
@@ -64,16 +105,26 @@
     public <init>(android.content.Context, android.util.AttributeSet);
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
+# 保留我们自定义控件（继承自ConstraintLayout）不被混淆
+-keep public class * extends androidx.constraintlayout.widget.ConstraintLayout{
+    *** get*();
+    void set*(***);
+    public <init>(android.content.Context);
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
 -keepclasseswithmembers class * {
     public <init>(android.content.Context, android.util.AttributeSet);
     public <init>(android.content.Context, android.util.AttributeSet, int);
 }
--keepclassmembers class * {
-   public void *(android.view.View);
-}
-#</view相关>
 
-#<Serializable、Parcelable>
+# 保留Parcelable序列化类不被混淆
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+
+# 保留Serializable序列化的类不被混淆
 -keepclassmembers class * implements java.io.Serializable {
     static final long serialVersionUID;
     private static final java.io.ObjectStreamField[] serialPersistentFields;
@@ -82,126 +133,180 @@
     java.lang.Object writeReplace();
     java.lang.Object readResolve();
 }
--keep public class * implements java.io.Serializable {*;}
 
--keep class * implements android.os.Parcelable {
-  public static final android.os.Parcelable$Creator *;
-}
-#</Serializable、Parcelable>
-
-#<R文件>
+# 保留R下面的资源
 -keep class **.R$* {
  *;
 }
-#</R文件>
 
-#<enum>
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
+# 对于带有回调函数的onXXEvent、**On*Listener的，不能被混淆
+-keepclassmembers class * {
+    void *(**On*Event);
+    void *(**On*Listener);
+    void *(**On*Click);
 }
-#</enum>
 
-#<natvie>
--keepclasseswithmembernames class * {
-    native <methods>;
+# 避免layout中onclick方法（android:onclick="onClick"）混淆
+-keepclassmembers class * extends android.app.Activity{
+    public void *(android.view.View);
 }
-#</natvie>
 
-#---------------------------------基本指令以及一些固定不混淆的代码--结束-----------
-
-#---------------------------------第三方包--开始-------------------------------
-
-#<okhttp3.x>
--dontwarn com.squareup.okhttp3.**
--keep class com.squareup.okhttp3.** { *;}
--dontwarn okio.**
-#</okhttp3.x>
-
-#<retrofit2.x>
--dontnote retrofit2.Platform
-#-dontwarn retrofit2.Platform$Java8
--keepattributes Signature
--keepattributes Exceptions
--dontwarn okio.**
-#</retrofit2.x>
-
-#</okhttp3.x>
-
-#<ButterKnife 7.0 以上>
- -keep class butterknife.** { *; }
- -dontwarn butterknife.internal.**
- -keep class **$$ViewBinder { *; }
- -keepclasseswithmembernames class * {
-  @butterknife.* <fields>;
- }
- -keepclasseswithmembernames class * {
- @butterknife.* <methods>;
- }
-#</ButterKnife 7.0 以上>
-
-#<eventbus 3.0>
-# -keepattributes *Annotation*
-# -keepclassmembers class ** {
- #   @org.greenrobot.eventbus.Subscribe <methods>;
-# }
-# -keep enum org.greenrobot.eventbus.ThreadMode { *; }
-#-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
-#    <init>(java.lang.Throwable);
+# webview
+-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+   public *;
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+    public boolean *(android.webkit.WebView, java.lang.String);
+}
+-keepclassmembers class * extends android.webkit.webViewClient {
+    public void *(android.webkit.webView, jav.lang.String);
+}
+#在app中与HTML5的JavaScript的交互进行特殊处理
+#我们需要确保这些js要调用的原生方法不能够被混淆，于是我们需要做如下处理：
+#-keepclassmembers class com.XXX.XXX.JSInterface {
+#    <methods>;
 #}
-#</eventbus 3.0>
+#3
+# AndroidX混淆
+-keep class com.google.android.material.** {*;}
+-keep class androidx.** {*;}
+-keep public class * extends androidx.**
+-keep interface androidx.** {*;}
+-dontwarn com.google.android.material.**
+-dontnote com.google.android.material.**
+-dontwarn androidx.**
 
-#<Gson>
--keep class com.google.gson.** {*;}
--keep class com.google.**{*;}
-#-keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.stream.** { *; }
--keep class com.google.gson.examples.android.model.** { *; }
-#</Gson>
 
-#<glide>
+#4
+
+
+# EventBus
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
+
+
+# Glide
+-dontwarn com.bumptech.glide.**
+-keep class com.bumptech.glide.**{*;}
 -keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
 -keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
   **[] $VALUES;
   public *;
 }
-#</glide>
 
-#<Rxjava RxAndroid>
--dontwarn rx.*
+# Gson
 -dontwarn sun.misc.**
-
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-   long producerIndex;
-   long consumerIndex;
+-keep class com.google.gson.examples.android.model.** { <fields>; }
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+-keepclassmembers,allowobfuscation class * {
+  @com.google.gson.annotations.SerializedName <fields>;
 }
-#-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
- #   rx.internal.util.atomic.LinkedQueueNode producerNode;
-#}
 
-#-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
- #   rx.internal.util.atomic.LinkedQueueNode consumerNode;
-#}
-#</Rxjava RxAndroid>
+# OkHttp3
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okhttp3.** { *;}
+-dontwarn okio.**
 
-#----------------------------------第三方包--结束--------------------------
+# Retrofit
+-dontnote retrofit2.Platform$IOS$MainThreadExecutor
+-keepattributes Exceptions
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
 
-#---------------------------------一些不要混淆的代码--开始-------------------
+# RxJava RxAndroid
+-dontwarn sun.misc.**
+-keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
+    long producerIndex;
+    long consumerIndex;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode producerNode;
+}
+-keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
+    rx.internal.util.atomic.LinkedQueueNode consumerNode;
+}
+-dontnote rx.internal.util.PlatformDependent
 
--keep class net.arvin.afbaselibrary.nets.** { *; }
--keep class net.arvin.afbaselibrary.data.** { *; }
 
-#<反射>
-#-keep class net.arvin.afbaselibrary.nets.BaseNet{*;}
-#</反射>
+# 微信支付
+-dontwarn com.tencent.mm.**
+-dontwarn com.tencent.wxop.stat.**
+-keep class com.tencent.mm.** {*;}
+-keep class com.tencent.wxop.stat.**{*;}
 
-#<js>
+# 支付宝钱包
+-dontwarn com.alipay.**
+-dontwarn HttpUtils.HttpFetcher
+-dontwarn com.ta.utdid2.**
+-dontwarn com.ut.device.**
+-keep class com.alipay.android.app.IAlixPay{*;}
+-keep class com.alipay.android.app.IAlixPay$Stub{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
+-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
+-keep class com.alipay.sdk.app.PayTask{ public *;}
+-keep class com.alipay.sdk.app.AuthTask{ public *;}
+-keep class com.alipay.mobilesecuritysdk.*
+-keep class com.ut.*
 
-#</js>
+# banner
+-dontwarn com.youth.banner.**
+-keep class com.youth.banner.**{*;}
 
-#<自定义View的类>
--keep class net.arvin.afbaselibrary.ui.views.** {*;}
-#</自定义View的类>
+# loading
+-keep class com.wang.avi.** { *; }
+-keep class com.wang.avi.indicators.** { *; }
+
+# JPTabBar
+-keep class com.jpeng.** {*;}
+
+# SmartRefreshLayout
+-keep class com.scwang.** {*;}
+
+# 万能适配器 BaseRecyclerViewAdapterHelper
+-keep class com.huxiaobai.adapter.** {
+*;
+}
+-keep public class * extends com.huxiaobai.adapter.BaseRecyclerAdapter
+-keep public class * extends com.huxiaobai.adapter.BaseViewHolder
+-keep public class * extends com.huxiaobai.adapter.EmptyViewHolder
+-keepclassmembers public class * extends com.huxiaobai.adapter.BaseViewHolder {
+     <init>(android.view.View);
+}
+-keepclassmembers public class * extends com.huxiaobai.adapter.EmptyViewHolder {
+     <init>(android.view.View);
+}
+
+
+# 屏幕适配
+-keep class me.jessyan.autosize.** { *; }
+-keep interface me.jessyan.autosize.** { *; }# 版本更新-dontwarn com.king.app.updater.**-keep class com.king.app.updater.**{ *;}-keep class * extends com.king.app.updater.**{ *;}-keep class * implements com.king.app.updater.**{ *;}-keepattributes InnerClasses-dontwarn com.king.app.dialog.**-keep class com.king.app.dialog.**{ *;}#shareSDK-keep class cn.sharesdk.**{*;}-keep class com.sina.**{*;}-keep class com.mob.**{*;}-keep class com.bytedance.**{*;}-dontwarn cn.sharesdk.**-dontwarn com.sina.**-dontwarn com.mob.**-keep class androidx.recyclerview.widget.**{*;}-keep class androidx.viewpager2.widget.**{*;} 待更新。。。
+
+#底部导航栏
+-keep class com.aurelhubert.ahbottomnavigation.** { *; }
+-keep class com.google.android.material.** {*;}
+-keep class androidx.** {*;}
+-keep public class * extends androidx.**
+-keep interface androidx.** {*;}
+-dontwarn com.google.android.material.**
+-dontnote com.google.android.material.**
+-dontwarn androidx
+-keep class androidx.lifecycle.** { *; }
+-keep class androidx.arch.core.** { *; }
+
+#Bugly SDK
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+-keep class android.support.**{*;}
 
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -226,10 +331,24 @@
 -keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
 
 # 如果使用了 单类注入，即不定义接口实现 IProvider，需添加下面规则，保护实现
-# -keep class * implements com.alibaba.android.arouter.facade.template.IProvider
+ -keep class * implements com.alibaba.android.arouter.facade.template.IProvider
+
+
 
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+-dontwarn javax.lang.model.element.Element
+-dontwarn org.bouncycastle.jsse.BCSSLParameters
+-dontwarn org.bouncycastle.jsse.BCSSLSocket
+-dontwarn org.bouncycastle.jsse.provider.BouncyCastleJsseProvider
+-dontwarn org.conscrypt.Conscrypt$Version
+-dontwarn org.conscrypt.Conscrypt
+-dontwarn org.conscrypt.ConscryptHostnameVerifier
+-dontwarn org.openjsse.javax.net.ssl.SSLParameters
+-dontwarn org.openjsse.javax.net.ssl.SSLSocket
+-dontwarn org.openjsse.net.ssl.OpenJSSE
 
+-keep class com.sbnh.comm.entity.** { *; }
+-keep class com.sbnh.comm.weight.** { *; }
 
 #---------------------------------一些不要混淆的代码--结束-------------------

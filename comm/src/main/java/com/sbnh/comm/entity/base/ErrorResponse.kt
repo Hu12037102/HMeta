@@ -1,4 +1,4 @@
-package com.sbnh.comm.http
+package com.sbnh.comm.entity.base
 
 /**
  * 作者: 胡庆岭

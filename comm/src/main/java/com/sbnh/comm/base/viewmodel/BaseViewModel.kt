@@ -16,7 +16,7 @@ import com.sbnh.comm.entity.base.*
 import com.sbnh.comm.entity.order.RefreshStatusEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.http.BaseService
-import com.sbnh.comm.http.ErrorResponse
+import com.sbnh.comm.entity.base.ErrorResponse
 import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.RetrofitManger
 import com.sbnh.comm.info.UserInfoStore
@@ -190,7 +190,7 @@ open class BaseViewModel : ViewModel() {
                         } else {
                             response.message()
                         }
-                      //  LogUtils.w("errorJson--","$errorJson-----$errorMessage---${DataCompat.notEmpty(errorJson)}----${response.code()}")
+                        LogUtils.w("errorJson--","$errorJson-----$errorMessage---${DataCompat.notEmpty(errorJson)}----${response.code()}")
                         mToastLiveData.value = errorMessage
                     }
                 } catch (e: Exception) {
