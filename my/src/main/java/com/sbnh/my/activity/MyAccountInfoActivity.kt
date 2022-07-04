@@ -11,7 +11,9 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.UserInfoEntity
+import com.sbnh.comm.manger.ActivityCompatManger
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivityMyAccountInfoBinding
@@ -63,6 +65,7 @@ class MyAccountInfoActivity :
             }
 
         })
+
     }
 
     override fun resultPublicData(it: Int) {

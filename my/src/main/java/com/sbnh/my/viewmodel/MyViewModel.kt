@@ -53,7 +53,7 @@ class MyViewModel : BaseViewModel() {
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.my_wallet),
                 com.sbnh.comm.R.mipmap.icon_my_tab_my_wallet,
-                TAB_MY_WALLET, false
+                TAB_MY_WALLET, true
             )
         )
         /*    list.add(

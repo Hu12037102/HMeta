@@ -36,6 +36,7 @@ class ARouterConfig {
 
         object Bazaar {
             const val FRAGMENT_BAZAAR = "/bazaar/fragment/bazaar"
+            const val FRAGMENT_BAZAAR_CONTENT = "/bazaar/fragment/bazaar/content"
         }
 
         object My {
@@ -52,6 +53,7 @@ class ARouterConfig {
             const val FRAGMENT_COLLECTION_NUM_DETAILS = "/my/fragment/collection/num/details"
             const val ACTIVITY_GIVE_COLLECTION_LIST = "/my/activity/give/collection/list"
             const val FRAGMENT_GIVE_COLLECTION_CONTENT = "/my/activity/give/collection/content"
+            const val ACTIVITY_MY_WALLET="/my/activity/my/wallet"
         }
 
         object Login {
@@ -63,6 +65,7 @@ class ARouterConfig {
             const val ACTIVITY_BANK_CARD_LIST = "/pay/activity/bank/card/list"
             const val ACTIVITY_ADD_BANK_CARD = "/pay/activity/add/bank/card"
             const val DIALOG_SELECTOR_BANK_CARD="/pay/dialog/selector/bank/card"
+            const val ACTIVITY_WITHDRAW="/pay/activity/withdraw"
         }
 
         object Comm {
@@ -79,5 +82,6 @@ class ARouterConfig {
     object Value {
         const val LOGIN_ACTIVITY = "login"
         const val REGISTER_ACTIVITY = "register"
+        const val MAIN_ACTIVITY="main"
     }
 }

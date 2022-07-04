@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground">
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pv_left_click_finish="true"
+        app:pv_left_custom_click_enable="true"
+        app:pv_left_start_src="@mipmap/icon_comm_back_white" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_140dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        app:cardBackgroundColor="@color/colorFF363639"
+        app:layout_constraintTop_toBottomOf="@id/pv_title">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_withdraw_money_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_14dp"
+            android:layout_marginTop="@dimen/size_18dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_16sp"
+            tools:text="提现金额（元）"
+            />
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
