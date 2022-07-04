@@ -114,7 +114,18 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                     TAB_MY_WALLET->{
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_WALLET)
                     }
+                    TAB_LOTTERY_HELP -> {
+                        lifecycleScope.launch {
+                            val sid = UserInfoStore.get().getSid()
+                            val url = WebViewCompat.appendUrl(
+                                IApiService.H5.LOTTERY,
+                                IApiService.Key.SID,
+                                sid
+                            )
+                            ARoutersActivity.startWebContentActivity(url)
+                        }
 
+                    }
                     else -> {
                         showToast(com.sbnh.comm.R.string.the_function_is_not_available)
                     }

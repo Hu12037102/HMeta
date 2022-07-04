@@ -46,7 +46,7 @@ class MyViewModel : BaseViewModel() {
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.lottery_assistant),
                 com.sbnh.comm.R.mipmap.icon_my_tab_lottery_assistant,
-                TAB_LOTTERY_HELP, false
+                TAB_LOTTERY_HELP, true
             )
         )
         list.add(
