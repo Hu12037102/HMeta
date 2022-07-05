@@ -180,7 +180,7 @@ class RetrofitManger private constructor() {
             .addInterceptor(mHeadInterceptor)
             .addInterceptor(mLoggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(mCacheInterceptor)
-        if (BuildConfig.DEBUG) {
+        if (AppConfig.isDebug()) {
             builder.addInterceptor(mUrlInterceptor)
         }
         mOkHttpClient = builder.build()
