@@ -1,5 +1,6 @@
 package com.sbnh.comm.http
 
+import android.util.Log
 import com.google.gson.Gson
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.NetWorkCompat
