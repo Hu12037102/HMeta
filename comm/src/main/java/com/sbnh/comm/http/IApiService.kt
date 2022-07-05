@@ -40,6 +40,11 @@ class IApiService {
             "/healer_nft/Merchandise/knapsack_details/{cid}/{merchandiseId}"
     }
 
+    object EncodedPath {
+        const val RELEASE_PAYMENT_START = "payment"
+        const val DEBUG_PAYMENT_START = "healer_nft_payment"
+    }
+
     object HttpCode {
         const val SUCCEED = HttpURLConnection.HTTP_OK
         const val CLIENT_ERROR = HttpURLConnection.HTTP_BAD_REQUEST

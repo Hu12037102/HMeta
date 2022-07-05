@@ -1,7 +1,10 @@
 package com.sbnh.comm.http
 
+import android.text.TextUtils
 import android.util.Log
 import com.google.gson.Gson
+import com.sbnh.comm.BuildConfig
+import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.NetWorkCompat
 import com.sbnh.comm.config.AppConfig
@@ -24,6 +27,7 @@ import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 /**
  * 作者: 胡庆岭
@@ -37,6 +41,30 @@ class RetrofitManger private constructor() {
     private lateinit var mOkHttpClient: OkHttpClient
     private lateinit var mRetrofit: Retrofit
     private lateinit var mCacheInterceptor: Interceptor
+    private val mUrlInterceptor: Interceptor by lazy {
+        Interceptor { chain ->
+            var request = chain.request()
+            var url: HttpUrl = request.url
+            val pathList = url.encodedPathSegments
+            if (CollectionCompat.notEmptyList(pathList)) {
+                val path = pathList[0]
+                if (AppConfig.isDebug() && TextUtils.equals(
+                        path,
+                        IApiService.EncodedPath.RELEASE_PAYMENT_START
+                    )
+                ) {
+                    url = url.newBuilder()
+                        .setEncodedPathSegment(0, IApiService.EncodedPath.DEBUG_PAYMENT_START)
+                        .build()
+                }
+
+            }
+            request = request.newBuilder()
+                .url(url)
+                .build()
+             chain.proceed(request)
+        }
+    }
 
     companion object {
         val Instance: RetrofitManger by lazy(LazyThreadSafetyMode.SYNCHRONIZED) { RetrofitManger() }
@@ -142,7 +170,7 @@ class RetrofitManger private constructor() {
 
     private fun initOKHttp() {
         val cacheDir = FileFactory.createCacheDir(TYPE_HTTP)
-        mOkHttpClient = OkHttpClient.Builder()
+        val builder = OkHttpClient.Builder()
             .cache(if (cacheDir == null) null else Cache(cacheDir, CACHE_MEX_LENGTH))
             .retryOnConnectionFailure(true)
             .callTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)
@@ -152,7 +180,10 @@ class RetrofitManger private constructor() {
             .addInterceptor(mHeadInterceptor)
             .addInterceptor(mLoggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(mCacheInterceptor)
-            .build()
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(mUrlInterceptor)
+        }
+        mOkHttpClient = builder.build()
 
     }
 
