@@ -97,7 +97,7 @@ class BaseApplication : MultiDexApplication() {
         if (!AppConfig.isDebug()) {
         val strategy = UserStrategy(this)
         strategy.appChannel = if (AppConfig.isDebug()) Contract.DEBUG else Contract.RELEASE
-        CrashReport.initCrashReport(this, Contract.Id.BUGLY_APP_ID, false, strategy)}
+        CrashReport.initCrashReport(this, BuildConfig.BUGLY_ID, false, strategy)}
     }
 
     override fun attachBaseContext(base: Context?) {

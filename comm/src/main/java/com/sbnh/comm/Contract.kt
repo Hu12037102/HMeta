@@ -29,7 +29,5 @@ object Contract {
         const val COLLECTION_IMAGE_SMALL_SIZE = 86
     }
 
-    object Id{
-        const val BUGLY_APP_ID="2f9ae5bbf2"
-    }
+
 }
