@@ -350,5 +350,6 @@
 
 -keep class com.sbnh.comm.entity.** { *; }
 -keep class com.sbnh.comm.weight.** { *; }
+-keep class io.google.projectview.weight.**{*;}
 
 #---------------------------------一些不要混淆的代码--结束-------------------
