@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWindowBackground">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aiv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
+
+    <io.google.projectview.weight.ProjectView
+        android:id="@+id/pv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/default_title_view_height"
+        app:layout_constraintTop_toTopOf="parent"
+        app:pv_center_text="@string/this_meta_collection_compound_plan"
+        app:pv_center_text_color="@color/white"
+        app:pv_center_text_size="@dimen/size_17sp"
+        app:pv_left_start_src="@mipmap/icon_comm_back_white" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aiv_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_270dp"
+        android:layout_marginStart="@dimen/size_5dp"
+        android:layout_marginEnd="@dimen/size_5dp"
+        android:layout_marginBottom="@dimen/size_40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:background="@color/white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_data"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_0dp"
+        android:layout_marginStart="@dimen/size_6dp"
+        android:layout_marginEnd="@dimen/size_6dp"
+        app:layout_constraintBottom_toBottomOf="@id/aiv_content"
+        app:layout_constraintLeft_toLeftOf="@id/aiv_content"
+        app:layout_constraintRight_toRightOf="@id/aiv_content"
+        app:layout_constraintTop_toTopOf="@id/aiv_content" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aiv_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/size_300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@mipmap/icon_comm_compound_pager_start_synthesis" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/size_128dp"
+    android:layout_marginStart="@dimen/default_margin"
+    android:layout_marginEnd="@dimen/default_margin"
+    app:cardBackgroundColor="@color/colorFF2E2E2E"
+    app:cardCornerRadius="@dimen/size_12dp"
+    app:cardElevation="@dimen/size_0dp"
+    tools:background="@color/colorFF2E2E2E">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/aiv_content"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_0dp"
+            android:layout_marginStart="@dimen/size_14dp"
+            android:layout_marginTop="@dimen/size_14dp"
+            android:layout_marginBottom="@dimen/size_14dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_name"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_14dp"
+            android:layout_marginEnd="@dimen/size_14dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_text_size"
+            app:layout_constraintLeft_toRightOf="@id/aiv_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/aiv_content"
+            app:layout_constraintBottom_toTopOf="@id/atv_desc"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="亚冬之旅" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_desc"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorFF9A9A9C"
+            android:textSize="@dimen/size_11sp"
+            app:layout_constraintLeft_toLeftOf="@id/atv_name"
+            app:layout_constraintRight_toRightOf="@id/atv_name"
+            app:layout_constraintTop_toBottomOf="@id/atv_name"
+            app:layout_constraintBottom_toTopOf="@id/atv_time"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:layout_marginBottom="@dimen/size_6dp"
+            tools:text="我是秒速"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="@id/aiv_content"
+            app:layout_constraintLeft_toLeftOf="@id/atv_name"
+            app:layout_constraintRight_toRightOf="@id/atv_name"
+            app:layout_constraintTop_toBottomOf="@id/atv_desc"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_11sp"
+            tools:text="2020:11:112020:11:112020:11:112020:11:112020:11:11"
+            app:layout_constraintHorizontal_bias="0"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

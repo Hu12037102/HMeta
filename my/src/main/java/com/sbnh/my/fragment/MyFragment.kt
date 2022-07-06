@@ -1,6 +1,7 @@
 package com.sbnh.my.fragment
 
 import android.view.View
+import androidx.core.net.ConnectivityManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,6 +20,7 @@ import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.adapter.MyTabAdapter
 import com.sbnh.my.databinding.FragmentMyBinding
@@ -108,7 +110,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                             )
                         }
                     }
-                    TAB_COMPOUND -> {
+                    TAB_DONATION -> {
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION_LIST)
                     }
                     TAB_LOTTERY_HELP -> {
@@ -122,6 +124,9 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                             ARoutersActivity.startWebContentActivity(url)
                         }
 
+                    }
+                    TAB_COMPOUND -> {
+                    ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_COMPOUND_DETAILED_LIST)
                     }
                     else -> {
                         showToast(com.sbnh.comm.R.string.the_function_is_not_available)

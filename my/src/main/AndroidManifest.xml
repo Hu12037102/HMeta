@@ -45,6 +45,16 @@
             android:name=".activity.GiveCollectionListActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".activity.CompoundDetailedListActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.CompoundPagerActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Hide.StatusBar"/>
     </application>
 </manifest>

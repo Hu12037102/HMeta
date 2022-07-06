@@ -1,9 +1,13 @@
 package com.sbnh.comm.compat
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.IntentFilter
+import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 
 /**
  * 作者: 胡庆岭
@@ -32,11 +36,20 @@ object PhoneCompat {
     }
 
     @JvmStatic
-    fun copyText(text:CharSequence) {
+    fun copyText(text: CharSequence) {
         val service = DataCompat.getContext().getSystemService(Context.CLIPBOARD_SERVICE)
-        if (service is ClipboardManager){
-            service.setPrimaryClip(ClipData.newPlainText(null,text))
+        if (service is ClipboardManager) {
+            service.setPrimaryClip(ClipData.newPlainText(null, text))
         }
+    }
+
+    @JvmStatic
+    fun getStatusBarHeight(activity: Activity?): Int = if (activity == null) {
+        0
+    } else {
+       val view = activity.findViewById<View>(android.R.id.content)
+        ViewCompat.getRootWindowInsets(view)
+            ?.getInsets(WindowInsetsCompat.Type.statusBars())?.top ?: 0
     }
 
 }

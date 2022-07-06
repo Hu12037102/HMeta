@@ -52,6 +52,8 @@ class ARouterConfig {
             const val FRAGMENT_COLLECTION_NUM_DETAILS = "/my/fragment/collection/num/details"
             const val ACTIVITY_GIVE_COLLECTION_LIST = "/my/activity/give/collection/list"
             const val FRAGMENT_GIVE_COLLECTION_CONTENT = "/my/activity/give/collection/content"
+            const val ACTIVITY_COMPOUND_DETAILED_LIST="/my/activity/compound/detailed/list"
+            const val ACTIVITY_COMPOUND_PAGER="/my/activity/compound/pager"
         }
 
         object Login {

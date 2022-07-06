@@ -3,6 +3,8 @@ package com.sbnh.comm.compat
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Build
+import androidx.core.net.ConnectivityManagerCompat
+import com.sbnh.comm.app.BaseApplication
 
 /**
  * 作者: 胡庆岭
@@ -12,12 +14,14 @@ import android.os.Build
  */
 object NetWorkCompat {
     @JvmStatic
-    private fun getNetWorkManger(): ConnectivityManager {
+    fun getNetWorkManger(): ConnectivityManager {
         return DataCompat.getContext()
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
-    @JvmStatic
-    fun isNetComment(): Boolean = getNetWorkManger().activeNetworkInfo?.isConnected ?: false
+    /* @JvmStatic
+     fun isNetComment(): Boolean = getNetWorkManger().activeNetworkInfo?.isConnected ?: false*/
 
+    @JvmStatic
+    fun isNetComment(): Boolean = BaseApplication.isNetComment()
 }
