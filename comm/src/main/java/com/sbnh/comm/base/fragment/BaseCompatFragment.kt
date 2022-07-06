@@ -187,13 +187,13 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
                 mViewModel.mLastTime = System.currentTimeMillis()
                 mViewModel.isRefresh = true
                 loadSmartData(refreshLayout, mViewModel.isRefresh)
-                //  refreshLayout.finishRefresh()
+               //   refreshLayout.finishRefresh(15000)
             }
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 mViewModel.isRefresh = false
                 loadSmartData(refreshLayout, mViewModel.isRefresh)
-                // refreshLayout.finishLoadMore()
+               //  refreshLayout.finishLoadMore(15000)
             }
 
         })

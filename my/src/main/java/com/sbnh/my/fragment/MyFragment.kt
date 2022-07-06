@@ -111,6 +111,9 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                     TAB_COMPOUND -> {
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION_LIST)
                     }
+                    TAB_MY_WALLET->{
+                        ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_WALLET)
+                    }
                     TAB_LOTTERY_HELP -> {
                         lifecycleScope.launch {
                             val sid = UserInfoStore.get().getSid()

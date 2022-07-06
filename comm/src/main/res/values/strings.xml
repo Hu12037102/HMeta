@@ -163,4 +163,15 @@
     <string name="the_function_is_not_available">本功能暂未开放,敬请期待~</string>
     <string name="gain_message_code_succeed">获取验证码成功</string>
     <string name="your_net_wait_off_line">你的网络好像不在线哦~</string>
+    <string name="meta_series">元宇宙系列</string>
+    <string name="the_amount_of_rmb">金额（元）</string>
+    <string name="recharge">充值</string>
+    <string name="withdraw">提现</string>
+    <string name="billing_details">账单明细</string>
+    <string name="please_click_back_exit_app">再按一次返回键，退出APP</string>
+    <string name="cash_withdrawal_amount">提现金额</string>
+    <string name="rmb_symbol">￥</string>
+    <string name="please_input_int">请输入正数</string>
+    <string name="balance">余额</string>
+    <string name="payment_term">收款方式</string>
 </resources>

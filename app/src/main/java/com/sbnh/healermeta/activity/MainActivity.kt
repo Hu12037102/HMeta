@@ -47,6 +47,7 @@ import kotlinx.coroutines.launch
 
 @Route(path = ARouterConfig.Path.Main.ACTIVITY_MAIN)
 class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
+    private var mLastTime: Long = 0L
     private val mReceiver: DownloadReceiver by lazy { DownloadReceiver() }
     private var mDownloadReceiverIntent: Intent? = null
     private val mTabData: ArrayList<SelectorTabEntity> = ArrayList()
@@ -66,7 +67,6 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
         mViewModel.loadAppVersion()
         initBottomView()
         initPagerAdapter()
-        initTest()
     }
 
     private fun initTest() {
@@ -140,7 +140,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
     override fun initObserve() {
         super.initObserve()
         mViewModel.mVersionLiveData.observe(this) {
-            if (it.status != VERSION_NOT_UPDATE){
+            if (it.status != VERSION_NOT_UPDATE) {
                 showUpdateVersionDialog(it)
             }
 
@@ -240,5 +240,23 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
 
     }
 
+    override fun onBackPressed() {
+        val newTime = System.currentTimeMillis()
+        if (newTime - mLastTime >= 2000) {
+            showToast(com.sbnh.comm.R.string.please_click_back_exit_app)
+        } else {
+            try {
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                intent.addCategory(Intent.CATEGORY_HOME)
+                startActivity(intent)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                super.onBackPressed()
+            }
+        }
+        mLastTime = newTime
+
+    }
 
 }

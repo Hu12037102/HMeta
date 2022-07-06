@@ -100,5 +100,7 @@ class IApiService {
         //抽奖
         const val LOTTERY =
             "${BuildConfig.BASE_WEB_URL}/healer_nft_web/nft_page/#/sub/lottery_page"
+
+
     }
 }

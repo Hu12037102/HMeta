@@ -67,4 +67,16 @@ class ActivityCompatManger private constructor() {
         remove(ARouterConfig.Value.REGISTER_ACTIVITY)
     }
 
+    fun keepMainActivity() {
+        val iterator = mList.iterator()
+        while (iterator.hasNext()) {
+            val activity = iterator.next()
+            if (!activity.javaClass.simpleName.contains(ARouterConfig.Value.MAIN_ACTIVITY, true)) {
+                if (!activity.isFinishing || !activity.isDestroyed) {
+                    activity.finish()
+                }
+                iterator.remove()
+            }
+        }
+    }
 }

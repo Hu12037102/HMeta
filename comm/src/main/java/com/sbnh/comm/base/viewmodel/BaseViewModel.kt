@@ -3,6 +3,8 @@ package com.sbnh.comm.base.viewmodel
 import android.content.ContentValues
 import android.provider.MediaStore
 import androidx.annotation.IntDef
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityManagerCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -20,6 +22,7 @@ import com.sbnh.comm.entity.base.ErrorResponse
 import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.RetrofitManger
 import com.sbnh.comm.info.UserInfoStore
+import com.sbnh.comm.manger.ActivityCompatManger
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.HealerMetaGlide
 import com.sbnh.comm.utils.LogUtils
@@ -96,6 +99,7 @@ open class BaseViewModel : ViewModel() {
     fun exitLoginLocal() {
         viewModelScope.launch {
             UserInfoStore.get().clear()
+            ActivityCompatManger.get().keepMainActivity()
             ARoutersActivity.startLoginActivity()
             mPublicLiveData.value = STATUS_LOGIN_OUT
         }
