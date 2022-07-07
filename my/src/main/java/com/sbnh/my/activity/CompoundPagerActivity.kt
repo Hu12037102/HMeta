@@ -106,7 +106,7 @@ class CompoundPagerActivity :
 
     override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
         super.loadSmartData(refreshLayout, isRefresh)
-        mViewModel.loadCompoundPagerDetails("12222")
+        mViewModel.loadCompoundPagerDetails(mId)
     }
 
     override fun initEvent() {

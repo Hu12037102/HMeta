@@ -17,8 +17,12 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/aiv_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="@dimen/size_0dp"
+        android:layout_height="@dimen/size_0dp"
+        app:layout_constraintLeft_toLeftOf="@id/aiv_background"
+        app:layout_constraintRight_toRightOf="@id/aiv_background"
+        app:layout_constraintTop_toTopOf="@id/aiv_background"
+        app:layout_constraintBottom_toBottomOf="@id/aiv_background"
         android:layout_margin="@dimen/size_16dp"
         tools:background="@color/black" />
 
