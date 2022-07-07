@@ -45,6 +45,8 @@
     <color name="colorFF232323">#FF232323</color>
     <color name="colorFFB1B2C0">#FFB1B2C0</color>
     <color name="colorFF632681">#FF632681</color>
+    <color name="colorFF8DEFFF">#FF8DEFFF</color>
+    <color name="colorFFCE5BFC">#FFCE5BFC</color>
     <color name="colorWindowBackground">@color/colorFF191919</color>
     <color name="color_title_view_center_text_color">@color/white</color>
 

@@ -3,9 +3,7 @@ package com.sbnh.my
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
-import com.sbnh.comm.entity.my.CollectionNumDetailsEntity
-import com.sbnh.comm.entity.my.GiveCollectionEntity
-import com.sbnh.comm.entity.my.MyCollectionEntity
+import com.sbnh.comm.entity.my.*
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.RequestOrderListEntity
 import com.sbnh.comm.entity.request.*
@@ -14,6 +12,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 /**
  * 作者: 胡庆岭
@@ -42,5 +41,10 @@ interface MyService {
 
     @POST(IApiService.Path.GIVE_COLLECTION_LIST)
     suspend fun loadGiveCollectionList(@Body entity: RequestGiveCollectionListEntity): Response<BasePagerEntity<List<GiveCollectionEntity>>>
+
+    @GET(IApiService.Path.COMPOUND_DETAILED_LIST)
+    suspend fun loadCompoundDetailedList(): Response<List<CompoundDetailedListEntity>>
+    @GET(IApiService.Path.COMPOUND_PAGER_DETAILS)
+    suspend fun loadCompoundPagerDetails(@Path(IApiService.Key.ID)id:String):Response<CompoundPagerEntity>
 
 }

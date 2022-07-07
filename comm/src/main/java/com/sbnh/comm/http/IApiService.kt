@@ -38,6 +38,8 @@ class IApiService {
         const val LOAD_APP_VERSION = "/healer_nft/Version/getVersion/{code}"
         const val KNAPSACK_COLLECTION_DETAILS =
             "/healer_nft/Merchandise/knapsack_details/{cid}/{merchandiseId}"
+        const val COMPOUND_DETAILED_LIST="/healer_nft/activity"
+        const val COMPOUND_PAGER_DETAILS="/healer_nft/synthesis/{id}"
     }
 
     object EncodedPath {

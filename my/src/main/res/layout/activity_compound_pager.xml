@@ -21,28 +21,55 @@
         app:pv_center_text="@string/this_meta_collection_compound_plan"
         app:pv_center_text_color="@color/white"
         app:pv_center_text_size="@dimen/size_17sp"
-        app:pv_left_start_src="@mipmap/icon_comm_back_white" />
+        app:pv_left_start_src="@mipmap/icon_comm_back_white"
+        app:pv_left_click_finish="true"
+        app:pv_left_custom_click_enable="true"/>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/aiv_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_270dp"
         android:layout_marginStart="@dimen/size_5dp"
         android:layout_marginEnd="@dimen/size_5dp"
         android:layout_marginBottom="@dimen/size_40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:background="@color/white" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_data"
-        android:layout_width="@dimen/size_0dp"
-        android:layout_height="@dimen/size_0dp"
-        android:layout_marginStart="@dimen/size_6dp"
-        android:layout_marginEnd="@dimen/size_6dp"
-        app:layout_constraintBottom_toBottomOf="@id/aiv_content"
-        app:layout_constraintLeft_toLeftOf="@id/aiv_content"
-        app:layout_constraintRight_toRightOf="@id/aiv_content"
-        app:layout_constraintTop_toTopOf="@id/aiv_content" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/aiv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:background="@color/black" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_compound_condition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_26dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_horizontal"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingStart="@dimen/size_10dp"
+            android:paddingEnd="@dimen/size_10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorFF8DEFFF"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="按照合成平按照合成平按照合成平按照合成平按照合成平按照合成按照合成平按照合成平按照合成平按照合成平按照合成平按照合成平平" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_data"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_0dp"
+            android:layout_marginStart="@dimen/size_6dp"
+            android:layout_marginEnd="@dimen/size_6dp"
+            app:layout_constraintBottom_toBottomOf="@id/aiv_content"
+            app:layout_constraintLeft_toLeftOf="@id/aiv_content"
+            app:layout_constraintRight_toRightOf="@id/aiv_content"
+            app:layout_constraintTop_toTopOf="@id/aiv_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/aiv_start"

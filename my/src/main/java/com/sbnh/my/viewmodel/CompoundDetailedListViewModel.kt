@@ -1,6 +1,11 @@
 package com.sbnh.my.viewmodel
 
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.sbnh.comm.base.viewmodel.BaseViewModel
+import com.sbnh.comm.entity.my.CompoundDetailedListEntity
+import com.sbnh.my.MyService
+import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -9,4 +14,16 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
  * 描述:
  */
 class CompoundDetailedListViewModel:BaseViewModel() {
+    val mCompoundDetailedListLiveData = MutableLiveData<List<CompoundDetailedListEntity>>()
+    fun loadCompoundDetailedList(){
+        viewModelScope.launch {
+            try {
+               val result= mRetrofitManger.create(MyService::class.java)
+                    .loadCompoundDetailedList()
+                disposeRetrofit(mCompoundDetailedListLiveData,result,true)
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+    }
 }

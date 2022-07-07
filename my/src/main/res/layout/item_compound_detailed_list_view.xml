@@ -32,7 +32,7 @@
             android:layout_width="@dimen/size_0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_14dp"
-            android:layout_marginEnd="@dimen/size_14dp"
+            android:layout_marginEnd="@dimen/size_10dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:textColor="@color/white"
@@ -41,7 +41,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@id/aiv_content"
             app:layout_constraintBottom_toTopOf="@id/atv_desc"
-            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintVertical_chainStyle="spread"
             tools:text="亚冬之旅" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -54,8 +54,6 @@
             app:layout_constraintRight_toRightOf="@id/atv_name"
             app:layout_constraintTop_toBottomOf="@id/atv_name"
             app:layout_constraintBottom_toTopOf="@id/atv_time"
-            android:layout_marginTop="@dimen/size_6dp"
-            android:layout_marginBottom="@dimen/size_6dp"
             tools:text="我是秒速"/>
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -69,8 +67,10 @@
             app:layout_constraintTop_toBottomOf="@id/atv_desc"
             android:textColor="@color/white"
             android:textSize="@dimen/size_11sp"
+            android:gravity="center_vertical"
             tools:text="2020:11:112020:11:112020:11:112020:11:112020:11:11"
             app:layout_constraintHorizontal_bias="0"
+            android:drawablePadding="@dimen/size_2dp"
             />
 
 
