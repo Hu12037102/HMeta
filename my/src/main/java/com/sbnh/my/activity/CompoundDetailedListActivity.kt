@@ -55,7 +55,8 @@ class CompoundDetailedListActivity :
 
             override fun clickItem(view: View, position: Int) {
                 ARouters.build(ARouterConfig.Path.My.ACTIVITY_COMPOUND_PAGER)
-                    .withString(ARouterConfig.Key.ID, mData[position].synthesisConfigId)
+                    .withString(ARouterConfig.Key.ID, mData[position].id)
+                    .withString(ARouterConfig.Key.DETAILS_ID,mData[position].synthesisConfigId)
                     .navigation()
             }
 

@@ -164,4 +164,6 @@
     <string name="gain_message_code_succeed">获取验证码成功</string>
     <string name="your_net_wait_off_line">你的网络好像不在线哦~</string>
     <string name="this_meta_collection_compound_plan">本次元宇宙藏品合成计划</string>
+    <string name="collection_as_required_s">按照所需藏品：%1$s</string>
+    <string name="the_raw_materials_needed_are_not_enough">所需的原材料藏品不够哦~</string>
 </resources>

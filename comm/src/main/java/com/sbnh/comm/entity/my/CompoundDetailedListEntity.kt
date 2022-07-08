@@ -12,5 +12,6 @@ data class CompoundDetailedListEntity(
     val name: String? = "",
     val resource: String? = "",
     val startTime: Long? = 0,
-    val synthesisConfigId: String? = ""
+    val synthesisConfigId: String? = "",
+    val id: String? = ""
 )

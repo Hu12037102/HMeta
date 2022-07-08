@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huxiaobai.adapter.BaseRecyclerAdapter
+import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.MetaViewCompat
+import com.sbnh.comm.compat.PhoneCompat
 import com.sbnh.comm.entity.my.CompoundPagerEntity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.text.SpanTextHelper
@@ -35,9 +37,25 @@ class CompoundPagerAdapter(context: Context, data: List<CompoundPagerEntity.Deta
             SpanTextHelper.with()
                 .append(DataCompat.toString(entity.merchandiseName))
                 .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCE5BFC))
-                .append(DataCompat.toString(entity.count))
+                .appendBlank()
+                .append("${DataCompat.toString(entity.availableCount)}/${DataCompat.toString(entity.count)}")
                 .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFF8DEFFF))
                 .crete(holder.viewBinding.atvContent)
+           val params = holder.itemView.layoutParams
+            if (params is ViewGroup.MarginLayoutParams){
+                when (position) {
+                    0 -> {
+                        params.leftMargin = PhoneCompat.dp2px(mContext,12f)
+                        params.rightMargin = PhoneCompat.dp2px(mContext,12f)
+                    }
+                   /* CollectionCompat.getListSize(mData) - 1 -> {
+                        params.rightMargin = PhoneCompat.dp2px(mContext,12f)
+                    }*/
+                    else -> {
+                        params.rightMargin = PhoneCompat.dp2px(mContext,12f)
+                    }
+                }
+            }
 
         }
     }

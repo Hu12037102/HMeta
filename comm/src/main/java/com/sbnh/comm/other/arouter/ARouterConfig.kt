@@ -14,6 +14,7 @@ class ARouterConfig {
         const val PARCELABLE="parcelable"
         const val PICTURE_PATH="picturePath"
         const val CONTENT="content"
+        const val DETAILS_ID="detailsId"
 
         /**
          * 收藏id
@@ -71,6 +72,7 @@ class ARouterConfig {
             const val ACTIVITY_WEB_CONTENT = "/comm/activity/web/content"
             const val DIALOG_INPUT_MESSAGE_CODE="/comm/dialog/input/message/code"
             const val DIALOG_VERSION_UPDATE="/comm/dialog/version/update"
+            const val DIALOG_COMPOUND_COLLECTION_PREVIEW="/comm/dialog/compound/collection/preview"
         }
 
         object Order {

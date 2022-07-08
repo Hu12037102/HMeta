@@ -44,7 +44,11 @@ interface MyService {
 
     @GET(IApiService.Path.COMPOUND_DETAILED_LIST)
     suspend fun loadCompoundDetailedList(): Response<List<CompoundDetailedListEntity>>
+
     @GET(IApiService.Path.COMPOUND_PAGER_DETAILS)
-    suspend fun loadCompoundPagerDetails(@Path(IApiService.Key.ID)id:String):Response<CompoundPagerEntity>
+    suspend fun loadCompoundPagerDetails(@Path(IApiService.Key.ID) id: String): Response<CompoundPagerEntity>
+
+    @POST(IApiService.Path.COMPOUND_COLLECTION)
+    suspend fun compoundCollection(@Path(IApiService.Key.ACTIVITY_ID)id: String):Response<Unit>
 
 }

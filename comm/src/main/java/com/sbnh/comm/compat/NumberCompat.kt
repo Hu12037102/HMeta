@@ -26,15 +26,15 @@ object NumberCompat {
 
     @JvmStatic
     fun isBankCardNumber(number: CharSequence?) =
-        DataCompat.getTextLength(number,true) >= Contract.BANK_CARD_NUMBER_MIN
+        DataCompat.getTextLength(number, true) >= Contract.BANK_CARD_NUMBER_MIN
                 &&
-                DataCompat.getTextLength(number,true) <= Contract.BANK_CARD_NUMBER_MAX
+                DataCompat.getTextLength(number, true) <= Contract.BANK_CARD_NUMBER_MAX
 
     @JvmStatic
     fun isIdCard(idCard: CharSequence?) =
-        DataCompat.getTextLength(idCard,true) >= Contract.ID_CARD_NUMBER_MIN
+        DataCompat.getTextLength(idCard, true) >= Contract.ID_CARD_NUMBER_MIN
                 &&
-                DataCompat.getTextLength(idCard,true) <= Contract.ID_CARD_NUMBER_MAX
+                DataCompat.getTextLength(idCard, true) <= Contract.ID_CARD_NUMBER_MAX
 
     @JvmStatic
     fun encryptPhoneNumber(phoneNumber: String?): String {
@@ -50,5 +50,14 @@ object NumberCompat {
             }
         }
         return result
+    }
+
+    @JvmStatic
+    fun numberSub(number: Int?, base: Int?, defaultNumber: Int = 0): Int {
+        if (number == null || base == null) {
+            return defaultNumber
+        }
+        val result = number - base
+        return if (result >= defaultNumber) result else defaultNumber
     }
 }

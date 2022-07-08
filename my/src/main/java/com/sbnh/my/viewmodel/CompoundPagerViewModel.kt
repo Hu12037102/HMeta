@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
  */
 class CompoundPagerViewModel : BaseViewModel() {
     val mCompoundPagerLiveData = MutableLiveData<CompoundPagerEntity>()
+    val mCompoundCollectionLiveData = MutableLiveData<Unit>()
     fun loadCompoundPagerDetails(id: String) {
         viewModelScope.launch {
             try {
@@ -26,6 +27,18 @@ class CompoundPagerViewModel : BaseViewModel() {
                 e.printStackTrace()
             }
 
+        }
+    }
+    fun compoundCollection(id:String){
+        viewModelScope.launch {
+            try {
+                val result = mRetrofitManger.create(MyService::class.java)
+                    .compoundCollection(id)
+                disposeRetrofit(mCompoundCollectionLiveData,result)
+
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
         }
     }
 }
