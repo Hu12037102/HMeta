@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.compat.MetaViewCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.my.CompoundDetailedListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
@@ -74,4 +75,8 @@ class CompoundDetailedListActivity :
         }
     }
 
+    override fun finish() {
+        MetaViewCompat.setResultOK(this)
+        super.finish()
+    }
 }

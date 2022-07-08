@@ -13,6 +13,7 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.sbnh.comm.Contract
 import com.sbnh.comm.utils.LogUtils
 
@@ -128,6 +129,14 @@ object MetaViewCompat {
     }
 
     @JvmStatic
+    fun setResultOK(activity: Activity?, data: Intent? = null) {
+        if (activity == null) {
+            return
+        }
+        activity.setResult(Activity.RESULT_OK, data)
+    }
+
+    @JvmStatic
     fun getTextViewLength(textView: TextView?): Int = getTextViewLength(textView, false)
 
     @JvmStatic
@@ -147,8 +156,8 @@ object MetaViewCompat {
     }
 
     @JvmStatic
-    fun setStatusBarMargin(view: View?,activity: Activity?) {
-        if (view == null||activity==null) {
+    fun setStatusBarMargin(view: View?, activity: Activity?) {
+        if (view == null || activity == null) {
             return
         }
         var layoutMargin = view.layoutParams
@@ -159,7 +168,7 @@ object MetaViewCompat {
             )
         }
         layoutMargin.topMargin = PhoneCompat.getStatusBarHeight(activity)
-        LogUtils.w("setStatusBarMargin--","${PhoneCompat.getStatusBarHeight(activity)}")
+        LogUtils.w("setStatusBarMargin--", "${PhoneCompat.getStatusBarHeight(activity)}")
         view.layoutParams = layoutMargin
     }
 }

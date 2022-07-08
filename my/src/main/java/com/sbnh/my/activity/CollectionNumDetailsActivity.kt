@@ -1,5 +1,6 @@
 package com.sbnh.my.activity
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.ViewOutlineProvider
@@ -39,6 +40,7 @@ class CollectionNumDetailsActivity : BaseActivity() {
     }
 
     override fun finish() {
+        setResult(Activity.RESULT_OK)
         super.finish()
         overridePendingTransition(android.R.anim.fade_in, com.sbnh.comm.R.anim.anim_center_to_bottom)
     }

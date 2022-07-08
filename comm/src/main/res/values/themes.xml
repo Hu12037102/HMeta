@@ -56,8 +56,8 @@
         <!-- <item name="android:windowFullscreen">true</item>-->
         <item name="android:windowBackground">@color/color80000000</item>
         <item name="android:windowAnimationStyle">@style/BaseDialogAnimation</item>
-
     </style>
+
 
     <style name="BaseDialogAnimation">
         <item name="android:windowEnterAnimation">@anim/anim_bottom_to_center</item>

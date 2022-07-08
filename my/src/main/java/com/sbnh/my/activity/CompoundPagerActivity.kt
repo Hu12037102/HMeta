@@ -188,7 +188,7 @@ class CompoundPagerActivity :
     private fun isCanCompound(): Boolean {
         var count = 0
         for (entity in mData) {
-            if ((entity.availableCount ?: 0) > (entity.count ?: 0)) {
+            if ((entity.availableCount ?: 0) >= (entity.count ?: 0)) {
                 count++
             }
         }

@@ -1,7 +1,9 @@
 package com.sbnh.my.fragment
 
+import android.app.Activity
 import android.graphics.drawable.GradientDrawable
 import android.view.View
+import androidx.activity.result.ActivityResult
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -18,6 +20,7 @@ import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.adapter.MyCollectionListAdapter
@@ -63,7 +66,12 @@ class MyCollectionFragment :
     }
 
     override fun initData() {
-        context?.let { mViewBinding.rvData.adapter = MyCollectionListAdapter(it, mCollectionData).also { adapter -> mCollectionAdapter = adapter } }
+        context?.let {
+            mViewBinding.rvData.adapter =
+                MyCollectionListAdapter(it, mCollectionData).also { adapter ->
+                    mCollectionAdapter = adapter
+                }
+        }
     }
 
     override fun onResume() {
@@ -85,7 +93,11 @@ class MyCollectionFragment :
             }
 
             override fun clickItem(view: View, position: Int) {
-                ARoutersActivity.startCollectionNumDetailsActivity(mCollectionData[position])
+                // ARoutersActivity.startCollectionNumDetailsActivity(mCollectionData[position])
+                val postcard = ARouters.build(ARouterConfig.Path.My.ACTIVITY_COLLECTION_NUM_DETAILS)
+                    .withParcelable(ARouterConfig.Key.MY_COLLECTION, mCollectionData[position])
+                val intent = ARouters.intent(context, postcard)
+                startActivityForResult(intent)
             }
 
             override fun longClickItem(view: View, position: Int) {
@@ -149,4 +161,10 @@ class MyCollectionFragment :
 
     override fun isLoadLoadingView(): Boolean = false
 
+    override fun onActivityResultCallback(result: ActivityResult) {
+        super.onActivityResultCallback(result)
+        if (result.resultCode == Activity.RESULT_OK) {
+            loadSmartData()
+        }
+    }
 }
