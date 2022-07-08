@@ -78,6 +78,9 @@ class ARouterConfig {
         object Order {
             const val ACTIVITY_ORDER_DETAILS = "/order/activity/order/details"
         }
+        object Stadium{
+            const val FRAGMENT_STADIUM="/stadium/fragment/stadium"
+        }
     }
 
     object Value {

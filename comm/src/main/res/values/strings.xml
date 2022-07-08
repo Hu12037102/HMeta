@@ -5,6 +5,7 @@
     <string name="home">首页</string>
     <string name="bazaar">寄售</string>
     <string name="my">我的</string>
+    <string name="stadium">场馆</string>
     <string name="not_login">未登录</string>
     <string name="login_read_you_digital_collection">登录后可查看你的数字藏品</string>
     <string name="my_order">我的订单</string>
