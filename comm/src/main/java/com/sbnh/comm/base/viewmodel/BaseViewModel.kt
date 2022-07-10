@@ -107,6 +107,7 @@ open class BaseViewModel : ViewModel() {
         response: Response<T>?,
         isLoadEmptyView: Boolean = false
     ) {
+        isRefresh = true
         mPublicLiveData.value = STATUE_REQUEST_END
         if (response == null) {
             mToastLiveData.value =
