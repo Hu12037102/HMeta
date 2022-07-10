@@ -1,5 +1,6 @@
 package com.sbnh.home.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.sbnh.comm.base.viewmodel.BaseViewModel
@@ -7,6 +8,7 @@ import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.comm.entity.home.HomeBannerEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.home.HomeService
 import kotlinx.coroutines.launch
 
@@ -27,6 +29,7 @@ class HomeViewModel : BaseViewModel() {
                 disposeRetrofit(mCollectionLiveData, result,true)
             } catch (e: Exception) {
                 e.printStackTrace()
+                LogUtils.w("HomeViewModel--","loadCollectionList：我有异常了~")
             }
         }
     }
@@ -39,6 +42,7 @@ class HomeViewModel : BaseViewModel() {
                 disposeRetrofit(mBannerLiveData, result)
             }catch (e:Exception){
                 e.printStackTrace()
+                LogUtils.w("HomeViewModel--","loadBanner：我有异常了~")
             }
 
         }

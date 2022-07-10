@@ -136,13 +136,14 @@ class CompoundPagerActivity :
                 mAfterData.clear()
                 CollectionCompat.addAll(mAfterData, afterData)
                 val sb = StringBuilder()
+                val afterEntity = afterData?.get(0)
                 for (entity in mData) {
                     sb.append(
                         "${entity.merchandiseName}*${entity.count} ${
                             if (mData.lastIndex == mData.indexOf(
                                     entity
                                 )
-                            ) "= ${afterData?.get(0)?.merchandiseName}" else "+ "
+                            ) "= ${afterEntity?.merchandiseName}*${afterEntity?.count}" else "+ "
                         }"
                     )
                 }
