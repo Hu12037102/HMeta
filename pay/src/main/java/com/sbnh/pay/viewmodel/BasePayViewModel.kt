@@ -20,13 +20,14 @@ open class BasePayViewModel : BaseViewModel() {
     val mBankListLiveData = MutableLiveData<BaseEntity<BasePagerEntity2<List<BankCardEntity>>>>()
     fun loadBankCardList(entity: RequestPagerListEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(PayService::class.java)
+            val result = try {
+                mRetrofitManger.create(PayService::class.java)
                     .queryBankCardList(entity)
-                disposeRetrofit(mBankListLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mBankListLiveData, result)
         }
     }
 }

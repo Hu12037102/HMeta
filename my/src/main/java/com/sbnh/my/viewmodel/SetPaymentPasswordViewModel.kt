@@ -19,13 +19,14 @@ class SetPaymentPasswordViewModel : TimerViewModel() {
     val mPaymentPasswordLiveData: MutableLiveData<Unit> = MutableLiveData()
     fun setPaymentPassword(entity: RequestSetPaymentPasswordEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(MyService::class.java)
+            val result = try {
+                mRetrofitManger.create(MyService::class.java)
                     .setPaymentPassword(entity)
-                disposeRetrofit(mPaymentPasswordLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mPaymentPasswordLiveData, result)
         }
     }
 }

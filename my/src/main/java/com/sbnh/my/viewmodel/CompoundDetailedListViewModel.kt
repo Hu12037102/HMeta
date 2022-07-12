@@ -17,13 +17,14 @@ class CompoundDetailedListViewModel:BaseViewModel() {
     val mCompoundDetailedListLiveData = MutableLiveData<List<CompoundDetailedListEntity>>()
     fun loadCompoundDetailedList(){
         viewModelScope.launch {
-            try {
-               val result= mRetrofitManger.create(MyService::class.java)
+            val result=  try {
+                mRetrofitManger.create(MyService::class.java)
                     .loadCompoundDetailedList()
-                disposeRetrofit(mCompoundDetailedListLiveData,result,true)
             }catch (e:Exception){
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mCompoundDetailedListLiveData,result,true)
         }
     }
 }

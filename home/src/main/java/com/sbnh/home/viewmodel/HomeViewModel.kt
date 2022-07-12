@@ -23,28 +23,27 @@ class HomeViewModel : BaseViewModel() {
     val mBannerLiveData = MutableLiveData<List<HomeBannerEntity>>()
     fun loadCollectionList(requestPagerListEntity: RequestPagerListEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(HomeService::class.java)
+            val result = try {
+                mRetrofitManger.create(HomeService::class.java)
                     .loadCollectionList(requestPagerListEntity)
-                disposeRetrofit(mCollectionLiveData, result,true)
             } catch (e: Exception) {
                 e.printStackTrace()
-                LogUtils.w("HomeViewModel--","loadCollectionList：我有异常了~")
+                null
             }
+            disposeRetrofit(mCollectionLiveData, result, true)
         }
     }
 
     fun loadBanner() {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(HomeService::class.java)
+            val result = try {
+                mRetrofitManger.create(HomeService::class.java)
                     .loadHomeBanner()
-                disposeRetrofit(mBannerLiveData, result)
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
-                LogUtils.w("HomeViewModel--","loadBanner：我有异常了~")
+                null
             }
-
+            disposeRetrofit(mBannerLiveData, result)
         }
     }
 }

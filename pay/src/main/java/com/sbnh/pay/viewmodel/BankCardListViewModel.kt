@@ -10,6 +10,7 @@ import com.sbnh.comm.entity.pay.RequestUnbindBankCardEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.pay.PayService
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 /**
  * 作者: 胡庆岭
@@ -22,14 +23,16 @@ class BankCardListViewModel : BasePayViewModel() {
     val mUnbindBankCardLiveData = MutableLiveData<BaseEntity<String>>()
     fun unbindBanCard(entity: RequestUnbindBankCardEntity) {
         viewModelScope.launch {
+            var result: Response<BaseEntity<String>>?
             try {
-                val result = mRetrofitManger.create(PayService::class.java)
+                result = mRetrofitManger.create(PayService::class.java)
                     .unbindBankCard(entity)
                 result.body()?.data = entity.id
-                disposeRetrofit(mUnbindBankCardLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                result = null
             }
+            disposeRetrofit(mUnbindBankCardLiveData, result)
         }
     }
 }

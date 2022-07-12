@@ -20,13 +20,14 @@ class RegisterViewModel : TimerViewModel() {
     fun register(registerEntity: RequestRegisterEntity) {
 
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(LoginService::class.java)
+            val result = try {
+                mRetrofitManger.create(LoginService::class.java)
                     .register(registerEntity)
-                disposeRetrofit(mRegisterLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mRegisterLiveData, result)
         }
 
 

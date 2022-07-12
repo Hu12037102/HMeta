@@ -20,13 +20,14 @@ class MyOrderContentViewModel : BaseViewModel() {
     val mOrderListLiveData = MutableLiveData<BaseEntity<BasePagerEntity2<List<OrderEntity>>>>()
     fun loadMyOrderList(entity: RequestOrderListEntity,isErrorShowEmptyView:Boolean) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(MyService::class.java)
+            val result = try {
+                 mRetrofitManger.create(MyService::class.java)
                     .queryMyLoadList(entity)
-                disposeRetrofit(mOrderListLiveData, result,isErrorShowEmptyView)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mOrderListLiveData, result,isErrorShowEmptyView)
         }
     }
 }

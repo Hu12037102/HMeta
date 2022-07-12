@@ -85,13 +85,14 @@ open class BaseViewModel : ViewModel() {
 
     fun gainMessageCode(entity: RequestMessageCodeEntity) {
         viewModelScope.launch(Dispatchers.Main) {
-            try {
-                val result = mRetrofitManger.create(BaseService::class.java)
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
                     .gainMessageCode(entity)
-                disposeRetrofit(mGainMessageCodeLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mGainMessageCodeLiveData, result)
         }
     }
 
@@ -111,11 +112,14 @@ open class BaseViewModel : ViewModel() {
         response: Response<T>?,
         isLoadEmptyView: Boolean = false
     ) {
-    //    isRefresh = true
+        //    isRefresh = true
         mPublicLiveData.value = STATUE_REQUEST_END
         if (response == null) {
             mToastLiveData.value =
                 DataCompat.getResString(com.sbnh.comm.R.string.default_http_error)
+            if (isLoadEmptyView) {
+                mPublicLiveData.value = STATUS_SHOW_EMPTY_VIEW
+            }
         } else {
 
 
@@ -195,7 +199,10 @@ open class BaseViewModel : ViewModel() {
                         } else {
                             response.message()
                         }
-                        LogUtils.w("errorJson--","$errorJson-----$errorMessage---${DataCompat.notEmpty(errorJson)}----${response.code()}")
+                        LogUtils.w(
+                            "errorJson--",
+                            "$errorJson-----$errorMessage---${DataCompat.notEmpty(errorJson)}----${response.code()}"
+                        )
                         mToastLiveData.value = errorMessage
                     }
                 } catch (e: Exception) {
@@ -279,13 +286,14 @@ open class BaseViewModel : ViewModel() {
 
     fun loadAppVersion() {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(BaseService::class.java)
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
                     .loadAppVersion(DataCompat.getVersionCode())
-                disposeRetrofit(mVersionLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mVersionLiveData, result)
         }
     }
 

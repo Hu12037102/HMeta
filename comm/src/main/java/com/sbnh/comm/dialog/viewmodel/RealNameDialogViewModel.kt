@@ -17,14 +17,13 @@ class RealNameDialogViewModel : BaseDialogViewModel() {
     val mRealNameLiveData = MutableLiveData<Unit>()
     fun realNameAuthentication(entity: RequestRealNameEmpty) {
         viewModelScope.launch {
-            try {
-                val result =
-                    mRetrofitManger.create(BaseService::class.java).realNameAuthentication(entity)
-                disposeRetrofit(mRealNameLiveData, result)
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java).realNameAuthentication(entity)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
-
+            disposeRetrofit(mRealNameLiveData, result)
         }
     }
 }

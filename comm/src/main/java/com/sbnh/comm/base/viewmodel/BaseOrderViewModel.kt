@@ -22,38 +22,40 @@ open class BaseOrderViewModel : TimerViewModel() {
     val mCancelOrderLiveData: MutableLiveData<BaseEntity<Unit>> by lazy { MutableLiveData() }
     fun commitOrder(entity: RequestCreateOrderEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(BaseService::class.java)
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
                     .commitOrder(entity)
-                disposeRetrofit(mCommitOrderLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mCommitOrderLiveData, result)
         }
     }
 
     fun queryOrderDetails(id: String) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(BaseService::class.java)
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
                     .queryOrderDetails(id)
-                disposeRetrofit(mOrderDetailsLiveData, result,true)
-
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mOrderDetailsLiveData, result, true)
         }
     }
 
     fun cancelOrder(entity: RequestCancelOrderEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(BaseService::class.java)
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
                     .cancelOrder(entity)
-                disposeRetrofit(mCancelOrderLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mCancelOrderLiveData, result)
         }
     }
 }

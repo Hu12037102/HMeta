@@ -10,6 +10,7 @@ import com.sbnh.comm.entity.request.RequestBindingBankCardAfterEntity
 import com.sbnh.comm.entity.request.RequestBindingBankCardBeforeEntity
 import com.sbnh.pay.PayService
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 /**
  * 作者: 胡庆岭
@@ -26,40 +27,45 @@ class AddBankCardViewModel : TimerViewModel() {
         isBindingBankCardBefore: Boolean = false
     ) {
         viewModelScope.launch {
+            var result: Response<BaseEntity<NumberQueryBankCardInfoEntity>>?
             try {
-                val result = mRetrofitManger.create(PayService::class.java)
+                result = mRetrofitManger.create(PayService::class.java)
                     .queryBankCardInfo(entity)
                 if (result.body() is BaseEntity<NumberQueryBankCardInfoEntity>) {
                     result.body()?.data?.isBindingBankCardBefore = isBindingBankCardBefore
                 }
-                disposeRetrofit(mQueryBankCardLiveData, result)
+
             } catch (e: Exception) {
                 e.printStackTrace()
+                result = null
             }
+            disposeRetrofit(mQueryBankCardLiveData, result)
         }
     }
 
     fun bindingBankCardBefore(entity: RequestBindingBankCardBeforeEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(PayService::class.java)
+            val result = try {
+                mRetrofitManger.create(PayService::class.java)
                     .bindingBankCardBefore(entity)
-                disposeRetrofit(mBindingBankCardBeforeLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mBindingBankCardBeforeLiveData, result)
         }
     }
 
     fun bindingBankCardAfter(entity: RequestBindingBankCardAfterEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(PayService::class.java)
+            val result = try {
+                mRetrofitManger.create(PayService::class.java)
                     .bindingBankCardAfter(entity)
-                disposeRetrofit(mBindingBankCardAfterLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mBindingBankCardAfterLiveData, result)
         }
     }
 

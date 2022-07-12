@@ -18,13 +18,14 @@ class CollectionDetailsViewModel : BaseOrderViewModel() {
 
     fun loadCollectionDetails(id: String) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(HomeService::class.java)
+            val result = try {
+                mRetrofitManger.create(HomeService::class.java)
                     .loadCollectionDetails(id)
-                disposeRetrofit(mCollectionDetailsLiveData, result,true)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mCollectionDetailsLiveData, result, true)
         }
     }
 
@@ -33,13 +34,14 @@ class CollectionDetailsViewModel : BaseOrderViewModel() {
      */
     fun loadKnapsackCollectionDetails(id: String, cid: String) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(HomeService::class.java)
+            val result = try {
+                mRetrofitManger.create(HomeService::class.java)
                     .loadKnapsackCollectionDetails(cid, id)
-                disposeRetrofit(mCollectionDetailsLiveData, result,true)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mCollectionDetailsLiveData, result, true)
         }
     }
 }

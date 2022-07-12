@@ -23,13 +23,14 @@ class MyCollectionViewModel(private val mMyCollectionRepo: MyCollectionRepositor
 
     fun loadCollectionList(requestPagerListEntity: RequestPagerListEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(MyService::class.java)
+            val result = try {
+                mRetrofitManger.create(MyService::class.java)
                     .loadMyCollectionList(requestPagerListEntity)
-                disposeRetrofit(mCollectionLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mCollectionLiveData, result)
         }
     }
 

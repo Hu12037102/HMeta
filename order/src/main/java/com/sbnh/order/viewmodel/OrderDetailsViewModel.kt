@@ -22,26 +22,27 @@ class OrderDetailsViewModel : BaseOrderViewModel() {
     val mAfterPayLiveData = MutableLiveData<BaseEntity<Unit>>()
     fun payOrderBefore(entity: RequestPayOrderBeforeEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(BaseService::class.java)
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
                     .payOrderBefore(entity)
-                disposeRetrofit(mBeforePayLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mBeforePayLiveData, result)
         }
     }
 
     fun payOrderAfter(entity: RequestPayOrderAfterEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(BaseService::class.java)
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
                     .payOrderAfter(entity)
-                disposeRetrofit(mAfterPayLiveData, result)
-
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mAfterPayLiveData, result)
         }
     }
 }

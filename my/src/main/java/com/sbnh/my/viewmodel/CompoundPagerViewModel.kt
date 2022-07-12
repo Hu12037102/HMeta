@@ -18,27 +18,27 @@ class CompoundPagerViewModel : BaseViewModel() {
     val mCompoundCollectionLiveData = MutableLiveData<Unit>()
     fun loadCompoundPagerDetails(id: String) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(MyService::class.java)
+            val result = try {
+                mRetrofitManger.create(MyService::class.java)
                     .loadCompoundPagerDetails(id)
-                disposeRetrofit(mCompoundPagerLiveData, result)
-
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
-
+            disposeRetrofit(mCompoundPagerLiveData, result)
         }
     }
-    fun compoundCollection(id:String){
-        viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(MyService::class.java)
-                    .compoundCollection(id)
-                disposeRetrofit(mCompoundCollectionLiveData,result)
 
-            }catch (e:Exception){
+    fun compoundCollection(id: String) {
+        viewModelScope.launch {
+            val result = try {
+                mRetrofitManger.create(MyService::class.java)
+                    .compoundCollection(id)
+            } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mCompoundCollectionLiveData, result)
         }
     }
 }

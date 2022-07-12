@@ -10,24 +10,30 @@ import com.sbnh.my.MyService
 import com.sbnh.my.repo.MyCollectionRepository
 import kotlinx.coroutines.launch
 
-class GiveCollectionContentViewModel(private val mMyCollectionRepo: MyCollectionRepository = MyCollectionRepository()) :BaseViewModel(){
+class GiveCollectionContentViewModel(private val mMyCollectionRepo: MyCollectionRepository = MyCollectionRepository()) :
+    BaseViewModel() {
 
     val mGiveCollectionListLiveData = MutableLiveData<BasePagerEntity<List<GiveCollectionEntity>>>()
-    val mCachedGiveCollectionListLiveData = MutableLiveData<BasePagerEntity<List<GiveCollectionEntity>>?>()
+    val mCachedGiveCollectionListLiveData =
+        MutableLiveData<BasePagerEntity<List<GiveCollectionEntity>>?>()
 
     fun giveCollectionList(entity: RequestGiveCollectionListEntity) {
         viewModelScope.launch {
-            try {
-                val result = mRetrofitManger.create(MyService::class.java)
+            val result = try {
+                mRetrofitManger.create(MyService::class.java)
                     .loadGiveCollectionList(entity)
-                disposeRetrofit(mGiveCollectionListLiveData, result)
             } catch (e: Exception) {
                 e.printStackTrace()
+                null
             }
+            disposeRetrofit(mGiveCollectionListLiveData, result)
         }
     }
 
-    fun cacheGiveCollectionPagerEntity(giveType: Int, data: BasePagerEntity<List<GiveCollectionEntity>>?) {
+    fun cacheGiveCollectionPagerEntity(
+        giveType: Int,
+        data: BasePagerEntity<List<GiveCollectionEntity>>?
+    ) {
         viewModelScope.launch {
             mMyCollectionRepo.cacheGiveCollectionPagerEntity(giveType, data)
         }
@@ -35,7 +41,8 @@ class GiveCollectionContentViewModel(private val mMyCollectionRepo: MyCollection
 
     fun loadCachedGiveCollectionPagerEntity(giveType: Int) {
         viewModelScope.launch {
-            mCachedGiveCollectionListLiveData.value = mMyCollectionRepo.loadCachedGiveCollectionPagerEntity(giveType)
+            mCachedGiveCollectionListLiveData.value =
+                mMyCollectionRepo.loadCachedGiveCollectionPagerEntity(giveType)
         }
     }
 

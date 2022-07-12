@@ -16,8 +16,13 @@ class MyAccountInfoViewModel : BaseViewModel() {
     val mExitLoginLiveData = MutableLiveData<Unit>()
     fun exitLoginService() {
         viewModelScope.launch {
-            val result = mRetrofitManger.create(MyService::class.java)
-                .exitLoginService()
+            val result = try {
+                mRetrofitManger.create(MyService::class.java)
+                    .exitLoginService()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
             disposeRetrofit(mExitLoginLiveData, result)
         }
     }
