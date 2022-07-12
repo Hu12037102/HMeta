@@ -60,4 +60,7 @@ object NumberCompat {
         val result = number - base
         return if (result >= defaultNumber) result else defaultNumber
     }
+
+    @JvmStatic
+    fun intValue(number: Int?, defaultNumber: Int? = 0) = number ?: defaultNumber
 }

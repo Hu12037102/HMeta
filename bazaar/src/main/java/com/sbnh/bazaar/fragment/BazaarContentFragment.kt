@@ -1,17 +1,23 @@
 package com.sbnh.bazaar.fragment
 
+import android.view.View
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.bazaar.adapter.BazaarContentAdapter
 import com.sbnh.bazaar.databinding.FragmentBazaarContentBinding
 import com.sbnh.bazaar.viewmodel.BazaarContentViewModel
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.DialogCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.bazaar.BazaarEntity
 import com.sbnh.comm.entity.request.RequestBazaarEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.utils.LogUtils
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 
@@ -57,6 +63,24 @@ class BazaarContentFragment :
     }
 
     override fun initEvent() {
+        mAdapter?.setOnRecyclerViewItemClickListener(object : OnRecyclerViewItemClickListener {
+            override fun clickEmptyView(view: View) {
+            }
+
+            override fun clickItem(view: View, position: Int) {
+                val dialog = ARouters.build(ARouterConfig.Path.Bazaar.DIALOG_BAZAAR_DETAILS)
+                    .withParcelable(ARouterConfig.Key.PARCELABLE,mData[position])
+                    .navigation()
+                if (dialog is DialogFragment){
+                    DialogCompat.showFragmentDialog(dialog,childFragmentManager)
+                }
+
+            }
+
+            override fun longClickItem(view: View, position: Int) {
+            }
+
+        })
     }
 
     override fun initObserve() {

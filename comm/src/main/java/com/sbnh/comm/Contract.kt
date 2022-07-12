@@ -26,7 +26,10 @@ object Contract {
     object DP {
         const val VALUE_8F = 8f
         const val VALUE_50F = 50f
+        const val VALUE_12F = 12f
+        const val VALUE_2F = 2f
         const val COLLECTION_IMAGE_SMALL_SIZE = 86
+
     }
 
 

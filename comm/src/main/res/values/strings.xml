@@ -178,4 +178,10 @@
     <string name="this_meta_collection_compound_plan">本次元宇宙藏品合成计划</string>
     <string name="collection_as_required_s">按照所需藏品：%1$s</string>
     <string name="the_raw_materials_needed_are_not_enough">所需的原材料藏品不够哦~</string>
+    <string name="framer">创作者</string>
+    <string name="sell">发售</string>
+    <string name="circulate">流通</string>
+    <string name="price_sort">价格排序</string>
+    <string name="part_s">%1$s份</string>
+    <string name="been_sold">已售出</string>
 </resources>

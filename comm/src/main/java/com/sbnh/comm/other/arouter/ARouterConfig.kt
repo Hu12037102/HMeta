@@ -25,7 +25,7 @@ class ARouterConfig {
 
     class Path {
         object Main {
-            const val ACTIVITY_MAIN = "/main/activity/main"
+            const val ACTIVITY_MAIN = "/main/activity/${Value.MAIN_ACTIVITY}"
         }
 
         object Home {
@@ -38,6 +38,8 @@ class ARouterConfig {
         object Bazaar {
             const val FRAGMENT_BAZAAR = "/bazaar/fragment/bazaar"
             const val FRAGMENT_BAZAAR_CONTENT = "/bazaar/fragment/bazaar/content"
+            const val DIALOG_BAZAAR_DETAILS="/bazaar/dialog/bazaar/details"
+            const val FRAGMENT_BAZAAR_DETAILS_CONTENT="/bazaar/fragment/bazaar/details/content"
         }
 
         object My {
