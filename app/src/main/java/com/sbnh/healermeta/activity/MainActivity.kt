@@ -67,6 +67,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
         mViewModel.loadAppVersion()
         initBottomView()
         initPagerAdapter()
+       // initTest()
     }
 
     private fun initTest() {
@@ -95,6 +96,7 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
         Log.w("initPagerAdapter--", "$homeFragment")
         val bazaarFragment =
             ARouters.getFragment(ARouterConfig.Path.Bazaar.FRAGMENT_BAZAAR)
+        val stadiumFragment= ARouters.getFragment(ARouterConfig.Path.Stadium.FRAGMENT_STADIUM)
         val myFragment =
             ARouters.getFragment(ARouterConfig.Path.My.FRAGMENT_MY)
         if (homeFragment is Fragment) {
@@ -102,6 +104,9 @@ class MainActivity : BaseCompatActivity<ActivityMainBinding, MainViewModel>() {
         }
         if (bazaarFragment is Fragment) {
             mFragments.add(bazaarFragment)
+        }
+        if (stadiumFragment is Fragment){
+            mFragments.add(stadiumFragment)
         }
         if (myFragment is Fragment) {
             mFragments.add(myFragment)

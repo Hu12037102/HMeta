@@ -15,4 +15,11 @@ object CollectionCompat {
 
     @JvmStatic
     fun <T> notEmptyList(list: List<T>?): Boolean = getListSize(list) > 0
+
+    @JvmStatic
+    fun <T> addAll(parentList: ArrayList<T>?, childList: List<T>?) {
+        if (parentList == null || childList == null)
+            return
+        parentList.addAll(childList)
+    }
 }

@@ -2,20 +2,28 @@ package com.sbnh.comm.app
 
 import android.app.Activity
 import android.app.Application
+import android.app.usage.NetworkStatsManager
 import android.content.Context
+import android.net.*
+import android.os.Build
 import android.os.Bundle
+import androidx.core.net.ConnectivityManagerCompat
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sbnh.comm.BuildConfig
 import com.sbnh.comm.Contract
+import com.sbnh.comm.compat.NetWorkCompat
 import com.sbnh.comm.config.AppConfig
 import com.sbnh.comm.manger.ActivityCompatManger
+import com.sbnh.comm.manger.NetWorkManger
+import com.sbnh.comm.utils.LogUtils
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.bugly.crashreport.CrashReport.UserStrategy
+import java.net.NetworkInterface
 import kotlin.properties.Delegates
 
 /**
@@ -32,6 +40,7 @@ class BaseApplication : MultiDexApplication() {
         fun getContext(): Context {
             return mContext
         }
+
 
         init {
             SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ ->
@@ -51,6 +60,12 @@ class BaseApplication : MultiDexApplication() {
         super.onCreate()
         init()
         this.registerActivityLifecycleCallbacks(mRegisterActivityCallback)
+        initNetCallback()
+    }
+
+    private fun initNetCallback() {
+       NetWorkManger.get().init()
+
     }
 
     private val mRegisterActivityCallback = object : ActivityLifecycleCallbacks {
@@ -62,12 +77,14 @@ class BaseApplication : MultiDexApplication() {
         }
 
         override fun onActivityResumed(activity: Activity) {
+
         }
 
         override fun onActivityPaused(activity: Activity) {
         }
 
         override fun onActivityStopped(activity: Activity) {
+
         }
 
         override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
@@ -78,6 +95,7 @@ class BaseApplication : MultiDexApplication() {
         }
 
     }
+
 
     private fun init() {
         mContext = this
@@ -95,14 +113,15 @@ class BaseApplication : MultiDexApplication() {
 
     private fun initBugly() {
         if (!AppConfig.isDebug()) {
-        val strategy = UserStrategy(this)
-        strategy.appChannel = if (AppConfig.isDebug()) Contract.DEBUG else Contract.RELEASE
-        CrashReport.initCrashReport(this, BuildConfig.BUGLY_ID, false, strategy)}
+            val strategy = UserStrategy(this)
+            strategy.appChannel = if (AppConfig.isDebug()) Contract.DEBUG else Contract.RELEASE
+            CrashReport.initCrashReport(this, BuildConfig.BUGLY_ID, false, strategy)
+        }
     }
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-      //  MultiDex.install(this)
+        //  MultiDex.install(this)
     }
 
     override fun onLowMemory() {

@@ -1,6 +1,9 @@
 package com.sbnh.my.fragment
 
+import android.app.Activity
 import android.view.View
+import androidx.activity.result.ActivityResult
+import androidx.core.net.ConnectivityManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -11,6 +14,7 @@ import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.compat.*
+import com.sbnh.comm.dialog.CompoundCollectionPreviewDialog
 import com.sbnh.comm.dialog.RealNameDialog
 import com.sbnh.comm.entity.base.*
 import com.sbnh.comm.http.IApiService
@@ -19,6 +23,7 @@ import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.adapter.MyTabAdapter
 import com.sbnh.my.databinding.FragmentMyBinding
@@ -108,7 +113,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                             )
                         }
                     }
-                    TAB_COMPOUND -> {
+                    TAB_DONATION -> {
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION_LIST)
                     }
                     TAB_MY_WALLET->{
@@ -126,8 +131,17 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                         }
 
                     }
+                    TAB_COMPOUND -> {
+                        //  ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_COMPOUND_DETAILED_LIST)
+                        val intent = ARouters.intent(
+                            context,
+                            ARouterConfig.Path.My.ACTIVITY_COMPOUND_DETAILED_LIST
+                        )
+                        startActivityForResult(intent)
+                    }
                     else -> {
                         showToast(com.sbnh.comm.R.string.the_function_is_not_available)
+
                     }
                 }
             }
@@ -189,6 +203,21 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
             )
         }
 
+    }
+
+    override fun onActivityResultCallback(result: ActivityResult) {
+        super.onActivityResultCallback(result)
+        if (result.resultCode == Activity.RESULT_OK) {
+            for (fragment in mFragments) {
+                if (fragment is MyCollectionFragment) {
+                    try {
+                        fragment.loadSmartData()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
     }
 
 }

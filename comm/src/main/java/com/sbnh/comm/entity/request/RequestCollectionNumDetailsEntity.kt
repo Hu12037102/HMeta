@@ -6,6 +6,6 @@ data class RequestCollectionNumDetailsEntity(
     val id: String,
     val merchandiseId: String,
     var pageNum: Int = Contract.PAGE_NUM,
-    var pagerSize: Int = Contract.PAGE_SIZE,
+    var pageSize: Int = Contract.PAGE_SIZE,
     var time: Long = System.currentTimeMillis()
 )

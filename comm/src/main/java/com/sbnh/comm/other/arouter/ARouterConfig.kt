@@ -14,6 +14,7 @@ class ARouterConfig {
         const val PARCELABLE="parcelable"
         const val PICTURE_PATH="picturePath"
         const val CONTENT="content"
+        const val DETAILS_ID="detailsId"
 
         /**
          * 收藏id
@@ -54,6 +55,8 @@ class ARouterConfig {
             const val ACTIVITY_GIVE_COLLECTION_LIST = "/my/activity/give/collection/list"
             const val FRAGMENT_GIVE_COLLECTION_CONTENT = "/my/activity/give/collection/content"
             const val ACTIVITY_MY_WALLET="/my/activity/my/wallet"
+            const val ACTIVITY_COMPOUND_DETAILED_LIST="/my/activity/compound/detailed/list"
+            const val ACTIVITY_COMPOUND_PAGER="/my/activity/compound/pager"
         }
 
         object Login {
@@ -72,10 +75,14 @@ class ARouterConfig {
             const val ACTIVITY_WEB_CONTENT = "/comm/activity/web/content"
             const val DIALOG_INPUT_MESSAGE_CODE="/comm/dialog/input/message/code"
             const val DIALOG_VERSION_UPDATE="/comm/dialog/version/update"
+            const val DIALOG_COMPOUND_COLLECTION_PREVIEW="/comm/dialog/compound/collection/preview"
         }
 
         object Order {
             const val ACTIVITY_ORDER_DETAILS = "/order/activity/order/details"
+        }
+        object Stadium{
+            const val FRAGMENT_STADIUM="/stadium/fragment/stadium"
         }
     }
 

@@ -3,8 +3,6 @@ package com.sbnh.comm.compat
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.text.Selection.setSelection
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -12,11 +10,12 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.sbnh.comm.Contract
+import com.sbnh.comm.utils.LogUtils
 
 /**
  * 作者: 胡庆岭
@@ -93,10 +92,10 @@ object MetaViewCompat {
     @JvmStatic
     fun showSoftKeyBoard(view: View?) {
         view?.let {
-            if ( it is EditText){
+            if (it is EditText) {
                 it.requestFocus()
-               // it.isFocusableInTouchMode= true
-               // it.isFocusable = true
+                // it.isFocusableInTouchMode= true
+                // it.isFocusable = true
             }
 
 
@@ -130,6 +129,14 @@ object MetaViewCompat {
     }
 
     @JvmStatic
+    fun setResultOK(activity: Activity?, data: Intent? = null) {
+        if (activity == null) {
+            return
+        }
+        activity.setResult(Activity.RESULT_OK, data)
+    }
+
+    @JvmStatic
     fun getTextViewLength(textView: TextView?): Int = getTextViewLength(textView, false)
 
     @JvmStatic
@@ -146,5 +153,22 @@ object MetaViewCompat {
         textView?.apply {
             setSelection(getTextViewLength(textView))
         }
+    }
+
+    @JvmStatic
+    fun setStatusBarMargin(view: View?, activity: Activity?) {
+        if (view == null || activity == null) {
+            return
+        }
+        var layoutMargin = view.layoutParams
+        if (layoutMargin !is ViewGroup.MarginLayoutParams) {
+            layoutMargin = ViewGroup.MarginLayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        }
+        layoutMargin.topMargin = PhoneCompat.getStatusBarHeight(activity)
+        LogUtils.w("setStatusBarMargin--", "${PhoneCompat.getStatusBarHeight(activity)}")
+        view.layoutParams = layoutMargin
     }
 }

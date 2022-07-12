@@ -310,7 +310,7 @@
 
 #Glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
--keep class * extends com.bumptech.glide.module.AppGlideModule {
+-keep class  * extends com.bumptech.glide.module.AppGlideModule {
  <init>(...);
 }
 -keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
@@ -320,6 +320,8 @@
 -keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
   *** rewind();
 }
+-keep public class com.sbnh.comm.other.glide.GlideInitModule extends com.bumptech.glide.module.AppGlideModule
+-keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
 # for DexGuard only
 # -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 #ARouter

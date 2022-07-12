@@ -18,22 +18,26 @@ const val TAB_OFFICIAL_ACCOUNTS = 101
 //邀请好友
 const val TAB_INVITE_FRIEND = 102
 
-//合成
-const val TAB_COMPOUND = 103
+//转赠
+const val TAB_DONATION = 103
 
 //抽奖助手
 const val TAB_LOTTERY_HELP = 104
 
 //我的钱包
 const val TAB_MY_WALLET = 105
+//合成
+const val TAB_COMPOUND=106
+
 
 @IntDef(
     TAB_ORDER,
     TAB_OFFICIAL_ACCOUNTS,
     TAB_INVITE_FRIEND,
-    TAB_COMPOUND,
+    TAB_DONATION,
     TAB_LOTTERY_HELP,
-    TAB_MY_WALLET
+    TAB_MY_WALLET,
+    TAB_COMPOUND
 )
 @Retention(AnnotationRetention.SOURCE)
 annotation class MyTabId

@@ -1,9 +1,13 @@
 package com.sbnh.comm.other.arouter
 
 import android.app.Activity
+import android.app.Application
+import android.content.Context
 import android.content.Intent
+import com.alibaba.android.arouter.core.LogisticsCenter
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.launcher.ARouter
+import com.sbnh.comm.compat.DataCompat
 
 /**
  * 作者: 胡庆岭
@@ -41,8 +45,29 @@ object ARouters {
 
     @JvmStatic
     fun getFragment(path: String): Any {
-        return  build(path).navigation()
+        return build(path).navigation()
     }
 
-
+    @JvmStatic
+    fun intent(context: Context?, path: String): Intent {
+        val postcard: Postcard = build(path)
+        LogisticsCenter.completion(postcard)
+        val intent = Intent(DataCompat.checkContext(context), postcard.destination)
+        intent.putExtras(postcard.extras)
+        if (context is Application) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        return intent
+    }
+    @JvmStatic
+    fun intent(context: Context?, postcard: Postcard): Intent {
+      //  val postcard: Postcard = build(path)
+        LogisticsCenter.completion(postcard)
+        val intent = Intent(DataCompat.checkContext(context), postcard.destination)
+        intent.putExtras(postcard.extras)
+        if (context is Application) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        return intent
+    }
 }

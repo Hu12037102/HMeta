@@ -39,7 +39,7 @@ class MyViewModel : BaseViewModel() {
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.examples_record),
                 com.sbnh.comm.R.mipmap.icon_my_tab_examples_record,
-                TAB_COMPOUND
+                TAB_DONATION
             )
         )
         list.add(
@@ -56,12 +56,14 @@ class MyViewModel : BaseViewModel() {
                 TAB_MY_WALLET, true
             )
         )
-        /*    list.add(
-                TabEntity(
-                    DataCompat.getResString(com.sbnh.comm.R.string.compound),
-                    com.sbnh.comm.R.mipmap.icon_my_tab_compound
-                )
-            )*/
+        list.add(
+            TabEntity(
+                DataCompat.getResString(com.sbnh.comm.R.string.compound),
+                com.sbnh.comm.R.mipmap.icon_my_tab_compound,
+                TAB_COMPOUND,
+                true
+            )
+        )
         return list
     }
 

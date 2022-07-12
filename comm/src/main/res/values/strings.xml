@@ -5,6 +5,7 @@
     <string name="home">首页</string>
     <string name="bazaar">寄售</string>
     <string name="my">我的</string>
+    <string name="stadium">场馆</string>
     <string name="not_login">未登录</string>
     <string name="login_read_you_digital_collection">登录后可查看你的数字藏品</string>
     <string name="my_order">我的订单</string>
@@ -174,4 +175,7 @@
     <string name="please_input_int">请输入正数</string>
     <string name="balance">余额</string>
     <string name="payment_term">收款方式</string>
+    <string name="this_meta_collection_compound_plan">本次元宇宙藏品合成计划</string>
+    <string name="collection_as_required_s">按照所需藏品：%1$s</string>
+    <string name="the_raw_materials_needed_are_not_enough">所需的原材料藏品不够哦~</string>
 </resources>

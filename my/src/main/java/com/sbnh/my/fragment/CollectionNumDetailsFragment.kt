@@ -48,7 +48,8 @@ class CollectionNumDetailsFragment :
     override fun initData() {
         context?.let { mViewBinding.rvData.adapter = CollectionNumDetailsListAdapter(it, mCollectionNumDetailsListData).also { adapter -> mCollectionNumDetailsListAdapter = adapter } }
         mMyCollection?.run {
-            mViewModel.loadCachedCollectionNumDetailsPagerEntity(merchandiseId?: "")
+         //   mViewModel.loadCachedCollectionNumDetailsPagerEntity(merchandiseId?: "")
+            loadSmartData()
         }
     }
 

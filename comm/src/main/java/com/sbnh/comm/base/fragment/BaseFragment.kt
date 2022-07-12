@@ -1,5 +1,8 @@
 package com.sbnh.comm.base.fragment
 
+import android.content.Intent
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.viewbinding.ViewBinding
 import com.google.permission.fragment.PermissionFragment
@@ -15,7 +18,10 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
  * 描述:
  */
 abstract class BaseFragment : PermissionFragment() {
-
+    private val mActivityResultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            onActivityResultCallback(it)
+        }
     protected fun showToast(text: CharSequence) {
         ToastCompat.create().showToast(text)
     }
@@ -24,9 +30,24 @@ abstract class BaseFragment : PermissionFragment() {
         ToastCompat.create().showToast(stringRes)
     }
 
-    protected open fun loadSmartData(
+     open fun loadSmartData(
         refreshLayout: RefreshLayout? = null,
         isRefresh: Boolean = true) {
+
+    }
+    protected open fun onActivityResultCallback(result: ActivityResult) {
+
+    }
+    override fun onDestroy() {
+        mActivityResultLauncher.unregister()
+        super.onDestroy()
+    }
+    protected fun startActivityForResult(intent: Intent) {
+        try {
+            mActivityResultLauncher.launch(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
     }
 }
