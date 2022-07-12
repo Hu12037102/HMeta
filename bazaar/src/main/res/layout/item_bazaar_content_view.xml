@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/size_6dp"
+    app:cardBackgroundColor="@color/colorFF0F0F10"
+    app:cardCornerRadius="@dimen/size_12dp"
+    app:cardElevation="@dimen/size_0dp"
+    tools:background="@color/colorWindowBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/size_20dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/aiv_content"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_0dp"
+            android:layout_marginStart="@dimen/size_12dp"
+            android:layout_marginTop="@dimen/size_12dp"
+            android:layout_marginEnd="@dimen/size_12dp"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_content"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_4dp"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_14sp"
+            app:layout_constraintLeft_toLeftOf="@id/aiv_content"
+            app:layout_constraintRight_toRightOf="@id/aiv_content"
+            app:layout_constraintTop_toBottomOf="@id/aiv_content"
+            tools:text="按揭付款了噶JFK拉萨就开始了附件ask来得及克拉的卡拉数据库里" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_head"
+            android:layout_width="@dimen/size_16dp"
+            android:layout_height="@dimen/size_16dp"
+            android:layout_marginTop="@dimen/size_4dp"
+            app:layout_constraintLeft_toLeftOf="@id/atv_content"
+            app:layout_constraintTop_toBottomOf="@id/atv_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_4dp"
+            android:singleLine="true"
+            android:textColor="@color/colorFF9A9A9C"
+            android:textSize="@dimen/size_10sp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="@id/civ_head"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@id/civ_head"
+            app:layout_constraintRight_toRightOf="@id/aiv_content"
+            app:layout_constraintTop_toTopOf="@id/civ_head"
+            tools:text="按揭付款了噶JFK拉萨就开始了附件ask来得及克拉的卡拉数据库里" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
