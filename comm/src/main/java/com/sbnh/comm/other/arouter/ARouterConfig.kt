@@ -73,6 +73,7 @@ class ARouterConfig {
             const val ACTIVITY_ADD_BANK_CARD = "/pay/activity/add/bank/card"
             const val DIALOG_SELECTOR_BANK_CARD="/pay/dialog/selector/bank/card"
             const val ACTIVITY_WITHDRAW="/pay/activity/withdraw"
+            const val ACTIVITY_TOP_UP="/pay/activity/top/up"
         }
 
         object Comm {

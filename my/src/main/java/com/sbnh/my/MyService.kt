@@ -49,6 +49,9 @@ interface MyService {
     suspend fun loadCompoundPagerDetails(@Path(IApiService.Key.ID) id: String): Response<CompoundPagerEntity>
 
     @POST(IApiService.Path.COMPOUND_COLLECTION)
-    suspend fun compoundCollection(@Path(IApiService.Key.ACTIVITY_ID)id: String):Response<Unit>
+    suspend fun compoundCollection(@Path(IApiService.Key.ACTIVITY_ID) id: String): Response<Unit>
+
+    @GET(IApiService.Path.QUERY_MY_WALLET)
+    suspend fun queryMyWallet(): Response<BaseEntity<MyWalletEntity>>
 
 }

@@ -4,12 +4,14 @@ import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivityMyWalletBinding
 import com.sbnh.my.viewmodel.MyWalletViewModel
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 
 /**
  * 作者: 胡庆岭
@@ -29,10 +31,16 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
             com.sbnh.comm.R.mipmap.icon_my_wallet_background,
             mViewBinding.aivContent
         )
-        UICompat.setText(mViewBinding.atvMoney, "￥0.0")
+        setWalletBalance()
     }
 
     override fun initData() {
+        loadSmartData()
+    }
+
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        super.loadSmartData(refreshLayout, isRefresh)
+        mViewModel.queryMyWallet()
     }
 
     override fun initEvent() {
@@ -59,5 +67,23 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
             }
 
         })
+        mViewBinding.atvRecharge.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_TOP_UP)
+            }
+
+        })
+    }
+
+    override fun initObserve() {
+        super.initObserve()
+        mViewModel.mWalletLiveData.observe(this) {
+            val entity = BaseEntity.getData(it)
+            setWalletBalance(entity?.balance)
+        }
+    }
+
+    private fun setWalletBalance(balance: String? = null) {
+        UICompat.setText(mViewBinding.atvMoney, "￥${balance ?: 0.0}")
     }
 }

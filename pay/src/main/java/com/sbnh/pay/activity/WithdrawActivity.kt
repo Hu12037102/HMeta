@@ -10,7 +10,7 @@ import com.sbnh.pay.viewmodel.WithdrawViewModel
  * 作者: 胡庆岭
  * 创建时间: 2022/7/4 11:55
  * 更新时间: 2022/7/4 11:55
- * 描述:
+ * 描述:提现
  */
 @Route(path = ARouterConfig.Path.Pay.ACTIVITY_WITHDRAW)
 class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawViewModel>() {

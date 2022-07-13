@@ -44,6 +44,7 @@ class IApiService {
         const val LOAD_BAZAAR_TABS="/healer_nft/tradingMarket/queryCategory"
         const val LOAD_BAZAAR_CONTENT_LIST="/healer_nft/tradingMarket/querySecondaryCategory"
         const val LOAD_BAZAAR_DETAILS_LIST="/healer_nft/tradingMarket/queryMarket"
+        const val QUERY_MY_WALLET="/payment/wallet"
     }
 
     object EncodedPath {

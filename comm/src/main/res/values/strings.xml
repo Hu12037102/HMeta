@@ -185,4 +185,9 @@
     <string name="part_s">%1$s份</string>
     <string name="been_sold">已售出</string>
     <string name="selling_price">售价</string>
+    <string name="top_up_money_rule">充值金额需≥10元</string>
+    <string name="top_up_warm_tips_content">* 所有资金均由第三方持牌支付机构进行支付、托管及清算</string>
+    <string name="warm_prompt">温馨提示</string>
+    <string name="top_up_money">充值金额</string>
+    <string name="yuan">（元）</string>
 </resources>
