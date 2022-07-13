@@ -27,7 +27,7 @@ class BazaarViewModel : BaseViewModel() {
                 e.printStackTrace()
                 result = null
             }
-            disposeRetrofit(mTabLiveData, result)
+            disposeRetrofit(mTabLiveData, result,true)
 
         }
     }

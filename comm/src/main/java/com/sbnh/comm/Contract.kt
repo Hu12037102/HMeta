@@ -20,8 +20,8 @@ object Contract {
     const val DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm"
     const val UNKNOWN_INT_VALUE = -1
     const val UNKNOWN_LONG_VALUE = -1L
-    const val DEBUG="debug"
-    const val RELEASE="release"
+    const val DEBUG = "debug"
+    const val RELEASE = "release"
 
     object DP {
         const val VALUE_8F = 8f
@@ -32,5 +32,12 @@ object Contract {
 
     }
 
+    object CollectionStatus {
+        //0寄售 1售出 2预定中 3下架
+        const val STATUS_SALE = 0
+        const val STATUS_SELL = 1
+        const val STATUS_RESERVE = 2
+        const val STATUS_SOLD_OUT = 3
+    }
 
 }

@@ -54,7 +54,7 @@ class BazaarDetailsTabAdapter(
 
         }
     }
-    private fun selectorTab(index:Int){
+     fun selectorTab(index:Int){
         for (entity in data){
             entity.isSelector = data.indexOf(entity) == index
         }

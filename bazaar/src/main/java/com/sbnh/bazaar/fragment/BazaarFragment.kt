@@ -1,5 +1,6 @@
 package com.sbnh.bazaar.fragment
 
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -13,6 +14,7 @@ import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.bazaar.BazaarTabEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.weight.click.DelayedClick
 
 /**
  * 作者: 胡庆岭
@@ -71,6 +73,12 @@ class BazaarFragment : BaseCompatFragment<FragmentBazaarBinding, BazaarViewModel
     }
 
     override fun initEvent() {
+        mEmptyLayout?.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                mViewModel.loadTabs()
+            }
+
+        })
     }
 
     override fun initObserve() {

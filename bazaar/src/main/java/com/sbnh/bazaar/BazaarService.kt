@@ -1,8 +1,10 @@
 package com.sbnh.bazaar
 
 import com.sbnh.comm.entity.base.BasePagerEntity
+import com.sbnh.comm.entity.bazaar.BazaarDataEntity
 import com.sbnh.comm.entity.bazaar.BazaarEntity
 import com.sbnh.comm.entity.bazaar.BazaarTabEntity
+import com.sbnh.comm.entity.request.RequestBazaarDataEntity
 import com.sbnh.comm.entity.request.RequestBazaarEntity
 import com.sbnh.comm.http.IApiService
 import retrofit2.Response
@@ -22,5 +24,8 @@ interface BazaarService {
     suspend fun loadBazaarTabs(): Response<List<BazaarTabEntity>>
 
     @POST(IApiService.Path.LOAD_BAZAAR_CONTENT_LIST)
-    suspend fun loadBazaarContentList(@Body entity: RequestBazaarEntity):Response<BasePagerEntity<List<BazaarEntity>>>
+    suspend fun loadBazaarContentList(@Body entity: RequestBazaarEntity): Response<BasePagerEntity<List<BazaarEntity>>>
+
+    @POST(IApiService.Path.LOAD_BAZAAR_DETAILS_LIST)
+    suspend fun loadBazaarDataList(@Body entity:RequestBazaarDataEntity):Response<BasePagerEntity<List<BazaarDataEntity>>>
 }

@@ -15,6 +15,8 @@ class ARouterConfig {
         const val PICTURE_PATH="picturePath"
         const val CONTENT="content"
         const val DETAILS_ID="detailsId"
+        const val TYPE="type"
+        const val BOOLEAN_VALUE="boolean_value"
 
         /**
          * 收藏id

@@ -184,4 +184,5 @@
     <string name="price_sort">价格排序</string>
     <string name="part_s">%1$s份</string>
     <string name="been_sold">已售出</string>
+    <string name="selling_price">售价</string>
 </resources>

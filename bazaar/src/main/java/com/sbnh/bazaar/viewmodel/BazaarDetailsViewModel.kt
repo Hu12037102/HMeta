@@ -13,18 +13,21 @@ import com.sbnh.comm.entity.base.TabEntity
  * 描述:
  */
 class BazaarDetailsViewModel : BaseViewModel() {
+
     fun getTabs(): List<SelectorTabEntity> {
         val tabs = ArrayList<SelectorTabEntity>()
         val saleEntity = SelectorTabEntity(
             DataCompat.getResString(com.sbnh.comm.R.string.bazaar),
             true,
-            com.sbnh.comm.R.drawable.shape_click_view
+            com.sbnh.comm.R.drawable.shape_click_view,
+            SelectorTabEntity.TYPE_BAZAAR
         )
         tabs.add(saleEntity)
         val soldEntity = SelectorTabEntity(
             DataCompat.getResString(com.sbnh.comm.R.string.been_sold),
             false,
-            com.sbnh.comm.R.drawable.shape_click_view
+            com.sbnh.comm.R.drawable.shape_click_view,0,
+            SelectorTabEntity.TYPE_BEEN_SOLD
         )
         tabs.add(soldEntity)
         return tabs

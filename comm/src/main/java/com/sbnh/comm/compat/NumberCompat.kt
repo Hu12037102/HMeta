@@ -63,4 +63,7 @@ object NumberCompat {
 
     @JvmStatic
     fun intValue(number: Int?, defaultNumber: Int? = 0) = number ?: defaultNumber
+
+    @JvmStatic
+    fun checkInt(number: Int?, defaultNumber: Int = 0) = number ?: defaultNumber
 }
