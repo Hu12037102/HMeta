@@ -194,6 +194,12 @@
     <string name="top_up_money_must_greater">充值金额必须≥10元</string>
     <string name="top_up_succeed">充值成功，请注意查看钱包余额~</string>
     <string name="balance_s">余额：￥%1$s</string>
-    <string name="withdrawal_rule">1 第三方转账手续费1％\n 2 应第三方支付要求，提现金额最低为30元\n 3 提现到账时间：T＋2，节假日顺延\n 4 提现账户姓名必须与账户实名信息一致，否则将提现失败，退回到账户余额</string>
-
+    <string name="withdrawal_rule">1 第三方转账手续费1％\n2 应第三方支付要求，提现金额最低为30元\n3 提现到账时间：T＋2，节假日顺延\n4 提现账户姓名必须与账户实名信息一致，否则将提现失败，退回到账户余额</string>
+    <string name="please_input_withdraw_money">请输入提现金额~</string>
+    <string name="insufficient_wallet_balance">钱包余额不足~</string>
+    <string name="withdraw_money_must_greater">提现金额必须≥30元~</string>
+    <string name="please_selector_withdraw_bank_card">请选择收款银行卡~</string>
+    <string name="withdrawal_bank_card">提现银行卡</string>
+    <string name="withdrawal_bank_card_succeed_please_look">提现成功，请注意查看银行卡~</string>
+    <string name="withdrawal_money_greater_balance">提现金额大于钱包余额</string>
 </resources>

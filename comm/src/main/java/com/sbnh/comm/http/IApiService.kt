@@ -47,6 +47,7 @@ class IApiService {
         const val QUERY_MY_WALLET="/payment/wallet"
         const val TOP_UP_MONEY_BEFORE="/payment/thirdPayment/recharge_pay"
         const val TOP_UP_MONEY_AFTER="/payment/thirdPayment/recharge_pay_confirm"
+        const val WITHDRAW_BANK_CARD="/payment/wallet/saveWithdrawalInfo"
     }
 
     object EncodedPath {

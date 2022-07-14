@@ -40,4 +40,7 @@ interface PayService {
     @POST(IApiService.Path.TOP_UP_MONEY_AFTER)
     suspend fun topUpMoneyAfter(@Body entity: RequestTopUpAfterEntity): Response<BaseEntity<Unit>>
 
+    @POST(IApiService.Path.WITHDRAW_BANK_CARD)
+    suspend fun withdrawBankCard(@Body entity: RequestWithdrawBankCardEntity): Response<BaseEntity<Unit>>
+
 }

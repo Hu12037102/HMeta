@@ -1,18 +1,21 @@
 package com.sbnh.pay.activity
 
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
-import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.compat.MetaViewCompat
-import com.sbnh.comm.compat.NumberCompat
-import com.sbnh.comm.compat.UICompat
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
+import com.sbnh.comm.compat.*
+import com.sbnh.comm.dialog.SetPaymentPasswordDialog
 import com.sbnh.comm.entity.base.BaseEntity
+import com.sbnh.comm.entity.pay.BankCardEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
+import com.sbnh.comm.entity.request.RequestWithdrawBankCardEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
+import com.sbnh.pay.adapter.WithdrawBankCardAdapter
 import com.sbnh.pay.databinding.ActivityWithdrawBinding
 import com.sbnh.pay.viewmodel.WithdrawViewModel
 
@@ -25,6 +28,9 @@ import com.sbnh.pay.viewmodel.WithdrawViewModel
 @Route(path = ARouterConfig.Path.Pay.ACTIVITY_WITHDRAW)
 class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawViewModel>() {
     private var mBalance: String = Contract.DEFAULT_STRING_VALUE
+    private var mBankCardAdapter: WithdrawBankCardAdapter? = null
+    private var mCheckBankCardEntity: BankCardEntity? = null
+    private val mBankCardData = ArrayList<BankCardEntity>()
     override fun getViewBinding(): ActivityWithdrawBinding =
         ActivityWithdrawBinding.inflate(layoutInflater)
 
@@ -40,6 +46,7 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
             .setSize(12, true)
             .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorWhite))
             .crete(mViewBinding.atvWithdrawMoneyTitle)
+        mViewBinding.rvBankCard.layoutManager = LinearLayoutManager(this)
     }
 
     override fun initData() {
@@ -48,6 +55,8 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
         if (DataCompat.isEmpty(mBalance)) {
             mViewModel.queryMyWallet()
         }
+        mBankCardAdapter = WithdrawBankCardAdapter(this, mBankCardData)
+        mViewBinding.rvBankCard.adapter = mBankCardAdapter
         mViewModel.loadBankCardList(RequestPagerListEntity())
     }
 
@@ -67,7 +76,69 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
             }
 
         })
+        mBankCardAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
+            override fun onClickItem(view: View?, position: Int) {
+                this@WithdrawActivity.mCheckBankCardEntity = mBankCardData[position]
+            }
 
+        })
+        mViewBinding.atvCommit.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                if (MetaViewCompat.textViewTextIsEmpty(mViewBinding.aetMoney)) {
+                    showToast(com.sbnh.comm.R.string.please_input_withdraw_money)
+                    return
+                }
+                val numberBalanceMoney = NumberCompat.string2Double(mBalance)
+                if (numberBalanceMoney < Contract.MIN_WITHDRAW_MONEY) {
+                    showToast(com.sbnh.comm.R.string.insufficient_wallet_balance)
+                    return
+                }
+                val numberInputMoney = NumberCompat.string2Double(
+                    DataCompat.toString(
+                        MetaViewCompat.getTextViewText(mViewBinding.aetMoney)
+                    )
+                )
+                if (numberInputMoney < Contract.MIN_WITHDRAW_MONEY) {
+                    showToast(com.sbnh.comm.R.string.withdraw_money_must_greater)
+                    return
+                }
+                if (numberInputMoney > numberBalanceMoney) {
+                    showToast(com.sbnh.comm.R.string.withdrawal_money_greater_balance)
+                    return
+                }
+
+                if (mCheckBankCardEntity == null) {
+                    showToast(com.sbnh.comm.R.string.please_selector_withdraw_bank_card)
+                    return
+                }
+
+                showPayPasswordDialog(numberInputMoney)
+
+            }
+
+        })
+    }
+
+    private fun showPayPasswordDialog(money: Double) {
+        val dialog = SetPaymentPasswordDialog(
+            DataCompat.getResString(com.sbnh.comm.R.string.withdrawal_bank_card),
+            DataCompat.getResString(com.sbnh.comm.R.string.please_inout_payment_password_check_identity)
+        )
+        DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
+        dialog.setOnInputPasswordCallback(object :
+            SetPaymentPasswordDialog.OnInputPasswordCallback {
+            override fun onComplete(password: String) {
+                mViewModel.withdrawBankCard(
+                    RequestWithdrawBankCardEntity(
+                        DataCompat.toString(mCheckBankCardEntity?.bindId),
+                        password,
+                        money
+                    )
+                )
+                dialog.dismiss()
+            }
+
+        })
     }
 
     override fun initObserve() {
@@ -76,8 +147,14 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
             this.mBalance = DataCompat.toString(BaseEntity.getData(it)?.balance)
 
         }
-        mViewModel.mBankListLiveData.observe(this){
+        mViewModel.mBankListLiveData.observe(this) {
+            val data = BaseEntity.getPagerData(it)
+            UICompat.notifyAdapterDateChanged(null, mBankCardAdapter, true, mBankCardData, data)
 
+        }
+        mViewModel.mWithdrawBankCardLiveData.observe(this) {
+            MetaViewCompat.finishActivitySetResult(this)
+            showToast(com.sbnh.comm.R.string.withdrawal_bank_card_succeed_please_look)
         }
     }
 
