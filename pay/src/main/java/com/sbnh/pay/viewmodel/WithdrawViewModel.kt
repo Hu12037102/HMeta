@@ -8,5 +8,5 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
  * 更新时间: 2022/7/4 11:54
  * 描述:
  */
-class WithdrawViewModel:BaseViewModel() {
+class WithdrawViewModel:BasePayViewModel() {
 }

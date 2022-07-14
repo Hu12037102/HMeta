@@ -6,6 +6,7 @@ import androidx.annotation.DimenRes
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
 import androidx.core.content.pm.PackageInfoCompat
+import com.sbnh.comm.Contract
 import com.sbnh.comm.app.BaseApplication
 import java.util.*
 
@@ -111,5 +112,15 @@ object DataCompat {
         id += timestamp
         id += (Math.random() * 10000).toInt()
         return id
+    }
+
+    @JvmStatic
+    fun getBalanceFormat(balance: String): String {
+        val numberMoney = NumberCompat.string2Double(balance)
+        return NumberCompat.keepDecimalNumber(
+            numberMoney,
+            Contract.MONEY_KEEP_DIGIT,
+            toString(Contract.NOT_MONEY)
+        )
     }
 }

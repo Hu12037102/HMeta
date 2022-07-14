@@ -1,7 +1,9 @@
 package com.sbnh.comm.compat
 
+import androidx.fragment.app.DialogFragment
 import com.sbnh.comm.Contract
 import com.sbnh.comm.utils.LogUtils
+import java.text.DecimalFormat
 
 /**
  * 作者: 胡庆岭
@@ -86,4 +88,22 @@ object NumberCompat {
             defaultNumber
         }
     }
+
+    @JvmStatic
+    fun keepDecimalNumber(number: Double, keepCount: Int, defaultNumber: String = ""): String =
+        try {
+            if (keepCount > 0) {
+                val pattern = StringBuilder("#0.")
+                for (i in 0 until keepCount) {
+                    pattern.append("0")
+                }
+                val df = DecimalFormat(pattern.toString())
+                df.format(number)
+            } else {
+                defaultNumber
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            defaultNumber
+        }
 }

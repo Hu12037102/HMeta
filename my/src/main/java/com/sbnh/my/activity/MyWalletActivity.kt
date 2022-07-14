@@ -5,7 +5,10 @@ import android.content.Intent
 import android.view.View
 import androidx.activity.result.ActivityResult
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.NumberCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
@@ -27,6 +30,8 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletViewModel>() {
     override fun getViewBinding(): ActivityMyWalletBinding =
         ActivityMyWalletBinding.inflate(layoutInflater)
+
+    private var mBalance: String = Contract.DEFAULT_STRING_VALUE
 
     override fun getViewModelClass(): Class<MyWalletViewModel> = MyWalletViewModel::class.java
 
@@ -52,8 +57,9 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
         mViewBinding.atvWithdraw.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 //  ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_WITHDRAW)
-                val intent =
-                    ARouters.intent(this@MyWalletActivity, ARouterConfig.Path.Pay.ACTIVITY_WITHDRAW)
+                val postcard = ARouters.build(ARouterConfig.Path.Pay.ACTIVITY_WITHDRAW)
+                    .withString(ARouterConfig.Key.CONTENT, mBalance)
+                val intent = ARouters.intent(this@MyWalletActivity, postcard)
                 startActivityForResult(intent)
             }
 
@@ -77,7 +83,7 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
         })
         mViewBinding.atvRecharge.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-              //  ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_TOP_UP)
+                //  ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_TOP_UP)
                 val intent =
                     ARouters.intent(this@MyWalletActivity, ARouterConfig.Path.Pay.ACTIVITY_TOP_UP)
                 startActivityForResult(intent)
@@ -90,12 +96,16 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
         super.initObserve()
         mViewModel.mWalletLiveData.observe(this) {
             val entity = BaseEntity.getData(it)
-            setWalletBalance(entity?.balance)
+            this.mBalance = DataCompat.toString(entity?.balance)
+            setWalletBalance()
         }
     }
 
-    private fun setWalletBalance(balance: String? = null) {
-        UICompat.setText(mViewBinding.atvMoney, "￥${balance ?: 0.0}")
+    private fun setWalletBalance() {
+        UICompat.setText(
+            mViewBinding.atvMoney,
+            "￥${DataCompat.getBalanceFormat(mBalance)}"
+        )
     }
 
     override fun onActivityResultCallback(result: ActivityResult) {

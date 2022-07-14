@@ -15,18 +15,6 @@ import kotlinx.coroutines.launch
  * 描述:
  */
 class MyWalletViewModel : BaseViewModel() {
-    val mWalletLiveData = MutableLiveData<BaseEntity<MyWalletEntity>>()
-    fun queryMyWallet() {
-        viewModelScope.launch {
-            val result = try {
-                mRetrofitManger.create(MyService::class.java)
-                    .queryMyWallet()
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
-            }
-            disposeRetrofit(mWalletLiveData,result)
-        }
-    }
+
 
 }

@@ -2,6 +2,7 @@ package com.sbnh.comm.http
 
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.VersionEntity
+import com.sbnh.comm.entity.my.MyWalletEntity
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.ResultCommitOrderEntity
 import com.sbnh.comm.entity.pay.PayOrderBeforeResultEntity
@@ -39,6 +40,10 @@ interface BaseService {
 
     @POST(IApiService.Path.CANCEL_ORDER)
     suspend fun cancelOrder(@Body entity: RequestCancelOrderEntity): Response<BaseEntity<Unit>>
+
     @GET(IApiService.Path.LOAD_APP_VERSION)
-    suspend fun loadAppVersion(@Path(IApiService.Key.CODE) version:Long):Response<VersionEntity>
+    suspend fun loadAppVersion(@Path(IApiService.Key.CODE) version: Long): Response<VersionEntity>
+
+    @GET(IApiService.Path.QUERY_MY_WALLET)
+    suspend fun queryMyWallet(): Response<BaseEntity<MyWalletEntity>>
 }

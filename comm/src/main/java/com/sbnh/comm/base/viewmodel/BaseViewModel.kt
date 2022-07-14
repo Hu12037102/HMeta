@@ -19,6 +19,7 @@ import com.sbnh.comm.entity.order.RefreshStatusEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.http.BaseService
 import com.sbnh.comm.entity.base.ErrorResponse
+import com.sbnh.comm.entity.my.MyWalletEntity
 import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.RetrofitManger
 import com.sbnh.comm.info.UserInfoStore
@@ -74,6 +75,7 @@ open class BaseViewModel : ViewModel() {
     val mPublicLiveData: MutableLiveData<Int> by lazy { MutableLiveData() }
     val mRefreshLiveData: MutableLiveData<RefreshStatusEntity> by lazy { MutableLiveData() }
     val mVersionLiveData: MutableLiveData<VersionEntity> by lazy { MutableLiveData() }
+    val mWalletLiveData :MutableLiveData<BaseEntity<MyWalletEntity>> by lazy { MutableLiveData<BaseEntity<MyWalletEntity>>() }
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
             val result = UserInfoStore.get().getEntity()
@@ -294,6 +296,20 @@ open class BaseViewModel : ViewModel() {
                 null
             }
             disposeRetrofit(mVersionLiveData, result)
+        }
+    }
+
+
+    fun queryMyWallet() {
+        viewModelScope.launch {
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
+                    .queryMyWallet()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+            disposeRetrofit(mWalletLiveData,result)
         }
     }
 
