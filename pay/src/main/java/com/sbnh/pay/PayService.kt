@@ -5,10 +5,8 @@ import com.sbnh.comm.entity.base.BasePagerEntity2
 import com.sbnh.comm.entity.pay.BankCardEntity
 import com.sbnh.comm.entity.pay.NumberQueryBankCardInfoEntity
 import com.sbnh.comm.entity.pay.RequestUnbindBankCardEntity
-import com.sbnh.comm.entity.request.RequestBankCardInfoEntity
-import com.sbnh.comm.entity.request.RequestBindingBankCardAfterEntity
-import com.sbnh.comm.entity.request.RequestBindingBankCardBeforeEntity
-import com.sbnh.comm.entity.request.RequestPagerListEntity
+import com.sbnh.comm.entity.pay.TopUpBeforeEntity
+import com.sbnh.comm.entity.request.*
 import com.sbnh.comm.http.IApiService
 import retrofit2.Response
 import retrofit2.http.Body
@@ -35,5 +33,11 @@ interface PayService {
 
     @POST(IApiService.Path.UNBIND_BANK_CARD)
     suspend fun unbindBankCard(@Body entity: RequestUnbindBankCardEntity): Response<BaseEntity<String>>
+
+    @POST(IApiService.Path.TOP_UP_MONEY_BEFORE)
+    suspend fun topUpMoneyBefore(@Body entity: RequestTopUpBeforeEntity): Response<BaseEntity<TopUpBeforeEntity>>
+
+    @POST(IApiService.Path.TOP_UP_MONEY_AFTER)
+    suspend fun topUpMoneyAfter(@Body entity: RequestTopUpAfterEntity): Response<BaseEntity<Unit>>
 
 }

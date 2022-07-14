@@ -258,9 +258,9 @@ class OrderDetailsActivity :
                     override fun onDelayedClick(v: View?) {
                         val selectorBankCardDialog =
                             ARouters.build(ARouterConfig.Path.Pay.DIALOG_SELECTOR_BANK_CARD)
-                                .withParcelable(
-                                    ARouterConfig.Key.PARCELABLE,
-                                    mBankCardEntity
+                                .withString(
+                                    ARouterConfig.Key.ID,
+                                    mBankCardEntity?.id
                                 ).navigation() as BaseDataDialog<*, *>
                         selectorBankCardDialog.setOnCallbackValues(object :
                             BaseDataDialog.OnCallbackValues {

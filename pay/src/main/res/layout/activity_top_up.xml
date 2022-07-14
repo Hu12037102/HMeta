@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWindowBackground">
+    android:background="@color/colorWindowBackground"
+    android:id="@+id/cl_parent">
 
     <io.google.projectview.weight.ProjectView
         android:id="@+id/pv_title"
@@ -63,7 +64,7 @@
                 android:background="@color/colorTransparent"
                 android:hint="@string/top_up_money_rule"
                 android:inputType="number"
-                android:maxLength="5"
+                android:maxLength="6"
                 android:paddingStart="@dimen/size_2dp"
                 android:paddingEnd="@dimen/size_2dp"
                 android:textColor="@color/white"

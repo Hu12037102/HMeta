@@ -190,4 +190,8 @@
     <string name="warm_prompt">温馨提示</string>
     <string name="top_up_money">充值金额</string>
     <string name="yuan">（元）</string>
+    <string name="please_input_top_up_money">请输入提现金额~</string>
+    <string name="top_up_money_must_greater">充值金额必须≥10元</string>
+    <string name="top_up_succeed">充值成功，请注意查看钱包余额~</string>
+
 </resources>

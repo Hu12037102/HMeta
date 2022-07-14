@@ -22,6 +22,8 @@ object Contract {
     const val UNKNOWN_LONG_VALUE = -1L
     const val DEBUG = "debug"
     const val RELEASE = "release"
+    const val MIN_TOP_UP_MONEY=10
+    const val DEFAULT_STRING_VALUE=""
 
     object DP {
         const val VALUE_8F = 8f

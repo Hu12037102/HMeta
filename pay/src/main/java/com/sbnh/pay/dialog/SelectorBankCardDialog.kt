@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
+import com.sbnh.comm.Contract
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.dialog.BaseCompatDialog
 import com.sbnh.comm.base.dialog.BaseDataDialog
@@ -30,7 +31,8 @@ import com.sbnh.pay.viewmodel.SelectorBankCardViewModel
 @Route(path = ARouterConfig.Path.Pay.DIALOG_SELECTOR_BANK_CARD)
 class SelectorBankCardDialog :
     BaseDataDialog<DialogSelectorBankCardViewBinding, SelectorBankCardViewModel>() {
-    private var mIntentEntity: BankCardEntity? = null
+    // private var mIntentEntity: BankCardEntity? = null
+    private var mCheckId: String? = ""
     private var mAdapter: SelectorBankCardAdapter? = null
     private val mFootViewBinding: ItemFootSelectorBankCardViewBinding by lazy {
         ItemFootSelectorBankCardViewBinding.inflate(
@@ -51,10 +53,11 @@ class SelectorBankCardDialog :
 
 
     override fun initData() {
-        mIntentEntity = arguments?.getParcelable<BankCardEntity>(ARouterConfig.Key.PARCELABLE)
-        LogUtils.w(
+        //    mIntentEntity = arguments?.getParcelable<BankCardEntity>(ARouterConfig.Key.PARCELABLE)
+       /* LogUtils.w(
             "SelectorBankCardDialog--", "$mIntentEntity"
-        )
+        )*/
+        mCheckId= arguments?.getString(ARouterConfig.Key.ID,Contract.DEFAULT_STRING_VALUE)
         mAdapter = SelectorBankCardAdapter(requireContext(), mData)
         mAdapter?.addFootView(mFootViewBinding.root)
         mViewBinding.rvData.adapter = mAdapter
@@ -74,13 +77,13 @@ class SelectorBankCardDialog :
             }
 
         })
-        mAdapter?.setOnRecyclerItemClickListener(object :OnRecyclerItemClickListener{
+        mAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
             override fun onClickItem(view: View?, position: Int) {
                 mOnCallbackValues?.onValue(mData[position])
             }
 
         })
-        mViewBinding.aivClose.setOnClickListener(object :DelayedClick(){
+        mViewBinding.aivClose.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 dismiss()
             }
@@ -97,7 +100,8 @@ class SelectorBankCardDialog :
                 mData.addAll(entity)
             }
             for (child in mData) {
-                if (TextUtils.equals(child.id, mIntentEntity?.id)) {
+             //   if (TextUtils.equals(child.id, mIntentEntity?.id)) {
+                if (TextUtils.equals(child.id, mCheckId)) {
                     child.isCheck = true
                     break
                 }
