@@ -20,14 +20,14 @@ class BazaarDetailsViewModel : BaseViewModel() {
             DataCompat.getResString(com.sbnh.comm.R.string.bazaar),
             true,
             com.sbnh.comm.R.drawable.shape_click_view,
-            SelectorTabEntity.TYPE_BAZAAR
+            SelectorTabEntity.Bazaar.TYPE_BAZAAR
         )
         tabs.add(saleEntity)
         val soldEntity = SelectorTabEntity(
             DataCompat.getResString(com.sbnh.comm.R.string.been_sold),
             false,
             com.sbnh.comm.R.drawable.shape_click_view,0,
-            SelectorTabEntity.TYPE_BEEN_SOLD
+            SelectorTabEntity.Bazaar.TYPE_BEEN_SOLD
         )
         tabs.add(soldEntity)
         return tabs

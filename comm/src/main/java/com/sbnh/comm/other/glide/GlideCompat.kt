@@ -5,6 +5,10 @@ import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.GlideContext
+import com.bumptech.glide.load.resource.bitmap.CenterInside
+import com.bumptech.glide.load.resource.bitmap.FitCenter
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.sbnh.comm.R
 
@@ -91,6 +95,14 @@ object GlideCompat {
         context: Context
     ): GlideRequest<*> {
         return HealerMetaGlide.with(context).load(any)
+    }
+
+    @JvmStatic
+    fun loadRoundWarpImage(any: Any?, imageView: ImageView?, radius: Int) {
+        if (any == null || imageView == null)
+            return
+        val options = RequestOptions().transform(FitCenter(), RoundedCorners(radius))
+        HealerMetaGlide.with(imageView).load(any).apply(options).into(imageView)
     }
 
 }

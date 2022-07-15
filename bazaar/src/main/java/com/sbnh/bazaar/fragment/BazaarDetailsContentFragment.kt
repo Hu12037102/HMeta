@@ -29,7 +29,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 class BazaarDetailsContentFragment :
     BaseCompatFragment<FragmentBazaarDetailsContentBinding, BazaarDetailsContentViewModel>() {
     private var mId: String = ""
-    private var mType: Int = SelectorTabEntity.TYPE_BAZAAR
+    private var mType: Int = SelectorTabEntity.Bazaar.TYPE_BAZAAR
     private var isUpSort: Boolean = false
     private var mAdapter: BazaarDataAdapter? = null
     private val mData = ArrayList<BazaarDataEntity>()
@@ -50,7 +50,7 @@ class BazaarDetailsContentFragment :
             mId = DataCompat.toString(it.getString(ARouterConfig.Key.ID))
             mType = NumberCompat.checkInt(
                 it.getInt(ARouterConfig.Key.TYPE),
-                SelectorTabEntity.TYPE_BAZAAR
+                SelectorTabEntity.Bazaar.TYPE_BAZAAR
             )
             isUpSort = it.getBoolean(ARouterConfig.Key.BOOLEAN_VALUE)
             loadSmartData()

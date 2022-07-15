@@ -202,4 +202,9 @@
     <string name="withdrawal_bank_card">提现银行卡</string>
     <string name="withdrawal_bank_card_succeed_please_look">提现成功，请注意查看银行卡~</string>
     <string name="withdrawal_money_greater_balance">提现金额大于钱包余额</string>
+    <string name="expend">支出</string>
+    <string name="revenues">收入</string>
+    <string name="top_up">充值</string>
+    <string name="buy_shop">购买商品</string>
+    <string name="selling_market">卖出市场</string>
 </resources>

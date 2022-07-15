@@ -1,14 +1,12 @@
 package com.sbnh.my.activity
 
 import android.app.Activity
-import android.content.Intent
 import android.view.View
 import androidx.activity.result.ActivityResult
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.DataCompat
-import com.sbnh.comm.compat.NumberCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
@@ -66,6 +64,7 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
         })
         mViewBinding.pvBill.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
+                ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_ACCOUNT_BILL)
             }
 
         })
@@ -104,7 +103,7 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
     private fun setWalletBalance() {
         UICompat.setText(
             mViewBinding.atvMoney,
-            "￥${DataCompat.getBalanceFormat(mBalance)}"
+            "￥${DataCompat.getMoneyFormat(mBalance)}"
         )
     }
 

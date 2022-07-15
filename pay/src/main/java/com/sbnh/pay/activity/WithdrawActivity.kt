@@ -65,7 +65,7 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
         UICompat.setText(
             mViewBinding.atvBalance,
             com.sbnh.comm.R.string.balance_s,
-            DataCompat.getBalanceFormat(mBalance)
+            DataCompat.getMoneyFormat(mBalance)
         )
     }
 

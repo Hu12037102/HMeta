@@ -115,7 +115,7 @@ object DataCompat {
     }
 
     @JvmStatic
-    fun getBalanceFormat(balance: String): String {
+    fun getMoneyFormat(balance: String): String {
         val numberMoney = NumberCompat.string2Double(balance)
         return NumberCompat.keepDecimalNumber(
             numberMoney,
