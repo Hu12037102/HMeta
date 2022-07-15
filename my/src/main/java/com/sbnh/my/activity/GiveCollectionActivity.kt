@@ -34,7 +34,7 @@ class GiveCollectionActivity :
 
     override fun initView() {
         mMerchandiseId = intent.getStringExtra(ARouterConfig.Key.ID)
-        mCollectionNumDetailsId = intent.getStringExtra(ARouterConfig.Key.CID)
+        mCollectionNumDetailsId = intent.getStringExtra(ARouterConfig.Key.OTHER_ID)
     }
 
     override fun onWindowFirstFocusChanged(hasFocus: Boolean) {

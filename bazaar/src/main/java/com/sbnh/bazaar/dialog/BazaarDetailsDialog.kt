@@ -13,6 +13,7 @@ import com.sbnh.bazaar.databinding.DialogBazaarDetailsBinding
 import com.sbnh.bazaar.fragment.BazaarDetailsContentFragment
 import com.sbnh.bazaar.viewmodel.BazaarDetailsViewModel
 import com.sbnh.comm.Contract
+import com.sbnh.comm.base.callback.OnFragmentResultCallback
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.dialog.BaseDataDialog
 import com.sbnh.comm.compat.*
@@ -21,6 +22,7 @@ import com.sbnh.comm.entity.bazaar.BazaarEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 
 /**
@@ -89,12 +91,18 @@ class BazaarDetailsDialog : BaseDataDialog<DialogBazaarDetailsBinding, BazaarDet
 
     private fun initPager() {
         for (i in 0 until mTabData.size) {
+            LogUtils.w("initPager--", "${mTabData[i]}")
             val fragment = ARouters.build(ARouterConfig.Path.Bazaar.FRAGMENT_BAZAAR_DETAILS_CONTENT)
                 .withString(ARouterConfig.Key.ID, mIntentEntity?.id)
-                .withInt(ARouterConfig.Key.TYPE, NumberCompat.checkInt(mTabData[i].type, 0))
+                .withInt(ARouterConfig.Key.TYPE, NumberCompat.checkInt(mTabData[i].type))
                 .withBoolean(ARouterConfig.Key.BOOLEAN_VALUE, isUpSort)
                 .navigation()
             if (fragment is BazaarDetailsContentFragment) {
+                fragment.setOnFragmentResultCallback(object : OnFragmentResultCallback {
+                    override fun onCallback(any: Any?) {
+                        dismiss()
+                    }
+                })
                 mFragments.add(fragment)
             }
         }

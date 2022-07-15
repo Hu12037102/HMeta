@@ -1,17 +1,15 @@
 package com.sbnh.home.activity
 
 import android.view.View
-import androidx.lifecycle.lifecycleScope
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
-import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.BaseEntity
+import com.sbnh.comm.entity.home.IN_THE_BOOK
 import com.sbnh.comm.entity.home.STATUS_ADVANCING
 import com.sbnh.comm.entity.home.STATUS_OUT
 import com.sbnh.comm.entity.request.RequestCreateOrderEntity
-import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
@@ -19,10 +17,8 @@ import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.CheckLoginClick
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
-import com.sbnh.home.R
 import com.sbnh.home.databinding.ActivityCollectionDetailsBinding
 import com.sbnh.home.viewmodel.CollectionDetailsViewModel
-import kotlinx.coroutines.launch
 
 /**
  * 作者: 胡庆岭
@@ -34,12 +30,13 @@ import kotlinx.coroutines.launch
 class CollectionDetailsActivity :
     BaseCompatActivity<ActivityCollectionDetailsBinding, CollectionDetailsViewModel>() {
     private var mId: String = ""
-    private var mCid: String = ""
+    private var mOtherId: String = ""
 
     /**
      * 是否展示收藏详情，默认false，展示商品详情
      */
-    private var isShowCollectionDetails = false
+    //  private var isShowCollectionDetails = false
+    private var mCollectionOrderType: Int = Contract.PutOrderType.OFFICIAL
 
     override fun getViewBinding(): ActivityCollectionDetailsBinding =
         ActivityCollectionDetailsBinding.inflate(layoutInflater)
@@ -57,13 +54,29 @@ class CollectionDetailsActivity :
 
     override fun initData() {
         mId = intent.getStringExtra(ARouterConfig.Key.ID) ?: ""
-        mCid = intent.getStringExtra(ARouterConfig.Key.CID) ?: ""
-        isShowCollectionDetails = DataCompat.notEmpty(mCid)
-        if (isShowCollectionDetails) {
-            mViewModel.loadKnapsackCollectionDetails(mId, mCid)
-        } else {
-            mViewModel.loadCollectionDetails(mId)
+        mCollectionOrderType =
+            intent.getIntExtra(ARouterConfig.Key.STATUS, Contract.PutOrderType.OFFICIAL)
+
+        /*   mCid = intent.getStringExtra(ARouterConfig.Key.CID) ?: ""
+           isShowCollectionDetails = DataCompat.notEmpty(mCid)
+           if (isShowCollectionDetails) {
+               mViewModel.loadKnapsackCollectionDetails(mId, mCid)
+           } else {
+               mViewModel.loadCollectionDetails(mId)
+           }*/
+        when (mCollectionOrderType) {
+            Contract.PutOrderType.GIVE -> {
+                mOtherId = intent.getStringExtra(ARouterConfig.Key.OTHER_ID) ?: ""
+                mViewModel.loadKnapsackCollectionDetails(mId, mOtherId)
+            }
+            Contract.PutOrderType.BAZAAR_BUY -> {
+                mViewModel.loadBazaarCollectionDetails(mId)
+            }
+            else -> {
+                mViewModel.loadCollectionDetails(mId)
+            }
         }
+
     }
 
     override fun initEvent() {
@@ -106,7 +119,7 @@ class CollectionDetailsActivity :
             UICompat.setText(mViewBinding.atvWork, it.particulars)
             setPrice(it.price)
 
-            if (isShowCollectionDetails) {
+            if (mCollectionOrderType == Contract.PutOrderType.GIVE) {
                 UICompat.setText(
                     mViewBinding.atvCollectionName,
                     "${it.merchandiseName} #${it.tokenId ?: ""}"
@@ -124,7 +137,7 @@ class CollectionDetailsActivity :
                 mViewBinding.includedBottomContent.atvSure.setOnClickListener(object :
                     DelayedClick() {
                     override fun onDelayedClick(v: View?) {
-                        ARoutersActivity.startGiveCollectionActivity(mCid, mId)
+                        ARoutersActivity.startGiveCollectionActivity(mOtherId, mId)
                     }
                 })
                 UICompat.setText(
@@ -161,6 +174,16 @@ class CollectionDetailsActivity :
                             false
                         )
                     }
+                    IN_THE_BOOK->{
+                        UICompat.setText(
+                            mViewBinding.includedBottomContent.atvSure,
+                            DataCompat.getResString(com.sbnh.comm.R.string.in_the_book)
+                        )
+                        MetaViewCompat.setClickViewEnable(
+                            mViewBinding.includedBottomContent.atvSure,
+                            false
+                        )
+                    }
                     else -> {
                         /*UICompat.setText(
                             mViewBinding.includedBottomContent.atvSure,
@@ -186,11 +209,16 @@ class CollectionDetailsActivity :
                 mViewBinding.includedBottomContent.atvSure.setOnClickListener(object :
                     CheckLoginClick() {
                     override fun onCheckLoginClick(v: View?) {
-                        lifecycleScope.launch {
-                            val userId = UserInfoStore.get().getId()
-                            val entity = RequestCreateOrderEntity(it.id, userId)
-                            mViewModel.commitOrder(entity)
-                        }
+                      /*  val type = when (mCollectionOrderType) {
+                            Contract.CollectionDetailsStatus.BAZAAR -> {
+                                Contract.PutOrderType.BAZAAR_BUY
+                            }
+                            else -> {
+                                Contract.PutOrderType.OFFICIAL
+                            }
+                        }*/
+                        val entity = RequestCreateOrderEntity(it.id, mId, mCollectionOrderType)
+                        mViewModel.commitOrder(entity)
 
                     }
 
@@ -209,12 +237,11 @@ class CollectionDetailsActivity :
 
         }
 
-        if (!isShowCollectionDetails) {
-            mViewModel.mCommitOrderLiveData.observe(this) {
-                val body = BaseEntity.getData(it)
-                LogUtils.w("observe--", body?.id + "---")
-                ARoutersActivity.startOrderDetailsActivity(body?.id)
-            }
+        // if (!isShowCollectionDetails) {
+        mViewModel.mCommitOrderLiveData.observe(this) {
+            val body = BaseEntity.getData(it)
+            LogUtils.w("observe--", body?.id + "---")
+            ARoutersActivity.startOrderDetailsActivity(body?.id,mCollectionOrderType)
         }
     }
 

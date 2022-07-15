@@ -4,6 +4,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.dialog.BaseDataDialog
 import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
@@ -21,6 +22,7 @@ import com.sbnh.comm.entity.request.RequestPayOrderAfterEntity
 import com.sbnh.comm.entity.request.RequestPayOrderBeforeEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
+import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
@@ -45,6 +47,7 @@ class OrderDetailsActivity :
     private var mBankCardEntity: BankCardEntity? = null
     private var isReloadWaitPayCount = true
     private var mDetailsEntity: OrderEntity? = null
+    private var mOrderType: Int = Contract.PutOrderType.OFFICIAL
     override fun getViewBinding(): ActivityOrderDetailsBinding =
         ActivityOrderDetailsBinding.inflate(layoutInflater)
 
@@ -55,6 +58,7 @@ class OrderDetailsActivity :
 
     override fun initView() {
         mOrderId = intent.getStringExtra(ARouterConfig.Key.ID) ?: ""
+        mOrderType = intent.getIntExtra(ARouterConfig.Key.TYPE, Contract.PutOrderType.OFFICIAL)
         mViewBinding.clContent.visibility = View.GONE
     }
 
@@ -112,7 +116,7 @@ class OrderDetailsActivity :
                         ARouterConfig.Key.CONTENT,
                         DataCompat.toString(mBankCardEntity?.mobile)
                     ).navigation()
-               // ARouters.getFragment(ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE)
+                // ARouters.getFragment(ARouterConfig.Path.Comm.DIALOG_INPUT_MESSAGE_CODE)
                 if (dialog is InputMessageCodeDialog) {
                     DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
                     dialog.setOnCallbackValues(object : BaseDataDialog.OnCallbackValues {
@@ -248,7 +252,8 @@ class OrderDetailsActivity :
                             RequestPayOrderBeforeEntity(
                                 mBankCardEntity?.bindId,
                                 DataCompat.toString(entity.businessId),
-                                DataCompat.toString(entity.id)
+                                DataCompat.toString(entity.id),
+                                mOrderType
                             )
                         )
                     }
@@ -408,6 +413,10 @@ class OrderDetailsActivity :
                 mViewBinding.clContent.visibility = View.GONE
             }
         }
+        //市场购买来的就把继续购买隐藏
+        if (mOrderType == Contract.PutOrderType.BAZAAR_BUY) {
+            mViewBinding.atvContinueBuy.visibility = View.GONE
+        }
     }
 
     override fun onDestroy() {
@@ -418,8 +427,10 @@ class OrderDetailsActivity :
     private fun clickContinueBuy(entity: OrderEntity) {
         mViewBinding.atvContinueBuy.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
-                    .withString(ARouterConfig.Key.ID, entity.businessId).navigation()
+                /*   ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
+                       .withString(ARouterConfig.Key.ID, entity.businessId).navigation()*/
+                ARoutersActivity.startCollectionDetailsActivity(entity.businessId)
+                MetaViewCompat.finishActivitySetResult(this@OrderDetailsActivity)
             }
 
         })

@@ -3,6 +3,7 @@ package com.sbnh.my.fragment
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
+import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.UICompat
@@ -68,7 +69,7 @@ class CollectionNumDetailsFragment :
 
             override fun clickItem(view: View, position: Int) {
                 val entity = mCollectionNumDetailsListData[position]
-                ARoutersActivity.startCollectionDetailsActivity(entity.merchandiseId, entity.id)
+                ARoutersActivity.startCollectionDetailsActivity(entity.merchandiseId, entity.id,Contract.PutOrderType.GIVE)
                 activity?.finish()
             }
 

@@ -21,7 +21,8 @@ class ARouterConfig {
         /**
          * 收藏id
          */
-        const val CID = "cid"
+        const val OTHER_ID = "otherId"
+        const val STATUS="status"
 
     }
 

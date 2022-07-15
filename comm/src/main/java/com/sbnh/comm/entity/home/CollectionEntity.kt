@@ -19,6 +19,8 @@ const val STATUS_ADVANCING = 2
 
 //售完
 const val STATUS_OUT = 3
+//预定中
+const val IN_THE_BOOK=4
 
 @IntDef(STATUS_UNSOLD, STATUS_ADVANCE, STATUS_ADVANCING, STATUS_OUT)
 @Retention(AnnotationRetention.SOURCE)

@@ -49,6 +49,7 @@ class IApiService {
         const val TOP_UP_MONEY_AFTER="/payment/thirdPayment/recharge_pay_confirm"
         const val WITHDRAW_BANK_CARD="/payment/wallet/saveWithdrawalInfo"
         const val LOAD_ACCOUNT_BILL_LIST="/payment/wallet/record_list"
+        const val LOAD_BAZAAR_COLLECTION_DETAILS="/healer_nft/Merchandise/market_details/{marketId}"
     }
 
     object EncodedPath {
@@ -80,6 +81,7 @@ class IApiService {
         const val NONCE = "nonce"
         const val SIGNATURE = "signature"
         const val ACTIVITY_ID="activityId"
+        const val MARKET_ID="marketId"
     }
 
     object Value {

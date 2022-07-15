@@ -45,4 +45,28 @@ object Contract {
         const val STATUS_SOLD_OUT = 3
     }
 
+    /*object CollectionDetailsStatus {
+        //默认官方通道进入藏品详情
+        const val NORMAL = 0
+
+        //转赠进入藏品详情
+        const val GIVE = 1
+
+        //市场进入藏品详情
+        const val BAZAAR = 3
+
+    }*/
+
+    object PutOrderType {
+
+        //抢购(官方抢购购买)
+        const val OFFICIAL = 1
+
+        //市场购买
+        const val BAZAAR_BUY = 2
+
+        //转赠
+        const val GIVE = 3
+    }
+
 }
