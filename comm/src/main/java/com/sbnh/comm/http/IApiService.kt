@@ -50,6 +50,7 @@ class IApiService {
         const val WITHDRAW_BANK_CARD="/payment/wallet/saveWithdrawalInfo"
         const val LOAD_ACCOUNT_BILL_LIST="/payment/wallet/record_list"
         const val LOAD_BAZAAR_COLLECTION_DETAILS="/healer_nft/Merchandise/market_details/{marketId}"
+        const val WALLET_PAY_ORDER="/payment/wallet/pay"
     }
 
     object EncodedPath {

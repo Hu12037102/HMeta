@@ -24,6 +24,14 @@ const val STATUS_PAY_CALLBACK = 10
 @Retention(AnnotationRetention.SOURCE)
 annotation class OrderStatus
 
+const val PAY_TYPE_BANK_CARD = 1
+const val PAY_TYPE_ZHI_FU_BAO = 2
+const val PAY_TYPE_WALLET = 3
+
+@IntDef(PAY_TYPE_BANK_CARD,PAY_TYPE_ZHI_FU_BAO,PAY_TYPE_WALLET)
+@Retention(AnnotationRetention.SOURCE)
+annotation class PayType
+
 data class OrderEntity(
     var id: String? = "",
     var orderNo: String? = "",
@@ -39,7 +47,8 @@ data class OrderEntity(
     @OrderStatus
     var status: Int? = 0,
     var businessInfo: String? = "",
-    var payType: Int? = 0,
+    @PayType
+    var payType: Int? = 0,//1,银行卡支付 2支付宝支付 3钱包支付
     var startTime: Long? = 0,
     var endTime: Long? = 0,
     var desc: String? = "",

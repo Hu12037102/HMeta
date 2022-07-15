@@ -11,15 +11,19 @@ import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.InputMessageCodeDialog
+import com.sbnh.comm.dialog.SetPaymentPasswordDialog
 import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.STATUS_FINISH
 import com.sbnh.comm.entity.base.STATUS_RUNNING
+import com.sbnh.comm.entity.my.MyWalletEntity
 import com.sbnh.comm.entity.order.*
 import com.sbnh.comm.entity.pay.BankCardEntity
+import com.sbnh.comm.entity.pay.RequestUnbindBankCardEntity
 import com.sbnh.comm.entity.request.RequestCancelOrderEntity
 import com.sbnh.comm.entity.request.RequestPayOrderAfterEntity
 import com.sbnh.comm.entity.request.RequestPayOrderBeforeEntity
+import com.sbnh.comm.entity.request.RequestWalletPayOrderEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
@@ -45,9 +49,12 @@ class OrderDetailsActivity :
     BaseCompatActivity<ActivityOrderDetailsBinding, OrderDetailsViewModel>() {
     private var mOrderId: String = ""
     private var mBankCardEntity: BankCardEntity? = null
+    private var mPayOrderWay = Contract.PayWay.UNKNOWN
     private var isReloadWaitPayCount = true
     private var mDetailsEntity: OrderEntity? = null
     private var mOrderType: Int = Contract.PutOrderType.OFFICIAL
+    private var isLoadCompleteWalletBalance = false
+    private var mWalletMoneyBalance: Double = 0.0
     override fun getViewBinding(): ActivityOrderDetailsBinding =
         ActivityOrderDetailsBinding.inflate(layoutInflater)
 
@@ -63,6 +70,7 @@ class OrderDetailsActivity :
     }
 
     override fun initData() {
+        mViewModel.queryMyWallet()
         loadSmartData()
     }
 
@@ -74,6 +82,7 @@ class OrderDetailsActivity :
 
     override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
         mViewModel.queryOrderDetails(mOrderId)
+
     }
 
     override fun initObserve() {
@@ -146,7 +155,26 @@ class OrderDetailsActivity :
         mViewModel.mAfterPayLiveData.observe(this) {
             loadSmartData()
         }
+        mViewModel.mWalletLiveData.observe(this) {
+            val entity = BaseEntity.getData(it)
+            setWalletBalance(it)
+            this.mWalletMoneyBalance = NumberCompat.string2Double(entity?.balance)
+            this.isLoadCompleteWalletBalance = true
+        }
+        mViewModel.mWalletPayLiveData.observe(this) {
+            setWalletBalance(it)
+            loadSmartData()
+        }
 
+    }
+
+    private fun setWalletBalance(data: BaseEntity<MyWalletEntity>?) {
+        val entity = BaseEntity.getData(data)
+        UICompat.setText(
+            mViewBinding.atvWayWalletContent,
+            com.sbnh.comm.R.string.wallet_pay_s,
+            DataCompat.getMoneyFormat(entity?.balance)
+        )
     }
 
     private fun setPublicOrderInfo(entity: OrderEntity) {
@@ -236,30 +264,58 @@ class OrderDetailsActivity :
                 )
                 mViewBinding.atvContinueBuy.visibility = View.GONE
                 mViewBinding.includedWaitPay.root.visibility = View.VISIBLE
-                UICompat.setImageRes(
-                    mViewBinding.aivWayWaitPayCheck,
-                    if (DataCompat.isNull(mBankCardEntity)) com.sbnh.comm.R.mipmap.icon_comm_normal
-                    else com.sbnh.comm.R.mipmap.icon_comm_check
-                )
+                /* UICompat.setImageRes(
+                     mViewBinding.aivWayWaitPayCheck,
+                     if (DataCompat.isNull(mBankCardEntity)) com.sbnh.comm.R.mipmap.icon_comm_normal
+                     else com.sbnh.comm.R.mipmap.icon_comm_check
+                 )*/
+                /* UICompat.setImageRes(
+                     mViewBinding.aivWayWaitPayCheck,
+                     com.sbnh.comm.R.mipmap.icon_comm_normal
+                 )
+                 UICompat.setImageRes(
+                     mViewBinding.aivWayWalletPayCheck,
+                     com.sbnh.comm.R.mipmap.icon_comm_normal
+                 )*/
+                selectorPayWay(Contract.PayWay.UNKNOWN)
                 mViewBinding.includedWaitPay.atvSure.setOnClickListener(object :
                     DelayedClick() {
                     override fun onDelayedClick(v: View?) {
-                        if (DataCompat.isNull(mBankCardEntity)) {
-                            showToast(com.sbnh.comm.R.string.please_selector_pay_way)
-                            return
+                        when (mPayOrderWay) {
+                            Contract.PayWay.BANK_CARD -> {
+                                mViewModel.payOrderBefore(
+                                    RequestPayOrderBeforeEntity(
+                                        mBankCardEntity?.bindId,
+                                        DataCompat.toString(entity.businessId),
+                                        DataCompat.toString(entity.id),
+                                        mOrderType
+                                    )
+                                )
+                            }
+                            Contract.PayWay.WALLET_BALANCE -> {
+                                if (isLoadCompleteWalletBalance) {
+                                    if (mWalletMoneyBalance > (entity.coin ?: 0.0)) {
+                                        showWalletPayDialog(DataCompat.toString(entity.id))
+                                    } else {
+                                        showToast(com.sbnh.comm.R.string.insufficient_wallet_balance)
+                                    }
+
+                                } else {
+                                    showWalletPayDialog(DataCompat.toString(entity.id))
+                                    // mViewModel.walletPayOrder(RequestWalletPayOrderEntity(DataCompat.toString(entity.id),))
+                                }
+
+                            }
+                            else -> {
+                                showToast(com.sbnh.comm.R.string.please_selector_pay_way)
+                            }
                         }
-                        mViewModel.payOrderBefore(
-                            RequestPayOrderBeforeEntity(
-                                mBankCardEntity?.bindId,
-                                DataCompat.toString(entity.businessId),
-                                DataCompat.toString(entity.id),
-                                mOrderType
-                            )
-                        )
+
+
                     }
 
                 })
-                mViewBinding.clWayWaitPay.setOnClickListener(object : DelayedClick() {
+                mViewBinding.clWayBankCardPay.setOnClickListener(object : DelayedClick() {
                     override fun onDelayedClick(v: View?) {
                         val selectorBankCardDialog =
                             ARouters.build(ARouterConfig.Path.Pay.DIALOG_SELECTOR_BANK_CARD)
@@ -270,14 +326,22 @@ class OrderDetailsActivity :
                         selectorBankCardDialog.setOnCallbackValues(object :
                             BaseDataDialog.OnCallbackValues {
                             override fun onValue(obj: Any) {
+                                UICompat.setImageRes(
+                                    mViewBinding.aivWayWalletPayCheck,
+                                    com.sbnh.comm.R.mipmap.icon_comm_normal
+                                )
                                 if (obj is BankCardEntity) {
-                                    mBankCardEntity = obj
-                                    UICompat.setImageRes(
-                                        mViewBinding.aivWayWaitPayCheck,
-                                        com.sbnh.comm.R.mipmap.icon_comm_check
-                                    )
+                                    /*   mBankCardEntity = obj
+                                      UICompat.setImageRes(
+                                           mViewBinding.aivWayWaitPayCheck,
+                                           com.sbnh.comm.R.mipmap.icon_comm_check
+                                       )
+                                       mPayOrderWay = Contract.PayWay.BANK_CARD*/
+                                    selectorPayWay(Contract.PayWay.BANK_CARD, obj)
                                 } else {
-                                    mBankCardEntity = null
+                                    /* mBankCardEntity = null
+                                     mPayOrderWay = Contract.PayWay.UNKNOWN*/
+                                    selectorPayWay(Contract.PayWay.UNKNOWN)
                                 }
                                 selectorBankCardDialog.dismiss()
                             }
@@ -287,6 +351,22 @@ class OrderDetailsActivity :
                             selectorBankCardDialog,
                             supportFragmentManager
                         )
+                    }
+
+                })
+                mViewBinding.clWayWalletPay.setOnClickListener(object : DelayedClick() {
+                    override fun onDelayedClick(v: View?) {
+                        /* UICompat.setImageRes(
+                             mViewBinding.aivWayWalletPayCheck,
+                             com.sbnh.comm.R.mipmap.icon_comm_check
+                         )
+                         UICompat.setImageRes(
+                             mViewBinding.aivWayWaitPayCheck,
+                             com.sbnh.comm.R.mipmap.icon_comm_normal
+                         )
+                         mBankCardEntity = null
+                         mPayOrderWay = Contract.PayWay.WALLET_BALANCE*/
+                        selectorPayWay(Contract.PayWay.WALLET_BALANCE)
                     }
 
                 })
@@ -335,7 +415,7 @@ class OrderDetailsActivity :
                 mViewBinding.clWayOther.visibility = View.VISIBLE
                 UICompat.setText(
                     mViewBinding.atvBuyModelContent,
-                    com.sbnh.comm.R.string.bank_card_payment
+                    if (entity.payType == PAY_TYPE_WALLET) com.sbnh.comm.R.string.wallet_pay else com.sbnh.comm.R.string.bank_card_payment
                 )
                 mViewBinding.clCancelOrder.visibility = View.GONE
                 mViewBinding.atvContinueBuy.visibility = View.VISIBLE
@@ -416,6 +496,61 @@ class OrderDetailsActivity :
         //市场购买来的就把继续购买隐藏
         if (mOrderType == Contract.PutOrderType.BAZAAR_BUY) {
             mViewBinding.atvContinueBuy.visibility = View.GONE
+        }
+    }
+
+    private fun showWalletPayDialog(orderId: String) {
+        val dialog = SetPaymentPasswordDialog(
+            DataCompat.getResString(com.sbnh.comm.R.string.wallet_pay_order),
+            DataCompat.getResString(com.sbnh.comm.R.string.please_inout_payment_password_check_identity)
+        )
+        DialogCompat.showFragmentDialog(dialog, supportFragmentManager)
+        dialog.setOnInputPasswordCallback(object :
+            SetPaymentPasswordDialog.OnInputPasswordCallback {
+            override fun onComplete(password: String) {
+                mViewModel.walletPayOrder(RequestWalletPayOrderEntity(orderId, password))
+                dialog.dismiss()
+            }
+
+        })
+    }
+
+    private fun selectorPayWay(payWay: Int, bankCardEntity: BankCardEntity? = null) {
+        this.mBankCardEntity = bankCardEntity
+        when (payWay) {
+            Contract.PayWay.BANK_CARD -> {
+                UICompat.setImageRes(
+                    mViewBinding.aivWayWaitPayCheck,
+                    com.sbnh.comm.R.mipmap.icon_comm_check
+                )
+                UICompat.setImageRes(
+                    mViewBinding.aivWayWalletPayCheck,
+                    com.sbnh.comm.R.mipmap.icon_comm_normal
+                )
+                mPayOrderWay = Contract.PayWay.BANK_CARD
+            }
+            Contract.PayWay.WALLET_BALANCE -> {
+                UICompat.setImageRes(
+                    mViewBinding.aivWayWaitPayCheck,
+                    com.sbnh.comm.R.mipmap.icon_comm_normal
+                )
+                UICompat.setImageRes(
+                    mViewBinding.aivWayWalletPayCheck,
+                    com.sbnh.comm.R.mipmap.icon_comm_check
+                )
+                mPayOrderWay = Contract.PayWay.WALLET_BALANCE
+            }
+            else -> {
+                UICompat.setImageRes(
+                    mViewBinding.aivWayWaitPayCheck,
+                    com.sbnh.comm.R.mipmap.icon_comm_normal
+                )
+                UICompat.setImageRes(
+                    mViewBinding.aivWayWalletPayCheck,
+                    com.sbnh.comm.R.mipmap.icon_comm_normal
+                )
+                mPayOrderWay = Contract.PayWay.UNKNOWN
+            }
         }
     }
 

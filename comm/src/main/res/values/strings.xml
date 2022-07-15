@@ -208,4 +208,7 @@
     <string name="buy_shop">购买商品</string>
     <string name="selling_market">卖出市场</string>
     <string name="in_the_book">预定中</string>
+    <string name="wallet_pay">钱包支付</string>
+    <string name="wallet_pay_s">钱包支付：￥%1$s</string>
+    <string name="wallet_pay_order">钱包支付订单</string>
 </resources>

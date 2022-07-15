@@ -45,17 +45,6 @@ object Contract {
         const val STATUS_SOLD_OUT = 3
     }
 
-    /*object CollectionDetailsStatus {
-        //默认官方通道进入藏品详情
-        const val NORMAL = 0
-
-        //转赠进入藏品详情
-        const val GIVE = 1
-
-        //市场进入藏品详情
-        const val BAZAAR = 3
-
-    }*/
 
     object PutOrderType {
 
@@ -67,6 +56,15 @@ object Contract {
 
         //转赠
         const val GIVE = 3
+    }
+
+    object PayWay {
+        //未选中支付方式
+        const val UNKNOWN = 0
+        //银行卡
+        const val BANK_CARD = 1
+        //钱包余额
+        const val WALLET_BALANCE = 2
     }
 
 }

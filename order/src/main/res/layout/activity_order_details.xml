@@ -333,35 +333,75 @@
                         android:id="@+id/cl_way_wait_pay"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/default_margin"
-                        android:paddingBottom="@dimen/default_margin"
                         android:visibility="visible"
                         app:layout_constraintTop_toBottomOf="@id/view_way_line"
                         tools:visibility="visible">
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_way_bank_card_pay"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/default_margin"
-                            android:drawablePadding="@dimen/size_8dp"
-                            android:gravity="center_vertical"
-                            android:text="@string/bank_card_payment"
-                            android:textColor="@color/white"
-                            app:drawableStartCompat="@mipmap/icon_pay_union_pay"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:paddingTop="@dimen/size_10dp"
+                            android:paddingBottom="@dimen/size_10dp"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                        <androidx.appcompat.widget.AppCompatImageView
-                            android:id="@+id/aiv_way_wait_pay_check"
-                            android:layout_width="wrap_content"
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/default_margin"
+                                android:drawablePadding="@dimen/size_8dp"
+                                android:gravity="center_vertical"
+                                android:text="@string/bank_card_payment"
+                                android:textColor="@color/white"
+                                app:drawableStartCompat="@mipmap/icon_pay_union_pay"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/aiv_way_wait_pay_check"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/size_10dp"
+                                android:padding="@dimen/size_6dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@mipmap/icon_comm_normal" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/cl_way_wallet_pay"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/size_10dp"
-                            android:padding="@dimen/size_6dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@mipmap/icon_comm_normal" />
+                            android:paddingTop="@dimen/size_10dp"
+                            android:paddingBottom="@dimen/size_10dp"
+                            app:layout_constraintTop_toBottomOf="@id/cl_way_bank_card_pay">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/atv_way_wallet_content"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/default_margin"
+                                android:drawablePadding="@dimen/size_8dp"
+                                android:gravity="center_vertical"
+                                android:text="@string/wallet_pay"
+                                android:textColor="@color/white"
+                                app:drawableStartCompat="@mipmap/icon_pay_wallet_pay"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/aiv_way_wallet_pay_check"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/size_10dp"
+                                android:padding="@dimen/size_6dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@mipmap/icon_comm_normal" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -371,7 +411,8 @@
                         android:layout_height="wrap_content"
                         android:padding="@dimen/default_margin"
                         android:visibility="visible"
-                        app:layout_constraintTop_toBottomOf="@id/view_way_line">
+                        app:layout_constraintTop_toBottomOf="@id/view_way_line"
+                        tools:visibility="visible">
 
                         <androidx.appcompat.widget.AppCompatTextView
                             android:id="@+id/atv_buy_way_title"
