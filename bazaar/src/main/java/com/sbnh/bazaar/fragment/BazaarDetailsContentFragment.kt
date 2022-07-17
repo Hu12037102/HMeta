@@ -7,6 +7,8 @@ import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.bazaar.adapter.BazaarDataAdapter
 import com.sbnh.bazaar.databinding.FragmentBazaarDetailsContentBinding
 import com.sbnh.bazaar.viewmodel.BazaarDetailsContentViewModel
+import com.sbnh.comm.Contract
+import com.sbnh.comm.base.callback.OnFragmentResultCallback
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.NumberCompat
@@ -28,8 +30,13 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 @Route(path = ARouterConfig.Path.Bazaar.FRAGMENT_BAZAAR_DETAILS_CONTENT)
 class BazaarDetailsContentFragment :
     BaseCompatFragment<FragmentBazaarDetailsContentBinding, BazaarDetailsContentViewModel>() {
+    private var mOnFragmentResultCallback: OnFragmentResultCallback? = null
+    fun setOnFragmentResultCallback(onFragmentResultCallback: OnFragmentResultCallback?) {
+        this.mOnFragmentResultCallback = onFragmentResultCallback
+    }
+
     private var mId: String = ""
-    private var mType: Int = SelectorTabEntity.TYPE_BAZAAR
+    private var mType: Int = SelectorTabEntity.Bazaar.TYPE_BAZAAR
     private var isUpSort: Boolean = false
     private var mAdapter: BazaarDataAdapter? = null
     private val mData = ArrayList<BazaarDataEntity>()
@@ -50,7 +57,7 @@ class BazaarDetailsContentFragment :
             mId = DataCompat.toString(it.getString(ARouterConfig.Key.ID))
             mType = NumberCompat.checkInt(
                 it.getInt(ARouterConfig.Key.TYPE),
-                SelectorTabEntity.TYPE_BAZAAR
+                SelectorTabEntity.Bazaar.TYPE_BAZAAR
             )
             isUpSort = it.getBoolean(ARouterConfig.Key.BOOLEAN_VALUE)
             loadSmartData()
@@ -98,7 +105,12 @@ class BazaarDetailsContentFragment :
             }
 
             override fun clickItem(view: View, position: Int) {
-                ARoutersActivity.startCollectionDetailsActivity(mData[position].marketSecondaryCategoryId)
+                ARoutersActivity.startCollectionDetailsActivity(
+                    mData[position].id,
+                    null,
+                    Contract.PutOrderType.BAZAAR_BUY
+                )
+                mOnFragmentResultCallback?.onCallback()
             }
 
             override fun longClickItem(view: View, position: Int) {

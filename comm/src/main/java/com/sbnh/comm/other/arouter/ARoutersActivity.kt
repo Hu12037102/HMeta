@@ -3,9 +3,9 @@ package com.sbnh.comm.other.arouter
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.graphics.Picture
 import android.net.Uri
 import android.os.Build
+import com.sbnh.comm.Contract
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.manger.ActivityCompatManger
 
@@ -35,24 +35,31 @@ object ARoutersActivity {
     }
 
     @JvmStatic
-    fun startCollectionDetailsActivity(id: String?) {
+    fun startCollectionDetailsActivity(
+        id: String?,
+        otherId: String? = null,
+        collectionDetailsStatus: Int = Contract.PutOrderType.OFFICIAL
+    ) {
         ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
             .withString(ARouterConfig.Key.ID, id)
+            .withString(ARouterConfig.Key.OTHER_ID, otherId)
+            .withInt(ARouterConfig.Key.STATUS, collectionDetailsStatus)
             .navigation()
     }
 
-    @JvmStatic
+ /*   @JvmStatic
     fun startCollectionDetailsActivity(id: String?, cid: String?) {
         ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
             .withString(ARouterConfig.Key.ID, id)
             .withString(ARouterConfig.Key.CID, cid)
             .navigation()
-    }
+    }*/
 
     @JvmStatic
-    fun startOrderDetailsActivity(id: String?) {
+    fun startOrderDetailsActivity(id: String?,putOrderType:Int= Contract.PutOrderType.OFFICIAL) {
         ARouters.build(ARouterConfig.Path.Order.ACTIVITY_ORDER_DETAILS)
             .withString(ARouterConfig.Key.ID, id)
+            .withInt(ARouterConfig.Key.TYPE,putOrderType)
             .navigation()
     }
 
@@ -66,7 +73,7 @@ object ARoutersActivity {
     @JvmStatic
     fun startGiveCollectionActivity(cid: String?, merchandiseId: String?) {
         ARouters.build(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION)
-            .withString(ARouterConfig.Key.CID, cid)
+            .withString(ARouterConfig.Key.OTHER_ID, cid)
             .withString(ARouterConfig.Key.ID, merchandiseId)
             .navigation()
     }
@@ -88,7 +95,7 @@ object ARoutersActivity {
     @JvmStatic
     fun startPictureSaveActivity(picturePath: String) {
         ARouters.build(ARouterConfig.Path.My.ACTIVITY_PICTURE_SAVE)
-            .withString(ARouterConfig.Key.PICTURE_PATH,picturePath)
+            .withString(ARouterConfig.Key.PICTURE_PATH, picturePath)
             .navigation()
     }
 

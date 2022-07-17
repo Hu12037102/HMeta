@@ -51,7 +51,8 @@ interface MyService {
     @POST(IApiService.Path.COMPOUND_COLLECTION)
     suspend fun compoundCollection(@Path(IApiService.Key.ACTIVITY_ID) id: String): Response<Unit>
 
-    @GET(IApiService.Path.QUERY_MY_WALLET)
-    suspend fun queryMyWallet(): Response<BaseEntity<MyWalletEntity>>
+    @POST(IApiService.Path.LOAD_ACCOUNT_BILL_LIST)
+    suspend fun loadAccountBills(@Body entity:RequestAccountBillEntity):Response<BaseEntity<BasePagerEntity2<List<AccountBillEntity>>>>
+
 
 }

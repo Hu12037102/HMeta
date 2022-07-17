@@ -69,7 +69,8 @@
         app:pv_left_start_src="@mipmap/icon_my_setting_item_password"
         app:pv_left_text="@string/setting_pay_password"
         app:pv_left_text_color="@color/colorWhite"
-        app:pv_left_text_size="@dimen/size_15sp" />
+        app:pv_left_text_size="@dimen/size_15sp"
+        android:visibility="gone"/>
 
     <io.google.projectview.weight.ProjectView
         android:id="@+id/pv_bank_card"
@@ -83,6 +84,7 @@
         app:pv_left_start_src="@mipmap/icon_my_setting_item_bank_card"
         app:pv_left_text="@string/bank_card"
         app:pv_left_text_color="@color/colorWhite"
-        app:pv_left_text_size="@dimen/size_15sp" />
+        app:pv_left_text_size="@dimen/size_15sp"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,11 @@ object Contract {
     const val UNKNOWN_LONG_VALUE = -1L
     const val DEBUG = "debug"
     const val RELEASE = "release"
+    const val MIN_TOP_UP_MONEY = 10
+    const val DEFAULT_STRING_VALUE = ""
+    const val MIN_WITHDRAW_MONEY = 30
+    const val NOT_MONEY = 0.00
+    const val MONEY_KEEP_DIGIT = 2
 
     object DP {
         const val VALUE_8F = 8f
@@ -38,6 +43,28 @@ object Contract {
         const val STATUS_SELL = 1
         const val STATUS_RESERVE = 2
         const val STATUS_SOLD_OUT = 3
+    }
+
+
+    object PutOrderType {
+
+        //抢购(官方抢购购买)
+        const val OFFICIAL = 1
+
+        //市场购买
+        const val BAZAAR_BUY = 2
+
+        //转赠
+        const val GIVE = 3
+    }
+
+    object PayWay {
+        //未选中支付方式
+        const val UNKNOWN = 0
+        //银行卡
+        const val BANK_CARD = 1
+        //钱包余额
+        const val WALLET_BALANCE = 2
     }
 
 }

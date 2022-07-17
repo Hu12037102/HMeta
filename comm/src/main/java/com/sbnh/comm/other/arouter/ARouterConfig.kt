@@ -21,7 +21,8 @@ class ARouterConfig {
         /**
          * 收藏id
          */
-        const val CID = "cid"
+        const val OTHER_ID = "otherId"
+        const val STATUS="status"
 
     }
 
@@ -61,6 +62,8 @@ class ARouterConfig {
             const val ACTIVITY_MY_WALLET="/my/activity/my/wallet"
             const val ACTIVITY_COMPOUND_DETAILED_LIST="/my/activity/compound/detailed/list"
             const val ACTIVITY_COMPOUND_PAGER="/my/activity/compound/pager"
+            const val ACTIVITY_ACCOUNT_BILL="/my/activity/account/bill"
+            const val FRAGMENT_ACCOUNT_BILL_CONTENT="/my/fragment/account/bill/content"
         }
 
         object Login {

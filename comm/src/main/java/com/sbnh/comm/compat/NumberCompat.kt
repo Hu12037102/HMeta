@@ -1,7 +1,9 @@
 package com.sbnh.comm.compat
 
+import androidx.fragment.app.DialogFragment
 import com.sbnh.comm.Contract
 import com.sbnh.comm.utils.LogUtils
+import java.text.DecimalFormat
 
 /**
  * 作者: 胡庆岭
@@ -66,14 +68,44 @@ object NumberCompat {
 
     @JvmStatic
     fun checkInt(number: Int?, defaultNumber: Int = 0) = number ?: defaultNumber
+    @JvmStatic
+    fun checkDouble(number: Double?,defaultNumber: Double=0.0)=number?:defaultNumber
 
     @JvmStatic
-    fun string2Double(number: String, defaultNumber: Double = 0.0): Double {
+    fun string2Double(number: String?, defaultNumber: Double = 0.0): Double {
         return try {
-            number.toDouble()
+            number?.toDouble() ?: defaultNumber
         } catch (e: Exception) {
             e.printStackTrace()
             defaultNumber
         }
     }
+
+    @JvmStatic
+    fun string2Int(number: String?, defaultNumber: Int = 0): Int {
+        return try {
+            number?.toInt() ?: defaultNumber
+        } catch (e: Exception) {
+            e.printStackTrace()
+            defaultNumber
+        }
+    }
+
+    @JvmStatic
+    fun keepDecimalNumber(number: Double, keepCount: Int, defaultNumber: String = ""): String =
+        try {
+            if (keepCount > 0) {
+                val pattern = StringBuilder("#0.")
+                for (i in 0 until keepCount) {
+                    pattern.append("0")
+                }
+                val df = DecimalFormat(pattern.toString())
+                df.format(number)
+            } else {
+                defaultNumber
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            defaultNumber
+        }
 }

@@ -1,13 +1,18 @@
 package com.sbnh.my.activity
 
+import android.app.Activity
 import android.view.View
+import androidx.activity.result.ActivityResult
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
+import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
+import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.databinding.ActivityMyWalletBinding
 import com.sbnh.my.viewmodel.MyWalletViewModel
@@ -24,6 +29,8 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
     override fun getViewBinding(): ActivityMyWalletBinding =
         ActivityMyWalletBinding.inflate(layoutInflater)
 
+    private var mBalance: String = Contract.DEFAULT_STRING_VALUE
+
     override fun getViewModelClass(): Class<MyWalletViewModel> = MyWalletViewModel::class.java
 
     override fun initView() {
@@ -38,6 +45,7 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
         loadSmartData()
     }
 
+
     override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
         super.loadSmartData(refreshLayout, isRefresh)
         mViewModel.queryMyWallet()
@@ -46,12 +54,17 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
     override fun initEvent() {
         mViewBinding.atvWithdraw.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_WITHDRAW)
+                //  ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_WITHDRAW)
+                val postcard = ARouters.build(ARouterConfig.Path.Pay.ACTIVITY_WITHDRAW)
+                    .withString(ARouterConfig.Key.CONTENT, mBalance)
+                val intent = ARouters.intent(this@MyWalletActivity, postcard)
+                startActivityForResult(intent)
             }
 
         })
         mViewBinding.pvBill.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
+                ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_ACCOUNT_BILL)
             }
 
         })
@@ -69,7 +82,10 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
         })
         mViewBinding.atvRecharge.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_TOP_UP)
+                //  ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_TOP_UP)
+                val intent =
+                    ARouters.intent(this@MyWalletActivity, ARouterConfig.Path.Pay.ACTIVITY_TOP_UP)
+                startActivityForResult(intent)
             }
 
         })
@@ -79,11 +95,23 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
         super.initObserve()
         mViewModel.mWalletLiveData.observe(this) {
             val entity = BaseEntity.getData(it)
-            setWalletBalance(entity?.balance)
+            this.mBalance = DataCompat.toString(entity?.balance)
+            setWalletBalance()
         }
     }
 
-    private fun setWalletBalance(balance: String? = null) {
-        UICompat.setText(mViewBinding.atvMoney, "￥${balance ?: 0.0}")
+    private fun setWalletBalance() {
+        UICompat.setText(
+            mViewBinding.atvMoney,
+            "￥${DataCompat.getMoneyFormat(mBalance)}"
+        )
+    }
+
+    override fun onActivityResultCallback(result: ActivityResult) {
+        super.onActivityResultCallback(result)
+        LogUtils.w("onActivityResultCallback--", "$result")
+        if (result.resultCode == Activity.RESULT_OK) {
+            loadSmartData()
+        }
     }
 }

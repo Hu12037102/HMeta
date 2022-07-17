@@ -69,7 +69,7 @@ class GlideInitModule : AppGlideModule() {
             .skipMemoryCache(false)
             .centerCrop()
             .encodeQuality(80)
-            .format(DecodeFormat.PREFER_RGB_565)
+            .format(DecodeFormat.PREFER_ARGB_8888)
             .placeholder(R.color.colorPlaceholder)
             .encodeFormat(Bitmap.CompressFormat.JPEG)
             .disallowHardwareConfig()

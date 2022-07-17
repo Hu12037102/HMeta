@@ -44,4 +44,18 @@ class CollectionDetailsViewModel : BaseOrderViewModel() {
             disposeRetrofit(mCollectionDetailsLiveData, result, true)
         }
     }
+
+    fun loadBazaarCollectionDetails(marketId: String) {
+        viewModelScope.launch {
+            val result = try {
+                mRetrofitManger.create(HomeService::class.java)
+                    .loadBazaarCollectionDetails(marketId)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+            disposeRetrofit(mCollectionDetailsLiveData, result, true)
+
+        }
+    }
 }
