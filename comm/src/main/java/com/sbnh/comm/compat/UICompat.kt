@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,7 +13,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
-import com.sbnh.comm.utils.LogUtils
+import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.sbnh.comm.weight.view.EmptyLayout
 
 /**
@@ -187,6 +188,34 @@ object UICompat {
         adapter?.notifyDataSetChanged()
         notifyDataEmptyView(emptyView, parentData)
     }
+
+    @JvmStatic
+    fun showRecyclerViewDataEmptyView(parentView: View?, emptyView: EmptyLayout?) {
+        if (emptyView == null) {
+            return
+        }
+
+        if (parentView is ViewGroup) {
+            if (parentView is RecyclerView) {
+                val adapter = parentView.adapter
+                if (adapter is BaseRecyclerAdapter<*> && adapter.itemCount > 0) {
+                    emptyView.hide()
+                    return
+                } else {
+                    emptyView.show()
+                }
+            } else {
+                for (i in 0 until parentView.childCount) {
+                    val childView = parentView.getChildAt(i)
+                    showRecyclerViewDataEmptyView(childView, emptyView)
+                }
+            }
+        } else {
+            emptyView.show()
+        }
+
+    }
+
 }
 
 

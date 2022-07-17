@@ -2,6 +2,8 @@ package com.sbnh.comm.compat
 
 import android.content.Context
 import android.text.TextUtils
+import android.view.View
+import android.view.ViewGroup
 import androidx.annotation.DimenRes
 import androidx.annotation.Nullable
 import androidx.annotation.StringRes
@@ -112,4 +114,7 @@ object DataCompat {
         id += (Math.random() * 10000).toInt()
         return id
     }
+
+
+
 }

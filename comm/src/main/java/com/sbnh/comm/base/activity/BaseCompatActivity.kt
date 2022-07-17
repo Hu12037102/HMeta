@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.sbnh.comm.base.viewmodel.BaseViewModel
+import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
@@ -144,7 +145,9 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
                 mRefreshLayout?.finishLoadMore()
             }
             BaseViewModel.STATUS_SHOW_EMPTY_VIEW -> {
-                mEmptyView?.show()
+
+                //  mEmptyView?.show()
+                UICompat.showRecyclerViewDataEmptyView(window.decorView, mEmptyView)
 
             }
             BaseViewModel.STATUS_HIND_EMPTY_VIEW -> {
