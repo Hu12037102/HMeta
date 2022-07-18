@@ -8,10 +8,7 @@ import com.sbnh.comm.entity.order.ResultCommitOrderEntity
 import com.sbnh.comm.entity.pay.PayOrderBeforeResultEntity
 import com.sbnh.comm.entity.request.*
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * 作者: 胡庆岭
@@ -46,4 +43,10 @@ interface BaseService {
 
     @GET(IApiService.Path.QUERY_MY_WALLET)
     suspend fun queryMyWallet(): Response<BaseEntity<MyWalletEntity>>
+
+    @POST(IApiService.Path.UP_COLLECTION)
+    suspend fun upCollection(@Body entity: RequestUpCollectionEntity): Response<Unit>
+
+    @GET(IApiService.Path.DOWN_COLLECTION)
+    suspend fun downCollection(@Query(IApiService.Key.USER_COLLECTION_ID) userCollectionId: String): Response<Unit>
 }

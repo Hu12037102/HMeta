@@ -51,6 +51,8 @@ class IApiService {
         const val LOAD_ACCOUNT_BILL_LIST="/payment/wallet/record_list"
         const val LOAD_BAZAAR_COLLECTION_DETAILS="/healer_nft/Merchandise/market_details/{marketId}"
         const val WALLET_PAY_ORDER="/payment/wallet/pay"
+        const val UP_COLLECTION="/healer_nft/tradingMarket/issueShelves"
+        const val DOWN_COLLECTION="/healer_nft/tradingMarket/downShelves"
     }
 
     object EncodedPath {
@@ -83,6 +85,7 @@ class IApiService {
         const val SIGNATURE = "signature"
         const val ACTIVITY_ID="activityId"
         const val MARKET_ID="marketId"
+        const val USER_COLLECTION_ID="userCollectionId"
     }
 
     object Value {

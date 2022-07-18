@@ -39,7 +39,8 @@
             android:name=".activity.CollectionNumDetailsActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Hide.StatusBar"/>
+            android:theme="@style/Theme.Hide.StatusBar"
+            android:windowSoftInputMode="stateVisible|adjustResize"/>
 
         <activity
             android:name=".activity.GiveCollectionListActivity"

@@ -5,4 +5,6 @@ data class CollectionNumDetailsEntity(
     var createTime: Long? = 0,
     var tokenId: Long? = 0,
     var merchandiseId: String? = "",
+    var price: Double?,
+    var status: Int?
 )

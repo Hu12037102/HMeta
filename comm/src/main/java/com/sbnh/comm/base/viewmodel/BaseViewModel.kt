@@ -20,6 +20,7 @@ import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.http.BaseService
 import com.sbnh.comm.entity.base.ErrorResponse
 import com.sbnh.comm.entity.my.MyWalletEntity
+import com.sbnh.comm.entity.request.RequestUpCollectionEntity
 import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.http.RetrofitManger
 import com.sbnh.comm.info.UserInfoStore
@@ -75,7 +76,9 @@ open class BaseViewModel : ViewModel() {
     val mPublicLiveData: MutableLiveData<Int> by lazy { MutableLiveData() }
     val mRefreshLiveData: MutableLiveData<RefreshStatusEntity> by lazy { MutableLiveData() }
     val mVersionLiveData: MutableLiveData<VersionEntity> by lazy { MutableLiveData() }
-    val mWalletLiveData :MutableLiveData<BaseEntity<MyWalletEntity>> by lazy { MutableLiveData<BaseEntity<MyWalletEntity>>() }
+    val mWalletLiveData: MutableLiveData<BaseEntity<MyWalletEntity>> by lazy { MutableLiveData<BaseEntity<MyWalletEntity>>() }
+    val mUpCollectionLiveData: MutableLiveData<Unit> by lazy { MutableLiveData<Unit>() }
+    val mDownCollectionLiveData: MutableLiveData<Unit> by lazy { MutableLiveData<Unit>() }
     fun loadUserInfo() {
         viewModelScope.launch(Dispatchers.Main) {
             val result = UserInfoStore.get().getEntity()
@@ -309,8 +312,36 @@ open class BaseViewModel : ViewModel() {
                 e.printStackTrace()
                 null
             }
-            disposeRetrofit(mWalletLiveData,result)
+            disposeRetrofit(mWalletLiveData, result)
         }
+    }
+
+    fun upCollection(entity: RequestUpCollectionEntity) {
+        viewModelScope.launch {
+            val result = try {
+                mRetrofitManger.create(BaseService::class.java)
+                    .upCollection(entity)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+            disposeRetrofit(mUpCollectionLiveData, result)
+        }
+
+    }
+
+    fun downCollection(id:String) {
+        viewModelScope.launch {
+            val result = try {
+            mRetrofitManger.create(BaseService::class.java)
+                .downCollection(id)
+            }catch (e:Exception){
+                e.printStackTrace()
+                null
+            }
+            disposeRetrofit(mDownCollectionLiveData,result)
+        }
+
     }
 
 }

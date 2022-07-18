@@ -84,6 +84,7 @@ class ARouterConfig {
             const val DIALOG_INPUT_MESSAGE_CODE="/comm/dialog/input/message/code"
             const val DIALOG_VERSION_UPDATE="/comm/dialog/version/update"
             const val DIALOG_COMPOUND_COLLECTION_PREVIEW="/comm/dialog/compound/collection/preview"
+            const val DIALOG_SET_TRANSACTION="/comm/dialog/set/transaction"
         }
 
         object Order {

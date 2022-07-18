@@ -26,6 +26,8 @@ object Contract {
     const val DEFAULT_STRING_VALUE = ""
     const val MIN_WITHDRAW_MONEY = 30
     const val NOT_MONEY = 0.00
+    const val MIN_SET_TRANSACTION_MONEY = 0.01
+    const val MAX_SET_TRANSACTION_MONEY = 99999
     const val MONEY_KEEP_DIGIT = 2
 
     object DP {
@@ -61,10 +63,20 @@ object Contract {
     object PayWay {
         //未选中支付方式
         const val UNKNOWN = 0
+
         //银行卡
         const val BANK_CARD = 1
+
         //钱包余额
         const val WALLET_BALANCE = 2
     }
 
+    object MyCollectionStatus {
+        //0正常 1转增出去 2锁定（预定中） 3寄售 4卖出
+        const val NORMAL: Int = 0
+        const val GIVE: Int = 1
+        const val LOCK: Int = 2
+        const val SALE: Int = 3
+        const val OUT: Int = 4
+    }
 }

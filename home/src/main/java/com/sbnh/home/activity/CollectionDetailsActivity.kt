@@ -148,6 +148,7 @@ class CollectionDetailsActivity :
                     mViewBinding.includedLimit.atvLimitCount,
                     "#${it.tokenId ?: ""}"
                 )
+                mViewBinding.includedBottomContent.root.visibility = View.GONE
 
             } else {
                 UICompat.setText(mViewBinding.atvCollectionName, it.merchandiseName)
