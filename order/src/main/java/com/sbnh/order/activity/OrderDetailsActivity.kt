@@ -1,8 +1,10 @@
 package com.sbnh.order.activity
 
+import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import androidx.activity.result.ActivityResult
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
@@ -291,7 +293,30 @@ class OrderDetailsActivity :
                                     if (mWalletMoneyBalance > (entity.coin ?: 0.0)) {
                                         showWalletPayDialog(DataCompat.toString(entity.id))
                                     } else {
-                                        showToast(com.sbnh.comm.R.string.insufficient_wallet_balance)
+                                        //   showToast(com.sbnh.comm.R.string.insufficient_wallet_balance)
+                                        val titleDialog =
+                                            TitleDialog(DataCompat.getResString(com.sbnh.comm.R.string.insufficient_wallet_balance_has_top_up))
+                                        DialogCompat.showFragmentDialog(
+                                            titleDialog,
+                                            supportFragmentManager
+                                        )
+                                        titleDialog.setOnDialogItemInfoClickListener(object :
+                                            OnDialogItemInfoClickListener {
+                                            override fun onClickConfirm(view: View?) {
+                                                //  ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_TOP_UP)
+                                                val intent = ARouters.intent(
+                                                    this@OrderDetailsActivity,
+                                                    ARouterConfig.Path.Pay.ACTIVITY_TOP_UP
+                                                )
+                                                startActivityForResult(intent)
+                                                titleDialog.dismiss()
+                                            }
+
+                                            override fun onClickCancel(view: View?) {
+                                                titleDialog.dismiss()
+                                            }
+
+                                        })
                                     }
 
                                 } else {
@@ -563,6 +588,13 @@ class OrderDetailsActivity :
             }
 
         })
+    }
+
+    override fun onActivityResultCallback(result: ActivityResult) {
+        super.onActivityResultCallback(result)
+        if (result.resultCode == Activity.RESULT_OK) {
+            mViewModel.queryMyWallet()
+        }
     }
 
 }

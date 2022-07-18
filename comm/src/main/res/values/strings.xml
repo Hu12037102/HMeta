@@ -223,4 +223,6 @@
     <string name="down_collection_succeed">下架成功~</string>
     <string name="are_you_sure_down_collection">是否确认下架该藏品</string>
     <string name="hit_the_shelf_ing">上架中</string>
+    <string name="insufficient_wallet_balance_has_top_up">钱包余额不足，是否前往充值</string>
+    <string name="add_bank_card_withdraw">添加银行收款</string>
 </resources>

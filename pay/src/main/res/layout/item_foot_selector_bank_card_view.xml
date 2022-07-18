@@ -16,6 +16,7 @@
         android:layout_marginStart="@dimen/size_18dp"
         />
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"

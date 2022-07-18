@@ -13,10 +13,14 @@ import com.sbnh.comm.entity.pay.BankCardEntity
 import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.entity.request.RequestWithdrawBankCardEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
+import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.pay.adapter.WithdrawBankCardAdapter
 import com.sbnh.pay.databinding.ActivityWithdrawBinding
+import com.sbnh.pay.databinding.ItemFootBankCardListViewBinding
+import com.sbnh.pay.databinding.ItemFootSelectorBankCardViewBinding
+import com.sbnh.pay.databinding.ItemSelectorBankCardViewBinding
 import com.sbnh.pay.viewmodel.WithdrawViewModel
 
 /**
@@ -31,6 +35,7 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
     private var mBankCardAdapter: WithdrawBankCardAdapter? = null
     private var mCheckBankCardEntity: BankCardEntity? = null
     private val mBankCardData = ArrayList<BankCardEntity>()
+    private var mFootAddBankCardViewBinding: ItemFootSelectorBankCardViewBinding? = null
     override fun getViewBinding(): ActivityWithdrawBinding =
         ActivityWithdrawBinding.inflate(layoutInflater)
 
@@ -47,6 +52,20 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
             .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorWhite))
             .crete(mViewBinding.atvWithdrawMoneyTitle)
         mViewBinding.rvBankCard.layoutManager = LinearLayoutManager(this)
+        initFootView()
+    }
+
+    private fun initFootView() {
+        mFootAddBankCardViewBinding =
+            ItemFootSelectorBankCardViewBinding.inflate(
+                layoutInflater,
+                mViewBinding.rvBankCard,
+                false
+            )
+        UICompat.setText(
+            mFootAddBankCardViewBinding?.atvContent,
+            DataCompat.getResString(com.sbnh.comm.R.string.add_bank_card_withdraw)
+        )
     }
 
     override fun initData() {
@@ -56,6 +75,9 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
             mViewModel.queryMyWallet()
         }
         mBankCardAdapter = WithdrawBankCardAdapter(this, mBankCardData)
+        mFootAddBankCardViewBinding?.root?.let {
+            mBankCardAdapter?.addFootView(it)
+        }
         mViewBinding.rvBankCard.adapter = mBankCardAdapter
         mViewModel.loadBankCardList(RequestPagerListEntity())
     }
@@ -73,6 +95,12 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
         mViewBinding.clParent.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 MetaViewCompat.hideSoftKeyBoard(mViewBinding.aetMoney)
+            }
+
+        })
+        mFootAddBankCardViewBinding?.root?.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_ADD_BANK_CARD)
             }
 
         })
