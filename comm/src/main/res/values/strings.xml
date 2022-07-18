@@ -222,4 +222,5 @@
     <string name="ready_for_sales">上架成功~</string>
     <string name="down_collection_succeed">下架成功~</string>
     <string name="are_you_sure_down_collection">是否确认下架该藏品</string>
+    <string name="hit_the_shelf_ing">上架中</string>
 </resources>

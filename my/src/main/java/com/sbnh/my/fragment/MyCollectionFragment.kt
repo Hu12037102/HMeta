@@ -50,13 +50,13 @@ class MyCollectionFragment :
 
     override fun initView() {
         context?.let { context ->
-            mViewBinding.rvData.addItemDecoration(
+          /*  mViewBinding.rvData.addItemDecoration(
                 DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL).apply {
                     setDrawable(GradientDrawable().apply {
                         setSize(PhoneCompat.dp2px(context, 13f), 0)
                     })
                 }
-            )
+            )*/
             mViewBinding.rvData.layoutManager =
                 GridLayoutManager(context, 2)
         }

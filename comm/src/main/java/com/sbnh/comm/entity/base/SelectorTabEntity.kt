@@ -40,4 +40,17 @@ data class SelectorTabEntity(
         }
     }
 
+    class My {
+        companion object {
+            //我的藏品
+            const val IN_MY_COLLECTION = 0
+
+            //上架中
+            const val IN_THE_SHELF = 1
+
+            //已售出
+            const val IN_THE_SOLD = 2
+        }
+    }
+
 }

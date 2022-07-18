@@ -3,10 +3,10 @@ package com.sbnh.my.fragment
 import android.app.Activity
 import android.view.View
 import androidx.activity.result.ActivityResult
-import androidx.core.net.ConnectivityManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -14,7 +14,6 @@ import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
 import com.sbnh.comm.compat.*
-import com.sbnh.comm.dialog.CompoundCollectionPreviewDialog
 import com.sbnh.comm.dialog.RealNameDialog
 import com.sbnh.comm.entity.base.*
 import com.sbnh.comm.http.IApiService
@@ -23,8 +22,8 @@ import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
-import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
+import com.sbnh.my.adapter.MyCollectionTransactionTabAdapter
 import com.sbnh.my.adapter.MyTabAdapter
 import com.sbnh.my.databinding.FragmentMyBinding
 import com.sbnh.my.viewmodel.MyViewModel
@@ -40,6 +39,8 @@ import kotlinx.coroutines.launch
 class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
     private val mTabData by lazy { mViewModel.createTabs() }
     private var mTabAdapter: MyTabAdapter? = null
+    private val mCollectionTabData = ArrayList<SelectorTabEntity>()
+    private var mCollectionTabAdapter: MyCollectionTransactionTabAdapter? = null
     private val mLineCount = 4
     private val mFragments: ArrayList<Fragment> = ArrayList()
     override fun getViewBinding(): FragmentMyBinding = FragmentMyBinding.inflate(layoutInflater)
@@ -49,40 +50,78 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
     override fun initView() {
         mViewBinding.rvTab.layoutManager = GridLayoutManager(context, mLineCount)
         mViewBinding.vpContent.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        mViewBinding.rvCollectionTab.layoutManager = LinearLayoutManager(
+            DataCompat.checkContext(context),
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
     }
 
 
     override fun initData() {
         //    mViewModel.loadUserInfo()
-        iniTabAdapter()
+        initTabAdapter()
         initPager()
 
     }
 
     private fun initPager() {
-        val fragment: MyCollectionFragment =
-            ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION)
-                .navigation() as MyCollectionFragment
-        mFragments.add(fragment)
+        mCollectionTabData.addAll(mViewModel.createCollectionTabs())
+        mCollectionTabAdapter =
+            MyCollectionTransactionTabAdapter(DataCompat.checkContext(context), mCollectionTabData)
+        mViewBinding.rvCollectionTab.adapter = mCollectionTabAdapter
+
+        for (tabEntity in mCollectionTabData) {
+            if (tabEntity.type == SelectorTabEntity.My.IN_MY_COLLECTION) {
+                val fragment =
+                    ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION)
+                        .navigation()
+                if (fragment is Fragment) {
+                    mFragments.add(fragment)
+                }
+            } else {
+                val fragment =
+                    ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION_TRANSACTION)
+                        .withInt(ARouterConfig.Key.TYPE, NumberCompat.checkInt(tabEntity.type))
+                        .navigation()
+                if (fragment is Fragment) {
+                    mFragments.add(fragment)
+                }
+            }
+        }
+
         val pagerAdapter = object : FragmentStateAdapter(this) {
             override fun getItemCount(): Int = CollectionCompat.getListSize(mFragments)
 
             override fun createFragment(position: Int): Fragment = mFragments[position]
         }
         mViewBinding.vpContent.apply {
-            this.isUserInputEnabled = false
-            this.offscreenPageLimit = 1
+            this.offscreenPageLimit = CollectionCompat.getListSize(mFragments)
             this.adapter = pagerAdapter
 
         }
     }
 
-    private fun iniTabAdapter() {
+    private fun initTabAdapter() {
         mTabAdapter = MyTabAdapter(DataCompat.checkContext(context), mTabData, mLineCount)
         mViewBinding.rvTab.adapter = mTabAdapter
     }
 
+    private val mViewPagerCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            mCollectionTabAdapter?.selectorTab(position)
+        }
+    }
+
     override fun initEvent() {
+        mViewBinding.vpContent.registerOnPageChangeCallback(mViewPagerCallback)
+        mCollectionTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
+            override fun onClickItem(view: View?, position: Int) {
+                mViewBinding.vpContent.currentItem = position
+            }
+
+        })
         mViewBinding.civHead.setOnClickListener {
 
         }
@@ -116,7 +155,7 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
                     TAB_DONATION -> {
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_GIVE_COLLECTION_LIST)
                     }
-                    TAB_MY_WALLET->{
+                    TAB_MY_WALLET -> {
                         ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_WALLET)
                     }
                     TAB_LOTTERY_HELP -> {
@@ -203,6 +242,11 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
             )
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mViewBinding.vpContent.unregisterOnPageChangeCallback(mViewPagerCallback)
     }
 
     override fun onActivityResultCallback(result: ActivityResult) {

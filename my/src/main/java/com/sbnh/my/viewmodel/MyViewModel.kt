@@ -1,5 +1,6 @@
 package com.sbnh.my.viewmodel
 
+import com.sbnh.comm.Contract
 import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.entity.base.*
@@ -66,5 +67,30 @@ class MyViewModel : BaseViewModel() {
         )
         return list
     }
+
+     fun createCollectionTabs(): List<SelectorTabEntity> = arrayListOf(
+        SelectorTabEntity(
+            DataCompat.getResString(com.sbnh.comm.R.string.my_collection),
+            true,
+            0,
+            0,
+            SelectorTabEntity.My.IN_MY_COLLECTION
+        ),
+        SelectorTabEntity(
+            DataCompat.getResString(com.sbnh.comm.R.string.hit_the_shelf_ing),
+            false,
+            0,
+            0,
+            SelectorTabEntity.My.IN_THE_SHELF
+        ),
+        SelectorTabEntity(
+            DataCompat.getResString(com.sbnh.comm.R.string.been_sold),
+            false,
+            0,
+            0,
+            SelectorTabEntity.My.IN_THE_SOLD
+        )
+
+    )
 
 }
