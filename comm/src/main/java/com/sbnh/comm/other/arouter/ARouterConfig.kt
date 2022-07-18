@@ -64,7 +64,8 @@ class ARouterConfig {
             const val ACTIVITY_COMPOUND_PAGER = "/my/activity/compound/pager"
             const val ACTIVITY_ACCOUNT_BILL = "/my/activity/account/bill"
             const val FRAGMENT_ACCOUNT_BILL_CONTENT = "/my/fragment/account/bill/content"
-            const val FRAGMENT_MY_COLLECTION_TRANSACTION = "/my/fragment/my/collection/transaction"
+            const val FRAGMENT_MY_COLLECTION_TRANSACTION_UP = "/my/fragment/my/collection/transaction/up"
+            const val FRAGMENT_MY_COLLECTION_TRANSACTION_DOWN = "/my/fragment/my/collection/transaction/down"
         }
 
         object Login {

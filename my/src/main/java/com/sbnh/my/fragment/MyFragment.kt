@@ -72,22 +72,37 @@ class MyFragment : BaseCompatFragment<FragmentMyBinding, MyViewModel>() {
         mViewBinding.rvCollectionTab.adapter = mCollectionTabAdapter
 
         for (tabEntity in mCollectionTabData) {
-            if (tabEntity.type == SelectorTabEntity.My.IN_MY_COLLECTION) {
-                val fragment =
-                    ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION)
-                        .navigation()
-                if (fragment is Fragment) {
-                    mFragments.add(fragment)
+            when (tabEntity.type) {
+                SelectorTabEntity.My.IN_MY_COLLECTION -> {
+                    val fragment =
+                        ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION)
+                            .navigation()
+                    if (fragment is Fragment) {
+                        mFragments.add(fragment)
+                    }
                 }
-            } else {
-                val fragment =
-                    ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION_TRANSACTION)
-                        .withInt(ARouterConfig.Key.TYPE, NumberCompat.checkInt(tabEntity.type))
-                        .navigation()
-                if (fragment is Fragment) {
-                    mFragments.add(fragment)
+                SelectorTabEntity.My.IN_THE_SHELF -> {
+                    val fragment =
+                        ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION_TRANSACTION_UP)
+                            .withInt(ARouterConfig.Key.TYPE, NumberCompat.checkInt(tabEntity.type))
+                            .navigation()
+                    if (fragment is Fragment) {
+                        mFragments.add(fragment)
+                    }
                 }
+                SelectorTabEntity.My.IN_THE_SOLD -> {
+                    val fragment =
+                        ARouters.build(ARouterConfig.Path.My.FRAGMENT_MY_COLLECTION_TRANSACTION_DOWN)
+                            .withInt(ARouterConfig.Key.TYPE, NumberCompat.checkInt(tabEntity.type))
+                            .navigation()
+                    if (fragment is Fragment) {
+                        mFragments.add(fragment)
+                    }
+                }
+
+
             }
+
         }
 
         val pagerAdapter = object : FragmentStateAdapter(this) {

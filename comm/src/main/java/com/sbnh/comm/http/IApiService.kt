@@ -53,6 +53,7 @@ class IApiService {
         const val WALLET_PAY_ORDER="/payment/wallet/pay"
         const val UP_COLLECTION="/healer_nft/tradingMarket/issueShelves"
         const val DOWN_COLLECTION="/healer_nft/tradingMarket/downShelves"
+        const val LOAD_COLLECTION_TRANSACTIONS="/healer_nft/user/selectCollectionType"
     }
 
     object EncodedPath {

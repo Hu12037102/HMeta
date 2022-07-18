@@ -51,6 +51,7 @@
     <color name="colorFF0F0F10">#FF0F0F10</color>
     <color name="colorFF474D91">#FF474D91</color>
     <color name="colorFF2D2D2D">#FF2D2D2D</color>
+    <color name="colorFFEDC896">#FFEDC896</color>
     <color name="colorWindowBackground">@color/colorFF191919</color>
     <color name="color_title_view_center_text_color">@color/white</color>
 

@@ -36,7 +36,7 @@ class CollectionNumDetailsFragment :
     private var mCollectionNumDetailsListAdapter: CollectionNumDetailsListAdapter? = null
     private val mCollectionNumDetailsListData = ArrayList<CollectionNumDetailsEntity>()
     private var mRequestUpCollectionEntity: RequestUpCollectionEntity = RequestUpCollectionEntity()
-    private var mDownCollectionId=""
+    private var mDownCollectionTokenId:Long?=null
 
     override fun getViewBinding(): FragmentCollectionNumDetailsBinding =
         FragmentCollectionNumDetailsBinding.inflate(layoutInflater)
@@ -134,8 +134,12 @@ class CollectionNumDetailsFragment :
                         titleDialog.setOnDialogItemInfoClickListener(object :
                             OnDialogItemInfoClickListener {
                             override fun onClickConfirm(view: View?) {
-                                mDownCollectionId= DataCompat.toString(entity.id)
-                                mViewModel.downCollection(mDownCollectionId)
+                                mDownCollectionTokenId= entity.tokenId
+                                mViewModel.downCollection(DataCompat.toString(entity.id))
+                                titleDialog.dismiss()
+                            }
+
+                            override fun onClickCancel(view: View?) {
                                 titleDialog.dismiss()
                             }
 
@@ -201,7 +205,7 @@ class CollectionNumDetailsFragment :
         }
         mViewModel.mDownCollectionLiveData.observe(this){
             showToast(com.sbnh.comm.R.string.down_collection_succeed)
-            mCollectionNumDetailsListAdapter?.updateDowCollection(mDownCollectionId)
+            mCollectionNumDetailsListAdapter?.updateDowCollection(mDownCollectionTokenId)
         }
     }
 

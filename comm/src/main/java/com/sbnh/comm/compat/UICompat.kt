@@ -172,7 +172,7 @@ object UICompat {
     }
 
     @JvmStatic
-    fun <T> notifyAdapterDateChanged(
+    fun <T> notifyAdapterAddDateChanged(
         emptyView: EmptyLayout?,
         adapter: RecyclerView.Adapter<*>?,
         isRefresh: Boolean,
@@ -185,6 +185,16 @@ object UICompat {
         if (CollectionCompat.notEmptyList(addData)) {
             parentData.addAll(addData!!)
         }
+        adapter?.notifyDataSetChanged()
+        notifyDataEmptyView(emptyView, parentData)
+    }
+
+    @JvmStatic
+    fun <T> notifyAdapterUpdateDateChanged(
+        emptyView: EmptyLayout?,
+        adapter: RecyclerView.Adapter<*>?,
+        parentData: ArrayList<T>,
+    ) {
         adapter?.notifyDataSetChanged()
         notifyDataEmptyView(emptyView, parentData)
     }

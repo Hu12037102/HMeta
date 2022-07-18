@@ -107,7 +107,7 @@ class AccountBillContentAdapter(context: Context, data: List<AccountBillEntity>)
             textView,
             if (isPositiveNumber) com.sbnh.comm.R.color.colorFFF4CD9A else com.sbnh.comm.R.color.colorWhite
         )
-        val moneyFormat = DataCompat.getMoneyFormat("$moneyNumber")
+        val moneyFormat = DataCompat.getBalanceFormat("$moneyNumber")
 
         UICompat.setText(
             textView,

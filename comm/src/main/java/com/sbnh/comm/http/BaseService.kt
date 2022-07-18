@@ -1,7 +1,9 @@
 package com.sbnh.comm.http
 
 import com.sbnh.comm.entity.base.BaseEntity
+import com.sbnh.comm.entity.base.BasePagerEntity
 import com.sbnh.comm.entity.base.VersionEntity
+import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.entity.my.MyWalletEntity
 import com.sbnh.comm.entity.order.OrderEntity
 import com.sbnh.comm.entity.order.ResultCommitOrderEntity
@@ -49,4 +51,7 @@ interface BaseService {
 
     @GET(IApiService.Path.DOWN_COLLECTION)
     suspend fun downCollection(@Query(IApiService.Key.USER_COLLECTION_ID) userCollectionId: String): Response<Unit>
+
+    @POST(IApiService.Path.LOAD_COLLECTION_TRANSACTIONS)
+    suspend fun loadCollectionTransactions(@Body entity: RequestPagerTypeEntity):Response<BasePagerEntity<List<MyCollectionEntity>>>
 }

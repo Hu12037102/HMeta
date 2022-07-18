@@ -1,6 +1,5 @@
 package com.sbnh.my.adapter
 
-import android.app.Activity
 import android.content.Context
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import com.sbnh.comm.Contract
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.my.CollectionNumDetailsEntity
-import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.my.databinding.ItemCollectionNumDetailsListViewBinding
@@ -71,7 +69,7 @@ class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNum
             } else {
                 holder.viewBinding.atvPrice.visibility = View.VISIBLE
                 SpanTextHelper.with()
-                    .append("￥${DataCompat.getMoneyFormat(DataCompat.toString(entity.price))}")
+                    .append("￥${DataCompat.getBalanceFormat(DataCompat.toString(entity.price))}")
                     .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorWhite))
                     .setSize(15, true)
                     .appendLine()
@@ -104,9 +102,9 @@ class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNum
         notifyDataSetChanged()
     }
 
-    fun updateDowCollection(id: String) {
+    fun updateDowCollection(tokenId: Long?) {
         for (entity in mData) {
-            if (TextUtils.equals(id, entity.id)) {
+            if (entity.tokenId == tokenId) {
                 entity.price = null
                 entity.status = Contract.MyCollectionStatus.NORMAL
             }

@@ -6,8 +6,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
-import com.sbnh.comm.compat.CollectionCompat
-import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
@@ -95,7 +93,7 @@ class MyOrderContentFragment :
               }
               mAdapter?.notifyDataSetChanged()
               if (CollectionCompat.isEmptyList(mData)) mEmptyLayout?.show() else mEmptyLayout?.hide()*/
-            UICompat.notifyAdapterDateChanged(
+            UICompat.notifyAdapterAddDateChanged(
                 mEmptyLayout,
                 mAdapter,
                 mViewModel.isRefresh,

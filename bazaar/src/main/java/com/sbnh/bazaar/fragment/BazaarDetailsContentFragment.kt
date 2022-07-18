@@ -84,7 +84,7 @@ class BazaarDetailsContentFragment :
         super.initObserve()
         mViewModel.mDataLiveData.observe(this) {
             val data = BasePagerEntity.getData(it)
-            UICompat.notifyAdapterDateChanged(
+            UICompat.notifyAdapterAddDateChanged(
                 mEmptyLayout,
                 mAdapter,
                 mViewModel.isRefresh,

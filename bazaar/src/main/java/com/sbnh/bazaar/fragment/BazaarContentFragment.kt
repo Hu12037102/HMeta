@@ -8,7 +8,6 @@ import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.bazaar.adapter.BazaarContentAdapter
 import com.sbnh.bazaar.databinding.FragmentBazaarContentBinding
 import com.sbnh.bazaar.viewmodel.BazaarContentViewModel
-import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.DialogCompat
@@ -18,7 +17,6 @@ import com.sbnh.comm.entity.bazaar.BazaarEntity
 import com.sbnh.comm.entity.request.RequestBazaarEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
-import com.sbnh.comm.utils.LogUtils
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 
 /**
@@ -87,7 +85,7 @@ class BazaarContentFragment :
         super.initObserve()
         mViewModel.mDataLiveData.observe(this) {
             val data = BasePagerEntity.getData(it)
-            UICompat.notifyAdapterDateChanged(
+            UICompat.notifyAdapterAddDateChanged(
                 mEmptyLayout,
                 mAdapter,
                 mViewModel.isRefresh,

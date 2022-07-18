@@ -4,22 +4,14 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnimationSet
-import android.view.animation.BounceInterpolator
-import android.view.animation.LinearInterpolator
-import androidx.core.graphics.drawable.DrawableCompat
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.google.android.material.animation.AnimatorSetCompat
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.CompoundCollectionPreviewDialog
 import com.sbnh.comm.entity.my.CompoundPagerEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
-import com.sbnh.comm.other.arouter.ARouters
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.adapter.CompoundPagerAdapter
@@ -131,7 +123,7 @@ class CompoundPagerActivity :
         mViewModel.mCompoundPagerLiveData.observe(this) {
             val data = it.synthesisMerchandiseBO
             val afterData = it.afterSynthesis
-            UICompat.notifyAdapterDateChanged(null, mAdapter, true, mData, data)
+            UICompat.notifyAdapterAddDateChanged(null, mAdapter, true, mData, data)
             if (CollectionCompat.notEmptyList(afterData)) {
                 mAfterData.clear()
                 CollectionCompat.addAll(mAfterData, afterData)

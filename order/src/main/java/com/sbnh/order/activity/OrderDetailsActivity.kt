@@ -8,7 +8,6 @@ import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
 import com.sbnh.comm.base.dialog.BaseDataDialog
 import com.sbnh.comm.base.interfaces.OnDialogItemInfoClickListener
-import com.sbnh.comm.base.viewmodel.BaseViewModel
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.dialog.InputMessageCodeDialog
 import com.sbnh.comm.dialog.SetPaymentPasswordDialog
@@ -19,7 +18,6 @@ import com.sbnh.comm.entity.base.STATUS_RUNNING
 import com.sbnh.comm.entity.my.MyWalletEntity
 import com.sbnh.comm.entity.order.*
 import com.sbnh.comm.entity.pay.BankCardEntity
-import com.sbnh.comm.entity.pay.RequestUnbindBankCardEntity
 import com.sbnh.comm.entity.request.RequestCancelOrderEntity
 import com.sbnh.comm.entity.request.RequestPayOrderAfterEntity
 import com.sbnh.comm.entity.request.RequestPayOrderBeforeEntity
@@ -30,13 +28,9 @@ import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.click.DelayedClick
-import com.sbnh.comm.weight.text.SpanTextHelper
 import com.sbnh.order.databinding.ActivityOrderDetailsBinding
 import com.sbnh.order.viewmodel.OrderDetailsViewModel
 import com.scwang.smart.refresh.layout.api.RefreshLayout
-import kotlinx.coroutines.delay
-import java.util.*
-import kotlin.math.abs
 
 /**
  * 作者: 胡庆岭
@@ -173,7 +167,7 @@ class OrderDetailsActivity :
         UICompat.setText(
             mViewBinding.atvWayWalletContent,
             com.sbnh.comm.R.string.wallet_pay_s,
-            DataCompat.getMoneyFormat(entity?.balance)
+            DataCompat.getBalanceFormat(entity?.balance)
         )
     }
 

@@ -103,7 +103,7 @@ class MyWalletActivity : BaseCompatActivity<ActivityMyWalletBinding, MyWalletVie
     private fun setWalletBalance() {
         UICompat.setText(
             mViewBinding.atvMoney,
-            "￥${DataCompat.getMoneyFormat(mBalance)}"
+            "￥${DataCompat.getBalanceFormat(mBalance)}"
         )
     }
 

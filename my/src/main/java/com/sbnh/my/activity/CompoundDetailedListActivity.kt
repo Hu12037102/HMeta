@@ -70,7 +70,7 @@ class CompoundDetailedListActivity :
     override fun initObserve() {
         super.initObserve()
         mViewModel.mCompoundDetailedListLiveData.observe(this) {
-            UICompat.notifyAdapterDateChanged(mEmptyView, mAdapter, mViewModel.isRefresh, mData, it)
+            UICompat.notifyAdapterAddDateChanged(mEmptyView, mAdapter, mViewModel.isRefresh, mData, it)
 
         }
     }

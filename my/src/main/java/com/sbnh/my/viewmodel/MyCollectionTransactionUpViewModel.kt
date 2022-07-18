@@ -8,7 +8,7 @@ import com.sbnh.comm.base.viewmodel.BaseViewModel
  * 更新时间: 2022/7/18 15:14
  * 描述:
  */
-class MyCollectionTransactionViewModel : BaseViewModel() {
+class MyCollectionTransactionUpViewModel : BaseViewModel() {
 
 
 }

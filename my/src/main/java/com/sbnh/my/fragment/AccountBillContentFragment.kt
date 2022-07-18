@@ -64,7 +64,7 @@ class AccountBillContentFragment :
         super.initObserve()
         mViewModel.mAccountBillLiveData.observe(this) {
             val data = BaseEntity.getPagerData(it)
-            UICompat.notifyAdapterDateChanged(
+            UICompat.notifyAdapterAddDateChanged(
                 mEmptyLayout,
                 mAdapter,
                 mViewModel.isRefresh,

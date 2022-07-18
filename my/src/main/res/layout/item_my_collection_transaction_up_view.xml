@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/size_6dp"
+    android:layout_marginEnd="@dimen/size_6dp"
+    android:layout_marginBottom="@dimen/size_20dp"
+    app:cardBackgroundColor="@color/colorFF191919"
+    app:cardCornerRadius="@dimen/size_12dp"
+    app:cardElevation="@dimen/size_0dp"
+    tools:background="@color/colorWindowBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/size_18dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/aiv_content"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_0dp"
+            app:layout_constraintDimensionRatio="h,1:1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/aiv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="@id/aiv_content"
+            app:layout_constraintTop_toTopOf="@id/aiv_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_name"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_6dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/default_text_size"
+            app:layout_constraintLeft_toLeftOf="@id/aiv_content"
+            app:layout_constraintRight_toRightOf="@id/aiv_content"
+            app:layout_constraintTop_toBottomOf="@id/aiv_content"
+            tools:text="急啊看数据的咖啡"
+            android:layout_marginStart="@dimen/size_12dp"
+            android:layout_marginEnd="@dimen/size_12dp"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_10dp"
+            android:layout_marginEnd="@dimen/size_12dp"
+            android:background="@drawable/layer_list_my_collection_transaction_status_view"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_12sp"
+            app:layout_constraintHeight_min="@dimen/size_24dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/atv_name"
+            app:layout_constraintWidth_min="@dimen/size_48dp"
+            tools:text="下架" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_price"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/size_10dp"
+            android:textColor="@color/colorFFEDC896"
+            android:textSize="@dimen/size_17sp"
+            app:layout_constraintBottom_toBottomOf="@id/atv_status"
+            app:layout_constraintLeft_toLeftOf="@id/atv_name"
+            app:layout_constraintRight_toLeftOf="@id/atv_status"
+            app:layout_constraintTop_toTopOf="@id/atv_status"
+            tools:text="￥200" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

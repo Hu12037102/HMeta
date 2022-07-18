@@ -65,7 +65,7 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
         UICompat.setText(
             mViewBinding.atvBalance,
             com.sbnh.comm.R.string.balance_s,
-            DataCompat.getMoneyFormat(mBalance)
+            DataCompat.getBalanceFormat(mBalance)
         )
     }
 
@@ -149,7 +149,7 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
         }
         mViewModel.mBankListLiveData.observe(this) {
             val data = BaseEntity.getPagerData(it)
-            UICompat.notifyAdapterDateChanged(null, mBankCardAdapter, true, mBankCardData, data)
+            UICompat.notifyAdapterAddDateChanged(null, mBankCardAdapter, true, mBankCardData, data)
 
         }
         mViewModel.mWithdrawBankCardLiveData.observe(this) {
