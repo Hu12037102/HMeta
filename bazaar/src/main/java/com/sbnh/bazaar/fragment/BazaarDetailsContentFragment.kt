@@ -96,7 +96,7 @@ class BazaarDetailsContentFragment :
 
     fun updateSort(isUpSort: Boolean) {
         this.isUpSort = isUpSort
-        loadSmartData()
+        loadRefreshSmartData()
     }
 
     override fun initEvent() {
