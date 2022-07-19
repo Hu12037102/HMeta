@@ -10,6 +10,7 @@ import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.databinding.BaseParentLoadingViewBinding
 import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
+import com.sbnh.comm.tool.ViewTools
 import com.sbnh.comm.utils.LogUtils
 import com.sbnh.comm.weight.view.EmptyLayout
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -148,8 +149,8 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
             BaseViewModel.STATUS_SHOW_EMPTY_VIEW -> {
 
                 //  mEmptyView?.show()
-                UICompat.showRecyclerViewDataEmptyView(window.decorView, mEmptyView)
-
+               // UICompat.showRecyclerViewDataEmptyView(window.decorView, mEmptyView)
+                ViewTools.showEmptyView(window.decorView,mEmptyView)
             }
             BaseViewModel.STATUS_HIND_EMPTY_VIEW -> {
                 mEmptyView?.hide()

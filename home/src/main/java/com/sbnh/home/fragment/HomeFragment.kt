@@ -15,6 +15,7 @@ import com.sbnh.comm.entity.request.RequestPagerListEntity
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.smart.SmartRefreshLayoutCompat
+import com.sbnh.comm.tool.ViewTools
 import com.sbnh.home.adapter.HomeBannerAdapter
 import com.sbnh.home.adapter.HomeCollectionListAdapter
 import com.sbnh.home.databinding.FragmentHomeBinding
@@ -122,7 +123,6 @@ class HomeFragment : BaseCompatFragment<FragmentHomeBinding, HomeViewModel>() {
             mBannerAdapter?.notifyDataSetChanged()
         }
     }
-
 
 
 }

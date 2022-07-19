@@ -14,6 +14,8 @@ import com.sbnh.comm.base.viewmodel.WebContentViewModel
 import com.sbnh.comm.databinding.ActivityWebContentBinding
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.utils.LogUtils
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 
 /**
  * 作者: 胡庆岭
@@ -36,7 +38,11 @@ class WebContentActivity : BaseWebActivity<ActivityWebContentBinding, WebContent
         loadUrl(url)
     }
 
-
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        super.loadSmartData(refreshLayout, isRefresh)
+        mWebView.reload()
+        mViewBinding.refreshLayout.finishRefresh(500)
+    }
     override fun initEvent() {
         mWebView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
