@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refresh_layout"
@@ -13,5 +15,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/atv_login"
+        android:layout_width="@dimen/size_174dp"
+        android:layout_height="@dimen/size_44dp"
+        android:gravity="center"
+        android:text="@string/login_immediately"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/size_14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
+        android:background="@drawable/shape_click_view"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

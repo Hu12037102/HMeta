@@ -104,6 +104,12 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
+    fun pagerReset(){
+        this.mPagerNum = Contract.PAGE_NUM
+        this.isRefresh = true
+        this.mLastTimestamp = System.currentTimeMillis()
+        this.mLastTime = System.currentTimeMillis()
+    }
 
     fun exitLoginLocal() {
         viewModelScope.launch {

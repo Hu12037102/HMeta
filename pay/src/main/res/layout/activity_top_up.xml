@@ -64,7 +64,7 @@
                 android:background="@color/colorTransparent"
                 android:hint="@string/top_up_money_rule"
                 android:inputType="number"
-                android:maxLength="6"
+                android:maxLength="5"
                 android:paddingStart="@dimen/size_2dp"
                 android:paddingEnd="@dimen/size_2dp"
                 android:textColor="@color/white"

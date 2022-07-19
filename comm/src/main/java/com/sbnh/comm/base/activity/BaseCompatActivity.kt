@@ -114,8 +114,9 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
         SmartRefreshLayoutCompat.initDefault(refreshLayout)
         refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onRefresh(refreshLayout: RefreshLayout) {
-                mViewModel.mPagerNum = 0
-                mViewModel.isRefresh = true
+               /* mViewModel.mPagerNum = 0
+                mViewModel.isRefresh = true*/
+                mViewModel.pagerReset()
                 loadSmartData(refreshLayout, mViewModel.isRefresh)
                 //  refreshLayout.finishRefresh()
             }
@@ -157,5 +158,9 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
 
             }
         }
+    }
+    open fun loadRefreshSmartData(refreshLayout: SmartRefreshLayout? = null) {
+        mViewModel.pagerReset()
+        loadSmartData(refreshLayout, mViewModel.isRefresh)
     }
 }

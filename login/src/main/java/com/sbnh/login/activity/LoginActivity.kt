@@ -138,7 +138,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
             override fun onDelayedClick(v: View?) {
 
                 val phoneNumber =
-                    MetaViewCompat.getTextViewText(mViewBinding.aetPhone,true)
+                    MetaViewCompat.getTextViewText(mViewBinding.aetPhone, true)
                 if (!NumberCompat.isPhoneNumber(phoneNumber)) {
                     showToast(com.sbnh.comm.R.string.please_input_sure_phone_number)
                     return
@@ -165,7 +165,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         })
         mViewBinding.clContent.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                LogUtils.w("onDelayedClick--","点击了我呀！！！！")
+                LogUtils.w("onDelayedClick--", "点击了我呀！！！！")
                 MetaViewCompat.hideSoftKeyBoard(mViewBinding.clContent)
             }
 
@@ -178,35 +178,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         }
 
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            UICompat.setPhoneEditText(mViewBinding.aetPhone,s,start, before)
-          /*  if (s == null || s.isEmpty()) return
-            val sb = StringBuilder()
-            for (i in s.indices) {
-                if (i != 3 && i != 8 && s[i] == ' ') {
-                    continue
-                } else {
-                    sb.append(s[i])
-                    if ((sb.length == 4 || sb.length == 9) && sb[sb.length - 1] != ' ') {
-                        sb.insert(sb.length - 1, ' ')
-                    }
-                }
-            }
-            if (sb.toString() != s.toString()) {
-                var index = start + 1
-                if (sb[start] == ' ') {
-                    if (before == 0) {
-                        index++
-                    } else {
-                        index--
-                    }
-                } else {
-                    if (before == 1) {
-                        index--
-                    }
-                }
-                mViewBinding.aetPhone.setText(sb.toString())
-                mViewBinding.aetPhone.setSelection(index)
-            }*/
+            UICompat.setPhoneEditText(mViewBinding.aetPhone, s, start, before)
         }
 
         override fun afterTextChanged(s: Editable?) {
@@ -234,6 +206,7 @@ class LoginActivity : BaseCompatActivity<ActivityLoginBinding, LoginViewModel>()
         }
         mViewModel.mLoginLiveData.observe(this) {
             lifecycleScope.launch {
+                MetaViewCompat.setResultOK(this@LoginActivity)
                 UserInfoStore.get().putEntity(it)
                 ARoutersActivity.loginActivityComplete()
             }

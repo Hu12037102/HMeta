@@ -23,6 +23,10 @@ object ARoutersActivity {
     }
 
     @JvmStatic
+    fun createLoginIntent(context: Context) =
+        ARouters.intent(context, ARouterConfig.Path.Login.ACTIVITY_LOGIN)
+
+    @JvmStatic
     fun loginActivityComplete() {
         ActivityCompatManger.get().removeLoginAndRegisterActivity()
         //ARouters.startActivity(ARouterConfig.Path.Main.ACTIVITY_MAIN)
@@ -47,19 +51,19 @@ object ARoutersActivity {
             .navigation()
     }
 
- /*   @JvmStatic
-    fun startCollectionDetailsActivity(id: String?, cid: String?) {
-        ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
-            .withString(ARouterConfig.Key.ID, id)
-            .withString(ARouterConfig.Key.CID, cid)
-            .navigation()
-    }*/
+    /*   @JvmStatic
+       fun startCollectionDetailsActivity(id: String?, cid: String?) {
+           ARouters.build(ARouterConfig.Path.Home.ACTIVITY_COLLECTION_DETAILS)
+               .withString(ARouterConfig.Key.ID, id)
+               .withString(ARouterConfig.Key.CID, cid)
+               .navigation()
+       }*/
 
     @JvmStatic
-    fun startOrderDetailsActivity(id: String?,putOrderType:Int= Contract.PutOrderType.OFFICIAL) {
+    fun startOrderDetailsActivity(id: String?, putOrderType: Int = Contract.PutOrderType.OFFICIAL) {
         ARouters.build(ARouterConfig.Path.Order.ACTIVITY_ORDER_DETAILS)
             .withString(ARouterConfig.Key.ID, id)
-            .withInt(ARouterConfig.Key.TYPE,putOrderType)
+            .withInt(ARouterConfig.Key.TYPE, putOrderType)
             .navigation()
     }
 

@@ -184,17 +184,15 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
         SmartRefreshLayoutCompat.initDefault(refreshLayout)
         refreshLayout.setOnRefreshLoadMoreListener(object : OnRefreshLoadMoreListener {
             override fun onRefresh(refreshLayout: RefreshLayout) {
-                mViewModel.mPagerNum = Contract.PAGE_NUM
-                mViewModel.mLastTime = System.currentTimeMillis()
-                mViewModel.isRefresh = true
+                mViewModel.pagerReset()
                 loadSmartData(refreshLayout, mViewModel.isRefresh)
-               //   refreshLayout.finishRefresh(15000)
+                //   refreshLayout.finishRefresh(15000)
             }
 
             override fun onLoadMore(refreshLayout: RefreshLayout) {
                 mViewModel.isRefresh = false
                 loadSmartData(refreshLayout, mViewModel.isRefresh)
-               //  refreshLayout.finishLoadMore(15000)
+                //  refreshLayout.finishLoadMore(15000)
             }
 
         })
@@ -208,7 +206,7 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
                 mRefreshLayout?.finishLoadMore()
             }
             BaseViewModel.STATUS_SHOW_EMPTY_VIEW -> {
-              //  mEmptyLayout?.show()
+                //  mEmptyLayout?.show()
                 UICompat.showRecyclerViewDataEmptyView(mRootView, mEmptyLayout)
             }
             BaseViewModel.STATUS_HIND_EMPTY_VIEW -> {
@@ -219,5 +217,10 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
             }
         }
 
+    }
+
+    open fun loadRefreshSmartData(refreshLayout: SmartRefreshLayout? = null) {
+        mViewModel.pagerReset()
+        loadSmartData(refreshLayout, mViewModel.isRefresh)
     }
 }

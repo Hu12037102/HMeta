@@ -26,4 +26,11 @@ object SmartRefreshLayoutCompat {
             it.setEnableOverScrollBounce(false)
         }
     }
+    @JvmStatic
+    fun setEnable(refreshLayout: SmartRefreshLayout?,isEnable:Boolean){
+        refreshLayout?.let {
+            it.setEnableRefresh(isEnable)
+            it.setEnableLoadMore(isEnable)
+        }
+    }
 }

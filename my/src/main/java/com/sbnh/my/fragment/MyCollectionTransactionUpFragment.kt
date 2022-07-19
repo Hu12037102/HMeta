@@ -1,6 +1,8 @@
 package com.sbnh.my.fragment
 
+import android.app.Activity
 import android.view.View
+import androidx.activity.result.ActivityResult
 import androidx.recyclerview.widget.GridLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
@@ -13,10 +15,14 @@ import com.sbnh.comm.compat.DialogCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.dialog.TitleDialog
 import com.sbnh.comm.entity.base.BasePagerEntity
+import com.sbnh.comm.entity.base.UserInfoEntity
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.entity.request.RequestPagerTypeEntity
+import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARoutersActivity
+import com.sbnh.comm.utils.LogUtils
+import com.sbnh.comm.weight.click.DelayedClick
 import com.sbnh.my.adapter.MyCollectionTransactionUpAdapter
 import com.sbnh.my.databinding.FragmentMyCollectionTransactionUpBinding
 import com.sbnh.my.viewmodel.MyCollectionTransactionUpViewModel
@@ -33,8 +39,8 @@ class MyCollectionTransactionUpFragment :
     BaseCompatFragment<FragmentMyCollectionTransactionUpBinding, MyCollectionTransactionUpViewModel>() {
     private var mDownCollectionTokenId: Long? = null
     private val mData = ArrayList<MyCollectionEntity>()
-    private var mAdapter: MyCollectionTransactionUpAdapter? =
-        null
+    private var mAdapter: MyCollectionTransactionUpAdapter? = null
+    private var isFirstLoad: Boolean = true
     private var mType: Int = Contract.UNKNOWN_INT_VALUE
     override fun getViewBinding(): FragmentMyCollectionTransactionUpBinding =
         FragmentMyCollectionTransactionUpBinding.inflate(layoutInflater)
@@ -52,7 +58,36 @@ class MyCollectionTransactionUpFragment :
             ?: Contract.UNKNOWN_INT_VALUE
         mAdapter = MyCollectionTransactionUpAdapter(DataCompat.checkContext(context), mData)
         mViewBinding.rvData.adapter = mAdapter
-        loadSmartData()
+
+        //
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mViewModel.loadUserInfo()
+    }
+
+    override fun resultUserInfo(userInfoEntity: UserInfoEntity?) {
+        super.resultUserInfo(userInfoEntity)
+        if (UserInfoStore.isLogin(userInfoEntity)) {
+            mViewBinding.refreshLayout.setEnableRefresh(true)
+            if (isFirstLoad) {
+                loadSmartData()
+                isFirstLoad = false
+            }
+            mViewBinding.atvLogin.visibility = View.GONE
+            UICompat.notifyAdapterUpdateDateChanged(mEmptyLayout, mAdapter, mData)
+        } else {
+            mData.clear()
+            UICompat.notifyAdapterUpdateDateChanged(
+                mEmptyLayout,
+                mAdapter,
+                mData,
+            )
+            mEmptyLayout?.hide()
+            mViewBinding.atvLogin.visibility = View.VISIBLE
+            mViewBinding.refreshLayout.setEnableRefresh(false)
+        }
     }
 
     override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
@@ -107,6 +142,19 @@ class MyCollectionTransactionUpFragment :
             }
 
         })
+        mViewBinding.atvLogin.setOnClickListener(object : DelayedClick() {
+            override fun onDelayedClick(v: View?) {
+                //  ARoutersActivity.startLoginActivity()
+                startActivityForResult(
+                    ARoutersActivity.createLoginIntent(
+                        DataCompat.checkContext(
+                            context
+                        )
+                    )
+                )
+            }
+
+        })
 
     }
 
@@ -139,4 +187,13 @@ class MyCollectionTransactionUpFragment :
             //    mAdapter?.updateDowCollection(mDownCollectionId)
         }
     }
+
+    override fun onActivityResultCallback(result: ActivityResult) {
+        super.onActivityResultCallback(result)
+        LogUtils.w("onActivityResultCallback", "$result")
+        if (result.resultCode == Activity.RESULT_OK) {
+            loadRefreshSmartData()
+        }
+    }
+
 }
