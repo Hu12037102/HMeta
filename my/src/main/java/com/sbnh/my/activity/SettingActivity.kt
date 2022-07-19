@@ -58,8 +58,9 @@ class SettingActivity : BaseCompatActivity<ActivitySettingBinding, SettingViewMo
     override fun initEvent() {
         mViewBinding.pvAccount.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                val intent = Intent(this@SettingActivity, MyAccountInfoActivity::class.java)
-                startActivityForResult(intent)
+              //  val intent = Intent(this@SettingActivity, MyAccountInfoActivity::class.java)
+              //  startActivityForResult(intent)
+                ARouters.startActivity(ARouterConfig.Path.My.ACTIVITY_MY_ACCOUNT_INFO)
             }
 
         })
