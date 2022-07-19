@@ -54,7 +54,7 @@ class HomeCollectionListAdapter(context: Context, data: List<CollectionEntity>) 
             UICompat.setText(holder.viewBinding.atvCollectionName, entity.merchandiseName)
             GlideCompat.loadImage(entity.header, holder.viewBinding.civHead)
             UICompat.setText(holder.viewBinding.atvUserName, entity.nickname)
-            UICompat.setText(holder.viewBinding.atvPrice, "￥${entity.price}")
+            UICompat.setText(holder.viewBinding.atvPrice, "￥${DataCompat.getMoneyFormat(entity.price)}")
             UICompat.setText(
                 holder.viewBinding.includedLimit.atvLimitCount,
                 "${entity.remainQuantity}/${entity.totalQuantity}"

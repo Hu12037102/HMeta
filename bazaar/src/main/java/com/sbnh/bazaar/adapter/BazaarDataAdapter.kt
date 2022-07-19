@@ -56,7 +56,7 @@ class BazaarDataAdapter(val context: Context, val data: List<BazaarDataEntity>) 
                 holder.viewBinding.atvTime,
                 TimeCompat.getTimeFormat(entity.updateTime, "yyyy/MM/dd HH:mm")
             )
-            SpanTextHelper.with().append("￥${entity.price}")
+            SpanTextHelper.with().append("￥${DataCompat.getMoneyFormat(entity.price)}")
                 .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorWhite))
                 .setSize(15, true)
                 .appendLine()

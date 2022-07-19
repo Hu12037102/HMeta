@@ -198,7 +198,7 @@ class OrderDetailsActivity :
         UICompat.setText(
             mViewBinding.atvPayMoney,
             com.sbnh.comm.R.string.pay_money,
-            "${entity.coin}"
+            DataCompat.getMoneyFormat(entity.coin)
         )
     }
 

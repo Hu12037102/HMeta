@@ -101,7 +101,7 @@ class CollectionDetailsActivity :
             mViewBinding.includedBottomContent.atvPrice.visibility = View.GONE
         } else {
             mViewBinding.includedBottomContent.atvPrice.visibility = View.VISIBLE
-            UICompat.setText(mViewBinding.includedBottomContent.atvPrice, "￥${price}")
+            UICompat.setText(mViewBinding.includedBottomContent.atvPrice, "￥${DataCompat.getMoneyFormat(price)}")
         }
     }
 
