@@ -117,8 +117,6 @@ object DataCompat {
     }
 
 
-
-
     @JvmStatic
     fun getBalanceFormat(balance: String?): String {
         val numberMoney = NumberCompat.string2Double(balance)
@@ -131,12 +129,29 @@ object DataCompat {
 
     @JvmStatic
     fun getMoneyFormat(money: Double?): String {
-        val numberMoney = NumberCompat.checkDouble(money)
-        return NumberCompat.keepDecimalNumber(
-            numberMoney,
-            Contract.MONEY_KEEP_DIGIT,
-            toString(Contract.NOT_MONEY)
-        )
+        var result = "$money"
+        val checkMoney = NumberCompat.checkDouble(money)
+        val moneyString = toString(checkMoney)
+        val data = moneyString.split(".")
+        if (data.size == 2) {
+            val decimals = NumberCompat.string2Int(data[1], -1)
+            if (decimals == 0) {
+                result = data[0]
+            } else if (decimals > 0) {
+                result = NumberCompat.keepDecimalNumber(
+                    checkMoney,
+                    Contract.MONEY_KEEP_DIGIT,
+                    toString(Contract.NOT_MONEY)
+                )
+            }
+        }
+        return result
+        /* val numberMoney = NumberCompat.checkDouble(money)
+         return NumberCompat.keepDecimalNumber(
+             numberMoney,
+             Contract.MONEY_KEEP_DIGIT,
+             toString(Contract.NOT_MONEY)
+         )*/
     }
 
 }

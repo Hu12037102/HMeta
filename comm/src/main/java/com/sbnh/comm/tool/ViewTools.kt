@@ -20,13 +20,14 @@ class ViewTools {
         if (parentView == null) {
             return
         }
+       mData.add(parentView)
         if (parentView is ViewGroup) {
             for (i in 0 until parentView.childCount) {
                 val view = parentView.getChildAt(i)
                 traversalView(view)
             }
         }
-        mData.add(parentView)
+
     }
 
 

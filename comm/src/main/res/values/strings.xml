@@ -217,7 +217,7 @@
     <string name="submit_default_consent_agreement">提交默认同意</string>
     <string name="healer_meta_business_rules">《Healer Meta买卖规则》</string>
     <string name="please_set_transaction_money">请设置交易金额</string>
-    <string name="please_transaction_must_greater_than">交易金额范围：0.01&#045;99999.00元</string>
+    <string name="please_transaction_must_greater_than">交易金额范围：1&#045;99999元</string>
     <string name="please_again_healer_meta_rule">请认真阅读并且同意《Healer Meta买卖规则》</string>
     <string name="ready_for_sales">上架成功~</string>
     <string name="down_collection_succeed">下架成功~</string>

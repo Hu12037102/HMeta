@@ -6,6 +6,8 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.huxiaobai.imp.OnRecyclerViewItemClickListener
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.fragment.BaseCompatFragment
+import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.NumberCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.base.BaseEntity
 import com.sbnh.comm.entity.base.BasePagerEntity2
@@ -68,7 +70,8 @@ class MyOrderContentFragment :
             }
 
             override fun clickItem(view: View, position: Int) {
-                ARoutersActivity.startOrderDetailsActivity(mData[position].id)
+                val entity =mData[position]
+                ARoutersActivity.startOrderDetailsActivity(entity.id,NumberCompat.checkInt(entity.purchaseChannel,Contract.PutOrderType.OFFICIAL))
 
             }
 

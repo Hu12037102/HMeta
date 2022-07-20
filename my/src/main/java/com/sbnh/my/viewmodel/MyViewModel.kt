@@ -36,13 +36,13 @@ class MyViewModel : BaseViewModel() {
                 TAB_INVITE_FRIEND
             )
         )
-        list.add(
+      /*  list.add(
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.examples_record),
                 com.sbnh.comm.R.mipmap.icon_my_tab_examples_record,
                 TAB_DONATION
             )
-        )
+        )*/
         list.add(
             TabEntity(
                 DataCompat.getResString(com.sbnh.comm.R.string.lottery_assistant),

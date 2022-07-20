@@ -68,8 +68,9 @@ object NumberCompat {
 
     @JvmStatic
     fun checkInt(number: Int?, defaultNumber: Int = 0) = number ?: defaultNumber
+
     @JvmStatic
-    fun checkDouble(number: Double?,defaultNumber: Double=0.0)=number?:defaultNumber
+    fun checkDouble(number: Double?, defaultNumber: Double = 0.0) = number ?: defaultNumber
 
     @JvmStatic
     fun string2Double(number: String?, defaultNumber: Double = 0.0): Double {
@@ -108,4 +109,12 @@ object NumberCompat {
             e.printStackTrace()
             defaultNumber
         }
+
+    @JvmStatic
+    fun double2Int(number: Double?, defaultNumber: Int = 0): Int = try {
+        number?.toInt() ?: defaultNumber
+    } catch (e: Exception) {
+        e.printStackTrace()
+        defaultNumber
+    }
 }

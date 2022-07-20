@@ -28,7 +28,7 @@ const val PAY_TYPE_BANK_CARD = 1
 const val PAY_TYPE_ZHI_FU_BAO = 2
 const val PAY_TYPE_WALLET = 3
 
-@IntDef(PAY_TYPE_BANK_CARD,PAY_TYPE_ZHI_FU_BAO,PAY_TYPE_WALLET)
+@IntDef(PAY_TYPE_BANK_CARD, PAY_TYPE_ZHI_FU_BAO, PAY_TYPE_WALLET)
 @Retention(AnnotationRetention.SOURCE)
 annotation class PayType
 
@@ -60,4 +60,5 @@ data class OrderEntity(
     var isPreOrder: Int? = 0,
     var orderTimeOut: Long? = 0,
     var resourceUrl: String? = "",
+    val purchaseChannel: Int?
 )

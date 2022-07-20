@@ -26,7 +26,7 @@ object Contract {
     const val DEFAULT_STRING_VALUE = ""
     const val MIN_WITHDRAW_MONEY = 30
     const val NOT_MONEY = 0.00
-    const val MIN_SET_TRANSACTION_MONEY = 0.01
+    const val MIN_SET_TRANSACTION_MONEY = 1
     const val MAX_SET_TRANSACTION_MONEY = 99999
     const val MONEY_KEEP_DIGIT = 2
 

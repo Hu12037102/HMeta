@@ -101,7 +101,11 @@ class CollectionDetailsActivity :
             mViewBinding.includedBottomContent.atvPrice.visibility = View.GONE
         } else {
             mViewBinding.includedBottomContent.atvPrice.visibility = View.VISIBLE
-            UICompat.setText(mViewBinding.includedBottomContent.atvPrice, "￥${DataCompat.getMoneyFormat(price)}")
+            UICompat.setText(
+                mViewBinding.includedBottomContent.atvPrice,
+                com.sbnh.comm.R.string.pay_money,
+                DataCompat.getBalanceFormat(DataCompat.toString(price))
+            )
         }
     }
 
@@ -175,7 +179,7 @@ class CollectionDetailsActivity :
                             false
                         )
                     }
-                    IN_THE_BOOK->{
+                    IN_THE_BOOK -> {
                         UICompat.setText(
                             mViewBinding.includedBottomContent.atvSure,
                             DataCompat.getResString(com.sbnh.comm.R.string.in_the_book)
@@ -210,14 +214,14 @@ class CollectionDetailsActivity :
                 mViewBinding.includedBottomContent.atvSure.setOnClickListener(object :
                     CheckLoginClick() {
                     override fun onCheckLoginClick(v: View?) {
-                      /*  val type = when (mCollectionOrderType) {
-                            Contract.CollectionDetailsStatus.BAZAAR -> {
-                                Contract.PutOrderType.BAZAAR_BUY
-                            }
-                            else -> {
-                                Contract.PutOrderType.OFFICIAL
-                            }
-                        }*/
+                        /*  val type = when (mCollectionOrderType) {
+                              Contract.CollectionDetailsStatus.BAZAAR -> {
+                                  Contract.PutOrderType.BAZAAR_BUY
+                              }
+                              else -> {
+                                  Contract.PutOrderType.OFFICIAL
+                              }
+                          }*/
                         val entity = RequestCreateOrderEntity(it.id, mId, mCollectionOrderType)
                         mViewModel.commitOrder(entity)
 
@@ -242,7 +246,8 @@ class CollectionDetailsActivity :
         mViewModel.mCommitOrderLiveData.observe(this) {
             val body = BaseEntity.getData(it)
             LogUtils.w("observe--", body?.id + "---")
-            ARoutersActivity.startOrderDetailsActivity(body?.id,mCollectionOrderType)
+            ARoutersActivity.startOrderDetailsActivity(body?.id, mCollectionOrderType)
+            MetaViewCompat.finishActivity(this)
         }
     }
 
