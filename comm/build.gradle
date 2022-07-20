@@ -63,14 +63,14 @@ android {
               buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
               buildConfigField("String", "BUGLY_ID", "${BuglyId}")*/
             /***************************************正式环境*************************************************/
-             buildConfigField("String", "BASE_URL", '"https://www.healermeta.com/"')//正式环境
+            /* buildConfigField("String", "BASE_URL", '"https://www.healermeta.com/"')//正式环境
             //buildConfigField("String", "BASE_URL", '"https://www.healerapp.cn/"')//正式old环境
              buildConfigField("String", "HEALER_META_APP_ID", "${AppId}")
              buildConfigField("String", "HEALER_META_APP_KEY", "${AppKey}")
              buildConfigField("String", "TENCENT_CAPTCHA_APP_ID",  "${TencentCaptchaAppId}")
              buildConfigField("String", "BASE_WEB_URL", '"https://www.healermeta.com/"')
              buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
-             buildConfigField("String", "BUGLY_ID", "${BuglyId}")
+             buildConfigField("String", "BUGLY_ID", "${BuglyId}")*/
 
         }
     }
