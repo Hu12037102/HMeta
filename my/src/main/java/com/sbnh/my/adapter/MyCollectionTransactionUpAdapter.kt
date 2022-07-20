@@ -1,7 +1,6 @@
 package com.sbnh.my.adapter
 
 import android.content.Context
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +42,8 @@ class MyCollectionTransactionUpAdapter(
             UICompat.setText(holder.viewBinding.atvName, entity.merchandiseName)
             UICompat.setText(
                 holder.viewBinding.atvPrice,
-                "￥${DataCompat.getMoneyFormat(entity.price)}"
+                com.sbnh.comm.R.string.pay_money,
+                DataCompat.getMoneyAutoFormat(entity.price)
             )
             UICompat.setText(
                 holder.viewBinding.atvStatus,
@@ -55,6 +55,7 @@ class MyCollectionTransactionUpAdapter(
                 }
 
             })
+            GlideCompat.loadImage(if (entity.status == Contract.CollectionStatus.STATUS_RESERVE) com.sbnh.comm.R.mipmap.icon_comm_in_the_book else com.sbnh.comm.R.color.colorTransparent ,holder.viewBinding.aivStatus)
         }
     }
 

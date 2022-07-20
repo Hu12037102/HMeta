@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huxiaobai.adapter.BaseRecyclerAdapter
-import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.DataCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.my.MyCollectionEntity
@@ -34,7 +33,7 @@ class MyCollectionTransactionCompleteAdapter(
             UICompat.setText(holder.viewBinding.atvName, entity.merchandiseName)
             UICompat.setText(
                 holder.viewBinding.atvPrice,
-                "￥${DataCompat.getMoneyFormat(entity.price)}"
+                "￥${DataCompat.getMoneyAutoFormat(entity.price)}"
             )
         }
     }

@@ -4,8 +4,6 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
-import androidx.viewbinding.ViewBindings
 import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.sbnh.bazaar.databinding.ItemBazaarDataViewBinding
 import com.sbnh.comm.Contract
@@ -56,7 +54,7 @@ class BazaarDataAdapter(val context: Context, val data: List<BazaarDataEntity>) 
                 holder.viewBinding.atvTime,
                 TimeCompat.getTimeFormat(entity.updateTime, "yyyy/MM/dd HH:mm")
             )
-            SpanTextHelper.with().append("￥${DataCompat.getMoneyFormat(entity.price)}")
+            SpanTextHelper.with().append("￥${DataCompat.getMoneyAutoFormat(entity.price)}")
                 .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorWhite))
                 .setSize(15, true)
                 .appendLine()

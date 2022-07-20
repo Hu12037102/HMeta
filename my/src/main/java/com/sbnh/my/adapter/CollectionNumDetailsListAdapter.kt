@@ -69,7 +69,7 @@ class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNum
             } else {
                 holder.viewBinding.atvPrice.visibility = View.VISIBLE
                 SpanTextHelper.with()
-                    .append("￥${DataCompat.getMoneyFormat(entity.price)}")
+                    .append("￥${DataCompat.getMoneyAutoFormat(entity.price)}")
                     .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorWhite))
                     .setSize(15, true)
                     .appendLine()

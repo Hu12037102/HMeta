@@ -9,7 +9,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.sbnh.comm.Contract
 import com.sbnh.comm.compat.*
 import com.sbnh.comm.entity.base.SelectorTabEntity
-import com.sbnh.comm.entity.my.AccountBillEntity
+import com.sbnh.comm.entity.my.*
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.my.databinding.ItemAccountBilContentViewBinding
 
@@ -22,7 +22,40 @@ import com.sbnh.my.databinding.ItemAccountBilContentViewBinding
 class AccountBillContentAdapter(context: Context, data: List<AccountBillEntity>) :
     BaseRecyclerAdapter<AccountBillEntity>(context, data) {
     class ViewHolder(val viewBinding: ItemAccountBilContentViewBinding) :
-        RecyclerView.ViewHolder(viewBinding.root) {}
+        RecyclerView.ViewHolder(viewBinding.root)
+
+    fun setTargetStatusText(
+        textView: TextView,
+        hostText: String,
+        @TargetStatus status: Int?
+    ) {
+        when (status) {
+            ING -> {
+                UICompat.setText(
+                    textView,
+                    hostText + DataCompat.getResString(com.sbnh.comm.R.string.ing)
+                )
+            }
+            SUCCEED -> {
+                UICompat.setText(
+                    textView,
+                    hostText + DataCompat.getResString(com.sbnh.comm.R.string.succeed)
+                )
+            }
+            FAIL -> {
+                UICompat.setText(
+                    textView,
+                    hostText + DataCompat.getResString(com.sbnh.comm.R.string.fail)
+                )
+            }
+            else -> {
+                UICompat.setText(
+                    textView,
+                    hostText
+                )
+            }
+        }
+    }
 
     override fun onBindChildViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder) {
@@ -35,9 +68,11 @@ class AccountBillContentAdapter(context: Context, data: List<AccountBillEntity>)
             when (entity.targetType) {
                 //充值
                 SelectorTabEntity.AccountBill.TYPE_TOP_UP -> {
-                    UICompat.setText(
+
+                    setTargetStatusText(
                         holder.viewBinding.atvTitle,
-                        DataCompat.getResString(com.sbnh.comm.R.string.top_up)
+                        DataCompat.getResString(com.sbnh.comm.R.string.top_up),
+                        entity.targetStatus
                     )
                     setMoneyText(
                         holder.viewBinding.atvMoney,
@@ -47,9 +82,11 @@ class AccountBillContentAdapter(context: Context, data: List<AccountBillEntity>)
                 }
                 //提现
                 SelectorTabEntity.AccountBill.TYPE_WITHDRAW -> {
-                    UICompat.setText(
+
+                    setTargetStatusText(
                         holder.viewBinding.atvTitle,
-                        DataCompat.getResString(com.sbnh.comm.R.string.withdraw)
+                        DataCompat.getResString(com.sbnh.comm.R.string.withdraw),
+                        entity.targetStatus
                     )
                     setMoneyText(
                         holder.viewBinding.atvMoney,
@@ -107,8 +144,8 @@ class AccountBillContentAdapter(context: Context, data: List<AccountBillEntity>)
             textView,
             if (isPositiveNumber) com.sbnh.comm.R.color.colorFFF4CD9A else com.sbnh.comm.R.color.colorWhite
         )
-      //  val moneyFormat = DataCompat.getBalanceFormat("$moneyNumber")
-        val moneyFormat = DataCompat.getMoneyFormat(moneyNumber)
+        //  val moneyFormat = DataCompat.getBalanceFormat("$moneyNumber")
+        val moneyFormat = DataCompat.getMoneyAutoFormat(moneyNumber)
 
         UICompat.setText(
             textView,

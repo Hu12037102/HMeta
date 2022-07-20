@@ -198,7 +198,7 @@ class OrderDetailsActivity :
         UICompat.setText(
             mViewBinding.atvPayMoney,
             com.sbnh.comm.R.string.pay_money,
-            DataCompat.getMoneyFormat(entity.coin)
+            DataCompat.getBalanceFormat(DataCompat.toString(entity.coin))
         )
     }
 
@@ -248,7 +248,7 @@ class OrderDetailsActivity :
 
                 UICompat.setText(
                     mViewBinding.includedWaitPay.atvPrice, com.sbnh.comm.R.string.pay_money,
-                    "${entity.coin}"
+                    DataCompat.getBalanceFormat(DataCompat.toString(entity.coin))
                 )
                 MetaViewCompat.setClickViewEnable(
                     mViewBinding.includedWaitPay.atvSure,

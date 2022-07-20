@@ -46,7 +46,7 @@ class MyOrderAdapter(private val context: Context, private val data: List<OrderE
             UICompat.setText(
                 holder.viewBinding.atvPrice,
                 com.sbnh.comm.R.string.pay_money,
-                DataCompat.getMoneyFormat(entity.coin)
+                DataCompat.getMoneyAutoFormat(entity.coin)
             )
             when(entity.status){
                 STATUS_WAIT_PAY->{

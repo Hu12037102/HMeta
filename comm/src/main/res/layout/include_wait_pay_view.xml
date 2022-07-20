@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/size_92dp"
+    android:layout_height="@dimen/size_88dp"
     android:background="@color/colorFF202020">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/atv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/size_20dp"
-        android:layout_marginEnd="@dimen/size_20dp"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/size_10dp"
         android:textColor="@color/white"
         android:textSize="@dimen/size_28sp"
         app:layout_constrainedWidth="true"
@@ -24,9 +24,9 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/atv_sure"
-        android:layout_width="@dimen/size_170dp"
+        android:layout_width="@dimen/size_160dp"
         android:layout_height="@dimen/size_44dp"
-        android:layout_marginEnd="@dimen/size_20dp"
+        android:layout_marginEnd="@dimen/default_margin"
         android:background="@drawable/share_normal_view"
         android:lineSpacingExtra="@dimen/size_0.5dp"
         android:gravity="center"

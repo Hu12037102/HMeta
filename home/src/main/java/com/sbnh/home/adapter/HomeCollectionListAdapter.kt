@@ -13,7 +13,6 @@ import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.home.CollectionEntity
 import com.sbnh.comm.entity.home.STATUS_ADVANCING
 import com.sbnh.comm.entity.home.STATUS_OUT
-import com.sbnh.comm.entity.home.STATUS_UNSOLD
 import com.sbnh.comm.other.glide.GlideCompat
 import com.sbnh.comm.weight.click.CheckLoginClick
 import com.sbnh.home.databinding.ItemHomeCollectionListViewBinding
@@ -54,7 +53,7 @@ class HomeCollectionListAdapter(context: Context, data: List<CollectionEntity>) 
             UICompat.setText(holder.viewBinding.atvCollectionName, entity.merchandiseName)
             GlideCompat.loadImage(entity.header, holder.viewBinding.civHead)
             UICompat.setText(holder.viewBinding.atvUserName, entity.nickname)
-            UICompat.setText(holder.viewBinding.atvPrice, "￥${DataCompat.getMoneyFormat(entity.price)}")
+            UICompat.setText(holder.viewBinding.atvPrice, com.sbnh.comm.R.string.pay_money,DataCompat.getMoneyAutoFormat(entity.price))
             UICompat.setText(
                 holder.viewBinding.includedLimit.atvLimitCount,
                 "${entity.remainQuantity}/${entity.totalQuantity}"

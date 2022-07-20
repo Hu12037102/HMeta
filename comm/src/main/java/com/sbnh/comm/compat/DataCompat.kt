@@ -116,7 +116,9 @@ object DataCompat {
         return id
     }
 
-
+    /**
+     * 金钱默认保留两位小数
+     */
     @JvmStatic
     fun getBalanceFormat(balance: String?): String {
         val numberMoney = NumberCompat.string2Double(balance)
@@ -127,8 +129,11 @@ object DataCompat {
         )
     }
 
+    /**
+     * 金钱自动取整
+     */
     @JvmStatic
-    fun getMoneyFormat(money: Double?): String {
+    fun getMoneyAutoFormat(money: Double?): String {
         var result = "$money"
         val checkMoney = NumberCompat.checkDouble(money)
         val moneyString = toString(checkMoney)
