@@ -97,12 +97,12 @@ class MyCollectionTransactionCompleteFragment :
             }
 
             override fun clickItem(view: View, position: Int) {
-                val entity = mData[position]
+               /* val entity = mData[position]
                 ARoutersActivity.startCollectionDetailsActivity(
                     entity.merchandiseId,
                     entity.id,
                     Contract.PutOrderType.GIVE
-                )
+                )*/
             }
 
             override fun longClickItem(view: View, position: Int) {

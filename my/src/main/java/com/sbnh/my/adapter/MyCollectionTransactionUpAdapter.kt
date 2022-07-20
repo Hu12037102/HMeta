@@ -9,6 +9,7 @@ import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.DataCompat
+import com.sbnh.comm.compat.NumberCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.my.MyCollectionEntity
 import com.sbnh.comm.other.glide.GlideCompat
@@ -55,7 +56,8 @@ class MyCollectionTransactionUpAdapter(
                 }
 
             })
-            GlideCompat.loadImage(if (entity.status == Contract.CollectionStatus.STATUS_RESERVE) com.sbnh.comm.R.mipmap.icon_comm_in_the_book else com.sbnh.comm.R.color.colorTransparent ,holder.viewBinding.aivStatus)
+            UICompat.setText(holder.viewBinding.atvNumber,com.sbnh.comm.R.string.collection_token_is,DataCompat.toString(entity.tokenId))
+            GlideCompat.loadWarpImage(if (entity.status == Contract.CollectionStatus.STATUS_RESERVE) com.sbnh.comm.R.mipmap.icon_comm_in_the_book else com.sbnh.comm.R.color.colorTransparent ,holder.viewBinding.aivStatus)
         }
     }
 

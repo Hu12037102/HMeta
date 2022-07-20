@@ -39,12 +39,20 @@ class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNum
                      (mContext as Activity).finish()
                  }
              }*/
+
+
             holder.viewBinding.atvGive.setOnClickListener(object : DelayedClick() {
                 override fun onDelayedClick(v: View?) {
                     mOnRecyclerItemClickListener?.onClickItem(v, position)
                 }
 
             })
+            holder.viewBinding.atvTokenId.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                0,
+                com.sbnh.comm.R.mipmap.icon_bazzar_sale,
+                0
+            )
             when (entity.status) {
                 Contract.MyCollectionStatus.NORMAL -> {
                     UICompat.setText(
@@ -52,6 +60,16 @@ class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNum
                         com.sbnh.comm.R.string.hit_the_shelf
                     )
                     holder.viewBinding.atvGive.visibility = View.VISIBLE
+
+                }
+                Contract.MyCollectionStatus.LOCK->{
+                    holder.viewBinding.atvTokenId.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        com.sbnh.comm.R.mipmap.icon_bazzar_reserve,
+                        0
+                    )
+                    holder.viewBinding.atvGive.visibility = View.GONE
                 }
                 Contract.MyCollectionStatus.SALE -> {
                     UICompat.setText(
@@ -59,9 +77,11 @@ class CollectionNumDetailsListAdapter(context: Context, data: List<CollectionNum
                         com.sbnh.comm.R.string.out_of_stock
                     )
                     holder.viewBinding.atvGive.visibility = View.VISIBLE
+
                 }
                 else -> {
-                    holder.viewBinding.atvGive.visibility = View.INVISIBLE
+                    holder.viewBinding.atvGive.visibility = View.GONE
+
                 }
             }
             if (NumberCompat.checkDouble(entity.price) <= 0.0) {

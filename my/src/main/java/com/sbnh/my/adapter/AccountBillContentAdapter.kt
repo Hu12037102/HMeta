@@ -24,7 +24,7 @@ class AccountBillContentAdapter(context: Context, data: List<AccountBillEntity>)
     class ViewHolder(val viewBinding: ItemAccountBilContentViewBinding) :
         RecyclerView.ViewHolder(viewBinding.root)
 
-    fun setTargetStatusText(
+    private fun setTargetStatusText(
         textView: TextView,
         hostText: String,
         @TargetStatus status: Int?

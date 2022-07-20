@@ -37,29 +37,40 @@
             android:id="@+id/atv_name"
             android:layout_width="@dimen/size_0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_12dp"
             android:layout_marginTop="@dimen/size_6dp"
+            android:layout_marginEnd="@dimen/size_12dp"
             android:textColor="@color/white"
             android:textSize="@dimen/default_text_size"
             app:layout_constraintLeft_toLeftOf="@id/aiv_content"
             app:layout_constraintRight_toRightOf="@id/aiv_content"
             app:layout_constraintTop_toBottomOf="@id/aiv_content"
-            tools:text="急啊看数据的咖啡"
-            android:layout_marginStart="@dimen/size_12dp"
-            android:layout_marginEnd="@dimen/size_12dp"/>
+            tools:text="急啊看数据的咖啡" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/atv_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_4dp"
+            app:layout_constraintLeft_toLeftOf="@id/atv_name"
+            app:layout_constraintRight_toRightOf="@id/atv_name"
+            app:layout_constraintTop_toBottomOf="@id/atv_name"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_14sp"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/atv_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_10dp"
             android:layout_marginEnd="@dimen/size_12dp"
+            android:layout_marginTop="@dimen/size_2dp"
             android:background="@drawable/layer_list_my_collection_transaction_status_view"
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/size_12sp"
             app:layout_constraintHeight_min="@dimen/size_24dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/atv_name"
+            app:layout_constraintTop_toBottomOf="@id/atv_number"
             app:layout_constraintWidth_min="@dimen/size_48dp"
             tools:text="下架" />
 
