@@ -13,6 +13,7 @@ import com.sbnh.comm.entity.base.STATUS_RUNNING
 import com.sbnh.comm.entity.other.CaptchaCheckResultEntity
 import com.sbnh.comm.entity.request.RequestMessageCodeEntity
 import com.sbnh.comm.entity.request.RequestRegisterEntity
+import com.sbnh.comm.http.IApiService
 import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.other.arouter.ARouterConfig
 import com.sbnh.comm.other.arouter.ARouters
@@ -69,13 +70,13 @@ class RegisterActivity : BaseCompatActivity<ActivityRegisterBinding, RegisterVie
         SpanTextHelper.with()
             .append(DataCompat.getResString(com.sbnh.comm.R.string.my_have_read_and_sure))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.user_agreement))
-            .setClick(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
-
+            .setClick(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
+                ARoutersActivity.startWebContentActivity(IApiService.H5.USER_AGREEMENT)
             }
             .append(DataCompat.getResString(com.sbnh.comm.R.string.and))
             .append(DataCompat.getResString(com.sbnh.comm.R.string.privacy_policy))
-            .setClick(com.sbnh.comm.compat.MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
-
+            .setClick(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFFCC59DA)) {
+                ARoutersActivity.startWebContentActivity(IApiService.H5.PRIVACY_POLICY)
             }
             .crete(mViewBinding.atvAgreement)
     }

@@ -27,11 +27,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "BASE_URL", '"https://www.healerapp.cn/"')//正式环境
+            buildConfigField("String", "BASE_URL", '"https://www.healermeta.com/"')//正式环境
+            //buildConfigField("String", "BASE_URL", '"https://www.healerapp.cn/"')//正式old环境
             buildConfigField("String", "HEALER_META_APP_ID", "${AppId}")
             buildConfigField("String", "HEALER_META_APP_KEY", "${AppKey}")
             buildConfigField("String", "TENCENT_CAPTCHA_APP_ID", "${TencentCaptchaAppId}")
-            buildConfigField("String", "BASE_WEB_URL", '"https://www.healerapp.cn/"')
+            buildConfigField("String", "BASE_WEB_URL", '"https://www.healermeta.com/"')
             buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
             buildConfigField("String", "BUGLY_ID", "${BuglyId}")
             /*buildConfigField("String", "BASE_URL", '"https://www.todoapp.cn/"') //预发布
@@ -46,29 +47,30 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             /***************************************测试环境*************************************************/
-             buildConfigField("String", "BASE_URL", '"https://test.todoapp.cn/"')//测试环境
-             buildConfigField("String", "HEALER_META_APP_ID", "${AppId}")
-             buildConfigField("String", "HEALER_META_APP_KEY", "${AppKey}")
-             buildConfigField("String", "TENCENT_CAPTCHA_APP_ID", "${TencentCaptchaAppId}")
-             buildConfigField("String", "BASE_WEB_URL", '"https://test.todoapp.cn/"')
-             buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
+            buildConfigField("String", "BASE_URL", '"https://test.todoapp.cn/"')//测试环境
+            buildConfigField("String", "HEALER_META_APP_ID", "${AppId}")
+            buildConfigField("String", "HEALER_META_APP_KEY", "${AppKey}")
+            buildConfigField("String", "TENCENT_CAPTCHA_APP_ID", "${TencentCaptchaAppId}")
+            buildConfigField("String", "BASE_WEB_URL", '"https://test.todoapp.cn/"')
+            buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
             buildConfigField("String", "BUGLY_ID", "${BuglyId}")
             /***************************************预发布*************************************************/
-          /*  buildConfigField("String", "BASE_URL", '"https://www.todoapp.cn/"') //预发布
-            buildConfigField("String", "HEALER_META_APP_ID", "${AppId}")
-            buildConfigField("String", "HEALER_META_APP_KEY", "${AppKey}")
-            buildConfigField("String", "TENCENT_CAPTCHA_APP_ID",  "${TencentCaptchaAppId}")
-            buildConfigField("String", "BASE_WEB_URL", '"https://www.healerapp.cn/"')
-            buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
-            buildConfigField("String", "BUGLY_ID", "${BuglyId}")*/
+            /*  buildConfigField("String", "BASE_URL", '"https://www.todoapp.cn/"') //预发布
+              buildConfigField("String", "HEALER_META_APP_ID", "${AppId}")
+              buildConfigField("String", "HEALER_META_APP_KEY", "${AppKey}")
+              buildConfigField("String", "TENCENT_CAPTCHA_APP_ID",  "${TencentCaptchaAppId}")
+              buildConfigField("String", "BASE_WEB_URL", '"https://www.healerapp.cn/"')
+              buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
+              buildConfigField("String", "BUGLY_ID", "${BuglyId}")*/
             /***************************************正式环境*************************************************/
-           /* buildConfigField("String", "BASE_URL", '"https://www.healerapp.cn"')//正式环境
-            buildConfigField("String", "HEALER_META_APP_ID", "${AppId}")
-            buildConfigField("String", "HEALER_META_APP_KEY", "${AppKey}")
-            buildConfigField("String", "TENCENT_CAPTCHA_APP_ID",  "${TencentCaptchaAppId}")
-            buildConfigField("String", "BASE_WEB_URL", '"https://www.healerapp.cn/"')
-            buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
-            buildConfigField("String", "BUGLY_ID", "${BuglyId}")*/
+             buildConfigField("String", "BASE_URL", '"https://www.healermeta.com/"')//正式环境
+            //buildConfigField("String", "BASE_URL", '"https://www.healerapp.cn/"')//正式old环境
+             buildConfigField("String", "HEALER_META_APP_ID", "${AppId}")
+             buildConfigField("String", "HEALER_META_APP_KEY", "${AppKey}")
+             buildConfigField("String", "TENCENT_CAPTCHA_APP_ID",  "${TencentCaptchaAppId}")
+             buildConfigField("String", "BASE_WEB_URL", '"https://www.healermeta.com/"')
+             buildConfigField("String", "QINIU_CDN", '"https://test.cdn.sbnh.cn/"')
+             buildConfigField("String", "BUGLY_ID", "${BuglyId}")
 
         }
     }
