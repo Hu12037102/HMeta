@@ -62,7 +62,7 @@ class RetrofitManger private constructor() {
             request = request.newBuilder()
                 .url(url)
                 .build()
-             chain.proceed(request)
+            chain.proceed(request)
         }
     }
 
@@ -178,11 +178,11 @@ class RetrofitManger private constructor() {
             .connectTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)
             .readTimeout(DEFAULT_TIME_OUT_MILLISECONDS, TimeUnit.MILLISECONDS)
             .addInterceptor(mHeadInterceptor)
-            .addInterceptor(mLoggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
             .addInterceptor(mCacheInterceptor)
         if (AppConfig.isDebug()) {
             builder.addInterceptor(mUrlInterceptor)
         }
+        builder.addInterceptor(mLoggerInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY))
         mOkHttpClient = builder.build()
 
     }
