@@ -18,15 +18,17 @@ import kotlinx.coroutines.launch
 class BazaarDetailsContentViewModel : BaseViewModel() {
     val mDataLiveData = MutableLiveData<BasePagerEntity<List<BazaarDataEntity>>>()
     fun loadBazaarDetailsList(entity: RequestBazaarDataEntity) {
-            viewModelScope.launch {
-               val result = try {
-                    mRetrofitManger.create(BazaarService::class.java)
-                        .loadBazaarDataList(entity)
-                }catch (e:Exception){
-                    e.printStackTrace()
-                   null
-                }
-                disposeRetrofit(mDataLiveData,result,true)
+        viewModelScope.launch {
+            showLoading()
+            val result = try {
+                mRetrofitManger.create(BazaarService::class.java)
+                    .loadBazaarDataList(entity)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
             }
+            disposeRetrofit(mDataLiveData, result, true)
+            dismissLoading()
+        }
     }
 }

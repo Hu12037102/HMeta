@@ -62,10 +62,6 @@ abstract class BaseCompatActivity<VB : ViewBinding, VM : BaseViewModel> : BaseAc
             if (it) {
                 mLoadingViewBinding?.cpbLoading?.show()
             } else {
-                /*  mLoadingViewBinding?.cpbLoading?.postDelayed(
-                      { mLoadingViewBinding?.cpbLoading?.hide() },
-                      500
-                  )*/
                 mLoadingViewBinding?.cpbLoading?.hide()
             }
 

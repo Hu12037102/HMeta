@@ -117,7 +117,7 @@ class CollectionDetailsActivity :
             mEmptyView?.hide()
             GlideCompat.loadWarpImage(it.dynamicGraph, mViewBinding.aivContent)
             GlideCompat.loadImage(it.header, mViewBinding.civUserHead)
-            UICompat.setText(mViewBinding.atvUserName, it.nickname)
+            UICompat.setText(mViewBinding.atvUserName, DataCompat.checkNotNull(it.nickname,DataCompat.getResString(com.sbnh.comm.R.string.app_name)))
             UICompat.setText(mViewBinding.atvContractAddress, it.contractAddress)
             UICompat.setText(mViewBinding.atvChainLogo, it.transactionHash)
             UICompat.setText(mViewBinding.atvWork, it.particulars)
@@ -129,7 +129,7 @@ class CollectionDetailsActivity :
                     "${it.merchandiseName} #${it.tokenId ?: ""}"
                 )
                 GlideCompat.loadImage(it.collectibleHeader, mViewBinding.civOwnerUserHead)
-                UICompat.setText(mViewBinding.atvOwnerName, it.collectibleNickname)
+                UICompat.setText(mViewBinding.atvOwnerName,  DataCompat.checkNotNull(it.collectibleNickname,DataCompat.getResString(com.sbnh.comm.R.string.app_name)))
                 UICompat.setText(
                     mViewBinding.includedBottomContent.atvSure,
                     DataCompat.getResString(com.sbnh.comm.R.string.give)
@@ -157,7 +157,7 @@ class CollectionDetailsActivity :
             } else {
                 UICompat.setText(mViewBinding.atvCollectionName, it.merchandiseName)
                 GlideCompat.loadImage(it.header, mViewBinding.civOwnerUserHead)
-                UICompat.setText(mViewBinding.atvOwnerName, it.collectibleNickname)
+                UICompat.setText(mViewBinding.atvOwnerName,  DataCompat.checkNotNull(it.collectibleNickname,DataCompat.getResString(com.sbnh.comm.R.string.app_name)))
                 when (it.saleStatus) {
                     STATUS_ADVANCING -> {
                         UICompat.setText(

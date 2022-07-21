@@ -31,6 +31,7 @@ import com.sbnh.comm.other.arouter.ARoutersActivity
 import com.sbnh.comm.other.glide.HealerMetaGlide
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
@@ -235,6 +236,7 @@ open class BaseViewModel : ViewModel() {
 
     fun dismissLoading() {
         mLoadingLiveData.value = false
+
     }
 
     fun savePicture(pictureAny: Any) {

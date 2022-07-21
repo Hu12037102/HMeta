@@ -87,6 +87,14 @@ abstract class BaseCompatFragment<VB : ViewBinding, VM : BaseViewModel> : BaseFr
             resultPublicData(it)
 
         }
+        mViewModel.mLoadingLiveData.observe(this) {
+            if (it) {
+                mLoadingViewBinding?.cpbLoading?.show()
+            } else {
+                mLoadingViewBinding?.cpbLoading?.hide()
+            }
+
+        }
     }
 
     protected open fun isLoadEmptyView(): Boolean = true
