@@ -62,7 +62,7 @@ open class TimerViewModel : BaseViewModel() {
         disposedTimer()
     }
 
-    private fun disposedTimer() {
+     fun disposedTimer() {
         mDisposable?.let {
             if (!it.isDisposed) {
                 it.dispose()

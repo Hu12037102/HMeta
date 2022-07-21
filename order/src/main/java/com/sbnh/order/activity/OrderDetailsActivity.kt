@@ -148,6 +148,7 @@ class OrderDetailsActivity :
             } else {
                 showToast(com.sbnh.comm.R.string.order_time_out)
             }
+            mViewModel.disposedTimer()
             loadSmartData()
         }
         mViewModel.mAfterPayLiveData.observe(this) {
