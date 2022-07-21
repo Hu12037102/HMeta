@@ -213,7 +213,7 @@
                 android:text="@string/price_sort"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size_13sp"
-                app:drawableEndCompat="@mipmap/icon_comm_down_sort"
+                app:drawableEndCompat="@mipmap/icon_comm_up_sort"
                 app:layout_constraintRight_toRightOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView

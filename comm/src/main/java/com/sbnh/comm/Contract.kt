@@ -29,6 +29,7 @@ object Contract {
     const val MIN_SET_TRANSACTION_MONEY = 1
     const val MAX_SET_TRANSACTION_MONEY = 99999
     const val MONEY_KEEP_DIGIT = 2
+    const val MIN_INT_VALUE=0
 
     object DP {
         const val VALUE_8F = 8f

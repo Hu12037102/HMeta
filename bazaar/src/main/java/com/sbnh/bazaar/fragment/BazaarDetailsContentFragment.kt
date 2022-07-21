@@ -37,7 +37,7 @@ class BazaarDetailsContentFragment :
 
     private var mId: String = ""
     private var mType: Int = SelectorTabEntity.Bazaar.TYPE_BAZAAR
-    private var isUpSort: Boolean = false
+    private var isDownSort: Boolean = true
     private var mAdapter: BazaarDataAdapter? = null
     private val mData = ArrayList<BazaarDataEntity>()
     override fun getViewBinding(): FragmentBazaarDetailsContentBinding =
@@ -59,7 +59,7 @@ class BazaarDetailsContentFragment :
                 it.getInt(ARouterConfig.Key.TYPE),
                 SelectorTabEntity.Bazaar.TYPE_BAZAAR
             )
-            isUpSort = it.getBoolean(ARouterConfig.Key.BOOLEAN_VALUE)
+            isDownSort = it.getBoolean(ARouterConfig.Key.BOOLEAN_VALUE)
             loadSmartData()
         }
 
@@ -72,7 +72,7 @@ class BazaarDetailsContentFragment :
             RequestBazaarDataEntity(
                 mViewModel.mPagerNum,
                 mViewModel.mPagerSize,
-                isUpSort,
+                isDownSort,
                 mId,
                 mViewModel.mLastTime,
                 mType
@@ -96,8 +96,8 @@ class BazaarDetailsContentFragment :
         }
     }
 
-    fun updateSort(isUpSort: Boolean) {
-        this.isUpSort = isUpSort
+    fun updateSort(isDownSort: Boolean) {
+        this.isDownSort = isDownSort
         loadRefreshSmartData()
     }
 

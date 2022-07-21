@@ -33,7 +33,7 @@ import com.sbnh.comm.weight.click.DelayedClick
  */
 @Route(path = ARouterConfig.Path.Bazaar.DIALOG_BAZAAR_DETAILS)
 class BazaarDetailsDialog : BaseDataDialog<DialogBazaarDetailsBinding, BazaarDetailsViewModel>() {
-    private var isUpSort: Boolean = false
+    private var isDownSort: Boolean = false
     private val mFragments = ArrayList<BazaarDetailsContentFragment>()
     private var mIntentEntity: BazaarEntity? = null
     override fun getViewBinding(): DialogBazaarDetailsBinding =
@@ -58,6 +58,11 @@ class BazaarDetailsDialog : BaseDataDialog<DialogBazaarDetailsBinding, BazaarDet
             false
         )
         mViewBinding.vpContent.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        UICompat.setText(
+            mViewBinding.atvBazaarCount,
+            com.sbnh.comm.R.string.part_s,
+            Contract.MIN_INT_VALUE
+        )
     }
 
     override fun initData() {
@@ -97,7 +102,7 @@ class BazaarDetailsDialog : BaseDataDialog<DialogBazaarDetailsBinding, BazaarDet
             val fragment = ARouters.build(ARouterConfig.Path.Bazaar.FRAGMENT_BAZAAR_DETAILS_CONTENT)
                 .withString(ARouterConfig.Key.ID, mIntentEntity?.id)
                 .withInt(ARouterConfig.Key.TYPE, NumberCompat.checkInt(mTabData[i].type))
-                .withBoolean(ARouterConfig.Key.BOOLEAN_VALUE, isUpSort)
+                .withBoolean(ARouterConfig.Key.BOOLEAN_VALUE, isDownSort)
                 .navigation()
             if (fragment is BazaarDetailsContentFragment) {
                 fragment.setOnFragmentResultCallback(object : OnFragmentResultCallback {
@@ -138,14 +143,14 @@ class BazaarDetailsDialog : BaseDataDialog<DialogBazaarDetailsBinding, BazaarDet
         mViewBinding.viewFinish.setOnClickListener { dismiss() }
         mViewBinding.atvPriceSort.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                isUpSort = !isUpSort
+                isDownSort = !isDownSort
                 mViewBinding.atvPriceSort.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
-                    if (isUpSort) com.sbnh.comm.R.mipmap.icon_comm_up_sort else com.sbnh.comm.R.mipmap.icon_comm_down_sort,
+                    if (isDownSort) com.sbnh.comm.R.mipmap.icon_comm_down_sort else com.sbnh.comm.R.mipmap.icon_comm_up_sort,
                     0
                 )
-                mFragments[mViewBinding.vpContent.currentItem].updateSort(isUpSort)
+                mFragments[mViewBinding.vpContent.currentItem].updateSort(isDownSort)
             }
 
         })
