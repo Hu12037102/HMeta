@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sbnh.bazaar.databinding.ItemBazaarTabViewBinding
+import com.sbnh.comm.Contract
 import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.MetaViewCompat
@@ -20,6 +21,10 @@ import com.sbnh.comm.entity.bazaar.BazaarTabEntity
  */
 class BazaarTabAdapter(private val context: Context, private val data: List<BazaarTabEntity>) :
     RecyclerView.Adapter<BazaarTabAdapter.ViewHolder>() {
+    companion object {
+        const val SING_MAX_LINE_COUNT = 4
+    }
+
     private var mOnRecyclerItemClickListener: OnRecyclerItemClickListener? = null
     fun setOnRecyclerItemClickListener(onRecyclerItemClickListener: OnRecyclerItemClickListener) {
         this.mOnRecyclerItemClickListener = onRecyclerItemClickListener
@@ -29,12 +34,25 @@ class BazaarTabAdapter(private val context: Context, private val data: List<Baza
         RecyclerView.ViewHolder(viewBinding.root) {
         init {
             val context = itemView.context
-            MetaViewCompat.setViewSize(
-                itemView,
-                PhoneCompat.screenWidth(context) / count,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-
+            if (count <= SING_MAX_LINE_COUNT) {
+                MetaViewCompat.setViewSize(
+                    itemView,
+                    PhoneCompat.screenWidth(context) / count,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+            } else {
+                MetaViewCompat.setViewSize(
+                    itemView,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                itemView.setPadding(
+                    PhoneCompat.dp2px(context, 20f),
+                    0,
+                    PhoneCompat.dp2px(context, 20f),
+                    0
+                )
+            }
         }
     }
 
@@ -43,11 +61,25 @@ class BazaarTabAdapter(private val context: Context, private val data: List<Baza
         CollectionCompat.getListSize(data)
     )
 
+    fun selectorTab(index: Int) {
+        for (entity in data) {
+            entity.isSelector = data.indexOf(entity) == index
+        }
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val entity = data[position]
         UICompat.setText(holder.viewBinding.atvContent, entity.name)
+        UICompat.setTextColorRes(
+            holder.viewBinding.atvContent,
+            if (entity.isSelector) com.sbnh.comm.R.color.colorWhite else com.sbnh.comm.R.color.colorFF9A9A9C
+        )
         holder.itemView.setOnClickListener {
-            mOnRecyclerItemClickListener?.onClickItem(it, position)
+            if (!entity.isSelector) {
+                mOnRecyclerItemClickListener?.onClickItem(it, position)
+            }
+
         }
     }
 

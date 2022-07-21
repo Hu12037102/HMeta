@@ -4,10 +4,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.bazaar.adapter.BazaarTabAdapter
 import com.sbnh.bazaar.databinding.FragmentBazaarBinding
 import com.sbnh.bazaar.viewmodel.BazaarViewModel
+import com.sbnh.comm.base.callback.OnRecyclerItemClickListener
 import com.sbnh.comm.base.fragment.BaseCompatFragment
 import com.sbnh.comm.compat.CollectionCompat
 import com.sbnh.comm.compat.DataCompat
@@ -73,9 +75,16 @@ class BazaarFragment : BaseCompatFragment<FragmentBazaarBinding, BazaarViewModel
     }
 
     override fun initEvent() {
+        mViewBinding.vpContent.registerOnPageChangeCallback(mOnPageChangeCallback)
         mEmptyLayout?.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 mViewModel.loadTabs()
+            }
+
+        })
+        mTabAdapter?.setOnRecyclerItemClickListener(object : OnRecyclerItemClickListener {
+            override fun onClickItem(view: View?, position: Int) {
+                mViewBinding.vpContent.currentItem = position
             }
 
         })
@@ -92,4 +101,15 @@ class BazaarFragment : BaseCompatFragment<FragmentBazaarBinding, BazaarViewModel
         }
     }
 
+    private val mOnPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            mTabAdapter?.selectorTab(position)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mViewBinding.vpContent.unregisterOnPageChangeCallback(mOnPageChangeCallback)
+    }
 }
