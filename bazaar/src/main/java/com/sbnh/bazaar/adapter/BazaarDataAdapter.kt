@@ -2,6 +2,7 @@ package com.sbnh.bazaar.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View.FOCUS_BACKWARD
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huxiaobai.adapter.BaseRecyclerAdapter
@@ -54,14 +55,16 @@ class BazaarDataAdapter(val context: Context, val data: List<BazaarDataEntity>) 
                 holder.viewBinding.atvTime,
                 TimeCompat.getTimeFormat(entity.updateTime, "yyyy/MM/dd HH:mm")
             )
-            SpanTextHelper.with().append("￥${DataCompat.getMoneyAutoFormat(entity.price)}")
+            /*SpanTextHelper.with().append("￥${DataCompat.getMoneyAutoFormat(entity.price)}")
                 .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorWhite))
                 .setSize(15, true)
                 .appendLine()
                 .append(DataCompat.getResString(com.sbnh.comm.R.string.selling_price))
                 .setSize(12, true)
                 .setColor(MetaViewCompat.getColor(com.sbnh.comm.R.color.colorFF9A9A9C))
-                .crete(holder.viewBinding.atvPrice)
+                .crete(holder.viewBinding.atvPrice)*/
+            UICompat.setText(holder.viewBinding.atvPrice,com.sbnh.comm.R.string.pay_money,DataCompat.getMoneyAutoFormat(entity.price))
+
         }
     }
 

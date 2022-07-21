@@ -240,7 +240,7 @@ class AddBankCardActivity : BaseCompatActivity<ActivityAddBankCardBinding, AddBa
         }
         mViewModel.mBindingBankCardAfterLiveData.observe(this) {
             MetaViewCompat.finishActivitySetResult(this)
-
+            showToast(com.sbnh.comm.R.string.add_bank_card_succeed)
         }
     }
 

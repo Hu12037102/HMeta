@@ -157,7 +157,7 @@ class CollectionDetailsActivity :
             } else {
                 UICompat.setText(mViewBinding.atvCollectionName, it.merchandiseName)
                 GlideCompat.loadImage(it.header, mViewBinding.civOwnerUserHead)
-                UICompat.setText(mViewBinding.atvOwnerName, it.nickname)
+                UICompat.setText(mViewBinding.atvOwnerName, it.collectibleNickname)
                 when (it.saleStatus) {
                     STATUS_ADVANCING -> {
                         UICompat.setText(
@@ -228,15 +228,25 @@ class CollectionDetailsActivity :
                     }
 
                 })
-
-                UICompat.setText(
-                    mViewBinding.includedLimit.atvLimitTitle,
-                    com.sbnh.comm.R.string.limit_number
-                )
-                UICompat.setText(
-                    mViewBinding.includedLimit.atvLimitCount,
-                    "${it.remainQuantity}/${it.totalQuantity}"
-                )
+                if (mCollectionOrderType == Contract.PutOrderType.BAZAAR_BUY) {
+                    UICompat.setText(
+                        mViewBinding.includedLimit.atvLimitTitle,
+                        com.sbnh.comm.R.string.serial_number
+                    )
+                    UICompat.setText(
+                        mViewBinding.includedLimit.atvLimitCount,
+                        "#${it.tokenId ?: ""}"
+                    )
+                } else {
+                    UICompat.setText(
+                        mViewBinding.includedLimit.atvLimitTitle,
+                        com.sbnh.comm.R.string.limit_number
+                    )
+                    UICompat.setText(
+                        mViewBinding.includedLimit.atvLimitCount,
+                        "${it.remainQuantity}/${it.totalQuantity}"
+                    )
+                }
 
             }
 

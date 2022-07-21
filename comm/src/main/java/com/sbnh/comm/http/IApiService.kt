@@ -91,6 +91,7 @@ class IApiService {
 
     object Value {
         const val ANDROID = "Android"
+        const val CONTENT_TYPE_VALUE="application/json"
     }
 
     object H5 {

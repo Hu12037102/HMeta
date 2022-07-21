@@ -50,6 +50,8 @@ class BazaarDetailsDialog : BaseDataDialog<DialogBazaarDetailsBinding, BazaarDet
         ViewCompat.setBackground(mViewBinding.atvSellCount, createCountDrawable())
         ViewCompat.setBackground(mViewBinding.atvCirculateTitle, createCountTitleDrawable())
         ViewCompat.setBackground(mViewBinding.atvCirculateCount, createCountDrawable())
+        ViewCompat.setBackground(mViewBinding.atvBazaarTitle, createCountTitleDrawable())
+        ViewCompat.setBackground(mViewBinding.atvBazaarCount, createCountDrawable())
         mViewBinding.rvTab.layoutManager = LinearLayoutManager(
             DataCompat.checkContext(context),
             LinearLayoutManager.HORIZONTAL,
@@ -100,7 +102,16 @@ class BazaarDetailsDialog : BaseDataDialog<DialogBazaarDetailsBinding, BazaarDet
             if (fragment is BazaarDetailsContentFragment) {
                 fragment.setOnFragmentResultCallback(object : OnFragmentResultCallback {
                     override fun onCallback(any: Any?) {
-                        dismiss()
+                        if (any is Int) {
+                            UICompat.setText(
+                                mViewBinding.atvBazaarCount,
+                                com.sbnh.comm.R.string.part_s,
+                                any
+                            )
+                        } else {
+                            dismiss()
+                        }
+
                     }
                 })
                 mFragments.add(fragment)

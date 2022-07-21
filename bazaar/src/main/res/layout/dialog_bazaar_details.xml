@@ -158,6 +158,37 @@
                 app:layout_constraintLeft_toRightOf="@id/atv_circulate_title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bazaar"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/size_22dp"
+            android:layout_marginStart="@dimen/size_8dp"
+            android:layout_marginTop="@dimen/size_10dp"
+            app:layout_constraintLeft_toRightOf="@id/cl_circulate"
+            app:layout_constraintTop_toBottomOf="@id/aiv_content">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_bazaar_title"
+                android:layout_width="@dimen/size_40dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/bazaar"
+                android:textColor="@color/colorFF0F0F10"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintLeft_toLeftOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/atv_bazaar_count"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingStart="@dimen/size_10dp"
+                android:paddingEnd="@dimen/size_10dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_12sp"
+                app:layout_constraintLeft_toRightOf="@id/atv_bazaar_title" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <View
             android:id="@+id/line_1"
             android:layout_width="match_parent"

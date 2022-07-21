@@ -38,7 +38,7 @@ interface BaseService {
     suspend fun payOrderAfter(@Body entity: RequestPayOrderAfterEntity): Response<BaseEntity<Unit>>
 
     @POST(IApiService.Path.CANCEL_ORDER)
-    suspend fun cancelOrder(@Body entity: RequestCancelOrderEntity): Response<BaseEntity<Unit>>
+    suspend fun cancelOrder(@Body entity: RequestCancelOrderEntity): Response<BaseEntity<Boolean>>
 
     @GET(IApiService.Path.LOAD_APP_VERSION)
     suspend fun loadAppVersion(@Path(IApiService.Key.CODE) version: Long): Response<VersionEntity>

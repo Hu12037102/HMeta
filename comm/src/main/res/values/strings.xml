@@ -117,7 +117,7 @@
     <string name="pay_way">支付方式</string>
     <string name="pay_now">立即支付</string>
     <string name="account_paid">已付款</string>
-    <string name="good_shave_been_released">商品已发放</string>
+    <string name="good_shave_been_released">藏品已发放</string>
     <string name="order_has_been_cancel">订单已取消</string>
     <string name="cancelled">已取消</string>
     <string name="on_the_march">进行中</string>
@@ -228,4 +228,6 @@
     <string name="ing">进行中</string>
     <string name="succeed">成功</string>
     <string name="fail">失败</string>
+    <string name="add_bank_card_succeed">添加银行卡成功~</string>
+    <string name="order_time_out">订单超时~</string>
 </resources>

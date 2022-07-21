@@ -91,6 +91,8 @@ class BazaarDetailsContentFragment :
                 mData,
                 data
             )
+
+            mOnFragmentResultCallback?.onCallback(it.total)
         }
     }
 

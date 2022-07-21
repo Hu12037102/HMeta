@@ -11,6 +11,7 @@ import com.sbnh.comm.config.AppConfig
 import com.sbnh.comm.digest.MD5Compat
 import com.sbnh.comm.digest.RSACompat
 import com.sbnh.comm.digest.SHA1Compat
+import com.sbnh.comm.entity.base.ErrorResponse
 import com.sbnh.comm.entity.request.RequestEncryptEntity
 import com.sbnh.comm.factory.FileFactory
 import com.sbnh.comm.factory.FileFactory.TYPE_HTTP
@@ -18,11 +19,18 @@ import com.sbnh.comm.info.UserInfoStore
 import com.sbnh.comm.utils.LogUtils
 import kotlinx.coroutines.runBlocking
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.ResponseBody.Companion.asResponseBody
+import okhttp3.internal.http.RealResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import okio.Buffer
+import okio.BufferedSource
+import retrofit2.Converter
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Type
 import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -123,7 +131,7 @@ class RetrofitManger private constructor() {
                 )
                 val sid = runBlocking { UserInfoStore.get().getEntity()?.sid }
                 request = request.newBuilder()
-                    .addHeader(IApiService.Key.CONTENT_TYPE, "application/json")
+                    .addHeader(IApiService.Key.CONTENT_TYPE, IApiService.Value.CONTENT_TYPE_VALUE)
                     .addHeader(IApiService.Key.CHARSET, Charsets.UTF_8.name())
                     .addHeader(IApiService.Key.ACCESS_TOKEN, encryptText)
                     .addHeader(IApiService.Key.TS, "$timestamp")
@@ -192,6 +200,7 @@ class RetrofitManger private constructor() {
             .client(mOkHttpClient)
             .baseUrl(AppConfig.getBaseUrl())
             // .baseUrl("https://www.baidu.com/")
+           // .addConverterFactory(NullEmptyConverterFactory())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
@@ -200,4 +209,23 @@ class RetrofitManger private constructor() {
 
     fun <T> create(clazz: Class<T>): T = mRetrofit.create(clazz)
 
+   /* class NullEmptyConverterFactory : Converter.Factory() {
+        override fun responseBodyConverter(
+            type: Type,
+            annotations: Array<out Annotation>,
+            retrofit: Retrofit
+        ): Converter<ResponseBody, *> {
+            val delegate = retrofit.nextResponseBodyConverter<Any>(this, type, annotations)
+
+            return Converter<ResponseBody, Any> {
+                if (it.contentLength() == 0L) {
+                    delegate.convert(it)
+                } else {
+                    delegate.convert(it)
+                }
+            }
+
+        }
+
+    }*/
 }

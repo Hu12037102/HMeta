@@ -1,6 +1,7 @@
 package com.sbnh.pay.activity
 
 import android.view.View
+import androidx.activity.result.ActivityResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
@@ -22,6 +23,7 @@ import com.sbnh.pay.databinding.ItemFootBankCardListViewBinding
 import com.sbnh.pay.databinding.ItemFootSelectorBankCardViewBinding
 import com.sbnh.pay.databinding.ItemSelectorBankCardViewBinding
 import com.sbnh.pay.viewmodel.WithdrawViewModel
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 
 /**
  * 作者: 胡庆岭
@@ -79,6 +81,11 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
             mBankCardAdapter?.addFootView(it)
         }
         mViewBinding.rvBankCard.adapter = mBankCardAdapter
+        loadSmartData()
+    }
+
+    override fun loadSmartData(refreshLayout: RefreshLayout?, isRefresh: Boolean) {
+        super.loadSmartData(refreshLayout, isRefresh)
         mViewModel.loadBankCardList(RequestPagerListEntity())
     }
 
@@ -100,7 +107,9 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
         })
         mFootAddBankCardViewBinding?.root?.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
-                ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_ADD_BANK_CARD)
+               // ARouters.startActivity(ARouterConfig.Path.Pay.ACTIVITY_ADD_BANK_CARD)
+                val intent = ARouters.intent(this@WithdrawActivity,ARouterConfig.Path.Pay.ACTIVITY_ADD_BANK_CARD)
+                startActivityForResult(intent)
             }
 
         })
@@ -184,6 +193,11 @@ class WithdrawActivity : BaseCompatActivity<ActivityWithdrawBinding, WithdrawVie
             MetaViewCompat.finishActivitySetResult(this)
             showToast(com.sbnh.comm.R.string.withdrawal_bank_card_succeed_please_look)
         }
+    }
+
+    override fun onActivityResultCallback(result: ActivityResult) {
+        super.onActivityResultCallback(result)
+        loadSmartData()
     }
 
 }

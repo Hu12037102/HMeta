@@ -101,15 +101,11 @@ class OrderDetailsActivity :
                 )
 
             } else if (it.status == STATUS_FINISH) {
-                if (isReloadWaitPayCount) {
+                /* if (isReloadWaitPayCount) {
                     mHandler.postDelayed(mRunnable, 1500)
-                    isReloadWaitPayCount = false
-                }
-
-                /*  mDetailsEntity?.let { order ->
-                      order.status = STATUS_CANCEL
-                      loadDetails(order)
-                  }*/
+                     isReloadWaitPayCount = false
+                 }*/
+                mViewModel.cancelOrder(RequestCancelOrderEntity(mOrderId), true)
 
             }
         }
@@ -145,8 +141,14 @@ class OrderDetailsActivity :
 
         }
         mViewModel.mCancelOrderLiveData.observe(this) {
-            MetaViewCompat.finishActivity(this)
-            showToast(com.sbnh.comm.R.string.cancel_order_succeed)
+            //   MetaViewCompat.finishActivity(this)
+            val isAutoCancel = BaseEntity.getData(it)
+            if (isAutoCancel == false) {
+                showToast(com.sbnh.comm.R.string.cancel_order_succeed)
+            } else {
+                showToast(com.sbnh.comm.R.string.order_time_out)
+            }
+            loadSmartData()
         }
         mViewModel.mAfterPayLiveData.observe(this) {
             loadSmartData()
@@ -397,7 +399,7 @@ class OrderDetailsActivity :
                         titleDialog.setOnDialogItemInfoClickListener(object :
                             OnDialogItemInfoClickListener {
                             override fun onClickConfirm(view: View?) {
-                                mViewModel.cancelOrder(RequestCancelOrderEntity(entity.id))
+                                mViewModel.cancelOrder(RequestCancelOrderEntity(entity.id), false)
                                 titleDialog.dismiss()
                             }
 

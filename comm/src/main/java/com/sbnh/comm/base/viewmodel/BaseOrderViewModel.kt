@@ -9,6 +9,7 @@ import com.sbnh.comm.entity.request.RequestCancelOrderEntity
 import com.sbnh.comm.entity.request.RequestCreateOrderEntity
 import com.sbnh.comm.http.BaseService
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 /**
  * 作者: 胡庆岭
@@ -19,7 +20,7 @@ import kotlinx.coroutines.launch
 open class BaseOrderViewModel : TimerViewModel() {
     val mCommitOrderLiveData: MutableLiveData<BaseEntity<ResultCommitOrderEntity>> by lazy { MutableLiveData() }
     val mOrderDetailsLiveData: MutableLiveData<BaseEntity<OrderEntity>> by lazy { MutableLiveData() }
-    val mCancelOrderLiveData: MutableLiveData<BaseEntity<Unit>> by lazy { MutableLiveData() }
+    val mCancelOrderLiveData: MutableLiveData<BaseEntity<Boolean>> by lazy { MutableLiveData() }
     fun commitOrder(entity: RequestCreateOrderEntity) {
         viewModelScope.launch {
             val result = try {
@@ -46,14 +47,19 @@ open class BaseOrderViewModel : TimerViewModel() {
         }
     }
 
-    fun cancelOrder(entity: RequestCancelOrderEntity) {
+    /**
+     * @param isAutoCancel  true 是统自动取消 false 用户主动操作
+     */
+    fun cancelOrder(entity: RequestCancelOrderEntity, isAutoCancel: Boolean= false) {
         viewModelScope.launch {
-            val result = try {
-                mRetrofitManger.create(BaseService::class.java)
+            var result: Response<BaseEntity<Boolean>>?
+            try {
+                result= mRetrofitManger.create(BaseService::class.java)
                     .cancelOrder(entity)
+                result.body()?.data =isAutoCancel
             } catch (e: Exception) {
                 e.printStackTrace()
-                null
+                result= null
             }
             disposeRetrofit(mCancelOrderLiveData, result)
         }
