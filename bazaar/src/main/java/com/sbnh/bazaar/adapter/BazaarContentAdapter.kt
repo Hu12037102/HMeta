@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.huxiaobai.adapter.BaseRecyclerAdapter
 import com.sbnh.bazaar.databinding.ItemBazaarContentViewBinding
+import com.sbnh.comm.compat.PhoneCompat
 import com.sbnh.comm.compat.UICompat
 import com.sbnh.comm.entity.bazaar.BazaarEntity
 import com.sbnh.comm.other.glide.GlideCompat
@@ -36,7 +37,7 @@ class BazaarContentAdapter(context: Context, data: List<BazaarEntity>) :
     override fun onBindChildViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolder) {
             val entity = mData[position]
-            GlideCompat.loadWarpImage(entity.resourceUrl, holder.viewBinding.aivContent)
+            GlideCompat.loadRoundWarpImage(entity.resourceUrl, holder.viewBinding.aivContent,PhoneCompat.dp2px(mContext,12f))
             UICompat.setText(holder.viewBinding.atvContent, entity.merchandiseName)
             GlideCompat.loadImage(entity.header, holder.viewBinding.civHead)
             UICompat.setText(holder.viewBinding.atvName,entity.nickName)
