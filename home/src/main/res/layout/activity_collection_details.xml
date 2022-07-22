@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWindowBackground"
-   >
+    android:background="@color/colorWindowBackground">
 
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nsv_parent"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_0dp"
         app:layout_constrainedHeight="true"
@@ -16,10 +16,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/size_20dp"
-            android:id="@+id/cl_content">
+            android:paddingBottom="@dimen/size_20dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_title_content"
@@ -118,17 +118,17 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     tools:text="身份限定卡" />
 
-<!--                <androidx.appcompat.widget.AppCompatTextView-->
-<!--                    android:id="@+id/atv_collection_number"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginEnd="@dimen/size_20dp"-->
-<!--                    android:textColor="@color/colorFF9A9A9C"-->
-<!--                    android:textSize="@dimen/size_12sp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@id/atv_collection_name"-->
-<!--                    app:layout_constraintRight_toRightOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="@id/atv_collection_name"-->
-<!--                    tools:text="#2000/200" />-->
+                <!--                <androidx.appcompat.widget.AppCompatTextView-->
+                <!--                    android:id="@+id/atv_collection_number"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginEnd="@dimen/size_20dp"-->
+                <!--                    android:textColor="@color/colorFF9A9A9C"-->
+                <!--                    android:textSize="@dimen/size_12sp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@id/atv_collection_name"-->
+                <!--                    app:layout_constraintRight_toRightOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="@id/atv_collection_name"-->
+                <!--                    tools:text="#2000/200" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -221,11 +221,10 @@
                         android:id="@+id/civ_owner_user_head"
                         android:layout_width="@dimen/size_16dp"
                         android:layout_height="@dimen/size_16dp"
-                        app:layout_constraintBottom_toBottomOf="@id/atv_owner_title"
-                        app:layout_constraintTop_toTopOf="@id/atv_owner_title"
-                        app:layout_constraintRight_toLeftOf="@+id/atv_owner_name"
                         android:layout_marginRight="@dimen/size_4dp"
-                        />
+                        app:layout_constraintBottom_toBottomOf="@id/atv_owner_title"
+                        app:layout_constraintRight_toLeftOf="@+id/atv_owner_name"
+                        app:layout_constraintTop_toTopOf="@id/atv_owner_title" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/aiv_contract_address_copy"
@@ -422,18 +421,40 @@
         layout="@layout/include_wait_pay_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_92dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:visibility="visible" />
 
-    <io.google.projectview.weight.ProjectView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_title_parent"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/size_50dp"
-        android:layout_marginTop="@dimen/size_30dp"
+        android:layout_height="wrap_content"
+        android:alpha="0"
+        android:background="@color/colorWindowBackground"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <io.google.projectview.weight.ProjectView
+            android:id="@+id/pv_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/default_title_view_height"
+            app:layout_constraintTop_toTopOf="parent"
+            app:pv_center_text="@string/collection_details"
+            app:pv_left_click_finish="true"
+            app:pv_left_custom_click_enable="true"
+            app:pv_center_text_size="18sp"
+            app:pv_left_start_src="@mipmap/icon_comm_back_white"
+            app:pv_center_text_color="@color/white"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aiv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/default_title_view_height"
+        android:layout_marginStart="@dimen/size_6dp"
+        android:padding="@dimen/size_10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:pv_left_click_finish="true"
-        app:pv_left_custom_click_enable="true"
-        app:pv_left_start_src="@mipmap/icon_comm_back_white" />
+        app:srcCompat="@mipmap/icon_comm_back_white" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

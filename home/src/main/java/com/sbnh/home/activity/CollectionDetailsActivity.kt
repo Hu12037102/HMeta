@@ -1,6 +1,7 @@
 package com.sbnh.home.activity
 
 import android.view.View
+import androidx.core.widget.NestedScrollView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sbnh.comm.Contract
 import com.sbnh.comm.base.activity.BaseCompatActivity
@@ -80,6 +81,9 @@ class CollectionDetailsActivity :
     }
 
     override fun initEvent() {
+        mViewBinding.aivBack.setOnClickListener {
+            MetaViewCompat.finishActivitySetResult(this)
+        }
         mViewBinding.aivContractAddressCopy.setOnClickListener(object : DelayedClick() {
             override fun onDelayedClick(v: View?) {
                 PhoneCompat.copyText(MetaViewCompat.getTextViewText(mViewBinding.atvContractAddress))
@@ -92,6 +96,12 @@ class CollectionDetailsActivity :
                 showToast(com.sbnh.comm.R.string.copy_succeed)
             }
 
+        })
+        mViewBinding.nsvParent.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            LogUtils.w("OnScrollChangeListener--", "$scrollX--$scrollY--$oldScrollX--$oldScrollY")
+            val scrollAlpha = scrollY.toFloat() / (mViewBinding.aivContentBackground.height / 2)
+            mViewBinding.clTitleParent.alpha = scrollAlpha
+            mViewBinding.aivBack.alpha = 1f - scrollAlpha
         })
 
     }
@@ -117,7 +127,13 @@ class CollectionDetailsActivity :
             mEmptyView?.hide()
             GlideCompat.loadWarpImage(it.dynamicGraph, mViewBinding.aivContent)
             GlideCompat.loadImage(it.header, mViewBinding.civUserHead)
-            UICompat.setText(mViewBinding.atvUserName, DataCompat.checkNotNull(it.nickname,DataCompat.getResString(com.sbnh.comm.R.string.app_name)))
+            UICompat.setText(
+                mViewBinding.atvUserName,
+                DataCompat.checkNotNull(
+                    it.nickname,
+                    DataCompat.getResString(com.sbnh.comm.R.string.app_name)
+                )
+            )
             UICompat.setText(mViewBinding.atvContractAddress, it.contractAddress)
             UICompat.setText(mViewBinding.atvChainLogo, it.transactionHash)
             UICompat.setText(mViewBinding.atvWork, it.particulars)
@@ -129,7 +145,13 @@ class CollectionDetailsActivity :
                     "${it.merchandiseName} #${it.tokenId ?: ""}"
                 )
                 GlideCompat.loadImage(it.collectibleHeader, mViewBinding.civOwnerUserHead)
-                UICompat.setText(mViewBinding.atvOwnerName,  DataCompat.checkNotNull(it.collectibleNickname,DataCompat.getResString(com.sbnh.comm.R.string.app_name)))
+                UICompat.setText(
+                    mViewBinding.atvOwnerName,
+                    DataCompat.checkNotNull(
+                        it.collectibleNickname,
+                        DataCompat.getResString(com.sbnh.comm.R.string.app_name)
+                    )
+                )
                 UICompat.setText(
                     mViewBinding.includedBottomContent.atvSure,
                     DataCompat.getResString(com.sbnh.comm.R.string.give)
@@ -157,7 +179,13 @@ class CollectionDetailsActivity :
             } else {
                 UICompat.setText(mViewBinding.atvCollectionName, it.merchandiseName)
                 GlideCompat.loadImage(it.header, mViewBinding.civOwnerUserHead)
-                UICompat.setText(mViewBinding.atvOwnerName,  DataCompat.checkNotNull(it.collectibleNickname,DataCompat.getResString(com.sbnh.comm.R.string.app_name)))
+                UICompat.setText(
+                    mViewBinding.atvOwnerName,
+                    DataCompat.checkNotNull(
+                        it.collectibleNickname,
+                        DataCompat.getResString(com.sbnh.comm.R.string.app_name)
+                    )
+                )
                 when (it.saleStatus) {
                     STATUS_ADVANCING -> {
                         UICompat.setText(
@@ -259,6 +287,12 @@ class CollectionDetailsActivity :
             ARoutersActivity.startOrderDetailsActivity(body?.id, mCollectionOrderType)
             MetaViewCompat.finishActivity(this)
         }
+    }
+
+    override fun onWindowFirstFocusChanged(hasFocus: Boolean) {
+        super.onWindowFirstFocusChanged(hasFocus)
+        MetaViewCompat.setStatusBarMargin(mViewBinding.pvTitle,this)
+        MetaViewCompat.setStatusBarMargin(mViewBinding.aivBack,this)
     }
 
 

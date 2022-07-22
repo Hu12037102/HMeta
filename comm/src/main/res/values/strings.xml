@@ -230,4 +230,5 @@
     <string name="fail">失败</string>
     <string name="add_bank_card_succeed">添加银行卡成功~</string>
     <string name="order_time_out">订单超时~</string>
+    <string name="collection_details">藏品详情</string>
 </resources>
