@@ -122,9 +122,9 @@ open class BaseViewModel : ViewModel() {
     }
 
 
-    fun <T> disposeRetrofit(
-        liveData: MutableLiveData<T>?,
-        response: Response<T>?,
+    fun  disposeRetrofit(
+        liveData: MutableLiveData<*>?,
+        response: Response<*>?,
         isLoadEmptyView: Boolean = false
     ) {
         //    isRefresh = true

@@ -1,7 +1,7 @@
 ext.versions = [
         //android
         compileSdk               : 32,
-        toolsVersion             : "32.1.0-rc1",
+        //toolsVersion             : "32.1.0-rc1",
         applicationId            : "com.sbnh.healermeta",
         minSdk                   : 21,
         targetSdk                : 32,

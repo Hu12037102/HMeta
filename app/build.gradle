@@ -9,7 +9,7 @@ plugins {
 apply from: "$rootDir/config.gradle"
 android {
     compileSdk versions.compileSdk
-    buildToolsVersion versions.toolsVersion
+   // buildToolsVersion versions.toolsVersion
     defaultConfig {
         multiDexEnabled true
         resConfigs "zh-rCN"
